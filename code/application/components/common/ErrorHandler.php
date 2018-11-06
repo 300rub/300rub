@@ -6,7 +6,8 @@ use ss\application\App;
 use ss\application\exceptions\CommonException;
 use ss\application\instances\_abstract\AbstractAjax;
 use ss\application\instances\Console;
-use ss\application\instances\Test;
+use ss\application\instances\Phpunit;
+use ss\application\instances\Selenium;
 use ss\controllers\page\ErrorController;
 
 /**
@@ -68,7 +69,8 @@ class ErrorHandler
         );
 
         if (App::getInstance() instanceof Console
-            || App::getInstance() instanceof Test
+            || App::getInstance() instanceof Phpunit
+            || App::getInstance() instanceof Selenium
             || $this->_isApi() === true
         ) {
             throw new CommonException($logMessage);
@@ -116,7 +118,8 @@ class ErrorHandler
         );
 
         if (App::getInstance() instanceof Console
-            || App::getInstance() instanceof Test
+            || App::getInstance() instanceof Phpunit
+            || App::getInstance() instanceof Selenium
             || $this->_isApi() === true
         ) {
             throw new CommonException($logMessage);

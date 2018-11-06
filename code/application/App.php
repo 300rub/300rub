@@ -4,8 +4,9 @@ namespace ss\application;
 
 use ss\application\instances\_abstract\AbstractApplication;
 use ss\application\instances\Console;
+use ss\application\instances\Phpunit;
+use ss\application\instances\Selenium;
 use ss\application\instances\Site;
-use ss\application\instances\Test;
 use ss\application\instances\Web;
 
 /**
@@ -36,11 +37,18 @@ class App
     private static $_web = null;
 
     /**
-     * Test application
+     * Phpunit application
      *
-     * @var Test
+     * @var Phpunit
      */
-    private static $_test = null;
+    private static $_phpunit = null;
+
+    /**
+     * Selenium application
+     *
+     * @var Selenium
+     */
+    private static $_selenium = null;
 
     /**
      * Site application
@@ -86,15 +94,31 @@ class App
      *
      * @param array $config Config settings
      *
-     * @return Test
+     * @return Phpunit
      */
-    public static function test($config = [])
+    public static function phpunit($config = [])
     {
-        if (self::$_test === null) {
-            self::$_test = new Test($config);
+        if (self::$_phpunit === null) {
+            self::$_phpunit = new Phpunit($config);
         }
 
-        return self::$_test;
+        return self::$_phpunit;
+    }
+
+    /**
+     * Gets application for working with selenium
+     *
+     * @param array $config Config settings
+     *
+     * @return Phpunit
+     */
+    public static function selenium($config = [])
+    {
+        if (self::$_selenium === null) {
+            self::$_selenium = new Selenium($config);
+        }
+
+        return self::$_selenium;
     }
 
     /**
@@ -124,16 +148,20 @@ class App
             return self::$_web;
         }
 
-        if (self::$_console !== null) {
-            return self::$_console;
-        }
-
-        if (self::$_test !== null) {
-            return self::$_test;
-        }
-
         if (self::$_site !== null) {
             return self::$_site;
+        }
+
+        if (self::$_phpunit !== null) {
+            return self::$_phpunit;
+        }
+
+        if (self::$_selenium !== null) {
+            return self::$_selenium;
+        }
+
+        if (self::$_console !== null) {
+            return self::$_console;
         }
 
         return null;

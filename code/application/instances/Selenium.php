@@ -6,9 +6,9 @@ use ss\application\components\db\Db;
 use ss\application\instances\_abstract\AbstractApplication;
 
 /**
- * Test application class
+ * Selenium application class
  */
-class Test extends AbstractApplication
+class Selenium extends AbstractApplication
 {
 
     /**
@@ -19,13 +19,13 @@ class Test extends AbstractApplication
     public function run()
     {
         $hostname = sprintf(
-            'phpunit.%s',
+            'selenium.%s',
             $this->getConfig()->getValue(['host'])
         );
         $this
             ->setSite($hostname)
             ->setActiveLanguage();
 
-        $this->getDb()->setActivePdoKey(Db::CONFIG_DB_NAME_PHPUNIT);
+        $this->getDb()->setActivePdoKey(Db::CONFIG_DB_NAME_SELENIUM);
     }
 }

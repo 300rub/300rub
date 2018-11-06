@@ -2,10 +2,12 @@
 
 namespace ss\tests\_abstract;
 
+use PHPUnit\Framework\TestCase;
+
 /**
  * Abstract class to work with tests
  */
-abstract class AbstractTest extends \PHPUnit_Framework_TestCase
+class AbstractTest extends TestCase
 {
 
     /**

@@ -3,11 +3,12 @@
 namespace ss\tests\selenium\_abstract;
 
 use Facebook\WebDriver\WebDriverBy;
+use ss\application\App;
 
 /**
  * Class AbstractSeleniumTest
  */
-class AbstractSeleniumTest extends AbstractSeleniumTestCase
+abstract class AbstractSeleniumTest extends AbstractSeleniumTestCase
 {
 
     /**
@@ -31,7 +32,7 @@ class AbstractSeleniumTest extends AbstractSeleniumTestCase
     {
         return sprintf(
             'http://selenium.%s',
-            'ss.local'
+            App::getInstance()->getConfig()->getValue(['host'])
         );
     }
 

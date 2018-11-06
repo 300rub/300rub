@@ -18,6 +18,7 @@ class TestTest extends AbstractSeleniumTest
     public function testA()
     {
         sleep(5);
+        $this->assertSame(1, 1);
     }
 
     /**
@@ -28,6 +29,7 @@ class TestTest extends AbstractSeleniumTest
     public function testA2()
     {
         sleep(5);
+        $this->assertSame(1, 1);
     }
 
     /**
@@ -38,6 +40,7 @@ class TestTest extends AbstractSeleniumTest
     public function testA3()
     {
         sleep(5);
+        $this->assertSame(1, 1);
     }
 
     /**
@@ -48,6 +51,7 @@ class TestTest extends AbstractSeleniumTest
     public function testA4()
     {
         sleep(5);
+        $this->assertSame(1, 1);
     }
 
     /**
@@ -58,5 +62,6 @@ class TestTest extends AbstractSeleniumTest
     public function testA5()
     {
         sleep(5);
+        $this->assertSame(1, 1);
     }
 }

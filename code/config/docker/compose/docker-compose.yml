@@ -9,6 +9,7 @@ instance:
     extra_hosts:
         - "dev.ss.local:172.17.0.1"
         - "phpunit.ss.local:172.17.0.1"
+        - "selenium-server.ss.local:172.17.0.1"
     volumes:
         - "./../../../..:/var/www"
         - "./../../../../jenkins:/var/lib/jenkins"

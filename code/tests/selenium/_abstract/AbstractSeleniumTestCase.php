@@ -2,16 +2,17 @@
 
 namespace ss\tests\selenium\_abstract;
 
-use Facebook\WebDriver\Chrome\ChromeOptions;
 use Facebook\WebDriver\Remote\DesiredCapabilities;
 use Facebook\WebDriver\Remote\RemoteWebDriver;
 use Facebook\WebDriver\WebDriverBy;
 use Facebook\WebDriver\WebDriverExpectedCondition;
+use ss\application\App;
+use ss\tests\_abstract\AbstractTest;
 
 /**
  * Abstract class to work with selenium tests
  */
-class AbstractSeleniumTestCase extends \PHPUnit_Framework_TestCase
+abstract class AbstractSeleniumTestCase extends AbstractTest
 {
 
     /**
@@ -40,25 +41,15 @@ class AbstractSeleniumTestCase extends \PHPUnit_Framework_TestCase
      */
     private function _setWebDriver()
     {
-        $host = 'http://172.17.0.1:4444/wd/hub';
+        $this->driver = RemoteWebDriver::create(
+            sprintf(
+                'http://selenium-server.%s:4444/wd/hub',
+                App::getInstance()->getConfig()->getValue(['host'])
+            ),
+            DesiredCapabilities::chrome()
+        );
 
-        $capabilities = DesiredCapabilities::chrome();
-
-//        $capabilities->setCapability(
-//            'moz:firefoxOptions',
-//            ['args' => ['-headless']]
-//        );
-
-        $this->driver = RemoteWebDriver::create($host, $capabilities);
         return $this;
-
-//        $chromeOptions = new ChromeOptions();
-//        $chromeOptions->addArguments(['--no-sandbox']);
-//        $capabilities->setCapability(ChromeOptions::CAPABILITY, $chromeOptions);
-//
-//        $this->driver = RemoteWebDriver::create($host, $capabilities);
-//
-//        return $this;
     }
 
     /**

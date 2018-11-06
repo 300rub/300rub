@@ -63,7 +63,7 @@ class DeleteSessionsControllerTest extends AbstractControllerTest
 
             $userSessionModel = new UserSessionModel();
             $userSessionModel->byId($sessionModel->getId());
-            $this->assertNull($userSessionModel->find());
+            $this->assertS($userSessionModel->find());
 
             $sessionModel->clearId()->save();
         }
