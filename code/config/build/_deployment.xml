@@ -32,7 +32,7 @@
         <antcall target="tools-composer-install" />
         <antcall target="tools-public-vendor" />
         <antcall target="tools-generate-static" />
-        
+
         <if>
             <equals arg1="${env.DB}" arg2="true"/>
             <then>
@@ -51,6 +51,13 @@
             <equals arg1="${env.SELENIUM}" arg2="true"/>
             <then>
                 <echo>SELENIUM!!!!!!!</echo>
+            </then>
+        </if>
+
+        <if>
+            <equals arg1="${env.PROD}" arg2="true"/>
+            <then>
+                <echo>PROD!!!!!!!</echo>
             </then>
         </if>
 
