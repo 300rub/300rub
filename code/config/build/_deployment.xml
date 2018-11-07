@@ -35,8 +35,24 @@
         <!--<antcall target="deployment-archive" />-->
 
         <echo>${env.PHPUNIT}</echo>
-        
+
         <echo>${env.SELENIUM}</echo>
+
+        <echo>${env.APP_ENV}</echo>
+
+        <if>
+            <equals arg1="${env.PHPUNIT}" arg2="true"/>
+            <then>
+                <echo>PHP UNIT!!!!!!!</echo>
+            </then>
+        </if>
+
+        <if>
+            <equals arg1="${env.SELENIUM}" arg2="true"/>
+            <then>
+                <echo>SELENIUM!!!!!!!</echo>
+            </then>
+        </if>
 
         <echo>${env.BUILD_NUMBER}</echo>
     </target>
