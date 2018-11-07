@@ -25,14 +25,16 @@
     </target>
 
     <target name="deployment-release">
-        <antcall target="deployment-prepare" />
-        <antcall target="deployment-update-release-number" />
-        <antcall target="tools-composer-install" />
-        <antcall target="tools-public-vendor" />
-        <antcall target="tools-generate-static" />
-        
-        <antcall target="db-generate-source" />
-        <antcall target="deployment-archive" />
+        <!--<antcall target="deployment-prepare" />-->
+        <!--<antcall target="deployment-update-release-number" />-->
+        <!--<antcall target="tools-composer-install" />-->
+        <!--<antcall target="tools-public-vendor" />-->
+        <!--<antcall target="tools-generate-static" />-->
+
+        <!--<antcall target="db-generate-source" />-->
+        <!--<antcall target="deployment-archive" />-->
+
+        <echo>${env}</echo>
 
         <echo>${env.BUILD_NUMBER}</echo>
     </target>
