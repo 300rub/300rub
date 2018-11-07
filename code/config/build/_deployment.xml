@@ -6,13 +6,26 @@
         <echo file="${basedir}/config/release" append="false">${env.BUILD_NUMBER}</echo>
     </target>
 
-    <target name="deployment-prepare">
+    <target name="deployment-prepare-folders">
+        <exec executable="rm" failonerror="true">
+            <arg value="-rf" />
+            <arg value="${basedir}/../backups" />
+        </exec>
         <exec executable="mkdir" failonerror="true">
-            <arg value="-p" />
+            <arg value="${basedir}/../backups" />
+        </exec>
+        <exec executable="rm" failonerror="true">
+            <arg value="-rf" />
             <arg value="${basedir}/../release" />
         </exec>
         <exec executable="mkdir" failonerror="true">
-            <arg value="-p" />
+            <arg value="${basedir}/../release" />
+        </exec>
+        <exec executable="rm" failonerror="true">
+            <arg value="-rf" />
+            <arg value="${basedir}/../logs" />
+        </exec>
+        <exec executable="mkdir" failonerror="true">
             <arg value="${basedir}/../logs" />
         </exec>
     </target>
@@ -27,7 +40,7 @@
     </target>
 
     <target name="deployment-release">
-        <antcall target="deployment-prepare" />
+        <antcall target="deployment-prepare-folders" />
         <antcall target="deployment-update-release-number" />
         <antcall target="tools-composer-install" />
         <antcall target="tools-public-vendor" />
