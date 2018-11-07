@@ -56,7 +56,7 @@
         <if>
             <equals arg1="${env.PHPUNIT}" arg2="true"/>
             <then>
-                <echo>PHP UNIT!!!!!!!</echo>
+                <antcall target=" test-phpunit-reload-fixtures" />
             </then>
         </if>
 
