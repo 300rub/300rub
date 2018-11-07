@@ -52,6 +52,13 @@ class DeleteSessionsControllerTest extends AbstractControllerTest
             return true;
         }
 
+        $this->assertSame(
+            [
+                'result' => true
+            ],
+            $this->getBody()
+        );
+
         foreach ($sessionsToDelete as $sessionModel) {
             if ($sessionModel->get('token') === $this->getUserToken()) {
                 $userSessionModel = new UserSessionModel();
