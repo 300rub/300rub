@@ -77,6 +77,6 @@
     <target name="test-selenium" depends="test-import-selenium-db, test-paratest">
     </target>
 
-    <target name="test-selenium-reload-fixtures" depends="test-upload-selenium-prepare, test-recreate-selenium-database">
+    <target name="test-selenium-reload-fixtures" depends="test-upload-selenium-prepare, test-recreate-selenium-database, test-paratest">
     </target>
 </project>
