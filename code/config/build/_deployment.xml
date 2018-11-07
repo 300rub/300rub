@@ -27,20 +27,13 @@
     </target>
 
     <target name="deployment-release">
-        <!--<antcall target="deployment-prepare" />-->
-        <!--<antcall target="deployment-update-release-number" />-->
-        <!--<antcall target="tools-composer-install" />-->
-        <!--<antcall target="tools-public-vendor" />-->
-        <!--<antcall target="tools-generate-static" />-->
+        <antcall target="deployment-prepare" />
+        <antcall target="deployment-update-release-number" />
+        <antcall target="tools-composer-install" />
+        <antcall target="tools-public-vendor" />
+        <antcall target="tools-generate-static" />
 
-        <!--<antcall target="db-generate-source" />-->
-        <!--<antcall target="deployment-archive" />-->
-
-        <echo>${env.PHPUNIT}</echo>
-
-        <echo>${env.SELENIUM}</echo>
-
-        <echo>${env.APP_ENV}</echo>
+        <antcall target="db-generate-source" />
 
         <if>
             <equals arg1="${env.PHPUNIT}" arg2="true"/>
@@ -56,6 +49,6 @@
             </then>
         </if>
 
-        <echo>${env.BUILD_NUMBER}</echo>
+        <antcall target="deployment-archive" />
     </target>
 </project>
