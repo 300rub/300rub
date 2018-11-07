@@ -7,9 +7,6 @@ define('ENV_DEV_PROD', 'dev_prod');
 define('CODE_ROOT', __DIR__ . '/..');
 define('FILES_ROOT', __DIR__ . '/../..');
 
-define('APP_ENV', ENV_DEV);
-return include 'dev.php';
-
 switch (getenv('APP_ENV')) {
     case ENV_DEV:
         define('APP_ENV', ENV_DEV);
