@@ -24,13 +24,13 @@
         </exec>
     </target>
 
-    <target name="deployment-release" depends="
-        deployment-prepare,
-        deployment-update-release-number,
-        tools-composer-install,
-        tools-public-vendor,
-        tools-generate-static
-    ">
+    <target name="deployment-release">
+        <antcall target="deployment-prepare" />
+        <antcall target="deployment-update-release-number" />
+        <antcall target="tools-composer-install" />
+        <antcall target="tools-public-vendor" />
+        <antcall target="tools-generate-static" />
+        
         <antcall target="db-generate-source" />
         <antcall target="deployment-archive" />
 

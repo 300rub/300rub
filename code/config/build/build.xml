@@ -4,7 +4,7 @@
 
     <property file="${basedir}/config/build/${env.APP_ENV}.properties" />
 
-    <property name="proxy" value="147.149.2.7:8080" />
+    <!--<property name="proxy" value="147.149.2.7:8080" />-->
     <property name="proxy" value="" />
 
     <import file="_code.xml"/>
