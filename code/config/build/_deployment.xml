@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="release">
-    <taskdef resource="net/sf/antcontrib/antlib.xml">
-    </taskdef>
+    <taskdef resource="net/sf/antcontrib/antlib.xml" />
 
     <target name="deployment-update-release-number">
         <echo file="${basedir}/config/release" append="false">${env.BUILD_NUMBER}</echo>
