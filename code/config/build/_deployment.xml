@@ -32,8 +32,13 @@
         <antcall target="tools-composer-install" />
         <antcall target="tools-public-vendor" />
         <antcall target="tools-generate-static" />
-
-        <antcall target="db-generate-source" />
+        
+        <if>
+            <equals arg1="${env.DB}" arg2="true"/>
+            <then>
+                <antcall target="db-generate-source" />
+            </then>
+        </if>
 
         <if>
             <equals arg1="${env.PHPUNIT}" arg2="true"/>
