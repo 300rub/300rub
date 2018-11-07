@@ -63,7 +63,7 @@
         <if>
             <equals arg1="${env.SELENIUM}" arg2="true"/>
             <then>
-                <echo>SELENIUM!!!!!!!</echo>
+                <antcall target="test-selenium-reload-fixtures" />
             </then>
         </if>
 
