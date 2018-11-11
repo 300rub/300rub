@@ -9,6 +9,7 @@ upload
 release
 
 code/config/release
+code/config/prod.php
 
 code/public/static/*/lib
 code/public/static/min/*
