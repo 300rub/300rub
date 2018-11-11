@@ -315,7 +315,11 @@ class ImportFixturesCommand extends AbstractCommand
         $mimeType,
         $language
     ) {
-        $host = $this->_type . '.ss.local';
+        $host = sprintf(
+            '%s.%s',
+            $this->_type,
+            App::getInstance()->getConfig()->getValue(['host'])
+        );
 
         $this->_fileData = [];
         $this->_setFileData($data);
