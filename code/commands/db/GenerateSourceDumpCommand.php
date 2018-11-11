@@ -22,41 +22,49 @@ class GenerateSourceDumpCommand extends AbstractCommand
      */
     public function run()
     {
-        $config = App::getInstance()->getConfig();
-        $dbObject = App::getInstance()->getDb();
+        try {
+            var_dump(1111);
 
-        $siteName = 'source';
+            $config = App::getInstance()->getConfig();
+            $dbObject = App::getInstance()->getDb();
 
-        $dbHost = $dbObject->getRandomDbHost();
-        $dbUser = $config->getValue(['db', $siteName, 'user']);
-        $dbPassword = $config->getValue(['db', $siteName, 'password']);
-        $dbName = $config->getValue(['db', $siteName, 'name']);
+            $siteName = 'source';
 
-        $dbObject->createDb(
-            $dbHost,
-            $dbUser,
-            $dbPassword,
-            $dbName,
-            true
-        );
+            $dbHost = $dbObject->getRandomDbHost();
+            $dbUser = $config->getValue(['db', $siteName, 'user']);
+            $dbPassword = $config->getValue(['db', $siteName, 'password']);
+            $dbName = $config->getValue(['db', $siteName, 'name']);
 
-        $dbObject->addPdo(
-            $dbHost,
-            $dbUser,
-            $dbPassword,
-            $dbName
-        );
+            $dbObject->createDb(
+                $dbHost,
+                $dbUser,
+                $dbPassword,
+                $dbName,
+                true
+            );
 
-        $dbObject->setActivePdoKey($dbName);
+            $dbObject->addPdo(
+                $dbHost,
+                $dbUser,
+                $dbPassword,
+                $dbName
+            );
 
-        $migration = new M160302000000Migrations();
-        $migration->apply();
+            $dbObject->setActivePdoKey($dbName);
 
-        $migrateCommand = new MigrateCommand();
-        $migrateCommand
-            ->setSites([$siteName])
-            ->applyMigration();
+            $migration = new M160302000000Migrations();
+            $migration->apply();
 
-        $dbObject->exportDb($dbHost, $dbName, Db::SOURCE_PATH);
+            $migrateCommand = new MigrateCommand();
+            $migrateCommand
+                ->setSites([$siteName])
+                ->applyMigration();
+
+            $dbObject->exportDb($dbHost, $dbName, Db::SOURCE_PATH);
+
+            var_dump(222);
+        } catch (\Exception $e) {
+            var_dump($e->getMessage());
+        }
     }
 }
