@@ -26,6 +26,8 @@
             <arg value="${basedir}/../logs" />
         </exec>
         <exec executable="mkdir" failonerror="true">
+            <arg value="-m" />
+            <arg value="0777" />
             <arg value="${basedir}/../logs" />
         </exec>
     </target>
