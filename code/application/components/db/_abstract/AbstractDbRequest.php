@@ -174,19 +174,17 @@ abstract class AbstractDbRequest extends AbstractDbTransaction
             $path = $this->getBackupPath($dbName);
         }
 
-        $command = sprintf(
-            'export MYSQL_PWD=\'%s\'; ' .
-            'mysqldump -u %s -h \'%s\' %s > %s',
-            $rootUser['password'],
-            $rootUser['user'],
-            $host,
-            $dbName,
-            $path
+        exec(
+            sprintf(
+                'export MYSQL_PWD=\'%s\'; ' .
+                'mysqldump -u %s -h \'%s\' %s > %s',
+                $rootUser['password'],
+                $rootUser['user'],
+                $host,
+                $dbName,
+                $path
+            )
         );
-
-        var_dump($command);
-
-        exec($command);
 
         return $this;
     }
