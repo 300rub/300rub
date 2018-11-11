@@ -237,8 +237,8 @@ abstract class AbstractDbRequest extends AbstractDbTransaction
 
         exec(
             sprintf(
-                'export MYSQL_PWD=%s; ' .
-                'mysql -u %s -h %s %s < %s',
+                'export MYSQL_PWD=\'%s\'; ' .
+                'mysql -u %s -h \'%s\' %s < %s',
                 $rootUser['password'],
                 $rootUser['user'],
                 $host,
