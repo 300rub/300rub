@@ -59,7 +59,6 @@ abstract class AbstractDbRequest extends AbstractDbTransaction
                 "GRANT ALL ON `%s`.* TO '%s'@'localhost' IDENTIFIED BY '%s'",
                 $dbName,
                 $user,
-                $host,
                 $password
             )
         );
