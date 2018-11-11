@@ -175,8 +175,8 @@ abstract class AbstractDbRequest extends AbstractDbTransaction
         }
 
         $command = sprintf(
-            'export MYSQL_PWD=%s; ' .
-            'mysqldump -u %s -h %s %s > %s',
+            'export MYSQL_PWD=\'%s\'; ' .
+            'mysqldump -u %s -h \'%s\' %s > %s',
             $rootUser['password'],
             $rootUser['user'],
             $host,
