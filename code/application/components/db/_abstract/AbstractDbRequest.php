@@ -56,7 +56,7 @@ abstract class AbstractDbRequest extends AbstractDbTransaction
 
         $this->execute(
             sprintf(
-                "GRANT ALL ON `%s`.* TO '%s'@'%' IDENTIFIED BY '%s'",
+                "GRANT ALL ON `%s`.* TO '%s'@'%%' IDENTIFIED BY '%s'",
                 $dbName,
                 $user,
                 $password
