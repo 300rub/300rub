@@ -15,7 +15,4 @@ service jenkins start
 
 node
 
-#RUN /usr/bin/Xvfb -ac :99 &
-#export DISPLAY=:99 /usr/bin/java -jar /opt/selenium-server-standalone.jar &
-
 tail -f /dev/null
