@@ -346,7 +346,7 @@ class ImportFixturesCommand extends AbstractCommand
             ]
         );
 
-        curl_exec($curl);
+        var_dump(curl_exec($curl));
     }
 
     /**
