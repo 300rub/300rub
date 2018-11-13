@@ -70,7 +70,7 @@
             <!--</then>-->
         <!--</if>-->
 
-        <antcall target="deployment-archive" />
+        <!--<antcall target="deployment-archive" />-->
         <antcall target="deployment-deploy-release-archive" />
 
         <!--<if>-->

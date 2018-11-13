@@ -44,11 +44,17 @@ class DeployReleaseArchiveCommand extends AbstractCommand
                 'version' => $awsClient['version'],
             ]);
 
-            $s3Client->putObject([
+            $result = $s3Client->putObject([
                 'Bucket'     => $bucket,
                 'Key'        => $key,
                 'SourceFile' => $file,
             ]);
+            var_dump($result);
+
+            $result = $s3Client->listObjects([
+                'Bucket' => $bucket
+            ]);
+            var_dump($result);
         } catch (\Exception $e) {
             throw new FileException($e->getMessage());
         }
