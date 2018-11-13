@@ -45,6 +45,7 @@
         <exec executable="php" failonerror="true">
             <arg value='commands/run' />
             <arg value='files/DeployReleaseArchiveCommand' />
+            <arg value='${env.BUILD_NUMBER}' />
         </exec>
     </target>
 

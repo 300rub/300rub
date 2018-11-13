@@ -41,7 +41,7 @@ class DeployReleaseArchiveCommand extends AbstractCommand
             ->getConfig()
             ->getValue(['aws', 's3', 'buckets', 'release']);
 
-        $key = '1/release-x';
+        $key = $this->getArg(0);
 
         try {
             $s3Client = new S3Client([
