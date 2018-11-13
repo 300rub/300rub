@@ -24,7 +24,7 @@ class DeployReleaseArchiveCommand extends AbstractCommand
 
         //https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/php/example_code/s3
 
-        $file = realpath(CODE_ROOT . '/release/release.tar.gz');
+        $file = realpath(FILES_ROOT . '/release/release.tar.gz');
         if (file_exists($file) === false) {
             throw new FileException(
                 'Unable to find release archive {file}',
