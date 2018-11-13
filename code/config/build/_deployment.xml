@@ -51,7 +51,7 @@
     <target name="deployment-release">
         <!--<antcall target="deployment-prepare-folders" />-->
         <!--<antcall target="deployment-update-release-number" />-->
-        <!--<antcall target="tools-composer-install" />-->
+        <antcall target="tools-composer-install" />
         <!--<antcall target="tools-public-vendor" />-->
         <!--<antcall target="tools-generate-static" />-->
 
