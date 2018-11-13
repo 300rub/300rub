@@ -2,7 +2,6 @@
 
 namespace ss\commands\files;
 
-use Aws\S3\Exception\S3Exception;
 use ss\application\App;
 use ss\application\exceptions\FileException;
 use ss\commands\_abstract\AbstractCommand;
@@ -19,11 +18,6 @@ class DeployReleaseArchiveCommand extends AbstractCommand
      */
     public function run()
     {
-        // Credentials
-        //https://docs.aws.amazon.com/sdk-for-php/v3/developer-guide/guide_credentials_profiles.html
-
-        //https://github.com/awsdocs/aws-doc-sdk-examples/tree/master/php/example_code/s3
-
         $file = realpath(FILES_ROOT . '/release/release.tar.gz');
         if (file_exists($file) === false) {
             throw new FileException(
