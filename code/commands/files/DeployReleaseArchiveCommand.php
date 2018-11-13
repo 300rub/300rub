@@ -49,12 +49,15 @@ class DeployReleaseArchiveCommand extends AbstractCommand
                 'Key'        => $key,
                 'SourceFile' => $file,
             ]);
-            var_dump($result);
 
             $result = $s3Client->listObjects([
                 'Bucket' => $bucket
             ]);
-            var_dump($result);
+
+            $contents = $result->get('Contents');
+            foreach ($contents as $content) {
+                var_dump($content['Key']);
+            }
         } catch (\Exception $e) {
             throw new FileException($e->getMessage());
         }
