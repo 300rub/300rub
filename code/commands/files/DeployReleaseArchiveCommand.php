@@ -14,6 +14,11 @@ class DeployReleaseArchiveCommand extends AbstractCommand
 {
 
     /**
+     * How many releases to keep
+     */
+    const LIMIT = 5;
+
+    /**
      * Runs the command
      */
     public function run()
@@ -44,19 +49,36 @@ class DeployReleaseArchiveCommand extends AbstractCommand
                 'version' => $awsClient['version'],
             ]);
 
-            $result = $s3Client->putObject([
+            $s3Client->putObject([
                 'Bucket'     => $bucket,
                 'Key'        => $key,
                 'SourceFile' => $file,
             ]);
 
-            $result = $s3Client->listObjects([
+            $listObjects = $s3Client->listObjects([
                 'Bucket' => $bucket
             ]);
 
-            $contents = $result->get('Contents');
+            $contents = $listObjects->get('Contents');
+
+            $releases = [];
             foreach ($contents as $content) {
-                var_dump($content['Key']);
+                $releases[] = (int)$content['Key'];
+            }
+
+            rsort($releases);
+            $number = 0;
+            foreach ($releases as $release) {
+                $number++;
+
+                if ($number <= self::LIMIT) {
+                    continue;
+                }
+
+                $s3Client->deleteObject([
+                    'Bucket' => $bucket,
+                    'Key'    => $release,
+                ]);
             }
         } catch (\Exception $e) {
             throw new FileException($e->getMessage());
