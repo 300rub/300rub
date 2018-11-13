@@ -67,6 +67,19 @@ return [
         'pathMask' => '/var/www/upload/%s/%s',
         'urlMask'  => 'http://%s/upload/%s/%s'
     ],
+    'aws' => [
+        'client' => [
+            'profile' => 'default',
+            'region'  => 'eu-central-1',
+            'version' => 'latest',
+        ],
+        's3'     => [
+            'buckets' => [
+                'main'    => 'supers',
+                'release' => 'release',
+            ]
+        ],
+    ],
     'email' => [
         'host'        => 'smtp.gmail.com',
         'username'    => 'ss.test.dev.local',

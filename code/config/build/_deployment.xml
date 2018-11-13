@@ -41,6 +41,13 @@
         </exec>
     </target>
 
+    <target name="deployment-deploy-release-archive">
+        <exec executable="php" failonerror="true">
+            <arg value='commands/run' />
+            <arg value='files/DeployReleaseArchiveCommand' />
+        </exec>
+    </target>
+
     <target name="deployment-release">
         <antcall target="deployment-prepare-folders" />
         <antcall target="deployment-update-release-number" />
@@ -62,6 +69,9 @@
             </then>
         </if>
 
+        <antcall target="deployment-archive" />
+        <antcall target="deployment-deploy-release-archive" />
+
         <if>
             <equals arg1="${env.SELENIUM}" arg2="true"/>
             <then>
@@ -75,7 +85,5 @@
                 <echo>PROD!!!!!!!</echo>
             </then>
         </if>
-
-        <antcall target="deployment-archive" />
     </target>
 </project>
