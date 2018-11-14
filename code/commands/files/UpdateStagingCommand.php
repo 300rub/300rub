@@ -39,7 +39,7 @@ class UpdateStagingCommand extends AbstractCommand
                 'MaxErrors'      => '1',
                 'Parameters'     => [
                     'commands'         => [
-                        'echo "hello"',
+                        'mkdir test',
                     ],
                     'executionTimeout' => ['3600'],
                     'workingDirectory' => ['/var/www'],
