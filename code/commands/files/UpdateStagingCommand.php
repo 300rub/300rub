@@ -38,7 +38,7 @@ class UpdateStagingCommand extends AbstractCommand
                 'MaxConcurrency' => '100%',
                 'MaxErrors'      => '1',
                 'Parameters'     => [
-                    'commands'         => [
+                    'Commands'         => [
                         'mkdir /var/www/test',
                     ],
                     'executionTimeout' => ['3600'],
