@@ -2,8 +2,6 @@
 
 namespace ss\commands\files;
 
-use Aws\AutoScaling\AutoScalingClient;
-use Aws\Command;
 use Aws\Ssm\SsmClient;
 use ss\application\App;
 use ss\commands\_abstract\AbstractCommand;
@@ -25,7 +23,7 @@ class UpdateStagingCommand extends AbstractCommand
             ->getConfig()
             ->getValue(['aws', 'client']);
 
-        $autoScalingClient = new AutoScalingClient(
+        $ssmClient = new SsmClient(
             [
                 'profile' => $awsClient['profile'],
                 'region'  => $awsClient['region'],
@@ -33,51 +31,32 @@ class UpdateStagingCommand extends AbstractCommand
             ]
         );
 
-        $result = $autoScalingClient->execute(
-            new Command(
-                'mkdir',
-                [
-                    '/var/www/html/test'
-                ]
-            )
+        $result = $ssmClient->sendCommand(
+            [
+                'Comment'         => 'Hello comment',
+                'DocumentName'    => 'AWS-RunShellScript',
+                'DocumentVersion' => '$DEFAULT',
+                'MaxConcurrency'  => '100%',
+                'MaxErrors'       => '1',
+                'Parameters'      => [
+                    'commands'         => [
+                        'mkdir /var/www/html/test',
+                    ],
+                     'executionTimeout' => ['5'],
+                    'workingDirectory' => ['/var/www'],
+                ],
+                'Targets'         => [
+                    [
+                        'Key'    => 'tag:aws:autoscaling:groupName',
+                        'Values' => [
+                            'Simple-Group'
+                        ],
+                    ],
+                ],
+                'TimeoutSeconds' => 30
+            ]
         );
 
         var_dump($result);
-
-//        $ssmClient = new SsmClient(
-//            [
-//                'profile' => $awsClient['profile'],
-//                'region'  => $awsClient['region'],
-//                'version' => $awsClient['version'],
-//            ]
-//        );
-//
-//        $result = $ssmClient->sendCommand(
-//            [
-//                'Comment'         => 'Hello comment',
-//                'DocumentName'    => 'AWS-RunShellScript',
-//                'DocumentVersion' => '$DEFAULT',
-//                'MaxConcurrency'  => '100%',
-//                'MaxErrors'       => '1',
-//                'Parameters'      => [
-//                    'commands'         => [
-//                        'mkdir /var/www/html/test',
-//                    ],
-//                     'executionTimeout' => ['5'],
-//                    'workingDirectory' => ['/var/www'],
-//                ],
-//                'Targets'         => [
-//                    [
-//                        'Key'    => 'tag:aws:autoscaling:groupName',
-//                        'Values' => [
-//                            'Simple-Group'
-//                        ],
-//                    ],
-//                ],
-//                'TimeoutSeconds' => 30
-//            ]
-//        );
-
-
     }
 }
