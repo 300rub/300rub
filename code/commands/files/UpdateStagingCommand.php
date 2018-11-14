@@ -33,7 +33,7 @@ class UpdateStagingCommand extends AbstractCommand
 
         $result = $ssmClient->sendCommand(
             [
-
+                'DocumentName' => 'AWS-RunRemoteScript'
             ]
         );
 
