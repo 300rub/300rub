@@ -42,7 +42,7 @@ class UpdateStagingCommand extends AbstractCommand
                     'commands'         => [
                         'mkdir /var/www/html/test',
                     ],
-                    // 'executionTimeout' => ['3600'],
+                     'executionTimeout' => ['5'],
                     'workingDirectory' => ['/var/www'],
                 ],
                 'Targets'         => [
@@ -53,7 +53,7 @@ class UpdateStagingCommand extends AbstractCommand
                         ],
                     ],
                 ],
-                //'TimeoutSeconds' => 600
+                'TimeoutSeconds' => 5
             ]
         );
 
