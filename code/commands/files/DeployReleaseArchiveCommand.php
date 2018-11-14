@@ -20,6 +20,10 @@ class DeployReleaseArchiveCommand extends AbstractCommand
 
     /**
      * Runs the command
+     *
+     * @return void
+     *
+     * @throws FileException
      */
     public function run()
     {
@@ -43,21 +47,27 @@ class DeployReleaseArchiveCommand extends AbstractCommand
         $key = $this->getArg(0);
 
         try {
-            $s3Client = new S3Client([
-                'profile' => $awsClient['profile'],
-                'region'  => $awsClient['region'],
-                'version' => $awsClient['version'],
-            ]);
+            $s3Client = new S3Client(
+                [
+                    'profile' => $awsClient['profile'],
+                    'region'  => $awsClient['region'],
+                    'version' => $awsClient['version'],
+                ]
+            );
 
-            $s3Client->putObject([
-                'Bucket'     => $bucket,
-                'Key'        => $key,
-                'SourceFile' => $file,
-            ]);
+            $s3Client->putObject(
+                [
+                    'Bucket'     => $bucket,
+                    'Key'        => $key,
+                    'SourceFile' => $file,
+                ]
+            );
 
-            $listObjects = $s3Client->listObjects([
-                'Bucket' => $bucket
-            ]);
+            $listObjects = $s3Client->listObjects(
+                [
+                    'Bucket' => $bucket
+                ]
+            );
 
             $contents = $listObjects->get('Contents');
 
@@ -75,10 +85,12 @@ class DeployReleaseArchiveCommand extends AbstractCommand
                     continue;
                 }
 
-                $s3Client->deleteObject([
-                    'Bucket' => $bucket,
-                    'Key'    => $release,
-                ]);
+                $s3Client->deleteObject(
+                    [
+                        'Bucket' => $bucket,
+                        'Key'    => $release,
+                    ]
+                );
             }
         } catch (\Exception $e) {
             throw new FileException($e->getMessage());

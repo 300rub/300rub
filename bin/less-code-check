@@ -1,6 +1,6 @@
 #!/bin/bash
 
-path=${1/$PWD\/code\/dev\//}
+path=${1/$PWD\/code\//}
 
 if [[ $path == "" ]]; then
   docker exec -it ss_instance_1 ant -file /var/www/code/config/build/build.xml code-lesshint -Dpath="public/static"
