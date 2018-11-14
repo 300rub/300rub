@@ -49,7 +49,7 @@ class UpdateStagingCommand extends AbstractCommand
                     [
                         'Key'    => 'tag:aws:autoscaling:groupName',
                         'Values' => [
-                            'Group-Simple'
+                            'Group-Simple2'
                         ],
                     ],
                 ],
