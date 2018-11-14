@@ -80,7 +80,7 @@
         <!--<antcall target="deployment-archive" />-->
         <!--<antcall target="deployment-deploy-release-archive" />-->
 
-        <antcall target=" deployment-update-staging" />
+        <antcall target="deployment-update-staging" />
 
         <!--<if>-->
             <!--<equals arg1="${env.SELENIUM}" arg2="true"/>-->
