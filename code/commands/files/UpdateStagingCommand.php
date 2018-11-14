@@ -33,18 +33,19 @@ class UpdateStagingCommand extends AbstractCommand
 
         $result = $ssmClient->sendCommand(
             [
-                'Comment'        => 'Hello comment',
-                'DocumentName'   => 'AWS-RunShellScript',
-                'MaxConcurrency' => '100%',
-                'MaxErrors'      => '1',
-                'Parameters'     => [
+                'Comment'         => 'Hello comment',
+                'DocumentName'    => 'AWS-RunShellScript',
+                'DocumentVersion' => '\$DEFAULT',
+                'MaxConcurrency'  => '100%',
+                'MaxErrors'       => '1',
+                'Parameters'      => [
                     'commands'         => [
                         'mkdir /var/www/html/test',
                     ],
-                   // 'executionTimeout' => ['3600'],
+                    // 'executionTimeout' => ['3600'],
                     'workingDirectory' => ['/var/www'],
                 ],
-                'Targets'        => [
+                'Targets'         => [
                     [
                         'Key'    => 'tag:aws:autoscaling:groupName',
                         'Values' => [
