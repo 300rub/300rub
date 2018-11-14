@@ -35,7 +35,7 @@ class UpdateStagingCommand extends AbstractCommand
             [
                 'Comment'         => 'Hello comment',
                 'DocumentName'    => 'AWS-RunShellScript',
-                'DocumentVersion' => '\$DEFAULT',
+                'DocumentVersion' => '$DEFAULT',
                 'MaxConcurrency'  => '100%',
                 'MaxErrors'       => '1',
                 'Parameters'      => [
