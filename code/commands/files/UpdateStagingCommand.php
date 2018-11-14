@@ -53,7 +53,7 @@ class UpdateStagingCommand extends AbstractCommand
                         ],
                     ],
                 ],
-                'TimeoutSeconds' => 5
+                'TimeoutSeconds' => 30
             ]
         );
 
