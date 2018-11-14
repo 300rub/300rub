@@ -49,12 +49,19 @@
         </exec>
     </target>
 
+    <target name="deployment-update-staging">
+        <exec executable="php" failonerror="true">
+            <arg value='commands/run' />
+            <arg value='files/UpdateStagingCommand' />
+        </exec>
+    </target>
+
     <target name="deployment-release">
-        <antcall target="deployment-prepare-folders" />
-        <antcall target="deployment-update-release-number" />
-        <antcall target="tools-composer-install" />
-        <antcall target="tools-public-vendor" />
-        <antcall target="tools-generate-static" />
+        <!--<antcall target="deployment-prepare-folders" />-->
+        <!--<antcall target="deployment-update-release-number" />-->
+        <!--<antcall target="tools-composer-install" />-->
+        <!--<antcall target="tools-public-vendor" />-->
+        <!--<antcall target="tools-generate-static" />-->
 
         <!--<if>-->
             <!--<equals arg1="${env.DB}" arg2="true"/>-->
@@ -70,8 +77,10 @@
             <!--</then>-->
         <!--</if>-->
 
-        <antcall target="deployment-archive" />
-        <antcall target="deployment-deploy-release-archive" />
+        <!--<antcall target="deployment-archive" />-->
+        <!--<antcall target="deployment-deploy-release-archive" />-->
+
+        <antcall target=" deployment-update-staging" />
 
         <!--<if>-->
             <!--<equals arg1="${env.SELENIUM}" arg2="true"/>-->
