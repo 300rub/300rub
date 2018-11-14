@@ -33,7 +33,15 @@ class UpdateStagingCommand extends AbstractCommand
 
         $result = $ssmClient->sendCommand(
             [
-                'DocumentName' => 'AWS-RunRemoteScript'
+                'DocumentName' => 'AWS-RunRemoteScript',
+                'MaxConcurrency' => '100%',
+                'MaxErrors' => 1,
+                'Targets' => [
+                    [
+                        'Key' => 'tag:aws:autoscaling:groupName',
+                        'Values' => [],
+                    ],
+                ],
             ]
         );
 
