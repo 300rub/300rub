@@ -29,7 +29,6 @@ class M160302000000Migrations extends AbstractMigration
             [
                 'id'      => self::TYPE_PK,
                 'version' => self::TYPE_STRING_100,
-                'up'      => self::TYPE_TEXT,
                 'down'    => self::TYPE_TEXT,
             ]
         );

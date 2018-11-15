@@ -40,9 +40,6 @@ abstract class AbstractMigrationModel extends AbstractModel
                     ValueGenerator::CLEAR_STRIP_TAGS
                 ],
             ],
-            'up' => [
-                self::FIELD_TYPE => self::FIELD_TYPE_STRING,
-            ],
             'down' => [
                 self::FIELD_TYPE => self::FIELD_TYPE_STRING,
             ]

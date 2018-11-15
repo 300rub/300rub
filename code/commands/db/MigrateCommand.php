@@ -143,7 +143,6 @@ class MigrateCommand extends AbstractCommand
                         ->set(
                             [
                                 'version' => $migrationName,
-                                'up'      => $sqlUp,
                                 'down'    => $sqlDown,
                             ]
                         )
