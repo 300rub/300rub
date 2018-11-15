@@ -15,7 +15,7 @@ class M160317000000Images extends AbstractMigration
      *
      * @return void
      */
-    public function apply()
+    public function up()
     {
         $this
             ->_createDesignImageAlbum()

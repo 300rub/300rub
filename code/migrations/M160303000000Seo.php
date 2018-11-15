@@ -15,7 +15,7 @@ class M160303000000Seo extends AbstractMigration
      *
      * @return void
      */
-    public function apply()
+    public function up()
     {
         $this
             ->createTable(

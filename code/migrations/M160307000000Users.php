@@ -15,7 +15,7 @@ class M160307000000Users extends AbstractMigration
      *
      * @return void
      */
-    public function apply()
+    public function up()
     {
         $this
             ->_createUsers()

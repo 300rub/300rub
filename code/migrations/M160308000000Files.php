@@ -15,7 +15,7 @@ class M160308000000Files extends AbstractMigration
      *
      * @return void
      */
-    public function apply()
+    public function up()
     {
         $this
             ->createTable(

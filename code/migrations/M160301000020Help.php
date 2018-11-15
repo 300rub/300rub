@@ -22,7 +22,7 @@ class M160301000020Help extends AbstractMigration
      *
      * @return void
      */
-    public function apply()
+    public function up()
     {
         $this
             ->createTable(

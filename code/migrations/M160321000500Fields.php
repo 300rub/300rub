@@ -15,7 +15,7 @@ class M160321000500Fields extends AbstractMigration
      *
      * @return void
      */
-    public function apply()
+    public function up()
     {
         $this
             ->_createDesignFields()

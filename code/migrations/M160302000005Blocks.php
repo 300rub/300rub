@@ -15,7 +15,7 @@ class M160302000005Blocks extends AbstractMigration
      *
      * @return void
      */
-    public function apply()
+    public function up()
     {
         $this
             ->createTable(

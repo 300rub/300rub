@@ -22,7 +22,7 @@ class M160301000010Domains extends AbstractMigration
      *
      * @return void
      */
-    public function apply()
+    public function up()
     {
         $this
             ->createTable(

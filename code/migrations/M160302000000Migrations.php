@@ -22,13 +22,15 @@ class M160302000000Migrations extends AbstractMigration
      *
      * @return void
      */
-    public function apply()
+    public function up()
     {
         $this->createTable(
             'migrations',
             [
                 'id'      => self::TYPE_PK,
                 'version' => self::TYPE_STRING_100,
+                'up'      => self::TYPE_TEXT,
+                'down'    => self::TYPE_TEXT,
             ]
         );
     }

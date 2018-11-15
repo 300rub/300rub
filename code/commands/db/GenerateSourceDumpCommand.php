@@ -50,7 +50,8 @@ class GenerateSourceDumpCommand extends AbstractCommand
         $dbObject->setActivePdoKey($dbName);
 
         $migration = new M160302000000Migrations();
-        $migration->apply();
+        $migration->up();
+        $migration->execute();
 
         $migrateCommand = new MigrateCommand();
         $migrateCommand

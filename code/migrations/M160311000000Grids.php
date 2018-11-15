@@ -15,7 +15,7 @@ class M160311000000Grids extends AbstractMigration
      *
      * @return void
      */
-    public function apply()
+    public function up()
     {
         $this
             ->createTable(

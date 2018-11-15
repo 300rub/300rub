@@ -60,11 +60,55 @@ abstract class AbstractMigration
     public $isSkip = false;
 
     /**
+     * SQL
+     *
+     * @var string[]
+     */
+    private $_sql = [];
+
+    /**
      * Applies migration
      *
      * @return bool
      */
-    abstract public function apply();
+    abstract public function up();
+
+    /**
+     * Adds SQL
+     *
+     * @param string $sql
+     *
+     * @return AbstractMigration
+     */
+    private function _addSql($sql)
+    {
+        $this->_sql[] = $sql;
+
+        return $this;
+    }
+
+    /**
+     * Gets SQL as string
+     *
+     * @return string
+     */
+    public function getSqlString()
+    {
+        return implode(' ', $this->_sql);
+    }
+
+    /**
+     * Executes SQL
+     *
+     * @return AbstractMigration
+     */
+    public function execute()
+    {
+        App::getInstance()->getDb()->execute($this->getSqlString());
+        $this->_sql = [];
+
+        return $this;
+    }
 
     /**
      * Creates table
@@ -87,16 +131,14 @@ abstract class AbstractMigration
             $cols[] = sprintf('`%s` %s', $name, $type);
         }
 
-        App::getInstance()
-            ->getDb()
-            ->execute(
-                "\nCREATE TABLE " .
-                $table .
-                " (\n" .
-                implode(",\n", $cols) .
-                "\n)" .
+        $this->_addSql(
+            sprintf(
+                'CREATE TABLE %s (%s) %s;',
+                $table,
+                implode(", ", $cols),
                 $options
-            );
+            )
+        );
 
         return $this;
     }
@@ -118,9 +160,9 @@ abstract class AbstractMigration
             $index = sprintf('%s_%s', $table, $column);
         }
 
-        App::getInstance()->getDb()->execute(
+        $this->_addSql(
             sprintf(
-                'ALTER' . ' TABLE %s ADD INDEX %s (%s)',
+                'ALTER' . ' TABLE %s ADD INDEX %s (%s);',
                 $table,
                 $index,
                 $column
@@ -142,9 +184,9 @@ abstract class AbstractMigration
      */
     public function createFullTextIndex($table, $column)
     {
-        App::getInstance()->getDb()->execute(
+        $this->_addSql(
             sprintf(
-                'ALTER' . ' TABLE %s ADD FULLTEXT(%s)',
+                'ALTER' . ' TABLE %s ADD FULLTEXT(%s);',
                 $table,
                 $column
             )
@@ -166,9 +208,9 @@ abstract class AbstractMigration
      */
     public function createUniqueIndex($table, $name, $columns)
     {
-        App::getInstance()->getDb()->execute(
+        $this->_addSql(
             sprintf(
-                'ALTER' . ' TABLE %s ADD UNIQUE INDEX %s (%s)',
+                'ALTER' . ' TABLE %s ADD UNIQUE INDEX %s (%s);',
                 $table,
                 $name,
                 $columns
@@ -198,11 +240,11 @@ abstract class AbstractMigration
         $onUpdate = self::FK_RESTRICT,
         $onDelete = self::FK_RESTRICT
     ) {
-        App::getInstance()->getDb()->execute(
+        $this->_addSql(
             sprintf(
                 'ALTER' . ' TABLE %s ADD CONSTRAINT ' .
                 '%s_%s_fk FOREIGN KEY (%s) ' .
-                'REFERENCES %s(id) ON UPDATE %s ON DELETE %s',
+                'REFERENCES %s(id) ON UPDATE %s ON DELETE %s;',
                 $table,
                 $table,
                 $column,

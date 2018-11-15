@@ -15,7 +15,7 @@ class M160305000000Sections extends AbstractMigration
      *
      * @return void
      */
-    public function apply()
+    public function up()
     {
         $this
             ->createTable(

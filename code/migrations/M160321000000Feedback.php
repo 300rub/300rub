@@ -15,7 +15,7 @@ class M160321000000Feedback extends AbstractMigration
      *
      * @return void
      */
-    public function apply()
+    public function up()
     {
         $this
             ->createTable(

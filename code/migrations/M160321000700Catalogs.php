@@ -15,7 +15,7 @@ class M160321000700Catalogs extends AbstractMigration
      *
      * @return void
      */
-    public function apply()
+    public function up()
     {
         $this
             ->_createDesignCatalogsTable()

@@ -15,7 +15,7 @@ class M160309000000Texts extends AbstractMigration
      *
      * @return void
      */
-    public function apply()
+    public function up()
     {
         $this
             ->createTable(

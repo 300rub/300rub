@@ -127,7 +127,8 @@ class MigrateCommand extends AbstractCommand
                 foreach ($this->_migrations as $migrationName) {
                     $migration = $this->_getMigrationByName($migrationName);
                     if ($migration->isSkip === false) {
-                        $migration->apply();
+                        $migration->up();
+                        $migration->execute();
                     }
                 }
 
@@ -219,7 +220,9 @@ class MigrateCommand extends AbstractCommand
             MigrationModel::model()
                 ->set(
                     [
-                        'version' => $migration
+                        'version' => $migration,
+                        'up'      => '',
+                        'down'    => '',
                     ]
                 )
                 ->save();

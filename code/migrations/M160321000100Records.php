@@ -15,7 +15,7 @@ class M160321000100Records extends AbstractMigration
      *
      * @return void
      */
-    public function apply()
+    public function up()
     {
         $this
             ->_createDesignRecordsTable()

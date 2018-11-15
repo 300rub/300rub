@@ -15,7 +15,7 @@ class M160321000550Tabs extends AbstractMigration
      *
      * @return void
      */
-    public function apply()
+    public function up()
     {
         $this
             ->createTable(

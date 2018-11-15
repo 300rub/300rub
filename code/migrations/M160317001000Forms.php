@@ -15,7 +15,7 @@ class M160317001000Forms extends AbstractMigration
      *
      * @return void
      */
-    public function apply()
+    public function up()
     {
         $this
             ->_createDesignForms()
