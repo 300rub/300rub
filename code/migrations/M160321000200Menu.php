@@ -15,7 +15,7 @@ class M160321000200Menu extends AbstractMigration
      *
      * @return void
      */
-    public function up()
+    protected function up()
     {
         $this
             ->_createTable()
@@ -139,5 +139,14 @@ class M160321000200Menu extends AbstractMigration
         );
 
         return $this;
+    }
+
+    /**
+     * SQL down
+     *
+     * @return void
+     */
+    protected function down()
+    {
     }
 }

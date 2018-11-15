@@ -22,7 +22,7 @@ class M160302000000Migrations extends AbstractMigration
      *
      * @return void
      */
-    public function up()
+    protected function up()
     {
         $this->createTable(
             'migrations',
@@ -33,5 +33,14 @@ class M160302000000Migrations extends AbstractMigration
                 'down'    => self::TYPE_TEXT,
             ]
         );
+    }
+
+    /**
+     * SQL down
+     *
+     * @return void
+     */
+    protected function down()
+    {
     }
 }

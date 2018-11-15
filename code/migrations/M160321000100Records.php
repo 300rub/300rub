@@ -15,7 +15,7 @@ class M160321000100Records extends AbstractMigration
      *
      * @return void
      */
-    public function up()
+    protected function up()
     {
         $this
             ->_createDesignRecordsTable()
@@ -400,5 +400,14 @@ class M160321000100Records extends AbstractMigration
                 'recordInstances',
                 'sort'
             );
+    }
+
+    /**
+     * SQL down
+     *
+     * @return void
+     */
+    protected function down()
+    {
     }
 }

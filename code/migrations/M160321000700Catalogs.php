@@ -15,7 +15,7 @@ class M160321000700Catalogs extends AbstractMigration
      *
      * @return void
      */
-    public function up()
+    protected function up()
     {
         $this
             ->_createDesignCatalogsTable()
@@ -489,5 +489,14 @@ class M160321000700Catalogs extends AbstractMigration
                 self::FK_CASCADE,
                 self::FK_CASCADE
             );
+    }
+
+    /**
+     * SQL down
+     *
+     * @return void
+     */
+    protected function down()
+    {
     }
 }

@@ -15,7 +15,7 @@ class M160303000000Seo extends AbstractMigration
      *
      * @return void
      */
-    public function up()
+    protected function up()
     {
         $this
             ->createTable(
@@ -31,5 +31,14 @@ class M160303000000Seo extends AbstractMigration
             )
             ->createIndex('seo', 'name')
             ->createIndex('seo', 'alias');
+    }
+
+    /**
+     * SQL down
+     *
+     * @return void
+     */
+    protected function down()
+    {
     }
 }

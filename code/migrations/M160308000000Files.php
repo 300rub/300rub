@@ -15,7 +15,7 @@ class M160308000000Files extends AbstractMigration
      *
      * @return void
      */
-    public function up()
+    protected function up()
     {
         $this
             ->createTable(
@@ -36,5 +36,14 @@ class M160308000000Files extends AbstractMigration
                     'uniqueName' => self::TYPE_STRING,
                 ]
             );
+    }
+
+    /**
+     * SQL down
+     *
+     * @return void
+     */
+    protected function down()
+    {
     }
 }

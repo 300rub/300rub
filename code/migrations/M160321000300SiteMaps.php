@@ -15,7 +15,7 @@ class M160321000300SiteMaps extends AbstractMigration
      *
      * @return void
      */
-    public function up()
+    protected function up()
     {
         $this
             ->createTable(
@@ -43,5 +43,14 @@ class M160321000300SiteMaps extends AbstractMigration
                 'itemDesignTextId',
                 'designTexts'
             );
+    }
+
+    /**
+     * SQL down
+     *
+     * @return void
+     */
+    protected function down()
+    {
     }
 }

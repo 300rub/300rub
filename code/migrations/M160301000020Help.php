@@ -22,7 +22,7 @@ class M160301000020Help extends AbstractMigration
      *
      * @return void
      */
-    public function up()
+    protected function up()
     {
         $this
             ->createTable(
@@ -113,5 +113,14 @@ class M160301000020Help extends AbstractMigration
                 'languagePages_pageId_language',
                 'pageId,language'
             );
+    }
+
+    /**
+     * SQL down
+     *
+     * @return void
+     */
+    protected function down()
+    {
     }
 }

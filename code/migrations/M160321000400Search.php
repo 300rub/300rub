@@ -15,7 +15,7 @@ class M160321000400Search extends AbstractMigration
      *
      * @return void
      */
-    public function up()
+    protected function up()
     {
         $this
             ->createTable(
@@ -102,5 +102,14 @@ class M160321000400Search extends AbstractMigration
                 self::FK_CASCADE,
                 self::FK_CASCADE
             );
+    }
+
+    /**
+     * SQL down
+     *
+     * @return void
+     */
+    protected function down()
+    {
     }
 }

@@ -15,7 +15,7 @@ class M160311000000Grids extends AbstractMigration
      *
      * @return void
      */
-    public function up()
+    protected function up()
     {
         $this
             ->createTable(
@@ -63,5 +63,14 @@ class M160311000000Grids extends AbstractMigration
                 self::FK_CASCADE,
                 self::FK_CASCADE
             );
+    }
+
+    /**
+     * SQL down
+     *
+     * @return void
+     */
+    protected function down()
+    {
     }
 }

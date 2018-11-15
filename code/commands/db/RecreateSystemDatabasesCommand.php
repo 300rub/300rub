@@ -114,18 +114,15 @@ class RecreateSystemDatabasesCommand extends AbstractDbCommand
         $dbObject->setActivePdoKey(Db::CONFIG_DB_NAME_SYSTEM);
 
         $migration = new M160301000000Sites();
-        $migration->up();
-        $migration->execute();
+        $migration->execute($migration->generateSqlUp());
 
         $migration = new M160301000010Domains();
-        $migration->up();
-        $migration->execute();
+        $migration->execute($migration->generateSqlUp());
 
         $dbObject->setActivePdoKey(Db::CONFIG_DB_NAME_HELP);
 
         $migration = new M160301000020Help();
-        $migration->up();
-        $migration->execute();
+        $migration->execute($migration->generateSqlUp());
 
         return $this;
     }

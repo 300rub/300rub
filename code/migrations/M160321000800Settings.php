@@ -15,7 +15,7 @@ class M160321000800Settings extends AbstractMigration
      *
      * @return void
      */
-    public function up()
+    protected function up()
     {
         $this
             ->createTable(
@@ -27,5 +27,14 @@ class M160321000800Settings extends AbstractMigration
                 ]
             )
             ->createUniqueIndex('settings', 'settings_type', 'type');
+    }
+
+    /**
+     * SQL down
+     *
+     * @return void
+     */
+    protected function down()
+    {
     }
 }

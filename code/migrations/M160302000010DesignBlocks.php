@@ -15,7 +15,7 @@ class M160302000010DesignBlocks extends AbstractMigration
      *
      * @return void
      */
-    public function up()
+    protected function up()
     {
         $this->createTable(
             'designBlocks',
@@ -80,5 +80,14 @@ class M160302000010DesignBlocks extends AbstractMigration
                 'height'                       => self::TYPE_SMALLINT_UNSIGNED,
             ]
         );
+    }
+
+    /**
+     * SQL down
+     *
+     * @return void
+     */
+    protected function down()
+    {
     }
 }

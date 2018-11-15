@@ -69,6 +69,8 @@ class MigrateCommand extends AbstractCommand
 
         foreach ($sites as $site) {
             $this->_sites[] = [
+                'id'         => $site['t_id'],
+                'name'       => $site['t_name'],
                 'dbHost'     => $site['t_dbHost'],
                 'dbUser'     => $site['t_dbUser'],
                 'dbPassword' => $site['t_dbPassword'],
@@ -78,6 +80,8 @@ class MigrateCommand extends AbstractCommand
             ];
 
             $this->_sites[] = [
+                'id'         => $site['t_id'],
+                'name'       => $site['t_name'],
                 'dbHost'     => $site['t_dbHost'],
                 'dbUser'     => $site['t_dbUser'],
                 'dbPassword' => $site['t_dbPassword'],
@@ -126,13 +130,25 @@ class MigrateCommand extends AbstractCommand
 
                 foreach ($this->_migrations as $migrationName) {
                     $migration = $this->_getMigrationByName($migrationName);
-                    if ($migration->isSkip === false) {
-                        $migration->up();
-                        $migration->execute();
+                    if ($migration->isSkip === true) {
+                        continue;
                     }
-                }
 
-                $this->_updateVersions();
+                    $sqlUp = $migration->generateSqlUp();
+                    $sqlDown = $migration->generateSqlDown();
+
+                    $migration->execute($sqlUp);
+
+                    MigrationModel::model()
+                        ->set(
+                            [
+                                'version' => $migrationName,
+                                'up'      => $sqlUp,
+                                'down'    => $sqlDown,
+                            ]
+                        )
+                        ->save();
+                }
 
                 $dbObject
                     ->commit($site['dbName'])
@@ -205,29 +221,5 @@ class MigrateCommand extends AbstractCommand
     {
         $migrationFullName = '\\ss\\migrations\\' . $migrationName;
         return new $migrationFullName;
-    }
-
-    /**
-     * Version's update
-     *
-     * @throws MigrationException
-     *
-     * @return MigrateCommand
-     */
-    private function _updateVersions()
-    {
-        foreach ($this->_migrations as $migration) {
-            MigrationModel::model()
-                ->set(
-                    [
-                        'version' => $migration,
-                        'up'      => '',
-                        'down'    => '',
-                    ]
-                )
-                ->save();
-        }
-
-        return $this;
     }
 }

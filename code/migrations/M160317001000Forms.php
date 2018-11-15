@@ -15,7 +15,7 @@ class M160317001000Forms extends AbstractMigration
      *
      * @return void
      */
-    public function up()
+    protected function up()
     {
         $this
             ->_createDesignForms()
@@ -173,5 +173,14 @@ class M160317001000Forms extends AbstractMigration
                 self::FK_CASCADE
             )
             ->createIndex('formListValues', 'sort');
+    }
+
+    /**
+     * SQL down
+     *
+     * @return void
+     */
+    protected function down()
+    {
     }
 }

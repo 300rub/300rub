@@ -15,7 +15,7 @@ class M160307000000Users extends AbstractMigration
      *
      * @return void
      */
-    public function up()
+    protected function up()
     {
         $this
             ->_createUsers()
@@ -258,5 +258,14 @@ class M160307000000Users extends AbstractMigration
                 'userEvents',
                 'date'
             );
+    }
+
+    /**
+     * SQL down
+     *
+     * @return void
+     */
+    protected function down()
+    {
     }
 }

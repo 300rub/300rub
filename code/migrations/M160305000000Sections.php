@@ -15,7 +15,7 @@ class M160305000000Sections extends AbstractMigration
      *
      * @return void
      */
-    public function up()
+    protected function up()
     {
         $this
             ->createTable(
@@ -46,5 +46,14 @@ class M160305000000Sections extends AbstractMigration
                 'sections',
                 'language'
             );
+    }
+
+    /**
+     * SQL down
+     *
+     * @return void
+     */
+    protected function down()
+    {
     }
 }

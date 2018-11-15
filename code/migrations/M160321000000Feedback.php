@@ -15,7 +15,7 @@ class M160321000000Feedback extends AbstractMigration
      *
      * @return void
      */
-    public function up()
+    protected function up()
     {
         $this
             ->createTable(
@@ -38,5 +38,14 @@ class M160321000000Feedback extends AbstractMigration
                 'subjectFormInstanceId',
                 'formInstances'
             );
+    }
+
+    /**
+     * SQL down
+     *
+     * @return void
+     */
+    protected function down()
+    {
     }
 }

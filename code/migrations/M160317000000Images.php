@@ -15,7 +15,7 @@ class M160317000000Images extends AbstractMigration
      *
      * @return void
      */
-    public function up()
+    protected function up()
     {
         $this
             ->_createDesignImageAlbum()
@@ -344,5 +344,14 @@ class M160317000000Images extends AbstractMigration
                 self::FK_NULL,
                 self::FK_NULL
             );
+    }
+
+    /**
+     * SQL down
+     *
+     * @return void
+     */
+    protected function down()
+    {
     }
 }

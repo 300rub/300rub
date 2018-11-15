@@ -15,7 +15,7 @@ class M160302000005Blocks extends AbstractMigration
      *
      * @return void
      */
-    public function up()
+    protected function up()
     {
         $this
             ->createTable(
@@ -38,5 +38,14 @@ class M160302000005Blocks extends AbstractMigration
                 'blocks_language_contentType_contentId',
                 'language,contentType,contentId'
             );
+    }
+
+    /**
+     * SQL down
+     *
+     * @return void
+     */
+    protected function down()
+    {
     }
 }

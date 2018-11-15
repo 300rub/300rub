@@ -15,7 +15,7 @@ class M160321000550Tabs extends AbstractMigration
      *
      * @return void
      */
-    public function up()
+    protected function up()
     {
         $this
             ->createTable(
@@ -113,5 +113,14 @@ class M160321000550Tabs extends AbstractMigration
                 self::FK_CASCADE,
                 self::FK_CASCADE
             );
+    }
+
+    /**
+     * SQL down
+     *
+     * @return void
+     */
+    protected function down()
+    {
     }
 }

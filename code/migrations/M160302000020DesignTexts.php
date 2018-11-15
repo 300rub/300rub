@@ -15,7 +15,7 @@ class M160302000020DesignTexts extends AbstractMigration
      *
      * @return void
      */
-    public function up()
+    protected function up()
     {
         $this
             ->createTable(
@@ -43,5 +43,14 @@ class M160302000020DesignTexts extends AbstractMigration
                     'hasHover'           => self::TYPE_BOOL,
                 ]
             );
+    }
+
+    /**
+     * SQL down
+     *
+     * @return void
+     */
+    protected function down()
+    {
     }
 }

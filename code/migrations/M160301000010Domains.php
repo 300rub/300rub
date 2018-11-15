@@ -22,7 +22,7 @@ class M160301000010Domains extends AbstractMigration
      *
      * @return void
      */
-    public function up()
+    protected function up()
     {
         $this
             ->createTable(
@@ -41,5 +41,14 @@ class M160301000010Domains extends AbstractMigration
                 self::FK_CASCADE,
                 self::FK_CASCADE
             );
+    }
+
+    /**
+     * SQL down
+     *
+     * @return void
+     */
+    protected function down()
+    {
     }
 }

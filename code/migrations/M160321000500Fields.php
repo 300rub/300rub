@@ -15,7 +15,7 @@ class M160321000500Fields extends AbstractMigration
      *
      * @return void
      */
-    public function up()
+    protected function up()
     {
         $this
             ->_createDesignFields()
@@ -229,5 +229,14 @@ class M160321000500Fields extends AbstractMigration
                 self::FK_CASCADE
             )
             ->createIndex('fieldListValues', 'sort');
+    }
+
+    /**
+     * SQL down
+     *
+     * @return void
+     */
+    protected function down()
+    {
     }
 }

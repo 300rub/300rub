@@ -67,16 +67,23 @@ abstract class AbstractMigration
     private $_sql = [];
 
     /**
-     * Applies migration
+     * SQL up
      *
-     * @return bool
+     * @return void
      */
-    abstract public function up();
+    abstract protected function up();
+
+    /**
+     * SQL down
+     *
+     * @return void
+     */
+    abstract protected function down();
 
     /**
      * Adds SQL
      *
-     * @param string $sql
+     * @param string $sql SQL
      *
      * @return AbstractMigration
      */
@@ -92,7 +99,7 @@ abstract class AbstractMigration
      *
      * @return string
      */
-    public function getSqlString()
+    private function _getSqlString()
     {
         return implode(' ', $this->_sql);
     }
@@ -100,14 +107,42 @@ abstract class AbstractMigration
     /**
      * Executes SQL
      *
+     * @param string $sql SQL
+     *
      * @return AbstractMigration
      */
-    public function execute()
+    public function execute($sql)
     {
-        App::getInstance()->getDb()->execute($this->getSqlString());
+        App::getInstance()->getDb()->execute($sql);
+        return $this;
+    }
+
+    /**
+     * Generates SQL up
+     *
+     * @return string
+     */
+    public function generateSqlUp()
+    {
         $this->_sql = [];
 
-        return $this;
+        $this->up();
+
+        return $this->_getSqlString();
+    }
+
+    /**
+     * Generates SQL down
+     *
+     * @return string
+     */
+    public function generateSqlDown()
+    {
+        $this->_sql = [];
+
+        $this->down();
+
+        return $this->_getSqlString();
     }
 
     /**
@@ -135,7 +170,7 @@ abstract class AbstractMigration
             sprintf(
                 'CREATE TABLE %s (%s) %s;',
                 $table,
-                implode(", ", $cols),
+                implode(', ', $cols),
                 $options
             )
         );
