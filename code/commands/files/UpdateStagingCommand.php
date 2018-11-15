@@ -35,14 +35,12 @@ class UpdateStagingCommand extends AbstractCommand
             [
                 'Comment'         => 'Hello comment',
                 'DocumentName'    => 'AWS-RunShellScript',
-                'DocumentVersion' => '$DEFAULT',
                 'MaxConcurrency'  => '100%',
                 'MaxErrors'       => '1',
                 'Parameters'      => [
                     'commands'         => [
-                        'mkdir /var/www/html/test',
+                        'mkdir /var/www/test3',
                     ],
-                     'executionTimeout' => ['5'],
                     'workingDirectory' => ['/var/www'],
                 ],
                 'Targets'         => [
@@ -53,7 +51,6 @@ class UpdateStagingCommand extends AbstractCommand
                         ],
                     ],
                 ],
-                'TimeoutSeconds' => 30
             ]
         );
 
