@@ -211,6 +211,8 @@ class MigrateCommand extends AbstractCommand
             }
         }
 
+        $this->output('----------------------------');
+
         return $this;
     }
 
