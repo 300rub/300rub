@@ -498,5 +498,13 @@ class M160321000700Catalogs extends AbstractMigration
      */
     protected function down()
     {
+        $this
+            ->dropTable('catalogOrders')
+            ->dropTable('catalogBins')
+            ->dropTable('catalogInstanceLinks')
+            ->dropTable('catalogInstances')
+            ->dropTable('catalogMenu')
+            ->dropTable('catalogs')
+            ->dropTable('designCatalogs');
     }
 }
