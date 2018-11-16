@@ -7,7 +7,7 @@ use ss\application\components\db\Db;
 use ss\application\exceptions\MigrationException;
 use ss\commands\_abstract\AbstractCommand;
 use ss\migrations\_abstract\AbstractMigration;
-use ss\migrations\M160302000000Migrations;
+use ss\migrations\system\Migrations;
 use ss\models\system\MigrationModel;
 use ss\models\system\SiteModel;
 
@@ -164,6 +164,27 @@ class MigrateCommand extends AbstractCommand
 
             try {
                 $this
+                    ->output('----------------------------')
+                    ->output(
+                        sprintf(
+                            'ID: %s',
+                            $site['id']
+                        )
+                    )
+                    ->output(
+                        sprintf(
+                            'Name: %s',
+                            $site['name']
+                        )
+                    )
+                    ->output(
+                        sprintf(
+                            'DB: %s',
+                            $site['dbName']
+                        )
+                    );
+
+                $this
                     ->_down()
                     ->_uo();
 
@@ -202,16 +223,18 @@ class MigrateCommand extends AbstractCommand
      */
     private function _uo()
     {
+        $this->output('Up:');
+
         $this->_setMigrationsUp();
         if (count($this->_migrationsUp) === 0) {
+            $this->output('-', true);
             return $this;
         }
 
         foreach ($this->_migrationsUp as $migrationName) {
             $migration = $this->_getMigrationByName($migrationName);
-            if ($migration->isSkip === true) {
-                continue;
-            }
+
+            $this->output($migrationName, true);
 
             $sqlUp = $migration->generateSqlUp();
             $sqlDown = $migration->generateSqlDown();
@@ -267,13 +290,18 @@ class MigrateCommand extends AbstractCommand
      */
     private function _down()
     {
+        $this->output('Down:');
+
         $this->_setMigrationsDown();
         if (count($this->_migrationsDown) === 0) {
+            $this->output('-', true);
             return $this;
         }
 
         foreach ($this->_migrationsDown as $migrationModel) {
-            $migration = new M160302000000Migrations();
+            $this->output($migrationModel->get('version'), true);
+
+            $migration = new Migrations();
 
             $migration->execute($migrationModel->get('down'));
 

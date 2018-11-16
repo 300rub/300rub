@@ -71,4 +71,28 @@ abstract class AbstractCommand
 
         return null;
     }
+
+    /**
+     * Outputs text
+     *
+     * @param string $text       Text
+     * @param bool   $isSameLine Is the same line
+     *
+     * @return AbstractCommand
+     */
+    protected function output($text, $isSameLine = null)
+    {
+        $prefix = PHP_EOL;
+        if ($isSameLine === true) {
+            $prefix = '';
+        }
+
+        echo sprintf(
+            '%s%s ',
+            $prefix,
+            $text
+        );
+
+        return $this;
+    }
 }

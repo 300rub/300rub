@@ -43,7 +43,7 @@ class Console extends AbstractApplication
 
             $time = number_format((microtime(true) - $startTime), 3);
 
-            echo sprintf('Time: %s seconds', $time);
+            echo sprintf('%sTime: %s seconds', PHP_EOL, $time);
         } catch (\Exception $e) {
             throw $e;
         }

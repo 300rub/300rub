@@ -1,21 +1,14 @@
 <?php
 
-namespace ss\migrations;
+namespace ss\migrations\system;
 
 use ss\migrations\_abstract\AbstractMigration;
 
 /**
  * Creates table for storing any help information
  */
-class M160301000020Help extends AbstractMigration
+class Help extends AbstractMigration
 {
-
-    /**
-     * Flag. If it is true - it will be skipped in common applying
-     *
-     * @var boolean
-     */
-    public $isSkip = true;
 
     /**
      * Applies migration

@@ -1,21 +1,14 @@
 <?php
 
-namespace ss\migrations;
+namespace ss\migrations\system;
 
 use ss\migrations\_abstract\AbstractMigration;
 
 /**
  * Creates table for storing list of migrations
  */
-class M160302000000Migrations extends AbstractMigration
+class Migrations extends AbstractMigration
 {
-
-    /**
-     * Flag. If it is true - it will be skipped in common applying
-     *
-     * @var boolean
-     */
-    public $isSkip = true;
 
     /**
      * Applies migration

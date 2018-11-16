@@ -6,9 +6,9 @@ use ss\application\App;
 
 use ss\application\components\db\Db;
 use ss\commands\db\_abstract\AbstractDbCommand;
-use ss\migrations\M160301000000Sites;
-use ss\migrations\M160301000010Domains;
-use ss\migrations\M160301000020Help;
+use ss\migrations\system\Sites;
+use ss\migrations\system\Domains;
+use ss\migrations\system\Help;
 
 /**
  * Recreates system databases
@@ -113,15 +113,15 @@ class RecreateSystemDatabasesCommand extends AbstractDbCommand
 
         $dbObject->setActivePdoKey(Db::CONFIG_DB_NAME_SYSTEM);
 
-        $migration = new M160301000000Sites();
+        $migration = new Sites();
         $migration->execute($migration->generateSqlUp());
 
-        $migration = new M160301000010Domains();
+        $migration = new Domains();
         $migration->execute($migration->generateSqlUp());
 
         $dbObject->setActivePdoKey(Db::CONFIG_DB_NAME_HELP);
 
-        $migration = new M160301000020Help();
+        $migration = new Help();
         $migration->execute($migration->generateSqlUp());
 
         return $this;

@@ -1,21 +1,14 @@
 <?php
 
-namespace ss\migrations;
+namespace ss\migrations\system;
 
 use ss\migrations\_abstract\AbstractMigration;
 
 /**
  * Creates table for storing information about all sites
  */
-class M160301000000Sites extends AbstractMigration
+class Sites extends AbstractMigration
 {
-
-    /**
-     * Flag. If it is true - it will be skipped in common applying
-     *
-     * @var boolean
-     */
-    public $isSkip = true;
 
     /**
      * Applies migration

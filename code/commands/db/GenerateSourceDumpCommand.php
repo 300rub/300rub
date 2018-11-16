@@ -5,7 +5,7 @@ namespace ss\commands\db;
 use ss\application\App;
 use ss\application\components\db\Db;
 use ss\commands\_abstract\AbstractCommand;
-use ss\migrations\M160302000000Migrations;
+use ss\migrations\system\Migrations;
 
 /**
  * Generates Source SQL script
@@ -49,7 +49,7 @@ class GenerateSourceDumpCommand extends AbstractCommand
 
         $dbObject->setActivePdoKey($dbName);
 
-        $migration = new M160302000000Migrations();
+        $migration = new Migrations();
         $migration->execute($migration->generateSqlUp());
 
         $migrateCommand = new MigrateCommand();

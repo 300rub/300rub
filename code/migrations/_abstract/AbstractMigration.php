@@ -53,13 +53,6 @@ abstract class AbstractMigration
     const TYPE_FLOAT = 'FLOAT NOT NULL DEFAULT 0';
 
     /**
-     * Flag. If it is true - it will be skipped in common applying
-     *
-     * @var boolean
-     */
-    public $isSkip = false;
-
-    /**
      * SQL
      *
      * @var string[]
