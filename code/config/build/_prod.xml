@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="prod">
-    <target name="prod-setup" depends="tools-flush-memcached">
+    <target name="prod-setup" depends="tools-flush-memcached, tools-generate-static">
     </target>
 </project>

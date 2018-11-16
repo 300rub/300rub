@@ -1,3 +1,0 @@
-#!/bin/bash
-
-docker exec -it ss_instance_1 ant -file /var/www/code/config/build/build.xml tools-generate-static

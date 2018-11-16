@@ -14,13 +14,6 @@
         </exec>
     </target>
 
-    <target name="db-export-sites">
-        <exec executable="php" failonerror="true">
-            <arg value='commands/run' />
-            <arg value='db/ExportSitesCommand' />
-        </exec>
-    </target>
-
     <target name="db-migrate">
         <exec executable="php" failonerror="true">
             <arg value='commands/run' />
@@ -39,13 +32,6 @@
         <exec executable="php" failonerror="true">
             <arg value='commands/run' />
             <arg value='db/GenerateSourceDumpCommand' />
-        </exec>
-    </target>
-
-    <target name="db-create-source-db">
-        <exec executable="php" failonerror="true">
-            <arg value='commands/run' />
-            <arg value='db/CreateSourceDbCommand' />
         </exec>
     </target>
 </project>
