@@ -7,6 +7,7 @@ use ss\application\components\db\Db;
 use ss\application\exceptions\MigrationException;
 use ss\commands\_abstract\AbstractCommand;
 use ss\migrations\_abstract\AbstractMigration;
+use ss\migrations\M160302000000Migrations;
 use ss\models\system\MigrationModel;
 use ss\models\system\SiteModel;
 
@@ -21,7 +22,14 @@ class MigrateCommand extends AbstractCommand
      *
      * @var string[]
      */
-    private $_migrations = [];
+    private $_migrationsUp = [];
+
+    /**
+     * Migrations to roll back
+     *
+     * @var MigrationModel[]
+     */
+    private $_migrationsDown = [];
 
     /**
      * All sites
@@ -29,6 +37,13 @@ class MigrateCommand extends AbstractCommand
      * @var array
      */
     private $_sites = [];
+
+    /**
+     * Migration files
+     *
+     * @var array
+     */
+    private $_files = [];
 
     /**
      * Runs the command
@@ -41,6 +56,7 @@ class MigrateCommand extends AbstractCommand
     {
         $this
             ->setSites()
+            ->setFiles()
             ->applyMigration();
     }
 
@@ -53,6 +69,8 @@ class MigrateCommand extends AbstractCommand
      */
     public function setSites(array $siteNames = [])
     {
+        $this->_sites = [];
+
         $dbObject = App::getInstance()->getDb();
 
         $dbObject->setActivePdoKey(
@@ -95,6 +113,30 @@ class MigrateCommand extends AbstractCommand
     }
 
     /**
+     * Sets files
+     *
+     * @return MigrateCommand
+     */
+    public function setFiles()
+    {
+        $this->_files = [];
+
+        $files = scandir(__DIR__ . '/../../migrations');
+        foreach ($files as $file) {
+            if ($file === '.'
+                || $file === '..'
+                || strpos($file, 'M') !== 0
+            ) {
+                continue;
+            }
+
+            $this->_files[] = str_replace('.php', '', $file);
+        }
+
+        return $this;
+    }
+
+    /**
      * Applies the migrations
      *
      * @throws MigrationException
@@ -119,59 +161,77 @@ class MigrateCommand extends AbstractCommand
                 )
                 ->setActivePdoKey($site['dbName'])
                 ->beginTransaction($site['dbName']);
+            
+            $this
+                ->_down($site)
+                ->_uo($site);
+        }
 
-            try {
-                $this->_setNewMigrations();
-                if (count($this->_migrations) === 0) {
+        return $this;
+    }
+
+    /**
+     * Applies new migrations
+     * 
+     * @param array $site Site
+     *
+     * @return MigrateCommand
+     * 
+     * @throws MigrationException
+     */
+    private function _uo(array $site)
+    {
+        $dbObject = App::getInstance()->getDb();
+        
+        try {
+            $this->_setMigrationsUp();
+            if (count($this->_migrationsUp) === 0) {
+                return $this;
+            }
+
+            foreach ($this->_migrationsUp as $migrationName) {
+                $migration = $this->_getMigrationByName($migrationName);
+                if ($migration->isSkip === true) {
                     continue;
                 }
 
-                sort($this->_migrations);
+                $sqlUp = $migration->generateSqlUp();
+                $sqlDown = $migration->generateSqlDown();
 
-                foreach ($this->_migrations as $migrationName) {
-                    $migration = $this->_getMigrationByName($migrationName);
-                    if ($migration->isSkip === true) {
-                        continue;
-                    }
+                $migration->execute($sqlUp);
 
-                    $sqlUp = $migration->generateSqlUp();
-                    $sqlDown = $migration->generateSqlDown();
-
-                    $migration->execute($sqlUp);
-
-                    MigrationModel::model()
-                        ->set(
-                            [
-                                'version' => $migrationName,
-                                'down'    => $sqlDown,
-                            ]
-                        )
-                        ->save();
-                }
-
-                $dbObject
-                    ->commit($site['dbName'])
-                    ->deletePdo($site['dbName']);
-            } catch (\Exception $e) {
-                $dbObject
-                    ->rollBack($site['dbName'])
-                    ->deletePdo($site['dbName']);
-
-                throw new MigrationException(
-                    'An error occurred while applying migration ' .
-                    'for site ID: {siteId}, name: {siteName} ' .
-                    'Error: {error}, file: {file}, line: {line}',
-                    [
-                        'siteId'   => $site['id'],
-                        'siteName' => $site['name'],
-                        'error'    => $e->getMessage(),
-                        'file'     => $e->getFile(),
-                        'line'     => $e->getLine(),
-                    ]
-                );
+                MigrationModel::model()
+                    ->set(
+                        [
+                            'version' => $migrationName,
+                            'down'    => $sqlDown,
+                        ]
+                    )
+                    ->save();
             }
-        }
 
+            $dbObject
+                ->commit($site['dbName'])
+                ->deletePdo($site['dbName']);
+        } catch (\Exception $e) {
+            $dbObject
+                ->rollBack($site['dbName'])
+                ->deletePdo($site['dbName']);
+
+            throw new MigrationException(
+                'An error occurred while applying new migration ' .
+                'for site ID: {siteId}, name: {siteName} ' .
+                'Error: {error}, file: {file}, line: {line}',
+                [
+                    'siteId'   => $site['id'],
+                    'siteName' => $site['name'],
+                    'error'    => $e->getMessage(),
+                    'file'     => $e->getFile(),
+                    'line'     => $e->getLine(),
+                ]
+            );
+        }
+        
         return $this;
     }
 
@@ -180,9 +240,9 @@ class MigrateCommand extends AbstractCommand
      *
      * @return MigrateCommand
      */
-    private function _setNewMigrations()
+    private function _setMigrationsUp()
     {
-        $this->_migrations = [];
+        $this->_migrationsUp = [];
 
         $versions = [];
 
@@ -191,20 +251,87 @@ class MigrateCommand extends AbstractCommand
             $versions[] = $migration['t_version'];
         }
 
-        $files = scandir(__DIR__ . '/../../migrations');
-        foreach ($files as $file) {
-            if ($file === '.'
-                || $file === '..'
-                || strpos($file, 'M') !== 0
-            ) {
-                continue;
-            }
-
-            $version = str_replace('.php', '', $file);
-            if (in_array($version, $versions) === false) {
-                $this->_migrations[] = $version;
+        foreach ($this->_files as $file) {
+            if (in_array($file, $versions) === false) {
+                $this->_migrationsUp[] = $file;
             }
         }
+
+        sort($this->_migrationsUp);
+
+        return $this;
+    }
+
+    /**
+     * Rolls back migrations
+     *
+     * @param array $site Site
+     *
+     * @return MigrateCommand
+     *
+     * @throws MigrationException
+     */
+    private function _down(array $site)
+    {
+        $dbObject = App::getInstance()->getDb();
+
+        try {
+            $this->_setMigrationsDown();
+            if (count($this->_migrationsDown) === 0) {
+                return $this;
+            }
+
+            foreach ($this->_migrationsDown as $migrationModel) {
+                $migration = new M160302000000Migrations();
+
+                $migration->execute($migrationModel->get('down'));
+
+                $migrationModel->delete();
+            }
+
+            $dbObject
+                ->commit($site['dbName'])
+                ->deletePdo($site['dbName']);
+        } catch (\Exception $e) {
+            $dbObject
+                ->rollBack($site['dbName'])
+                ->deletePdo($site['dbName']);
+
+            throw new MigrationException(
+                'An error occurred while rolling back migration ' .
+                'for site ID: {siteId}, name: {siteName} ' .
+                'Error: {error}, file: {file}, line: {line}',
+                [
+                    'siteId'   => $site['id'],
+                    'siteName' => $site['name'],
+                    'error'    => $e->getMessage(),
+                    'file'     => $e->getFile(),
+                    'line'     => $e->getLine(),
+                ]
+            );
+        }
+
+        return $this;
+    }
+
+    /**
+     * Sets the list of migrations to roll back
+     *
+     * @return MigrateCommand
+     */
+    private function _setMigrationsDown()
+    {
+        $this->_migrationsDown = [];
+
+        $migrations = MigrationModel::model()->findAll();
+        foreach ($migrations as $migration) {
+            $version = $migration->get('version');
+            if (in_array($version, $this->_files) === false) {
+                $this->_migrationsDown[$version] = $migration;
+            }
+        }
+
+        krsort($this->_migrationsDown);
 
         return $this;
     }

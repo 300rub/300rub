@@ -55,6 +55,7 @@ class GenerateSourceDumpCommand extends AbstractCommand
         $migrateCommand = new MigrateCommand();
         $migrateCommand
             ->setSites([$siteName])
+            ->setFiles()
             ->applyMigration();
 
         $dbObject->exportDb($dbHost, $dbName, Db::SOURCE_PATH);

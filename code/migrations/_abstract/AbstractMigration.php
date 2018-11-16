@@ -35,22 +35,22 @@ abstract class AbstractMigration
     const TYPE_PK = 'INT(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY NOT NULL';
     const TYPE_FK = 'INT(11) UNSIGNED NOT NULL';
     const TYPE_FK_NULL = 'INT(11) UNSIGNED NULL';
-    const TYPE_STRING = 'VARCHAR(255) NOT NULL';
-    const TYPE_STRING_100 = 'VARCHAR(100) NOT NULL';
-    const TYPE_STRING_50 = 'VARCHAR(50) NOT NULL';
-    const TYPE_STRING_25 = 'VARCHAR(25) NOT NULL';
-    const TYPE_CHAR_32 = 'CHAR(32) NOT NULL';
-    const TYPE_CHAR_40 = 'CHAR(40) NOT NULL';
-    const TYPE_INT = 'INT NOT NULL';
-    const TYPE_INT_UNSIGNED = 'INT UNSIGNED NOT NULL';
-    const TYPE_TINYINT = 'TINYINT NOT NULL';
-    const TYPE_TINYINT_UNSIGNED = 'TINYINT(3) UNSIGNED NOT NULL';
-    const TYPE_SMALLINT = 'SMALLINT NOT NULL';
-    const TYPE_SMALLINT_UNSIGNED = 'SMALLINT UNSIGNED NOT NULL';
-    const TYPE_BOOL = 'TINYINT(1) UNSIGNED NOT NULL';
+    const TYPE_STRING = 'VARCHAR(255) NOT NULL DEFAULT ""';
+    const TYPE_STRING_100 = 'VARCHAR(100) NOT NULL DEFAULT ""';
+    const TYPE_STRING_50 = 'VARCHAR(50) NOT NULL DEFAULT ""';
+    const TYPE_STRING_25 = 'VARCHAR(25) NOT NULL DEFAULT ""';
+    const TYPE_CHAR_32 = 'CHAR(32) NOT NULL DEFAULT ""';
+    const TYPE_CHAR_40 = 'CHAR(40) NOT NULL DEFAULT ""';
+    const TYPE_INT = 'INT NOT NULL DEFAULT 0';
+    const TYPE_INT_UNSIGNED = 'INT UNSIGNED NOT NULL DEFAULT 0';
+    const TYPE_TINYINT = 'TINYINT NOT NULL DEFAULT 0';
+    const TYPE_TINYINT_UNSIGNED = 'TINYINT(3) UNSIGNED NOT NULL DEFAULT 0';
+    const TYPE_SMALLINT = 'SMALLINT NOT NULL DEFAULT 0';
+    const TYPE_SMALLINT_UNSIGNED = 'SMALLINT UNSIGNED NOT NULL DEFAULT 0';
+    const TYPE_BOOL = 'TINYINT(1) UNSIGNED NOT NULL DEFAULT 0';
     const TYPE_TEXT = 'TEXT NOT NULL';
     const TYPE_DATETIME = 'DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP';
-    const TYPE_FLOAT = 'FLOAT NOT NULL';
+    const TYPE_FLOAT = 'FLOAT NOT NULL DEFAULT 0';
 
     /**
      * Flag. If it is true - it will be skipped in common applying
@@ -152,8 +152,6 @@ abstract class AbstractMigration
      * @param array  $columns Columns
      * @param string $options Options
      *
-     * @throws MigrationException
-     *
      * @return AbstractMigration
      */
     public function createTable(
@@ -168,10 +166,29 @@ abstract class AbstractMigration
 
         $this->_addSql(
             sprintf(
-                'CREATE TABLE %s (%s) %s;',
+                'CREATE TABLE IF NOT EXISTS %s (%s) %s;',
                 $table,
                 implode(', ', $cols),
                 $options
+            )
+        );
+
+        return $this;
+    }
+
+    /**
+     * Drops table
+     *
+     * @param string $table Table name
+     *
+     * @return AbstractMigration
+     */
+    public function dropTable($table)
+    {
+        $this->_addSql(
+            sprintf(
+                'DROP TABLE IF EXISTS %s;',
+                $table
             )
         );
 
@@ -185,8 +202,6 @@ abstract class AbstractMigration
      * @param string $column Column
      * @param string $index  Index
      *
-     * @throws MigrationException
-     *
      * @return AbstractMigration
      */
     public function createIndex($table, $column, $index = null)
@@ -197,7 +212,7 @@ abstract class AbstractMigration
 
         $this->_addSql(
             sprintf(
-                'ALTER' . ' TABLE %s ADD INDEX %s (%s);',
+                'ALTER TABLE %s ADD INDEX %s (%s);',
                 $table,
                 $index,
                 $column
@@ -213,15 +228,13 @@ abstract class AbstractMigration
      * @param string $table  Table name
      * @param string $column Column
      *
-     * @throws MigrationException
-     *
      * @return AbstractMigration
      */
     public function createFullTextIndex($table, $column)
     {
         $this->_addSql(
             sprintf(
-                'ALTER' . ' TABLE %s ADD FULLTEXT(%s);',
+                'ALTER TABLE %s ADD FULLTEXT(%s);',
                 $table,
                 $column
             )
@@ -237,15 +250,13 @@ abstract class AbstractMigration
      * @param string $name    Name
      * @param string $columns Columns
      *
-     * @throws MigrationException
-     *
      * @return AbstractMigration
      */
     public function createUniqueIndex($table, $name, $columns)
     {
         $this->_addSql(
             sprintf(
-                'ALTER' . ' TABLE %s ADD UNIQUE INDEX %s (%s);',
+                'ALTER TABLE %s ADD UNIQUE INDEX %s (%s);',
                 $table,
                 $name,
                 $columns
@@ -265,8 +276,6 @@ abstract class AbstractMigration
      * @param string $onDelete  On delete
      *
      * @return AbstractMigration
-     *
-     * @throws MigrationException
      */
     public function createForeignKey(
         $table,
@@ -277,7 +286,7 @@ abstract class AbstractMigration
     ) {
         $this->_addSql(
             sprintf(
-                'ALTER' . ' TABLE %s ADD CONSTRAINT ' .
+                'ALTER TABLE %s ADD CONSTRAINT ' .
                 '%s_%s_fk FOREIGN KEY (%s) ' .
                 'REFERENCES %s(id) ON UPDATE %s ON DELETE %s;',
                 $table,

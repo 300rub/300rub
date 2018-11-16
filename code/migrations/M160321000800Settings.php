@@ -36,5 +36,6 @@ class M160321000800Settings extends AbstractMigration
      */
     protected function down()
     {
+        $this->dropTable('settings');
     }
 }
