@@ -122,5 +122,11 @@ class M160321000550Tabs extends AbstractMigration
      */
     protected function down()
     {
+        $this
+            ->dropTable('tabInstances')
+            ->dropTable('tabGroups')
+            ->dropTable('tabTemplates')
+            ->dropTable('tabs')
+            ->dropTable('designTabs');
     }
 }
