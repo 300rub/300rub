@@ -86,16 +86,12 @@ class MigrateCommand extends AbstractCommand
         $sites = $sites->findAll(true);
 
         foreach ($sites as $site) {
-            $this->_sites[] = [
-                'id'         => $site['t_id'],
-                'name'       => $site['t_name'],
-                'dbHost'     => $site['t_dbHost'],
-                'dbUser'     => $site['t_dbUser'],
-                'dbPassword' => $site['t_dbPassword'],
-                'dbName'     => $dbObject->getWriteDbName(
-                    $site['t_dbName']
-                )
-            ];
+            $dbWriteName = $dbObject->getWriteDbName(
+                $site['t_dbName']
+            );
+            $dbReadName = $dbObject->getReadDbName(
+                $site['t_dbName']
+            );
 
             $this->_sites[] = [
                 'id'         => $site['t_id'],
@@ -103,9 +99,20 @@ class MigrateCommand extends AbstractCommand
                 'dbHost'     => $site['t_dbHost'],
                 'dbUser'     => $site['t_dbUser'],
                 'dbPassword' => $site['t_dbPassword'],
-                'dbName'     => $dbObject->getReadDbName(
-                    $site['t_dbName']
-                )
+                'dbName'     => $dbWriteName
+            ];
+
+            if ($dbWriteName === $dbReadName) {
+                continue;
+            }
+
+            $this->_sites[] = [
+                'id'         => $site['t_id'],
+                'name'       => $site['t_name'],
+                'dbHost'     => $site['t_dbHost'],
+                'dbUser'     => $site['t_dbUser'],
+                'dbPassword' => $site['t_dbPassword'],
+                'dbName'     => $dbReadName
             ];
         }
 
@@ -303,11 +310,15 @@ class MigrateCommand extends AbstractCommand
         foreach ($this->_migrationsDown as $migrationModel) {
             $this->output($migrationModel->get('version'), true);
 
-            $migration = new Migrations();
-
-            $migration->execute($migrationModel->get('down'));
-
             $migrationModel->delete();
+
+            $down = $migrationModel->get('down');
+            if (empty($down) === true) {
+                continue;
+            }
+
+            $migration = new Migrations();
+            $migration->execute($migrationModel->get('down'));
         }
 
         return $this;
