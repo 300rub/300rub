@@ -39,7 +39,7 @@ class UpdateStagingCommand extends AbstractCommand
                 'MaxErrors'       => '1',
                 'Parameters'      => [
                     'commands'         => [
-                        'mkdir /var/www/test3',
+                        'mkdir /var/www/test4',
                     ],
                     'workingDirectory' => ['/var/www'],
                 ],
