@@ -182,5 +182,10 @@ class M160317001000Forms extends AbstractMigration
      */
     protected function down()
     {
+        $this
+            ->dropTable('formListValues')
+            ->dropTable('formInstances')
+            ->dropTable('forms')
+            ->dropTable('designForms');
     }
 }

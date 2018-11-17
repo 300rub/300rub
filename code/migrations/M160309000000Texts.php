@@ -77,5 +77,9 @@ class M160309000000Texts extends AbstractMigration
      */
     protected function down()
     {
+        $this
+            ->dropTable('textInstanceFileMap')
+            ->dropTable('textInstances')
+            ->dropTable('texts');
     }
 }

@@ -238,5 +238,12 @@ class M160321000500Fields extends AbstractMigration
      */
     protected function down()
     {
+        $this
+            ->dropTable('fieldListValues')
+            ->dropTable('fieldInstances')
+            ->dropTable('fieldGroups')
+            ->dropTable('fieldTemplates')
+            ->dropTable('fields')
+            ->dropTable('designFields');
     }
 }

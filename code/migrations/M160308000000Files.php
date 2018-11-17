@@ -45,5 +45,8 @@ class M160308000000Files extends AbstractMigration
      */
     protected function down()
     {
+        $this
+            ->dropTable('removedFiles')
+            ->dropTable('files');
     }
 }

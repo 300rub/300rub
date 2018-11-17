@@ -148,5 +148,9 @@ class M160321000200Menu extends AbstractMigration
      */
     protected function down()
     {
+        $this
+            ->dropTable('menuInstances')
+            ->dropTable('menu')
+            ->dropTable('designMenu');
     }
 }

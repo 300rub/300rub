@@ -111,5 +111,9 @@ class M160321000400Search extends AbstractMigration
      */
     protected function down()
     {
+        $this
+            ->dropTable('searchQueries')
+            ->dropTable('search')
+            ->dropTable('designSearch');
     }
 }

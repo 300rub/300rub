@@ -47,5 +47,6 @@ class M160321000000Feedback extends AbstractMigration
      */
     protected function down()
     {
+        $this->dropTable('feedback');
     }
 }

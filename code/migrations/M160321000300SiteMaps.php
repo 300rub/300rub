@@ -52,5 +52,6 @@ class M160321000300SiteMaps extends AbstractMigration
      */
     protected function down()
     {
+        $this->dropTable('siteMaps');
     }
 }

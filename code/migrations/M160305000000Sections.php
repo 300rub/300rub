@@ -55,5 +55,6 @@ class M160305000000Sections extends AbstractMigration
      */
     protected function down()
     {
+        $this->dropTable('sections');
     }
 }

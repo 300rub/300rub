@@ -89,5 +89,6 @@ class M160302000010DesignBlocks extends AbstractMigration
      */
     protected function down()
     {
+        $this->dropTable('designBlocks');
     }
 }

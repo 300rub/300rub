@@ -40,5 +40,6 @@ class M160303000000Seo extends AbstractMigration
      */
     protected function down()
     {
+        $this->dropTable('seo');
     }
 }

@@ -409,5 +409,11 @@ class M160321000100Records extends AbstractMigration
      */
     protected function down()
     {
+        $this
+            ->dropTable('recordInstances')
+            ->dropTable('recordClones')
+            ->dropTable('designRecordClones')
+            ->dropTable('records')
+            ->dropTable('designRecords');
     }
 }

@@ -47,5 +47,6 @@ class M160302000005Blocks extends AbstractMigration
      */
     protected function down()
     {
+        $this->dropTable('blocks');
     }
 }

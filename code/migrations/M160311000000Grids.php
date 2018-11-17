@@ -72,5 +72,8 @@ class M160311000000Grids extends AbstractMigration
      */
     protected function down()
     {
+        $this
+            ->dropTable('grids')
+            ->dropTable('gridLines');
     }
 }

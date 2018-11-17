@@ -267,5 +267,14 @@ class M160307000000Users extends AbstractMigration
      */
     protected function down()
     {
+        $this
+            ->dropTable('userEvents')
+            ->dropTable('userSettingsOperations')
+            ->dropTable('userSectionGroupOperations')
+            ->dropTable('userSectionOperations')
+            ->dropTable('userBlockGroupOperations')
+            ->dropTable('userBlockOperations')
+            ->dropTable('userSessions')
+            ->dropTable('users');
     }
 }

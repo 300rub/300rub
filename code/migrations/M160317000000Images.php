@@ -353,5 +353,13 @@ class M160317000000Images extends AbstractMigration
      */
     protected function down()
     {
+        $this
+            ->dropTable('imageInstances')
+            ->dropTable('imageGroups')
+            ->dropTable('images')
+            ->dropTable('designImageSliders')
+            ->dropTable('designImageZooms')
+            ->dropTable('designImageSimple')
+            ->dropTable('designImageAlbums');
     }
 }

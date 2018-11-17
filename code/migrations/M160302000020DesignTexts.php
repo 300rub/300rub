@@ -52,5 +52,6 @@ class M160302000020DesignTexts extends AbstractMigration
      */
     protected function down()
     {
+        $this->dropTable('designTexts');
     }
 }
