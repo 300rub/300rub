@@ -54,6 +54,6 @@ class UpdateStagingCommand extends AbstractCommand
             ]
         );
 
-        var_dump($result);
+        var_dump($result['Command']['CommandId']);
     }
 }
