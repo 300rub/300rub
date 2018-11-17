@@ -337,14 +337,14 @@ class MigrateCommand extends AbstractCommand
 
             $this->output($version);
 
-            $migrationModel->delete();
-
             if (empty($sqlDown) === true) {
                 continue;
             }
 
             $migration = new Migrations();
             $migration->execute($sqlDown);
+
+            $migrationModel->delete();
         }
 
         return $this;
