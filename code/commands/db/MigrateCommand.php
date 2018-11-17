@@ -180,8 +180,7 @@ class MigrateCommand extends AbstractCommand
                     $site['dbPassword'],
                     $site['dbName']
                 )
-                ->setActivePdoKey($site['dbName'])
-                ->beginTransaction($site['dbName']);
+                ->setActivePdoKey($site['dbName']);
 
             try {
                 $this
@@ -208,13 +207,9 @@ class MigrateCommand extends AbstractCommand
                 $this->_down();
                 $this->_uo();
 
-                $dbObject
-                    ->commit($site['dbName'])
-                    ->deletePdo($site['dbName']);
+                $dbObject->deletePdo($site['dbName']);
             } catch (\Exception $e) {
-                $dbObject
-                    ->rollBack($site['dbName'])
-                    ->deletePdo($site['dbName']);
+                $dbObject->deletePdo($site['dbName']);
 
                 throw new MigrationException(
                     'An error occurred while applying migration ' .
