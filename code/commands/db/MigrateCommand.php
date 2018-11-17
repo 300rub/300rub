@@ -46,6 +46,20 @@ class MigrateCommand extends AbstractCommand
     private $_files = [];
 
     /**
+     * Current migration
+     *
+     * @var string
+     */
+    private $_currentMigration = '';
+
+    /**
+     * Current SQL
+     *
+     * @var string
+     */
+    private $_currentSql = '';
+
+    /**
      * Runs the command
      *
      * @return void
@@ -191,9 +205,8 @@ class MigrateCommand extends AbstractCommand
                         )
                     );
 
-                $this
-                    ->_down()
-                    ->_uo();
+                $this->_down();
+                $this->_uo();
 
                 $dbObject
                     ->commit($site['dbName'])
@@ -206,13 +219,16 @@ class MigrateCommand extends AbstractCommand
                 throw new MigrationException(
                     'An error occurred while applying migration ' .
                     'for site ID: {siteId}, name: {siteName} ' .
-                    'Error: {error}, file: {file}, line: {line}',
+                    'Error: {error}, file: {file}, line: {line}. ' .
+                    'Migration: {migration}, SQL: {sql}',
                     [
-                        'siteId'   => $site['id'],
-                        'siteName' => $site['name'],
-                        'error'    => $e->getMessage(),
-                        'file'     => $e->getFile(),
-                        'line'     => $e->getLine(),
+                        'siteId'    => $site['id'],
+                        'siteName'  => $site['name'],
+                        'error'     => $e->getMessage(),
+                        'file'      => $e->getFile(),
+                        'line'      => $e->getLine(),
+                        'migration' => $this->_currentMigration,
+                        'sql'       => $this->_currentSql,
                     ]
                 );
             }
@@ -243,9 +259,14 @@ class MigrateCommand extends AbstractCommand
         foreach ($this->_migrationsUp as $migrationName) {
             $migration = $this->_getMigrationByName($migrationName);
 
-            $this->output($migrationName, true);
+            $this->output($migrationName);
+
+            $this->_currentMigration = $migrationName;
 
             $sqlUp = $migration->generateSqlUp();
+
+            $this->_currentSql = $sqlUp;
+
             $sqlDown = $migration->generateSqlDown();
 
             $migration->execute($sqlUp);
@@ -308,17 +329,22 @@ class MigrateCommand extends AbstractCommand
         }
 
         foreach ($this->_migrationsDown as $migrationModel) {
-            $this->output($migrationModel->get('version'), true);
+            $version = $migrationModel->get('version');
+            $sqlDown = $migrationModel->get('down');
+
+            $this->_currentMigration = $version;
+            $this->_currentSql = $sqlDown;
+
+            $this->output($version);
 
             $migrationModel->delete();
 
-            $down = $migrationModel->get('down');
-            if (empty($down) === true) {
+            if (empty($sqlDown) === true) {
                 continue;
             }
 
             $migration = new Migrations();
-            $migration->execute($migrationModel->get('down'));
+            $migration->execute($sqlDown);
         }
 
         return $this;
