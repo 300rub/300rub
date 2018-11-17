@@ -294,4 +294,26 @@ abstract class AbstractMigration
 
         return $this;
     }
+
+    /**
+     * Drops foreign key
+     *
+     * @param string $table  Table
+     * @param string $column Column
+     *
+     * @return AbstractMigration
+     */
+    public function dropForeignKey($table, $column)
+    {
+        $this->_addSql(
+            sprintf(
+                'ALTER TABLE %s DROP FOREIGN KEY %s_%s_fk;',
+                $table,
+                $table,
+                $column
+            )
+        );
+
+        return $this;
+    }
 }

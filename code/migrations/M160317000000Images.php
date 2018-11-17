@@ -354,6 +354,7 @@ class M160317000000Images extends AbstractMigration
     protected function down()
     {
         $this
+            ->dropForeignKey('designBlocks', 'imageInstanceId')
             ->dropTable('imageInstances')
             ->dropTable('imageGroups')
             ->dropTable('images')
