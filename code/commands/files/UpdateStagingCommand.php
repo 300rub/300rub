@@ -4,6 +4,7 @@ namespace ss\commands\files;
 
 use Aws\Ssm\SsmClient;
 use ss\application\App;
+use ss\application\exceptions\CommonException;
 use ss\commands\_abstract\AbstractCommand;
 
 /**
@@ -56,6 +57,12 @@ class UpdateStagingCommand extends AbstractCommand
 
         $commandId = $result['Command']['CommandId'];
 
+        $result = $ssmClient->listCommandInvocations([
+            'CommandId' => $commandId,
+        ]);
+
+        var_dump($result);
+
         sleep(2);
 
         $result = $ssmClient->listCommandInvocations([
@@ -63,6 +70,9 @@ class UpdateStagingCommand extends AbstractCommand
         ]);
 
         foreach ($result['CommandInvocations'] as $commandInvocations) {
+            if ($commandInvocations['Status'] !== 'Success') {
+                throw new CommonException('Error');
+            }
             var_dump($commandInvocations['Status']);
         }
     }
