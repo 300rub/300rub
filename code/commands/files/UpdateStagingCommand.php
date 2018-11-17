@@ -55,7 +55,9 @@ class UpdateStagingCommand extends AbstractCommand
         );
 
         $commandId = $result['Command']['CommandId'];
-        
+
+        sleep(2);
+
         $result = $ssmClient->listCommandInvocations([
             'CommandId' => $commandId,
         ]);
