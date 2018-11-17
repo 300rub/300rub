@@ -62,6 +62,8 @@ class UpdateStagingCommand extends AbstractCommand
             'CommandId' => $commandId,
         ]);
 
-        var_dump($result);
+        foreach ($result['CommandInvocations'] as $commandInvocations) {
+            var_dump($commandInvocations['Status']);
+        }
     }
 }
