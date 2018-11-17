@@ -54,6 +54,12 @@ class UpdateStagingCommand extends AbstractCommand
             ]
         );
 
-        var_dump($result['Command']['CommandId']);
+        $commandId = $result['Command']['CommandId'];
+        
+        $result = $ssmClient->listCommandInvocations([
+            'CommandId' => $commandId,
+        ]);
+
+        var_dump($result);
     }
 }
