@@ -35,16 +35,16 @@ class M160317000000Images extends AbstractMigration
     private function _createDesignImageAlbum()
     {
         return $this->
-        createTable(
-            'designImageAlbums',
-            [
-                'id'                     => self::TYPE_PK,
-                'containerDesignBlockId' => self::TYPE_FK,
-                'imageDesignBlockId'     => self::TYPE_FK,
-                'nameDesignBlockId'      => self::TYPE_FK,
-                'nameDesignTextId'       => self::TYPE_FK,
-            ]
-        )
+            createTable(
+                'designImageAlbums',
+                [
+                    'id'                     => self::TYPE_PK,
+                    'containerDesignBlockId' => self::TYPE_FK,
+                    'imageDesignBlockId'     => self::TYPE_FK,
+                    'nameDesignBlockId'      => self::TYPE_FK,
+                    'nameDesignTextId'       => self::TYPE_FK,
+                ]
+            )
             ->createForeignKey(
                 'designImageAlbums',
                 'containerDesignBlockId',
