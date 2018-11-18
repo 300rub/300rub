@@ -15,11 +15,72 @@ class UpdateStagingCommand extends AbstractCommand
 {
 
     /**
+     * Attempts
+     */
+    const ATTEMPTS = 10;
+
+    /**
+     * Instance IDs
+     *
+     * @var string[]
+     */
+    private $_instanceIds = [];
+
+    /**
+     * Command ID
+     *
+     * @var string
+     */
+    private $_commandId = '';
+
+    /**
      * Runs the command
      *
      * @return void
      */
     public function run()
+    {
+        $this
+            ->_setInstanceIds()
+            ->_runCommand();
+
+    }
+
+    /**
+     * Sets instance IDs
+     *
+     * @return UpdateStagingCommand
+     */
+    private function _setInstanceIds()
+    {
+        $this->_instanceIds = [];
+
+        $awsClient = App::getInstance()
+            ->getConfig()
+            ->getValue(['aws', 'client']);
+
+        $autoScalingClient = new AutoScalingClient(
+            [
+                'profile' => $awsClient['profile'],
+                'region'  => $awsClient['region'],
+                'version' => $awsClient['version'],
+            ]
+        );
+        $result = $autoScalingClient->describeAutoScalingInstances([]);
+
+        foreach ($result['AutoScalingInstances'] as $instance) {
+            $this->_instanceIds[] = $instance['InstanceId'];
+        }
+
+        return $this;
+    }
+
+    /**
+     * Runs command
+     *
+     * @return UpdateStagingCommand
+     */
+    private function _runCommand()
     {
         $awsClient = App::getInstance()
             ->getConfig()
@@ -56,36 +117,54 @@ class UpdateStagingCommand extends AbstractCommand
             ]
         );
 
-        $commandId = $result['Command']['CommandId'];
+        $this->_commandId = $result['Command']['CommandId'];
 
-        $result = $ssmClient->listCommandInvocations([
-            'CommandId' => $commandId,
-        ]);
+        return $this;
+    }
 
-//        var_dump($result);
-//
-//        sleep(2);
-//
-//        $result = $ssmClient->listCommandInvocations([
-//            'CommandId' => $commandId,
-//        ]);
-//
-//        foreach ($result['CommandInvocations'] as $commandInvocations) {
-//            if ($commandInvocations['Status'] !== 'Success') {
-//                throw new CommonException('Error');
-//            }
-//            var_dump($commandInvocations['Status']);
-//        }
+    /**
+     * Check status
+     *
+     * @param int $attempt Attempt
+     *
+     * @return UpdateStagingCommand
+     *
+     * @throws CommonException
+     */
+    private function _checkStatus($attempt = 0)
+    {
+        if ($attempt > self::ATTEMPTS) {
+            return $this;
+        }
 
-        $autoScalingClient = new AutoScalingClient(
+        sleep(1);
+
+        $awsClient = App::getInstance()
+            ->getConfig()
+            ->getValue(['aws', 'client']);
+
+        $ssmClient = new SsmClient(
             [
                 'profile' => $awsClient['profile'],
                 'region'  => $awsClient['region'],
                 'version' => $awsClient['version'],
             ]
         );
-        $result = $autoScalingClient->describeAutoScalingInstances([]);
 
-        var_dump($result);
+        $result = $ssmClient->listCommandInvocations([
+            'CommandId' => $this->_commandId,
+        ]);
+
+        if (count($result['CommandInvocations']) < count($this->_instanceIds)) {
+            return $this->_checkStatus($attempt + 1);
+        }
+
+        foreach ($result['CommandInvocations'] as $commandInvocations) {
+            if ($commandInvocations['Status'] !== 'Success') {
+                throw new CommonException('Error');
+            }
+        }
+
+        return $this;
     }
 }
