@@ -42,8 +42,8 @@ class UpdateStagingCommand extends AbstractCommand
     {
         $this
             ->_setInstanceIds()
-            ->_runCommand();
-
+            ->_runCommand()
+            ->_checkStatus();
     }
 
     /**
@@ -71,6 +71,11 @@ class UpdateStagingCommand extends AbstractCommand
         foreach ($result['AutoScalingInstances'] as $instance) {
             $this->_instanceIds[] = $instance['InstanceId'];
         }
+
+        $this->output(
+            'Instances: %s',
+            implode(', ', $this->_instanceIds)
+        );
 
         return $this;
     }
@@ -119,6 +124,11 @@ class UpdateStagingCommand extends AbstractCommand
 
         $this->_commandId = $result['Command']['CommandId'];
 
+        $this->output(
+            'Command ID: %s',
+            $this->_commandId
+        );
+
         return $this;
     }
 
@@ -131,13 +141,18 @@ class UpdateStagingCommand extends AbstractCommand
      *
      * @throws CommonException
      */
-    private function _checkStatus($attempt = 0)
+    private function _checkStatus($attempt = 1)
     {
         if ($attempt > self::ATTEMPTS) {
             return $this;
         }
 
         sleep(1);
+
+        $this->output(
+            'Checking. %s attempt...',
+            $attempt
+        );
 
         $awsClient = App::getInstance()
             ->getConfig()
