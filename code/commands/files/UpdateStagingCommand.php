@@ -2,6 +2,7 @@
 
 namespace ss\commands\files;
 
+use Aws\AutoScaling\AutoScalingClient;
 use Aws\Ssm\SsmClient;
 use ss\application\App;
 use ss\application\exceptions\CommonException;
@@ -61,19 +62,30 @@ class UpdateStagingCommand extends AbstractCommand
             'CommandId' => $commandId,
         ]);
 
+//        var_dump($result);
+//
+//        sleep(2);
+//
+//        $result = $ssmClient->listCommandInvocations([
+//            'CommandId' => $commandId,
+//        ]);
+//
+//        foreach ($result['CommandInvocations'] as $commandInvocations) {
+//            if ($commandInvocations['Status'] !== 'Success') {
+//                throw new CommonException('Error');
+//            }
+//            var_dump($commandInvocations['Status']);
+//        }
+
+        $autoScalingClient = new AutoScalingClient(
+            [
+                'profile' => $awsClient['profile'],
+                'region'  => $awsClient['region'],
+                'version' => $awsClient['version'],
+            ]
+        );
+        $result = $autoScalingClient->describeAutoScalingInstances([]);
+
         var_dump($result);
-
-        sleep(2);
-
-        $result = $ssmClient->listCommandInvocations([
-            'CommandId' => $commandId,
-        ]);
-
-        foreach ($result['CommandInvocations'] as $commandInvocations) {
-            if ($commandInvocations['Status'] !== 'Success') {
-                throw new CommonException('Error');
-            }
-            var_dump($commandInvocations['Status']);
-        }
     }
 }
