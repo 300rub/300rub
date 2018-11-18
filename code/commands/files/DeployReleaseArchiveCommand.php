@@ -14,11 +14,6 @@ class DeployReleaseArchiveCommand extends AbstractCommand
 {
 
     /**
-     * How many releases to keep
-     */
-    const LIMIT = 5;
-
-    /**
      * Runs the command
      *
      * @return void
@@ -44,8 +39,6 @@ class DeployReleaseArchiveCommand extends AbstractCommand
             ->getConfig()
             ->getValue(['aws', 's3', 'buckets', 'release']);
 
-        $key = $this->getArg(0);
-
         try {
             $s3Client = new S3Client(
                 [
@@ -58,40 +51,10 @@ class DeployReleaseArchiveCommand extends AbstractCommand
             $s3Client->putObject(
                 [
                     'Bucket'     => $bucket,
-                    'Key'        => $key,
+                    'Key'        => 'staging.tar.gz',
                     'SourceFile' => $file,
                 ]
             );
-
-            $listObjects = $s3Client->listObjects(
-                [
-                    'Bucket' => $bucket
-                ]
-            );
-
-            $contents = $listObjects->get('Contents');
-
-            $releases = [];
-            foreach ($contents as $content) {
-                $releases[] = (int)$content['Key'];
-            }
-
-            rsort($releases);
-            $number = 0;
-            foreach ($releases as $release) {
-                $number++;
-
-                if ($number <= self::LIMIT) {
-                    continue;
-                }
-
-                $s3Client->deleteObject(
-                    [
-                        'Bucket' => $bucket,
-                        'Key'    => $release,
-                    ]
-                );
-            }
         } catch (\Exception $e) {
             throw new FileException($e->getMessage());
         }

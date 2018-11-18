@@ -109,9 +109,12 @@ class UpdateStagingCommand extends AbstractCommand
                 'MaxErrors'       => '1',
                 'Parameters'      => [
                     'commands'         => [
-                        'mkdir /var/www/test6',
+                        'mkdir -p /var/www/archives',
+                        'aws s3 cp s3://supers-releases/staging.tar.gz /var/www/archives/staging.tar.gz',
+                        'rm -rf /var/www/archives/staging',
+                        'tar -xvzf /var/www/archives/staging.tar.gz /var/www/archives/staging',
                     ],
-                    'workingDirectory' => ['/var/www'],
+                    //'workingDirectory' => ['/var/www/archives'],
                 ],
                 'Targets'         => [
                     [
