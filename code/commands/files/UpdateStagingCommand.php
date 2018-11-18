@@ -73,8 +73,10 @@ class UpdateStagingCommand extends AbstractCommand
         }
 
         $this->output(
-            'Instances: %s',
-            implode(', ', $this->_instanceIds)
+            sprintf(
+                'Instances: %s',
+                implode(', ', $this->_instanceIds)
+            )
         );
 
         return $this;
@@ -125,8 +127,10 @@ class UpdateStagingCommand extends AbstractCommand
         $this->_commandId = $result['Command']['CommandId'];
 
         $this->output(
-            'Command ID: %s',
-            $this->_commandId
+            sprintf(
+                'Command ID: %s',
+                $this->_commandId
+            )
         );
 
         return $this;
@@ -150,8 +154,10 @@ class UpdateStagingCommand extends AbstractCommand
         sleep(1);
 
         $this->output(
-            'Checking. %s attempt...',
-            $attempt
+            sprintf(
+                'Checking. %s attempt...',
+                $attempt
+            )
         );
 
         $awsClient = App::getInstance()
