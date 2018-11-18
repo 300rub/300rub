@@ -112,7 +112,8 @@ class UpdateStagingCommand extends AbstractCommand
                         'mkdir -p /var/www/archives',
                         'aws s3 cp s3://supers-releases/staging.tar.gz /var/www/archives/staging.tar.gz',
                         'rm -rf /var/www/archives/staging',
-                        'tar -xvzf /var/www/archives/staging.tar.gz /var/www/archives/staging',
+                        'cd /var/www/archives',
+                        'tar -xvzf /var/www/archives/staging.tar.gz',
                     ],
                     //'workingDirectory' => ['/var/www/archives'],
                 ],
@@ -184,6 +185,8 @@ class UpdateStagingCommand extends AbstractCommand
         }
 
         foreach ($result['CommandInvocations'] as $commandInvocations) {
+            var_dump($commandInvocations['Status']);
+
             if ($commandInvocations['Status'] !== 'Success') {
                 throw new CommonException('Error');
             }
