@@ -113,6 +113,7 @@ class UpdateStagingCommand extends AbstractCommand
                         'mkdir -p /var/www/archives/staging',
                         'mkdir -p /var/www/staging',
                         'mkdir -p /var/www/staging/code',
+                        'mkdir -p -m 0777 /var/www/staging/logs',
                         'rm -rf /var/www/archives/staging/code',
                         'cd /var/www/archives/staging',
                         'aws s3 cp s3://supers-releases/staging.tar.gz /var/www/archives/staging/staging.tar.gz',
