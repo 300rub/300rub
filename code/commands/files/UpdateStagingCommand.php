@@ -119,6 +119,19 @@ class UpdateStagingCommand extends AbstractCommand
                         'aws s3 cp s3://supers-releases/staging.tar.gz /var/www/archives/staging/staging.tar.gz',
                         'tar -xvzf /var/www/archives/staging/staging.tar.gz',
                         'rsync -avzh /var/www/archives/staging/code /var/www/staging',
+
+                        'aws s3 cp /var/www/archives/staging/staging.tar.gz s3://supers-releases/prod.tar.gz',
+
+                        'mkdir -p /var/www/archives',
+                        'mkdir -p /var/www/archives/prod',
+                        'mkdir -p /var/www/staging',
+                        'mkdir -p /var/www/staging/prod',
+                        'mkdir -p -m 0777 /var/www/prod/logs',
+                        'rm -rf /var/www/archives/prod/code',
+                        'cd /var/www/archives/prod',
+                        'aws s3 cp s3://supers-releases/prod.tar.gz /var/www/archives/staging/prod.tar.gz',
+                        'tar -xvzf /var/www/archives/prod/prod.tar.gz',
+                        'rsync -avzh /var/www/archives/prod/code /var/www/prod',
                     ],
                 ],
                 'Targets'         => [
