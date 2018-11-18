@@ -74,7 +74,7 @@ class UpdateStagingCommand extends AbstractCommand
 
         $this->output(
             sprintf(
-                'Instances: %s',
+                'Instance IDs: %s',
                 implode(', ', $this->_instanceIds)
             )
         );
@@ -109,7 +109,7 @@ class UpdateStagingCommand extends AbstractCommand
                 'MaxErrors'       => '1',
                 'Parameters'      => [
                     'commands'         => [
-                        'mkdir /var/www/test5',
+                        'mkdir /var/www/test6',
                     ],
                     'workingDirectory' => ['/var/www'],
                 ],
@@ -185,6 +185,8 @@ class UpdateStagingCommand extends AbstractCommand
                 throw new CommonException('Error');
             }
         }
+
+        $this->output('Success');
 
         return $this;
     }
