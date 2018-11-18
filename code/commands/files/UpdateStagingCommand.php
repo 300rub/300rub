@@ -17,7 +17,7 @@ class UpdateStagingCommand extends AbstractCommand
     /**
      * Attempts
      */
-    const ATTEMPTS = 20;
+    const ATTEMPTS = 30;
 
     /**
      * Instance IDs
@@ -115,6 +115,7 @@ class UpdateStagingCommand extends AbstractCommand
                         'cd /var/www/archives/staging',
                         'aws s3 cp s3://supers-releases/staging.tar.gz /var/www/archives/staging/staging.tar.gz',
                         'tar -xvzf /var/www/archives/staging/staging.tar.gz',
+                        'rsync -avzh /var/www/archives/staging/code /var/www/staging',
                     ],
                 ],
                 'Targets'         => [
@@ -155,7 +156,7 @@ class UpdateStagingCommand extends AbstractCommand
             return $this;
         }
 
-        sleep(2);
+        sleep(4);
 
         $this->output(
             sprintf(
