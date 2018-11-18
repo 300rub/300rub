@@ -129,7 +129,7 @@ class UpdateStagingCommand extends AbstractCommand
                         'mkdir -p -m 0777 /var/www/prod/logs',
                         'rm -rf /var/www/archives/prod/code',
                         'cd /var/www/archives/prod',
-                        'aws s3 cp s3://supers-releases/prod.tar.gz /var/www/archives/staging/prod.tar.gz',
+                        'aws s3 cp s3://supers-releases/prod.tar.gz /var/www/archives/prod/prod.tar.gz',
                         'tar -xvzf /var/www/archives/prod/prod.tar.gz',
                         'rsync -avzh /var/www/archives/prod/code /var/www/prod',
                     ],
