@@ -17,7 +17,7 @@ class UpdateStagingCommand extends AbstractCommand
     /**
      * Attempts
      */
-    const ATTEMPTS = 10;
+    const ATTEMPTS = 20;
 
     /**
      * Instance IDs
@@ -155,7 +155,7 @@ class UpdateStagingCommand extends AbstractCommand
             return $this;
         }
 
-        sleep(1);
+        sleep(2);
 
         $this->output(
             sprintf(
