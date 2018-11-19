@@ -1,6 +1,6 @@
 <?php
 
-namespace ss\commands\files;
+namespace ss\commands\prod\_abstract;
 
 use Aws\AutoScaling\AutoScalingClient;
 use Aws\Ssm\SsmClient;
@@ -9,15 +9,20 @@ use ss\application\exceptions\CommonException;
 use ss\commands\_abstract\AbstractCommand;
 
 /**
- *  Command to update staging
+ * Abstract class to run and check command
  */
-class UpdateStagingCommand extends AbstractCommand
+abstract class AbstractRunCommand extends AbstractCommand
 {
 
     /**
      * Attempts
      */
     const ATTEMPTS = 30;
+
+    /**
+     * Check timeout
+     */
+    const CHECK_TIMEOUT = 2;
 
     /**
      * Instance IDs
@@ -34,22 +39,45 @@ class UpdateStagingCommand extends AbstractCommand
     private $_commandId = '';
 
     /**
-     * Runs the command
+     * Commands
      *
-     * @return void
+     * @var string[]
      */
-    public function run()
+    private $_commands = [];
+
+    /**
+     * Runs command
+     *
+     * @param string[] $commands List of commands
+     *
+     * @return AbstractRunCommand
+     */
+    protected function runCommands($commands)
     {
-        $this
+        return $this
+            ->_setCommands($commands)
             ->_setInstanceIds()
             ->_runCommand()
             ->_checkStatus();
     }
 
     /**
+     * Sets commands
+     *
+     * @param string[] $commands List of commands
+     *
+     * @return AbstractRunCommand
+     */
+    private function _setCommands($commands)
+    {
+        $this->_commands = $commands;
+        return $this;
+    }
+
+    /**
      * Sets instance IDs
      *
-     * @return UpdateStagingCommand
+     * @return AbstractRunCommand
      */
     private function _setInstanceIds()
     {
@@ -85,7 +113,7 @@ class UpdateStagingCommand extends AbstractCommand
     /**
      * Runs command
      *
-     * @return UpdateStagingCommand
+     * @return AbstractRunCommand
      */
     private function _runCommand()
     {
@@ -103,38 +131,14 @@ class UpdateStagingCommand extends AbstractCommand
 
         $result = $ssmClient->sendCommand(
             [
-                'Comment'         => 'Hello comment',
-                'DocumentName'    => 'AWS-RunShellScript',
-                'MaxConcurrency'  => '100%',
-                'MaxErrors'       => '1',
-                'Parameters'      => [
-                    'commands'         => [
-                        'mkdir -p /var/www/archives',
-                        'mkdir -p /var/www/archives/staging',
-                        'mkdir -p /var/www/staging',
-                        'mkdir -p /var/www/staging/code',
-                        'mkdir -p -m 0777 /var/www/staging/logs',
-                        'rm -rf /var/www/archives/staging/code',
-                        'cd /var/www/archives/staging',
-                        'aws s3 cp s3://supers-releases/staging.tar.gz /var/www/archives/staging/staging.tar.gz',
-                        'tar -xvzf /var/www/archives/staging/staging.tar.gz',
-                        'rsync -avzh /var/www/archives/staging/code /var/www/staging',
-
-                        'aws s3 cp /var/www/archives/staging/staging.tar.gz s3://supers-releases/prod.tar.gz',
-
-                        'mkdir -p /var/www/archives',
-                        'mkdir -p /var/www/archives/prod',
-                        'mkdir -p /var/www/staging',
-                        'mkdir -p /var/www/staging/prod',
-                        'mkdir -p -m 0777 /var/www/prod/logs',
-                        'rm -rf /var/www/archives/prod/code',
-                        'cd /var/www/archives/prod',
-                        'aws s3 cp s3://supers-releases/prod.tar.gz /var/www/archives/prod/prod.tar.gz',
-                        'tar -xvzf /var/www/archives/prod/prod.tar.gz',
-                        'rsync -avzh /var/www/archives/prod/code /var/www/prod',
-                    ],
+                'Comment'        => 'Hello comment',
+                'DocumentName'   => 'AWS-RunShellScript',
+                'MaxConcurrency' => '100%',
+                'MaxErrors'      => '1',
+                'Parameters'     => [
+                    'commands' => $this->_commands,
                 ],
-                'Targets'         => [
+                'Targets'        => [
                     [
                         'Key'    => 'tag:aws:autoscaling:groupName',
                         'Values' => [
@@ -162,7 +166,7 @@ class UpdateStagingCommand extends AbstractCommand
      *
      * @param int $attempt Attempt
      *
-     * @return UpdateStagingCommand
+     * @return AbstractRunCommand
      *
      * @throws CommonException
      */
@@ -172,7 +176,7 @@ class UpdateStagingCommand extends AbstractCommand
             return $this;
         }
 
-        sleep(4);
+        sleep(self::CHECK_TIMEOUT);
 
         $this->output(
             sprintf(

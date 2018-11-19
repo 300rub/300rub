@@ -8,9 +8,9 @@ use ss\commands\_abstract\AbstractCommand;
 use Aws\S3\S3Client;
 
 /**
- *  Command to deploy release archive
+ *  Command to deploy staging archive
  */
-class DeployReleaseArchiveCommand extends AbstractCommand
+class DeployStagingArchiveCommand extends AbstractCommand
 {
 
     /**

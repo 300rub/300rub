@@ -41,10 +41,10 @@
         </exec>
     </target>
 
-    <target name="deployment-deploy-release-archive">
+    <target name="deployment-deploy-staging-archive">
         <exec executable="php" failonerror="true">
             <arg value='commands/run' />
-            <arg value='files/DeployReleaseArchiveCommand' />
+            <arg value='prod/DeployStagingArchiveCommand' />
             <arg value='${env.BUILD_NUMBER}' />
         </exec>
     </target>
@@ -52,7 +52,21 @@
     <target name="deployment-update-staging">
         <exec executable="php" failonerror="true">
             <arg value='commands/run' />
-            <arg value='files/UpdateStagingCommand' />
+            <arg value='prod/UpdateStagingCommand' />
+        </exec>
+    </target>
+
+    <target name="deployment-create-prod-archive">
+        <exec executable="php" failonerror="true">
+            <arg value='commands/run' />
+            <arg value='prod/CreateProdArchiveCommand' />
+        </exec>
+    </target>
+
+    <target name="deployment-update-prod">
+        <exec executable="php" failonerror="true">
+            <arg value='commands/run' />
+            <arg value='prod/UpdateProdCommand' />
         </exec>
     </target>
 
@@ -63,37 +77,45 @@
         <antcall target="tools-public-vendor" />
         <antcall target="tools-generate-static" />
 
-        <!--<if>-->
-            <!--<equals arg1="${env.DB}" arg2="true"/>-->
-            <!--<then>-->
-                <!--<antcall target="db-generate-source" />-->
-            <!--</then>-->
-        <!--</if>-->
+        <if>
+            <equals arg1="${env.DB}" arg2="true"/>
+            <then>
+                <antcall target="db-generate-source" />
+            </then>
+        </if>
 
-        <!--<if>-->
-            <!--<equals arg1="${env.PHPUNIT}" arg2="true"/>-->
-            <!--<then>-->
-                <!--<antcall target="test-phpunit-reload-fixtures" />-->
-            <!--</then>-->
-        <!--</if>-->
+        <if>
+            <equals arg1="${env.PHPUNIT}" arg2="true"/>
+            <then>
+                <antcall target="test-phpunit-reload-fixtures" />
+            </then>
+        </if>
 
         <antcall target="deployment-archive" />
-        <antcall target="deployment-deploy-release-archive" />
+        <antcall target="deployment-deploy-staging-archive" />
 
         <antcall target="deployment-update-staging" />
 
-        <!--<if>-->
-            <!--<equals arg1="${env.SELENIUM}" arg2="true"/>-->
-            <!--<then>-->
-                <!--<antcall target="test-selenium-reload-fixtures" />-->
-            <!--</then>-->
-        <!--</if>-->
+        <if>
+            <equals arg1="${env.SELENIUM}" arg2="true"/>
+            <then>
+                <antcall target="test-selenium-reload-fixtures" />
+            </then>
+        </if>
 
-        <!--<if>-->
-            <!--<equals arg1="${env.PROD}" arg2="true"/>-->
-            <!--<then>-->
-                <!--<echo>PROD!!!!!!!</echo>-->
-            <!--</then>-->
-        <!--</if>-->
+        <if>
+            <equals arg1="${env.DB}" arg2="true"/>
+            <then>
+                <antcall target="db-migrate" />
+            </then>
+        </if>
+
+        <if>
+            <equals arg1="${env.PROD}" arg2="true"/>
+            <then>
+                <antcall target="deployment-create-prod-archive" />
+                <antcall target="deployment-update-prod" />
+            </then>
+        </if>
     </target>
 </project>
