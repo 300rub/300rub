@@ -70,6 +70,13 @@
         </exec>
     </target>
 
+    <target name="deployment-reload-nginx">
+        <exec executable="php" failonerror="true">
+            <arg value='commands/run' />
+            <arg value='prod/ReloadNginxCommand' />
+        </exec>
+    </target>
+
     <target name="deployment-release">
         <antcall target="deployment-prepare-folders" />
         <antcall target="deployment-update-release-number" />
@@ -115,6 +122,13 @@
             <then>
                 <antcall target="deployment-create-prod-archive" />
                 <antcall target="deployment-update-prod" />
+            </then>
+        </if>
+
+        <if>
+            <equals arg1="${env.NGINX}" arg2="true"/>
+            <then>
+                <antcall target="deployment-reload-nginx" />
             </then>
         </if>
     </target>
