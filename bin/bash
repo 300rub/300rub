@@ -1,0 +1,3 @@
+#!/bin/bash
+
+docker exec -it ss_instance_1 bash

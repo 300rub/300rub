@@ -1,7 +1,7 @@
 FROM ss/instance-full
 
 ADD .htpasswd /etc/nginx/
-#ADD default /etc/nginx/sites-available/
+ADD nginx.conf /etc/nginx/
 
 ADD config.ini /etc/php/7.2/fpm/conf.d/
 COPY php-fpm.conf /etc/php/7.2/fpm/
