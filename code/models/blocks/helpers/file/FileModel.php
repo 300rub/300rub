@@ -2,6 +2,7 @@
 
 namespace ss\models\blocks\helpers\file;
 
+use Aws\S3\S3Client;
 use ss\application\App;
 use ss\application\exceptions\FileException;
 use ss\models\blocks\helpers\file\_base\AbstractFileModel;
@@ -73,7 +74,11 @@ class FileModel extends AbstractFileModel
      */
     private function _getProdUrl()
     {
-        return $this->_getDevUrl();
+        return sprintf(
+            App::getInstance()->getConfig()->getValue(['file', 'urlMask']),
+            App::getInstance()->getSite()->getId(),
+            $this->get('uniqueName')
+        );
     }
 
     /**
@@ -195,9 +200,20 @@ class FileModel extends AbstractFileModel
      * Uploads a file
      *
      * @return FileModel
+     *
+     * @throws FileException
      */
     public function upload()
     {
+        if (file_exists($this->_tmpName) === false) {
+            throw new FileException(
+                'Unable to find tmp file with name: {name}',
+                [
+                    'name' => $this->_tmpName
+                ]
+            );
+        }
+
         if (APP_ENV === ENV_DEV) {
             $this->_devUpload();
             return $this;
@@ -216,15 +232,6 @@ class FileModel extends AbstractFileModel
      */
     private function _devUpload()
     {
-        if (file_exists($this->_tmpName) === false) {
-            throw new FileException(
-                'Unable to find tmp file with name: {name}',
-                [
-                    'name' => $this->_tmpName
-                ]
-            );
-        }
-
         $path = sprintf(
             App::getInstance()
                 ->getConfig()
@@ -274,71 +281,59 @@ class FileModel extends AbstractFileModel
      * Uploads a file to S3
      *
      * @return void
+     *
+     * @throws FileException
      */
     private function _prodUpload()
     {
-        $this->_devUpload();
+        try {
+            $awsClient = App::getInstance()
+                ->getConfig()
+                ->getValue(['aws', 'client']);
+            $bucket = App::getInstance()
+                ->getConfig()
+                ->getValue(['aws', 's3', 'buckets', 'main']);
+
+            $key = sprintf(
+                '%s/%s',
+                App::getInstance()->getSite()->getId(),
+                $this->get('uniqueName')
+            );
+
+            $s3Client = new S3Client(
+                [
+                    'profile' => $awsClient['profile'],
+                    'region'  => $awsClient['region'],
+                    'version' => $awsClient['version'],
+                ]
+            );
+
+            $s3Client->putObject(
+                [
+                    'Bucket'     => $bucket,
+                    'Key'        => $key,
+                    'SourceFile' => $this->_tmpName,
+                ]
+            );
+        } catch (\Exception $e) {
+            throw new FileException($e->getMessage());
+        }
     }
 
     /**
      * Deletes file by unique name
      *
-     * @param string $name Unique name
+     * @param string $uniqueName Unique name
      *
      * @return FileModel
      */
-    public function deleteByUniqueName($name)
+    public function deleteByUniqueName($uniqueName)
     {
-        if (APP_ENV === ENV_DEV) {
-            $this->_deleteDevByUniqueName($name);
-            return $this;
-        }
+        RemovedFileModel::model()
+            ->set(['uniqueName' => $uniqueName])
+            ->save();
 
-        $this->_deleteProdByUniqueName($name);
         return $this;
-    }
-
-    /**
-     * Deletes file by unique name locally
-     *
-     * @param string $name Unique name
-     *
-     * @throws FileException
-     *
-     * @return void
-     */
-    private function _deleteDevByUniqueName($name)
-    {
-        $path = sprintf(
-            App::getInstance()
-                ->getConfig()
-                ->getValue(['file', 'pathMask']),
-            App::getInstance()->getSite()->get('name'),
-            $name
-        );
-
-        if (file_exists($path) === true
-            && unlink($path) === false
-        ) {
-            throw new FileException(
-                'Unable to remove file by unique name: {name}',
-                [
-                    'name' => $name,
-                ]
-            );
-        }
-    }
-
-    /**
-     * Deletes file by unique name on S3
-     *
-     * @param string $name Unique name
-     *
-     * @return void
-     */
-    private function _deleteProdByUniqueName($name)
-    {
-        $this->_deleteDevByUniqueName($name);
     }
 
     /**
