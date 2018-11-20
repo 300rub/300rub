@@ -3,7 +3,7 @@
 backups
 logs
 mysql
-jenkins
+jenkins/*
 releases
 upload
 release
