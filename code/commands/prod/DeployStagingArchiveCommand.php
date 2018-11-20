@@ -1,6 +1,6 @@
 <?php
 
-namespace ss\commands\files;
+namespace ss\commands\prod;
 
 use ss\application\App;
 use ss\application\exceptions\FileException;
