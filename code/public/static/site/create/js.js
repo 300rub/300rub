@@ -9,7 +9,7 @@
          *
          * @var {String}
          */
-        parent: "siteCreate",
+        parent: "commonComponentsWindowAbstract",
 
         /**
          * Forms

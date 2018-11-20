@@ -65,7 +65,7 @@ return [
     ],
     'file' => [
         'pathMask' => '/var/www/upload/%s/%s',
-        'urlMask'  => 'http://%s/upload/%s/%s'
+        'urlMask'  => '//%s/upload/%s/%s'
     ],
     'aws' => [
         'client' => [

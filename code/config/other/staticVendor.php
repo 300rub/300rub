@@ -132,6 +132,10 @@ $adminFiles = [
         => "tinymce/tinymce/plugins/table/plugin.min.js",
 ];
 
+$siteCss = [];
+$siteJs = [];
+$siteFiles = [];
+
 return [
     'common' => [
         "css"   => $commonCss,
@@ -142,5 +146,10 @@ return [
         "css"   => $adminCss,
         "js"    => $adminJs,
         "files" => $adminFiles,
+    ],
+    'site' => [
+        "css"   => $siteCss,
+        "js"    => $siteJs,
+        "files" => $siteFiles,
     ]
 ];
