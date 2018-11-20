@@ -1,7 +1,5 @@
 <?php
 
-echo 123; exit;
-
 require __DIR__ . '/../application/App.php';
 
 use ss\application\App;
