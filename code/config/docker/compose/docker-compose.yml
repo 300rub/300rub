@@ -5,7 +5,6 @@ instance:
     ports:
         - "3306:3306"
         - "80:80"
-        - "443:443"
         - "8080:8080"
     extra_hosts:
         - "dev.ss.local:172.17.0.1"
