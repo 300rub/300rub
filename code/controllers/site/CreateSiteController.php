@@ -17,6 +17,11 @@ class CreateSiteController extends AbstractController
 {
 
     /**
+     * Logs file name
+     */
+    const LOG_FILE_NAME = 'create';
+
+    /**
      * Site Model
      *
      * @var SiteModel
@@ -49,6 +54,24 @@ class CreateSiteController extends AbstractController
                 'passwordConfirm' => [self::TYPE_STRING, self::NOT_EMPTY],
                 'language'        => [self::NOT_EMPTY],
             ]
+        );
+
+        App::getInstance()->getLogger()->info(
+            'Creating new user... ' .
+            'name: {name}, userName: {userName}, ' .
+            'email: {email}, user: {user}, ' .
+            'password: {password}, language: {language}',
+            [
+                'name'     => $this->get('name'),
+                'userName' => $this->get('userName'),
+                'email'    => $this->get('email'),
+                'user'     => $this->get('user'),
+                'password' => UserModel::model()->getPasswordHash(
+                    $this->get('password')
+                ),
+                'language' => $this->get('language'),
+            ],
+            self::LOG_FILE_NAME
         );
 
         if ($this->get('password') !== $this->get('passwordConfirm')) {

@@ -1,18 +1,22 @@
 <?php
 
-namespace ss\commands\db;
+namespace ss\application\components\db\sites;
 
 use ss\application\App;
 use ss\application\components\common\Language;
 use ss\application\components\db\Db;
-use ss\commands\db\_abstract\AbstractDbCommand;
 use ss\models\system\SiteModel;
 
 /**
  * Creates source DB
  */
-class CreateSourceDbCommand extends AbstractDbCommand
+class Create
 {
+
+    /**
+     * Max attempts
+     */
+    const MAX_ATTEMPTS = 15;
 
     /**
      * Site Model
@@ -77,9 +81,43 @@ class CreateSourceDbCommand extends AbstractDbCommand
     }
 
     /**
+     * Checks connection
+     *
+     * @param int $attempt Attempt
+     *
+     * @return bool
+     */
+    protected function checkConnection($attempt = 1)
+    {
+        if ($attempt > self::MAX_ATTEMPTS) {
+            return false;
+        }
+
+        $config = App::getInstance()->getConfig();
+        $dbHost = App::getInstance()->getDb()->getRandomDbHost();
+
+        try {
+            $conn = new \PDO(
+                sprintf(
+                    'mysql:host=%s;',
+                    $dbHost
+                ),
+                $config->getValue(['db', 'root', $dbHost, 'user']),
+                $config->getValue(['db', 'root', $dbHost, 'password'])
+            );
+
+            $conn->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
+            return true;
+        } catch (\Exception $e) {
+            sleep(1);
+            return $this->checkConnection($attempt + 1);
+        }
+    }
+
+    /**
      * Creates new site record
      *
-     * @return CreateSourceDbCommand
+     * @return Create
      */
     private function _createNewSiteRecord()
     {
@@ -110,14 +148,14 @@ class CreateSourceDbCommand extends AbstractDbCommand
         $this->_siteModel = new SiteModel();
         $this->_siteModel->set(
             [
-            'name'       => $name,
-            'language'   => Language::LANGUAGE_RU_ID,
-            'email'      => $email,
-            'dbHost'     => 'tmp',
-            'dbUser'     => 'tmp',
-            'dbPassword' => 'tmp',
-            'dbName'     => 'tmp',
-            'isSource'   => true,
+                'name'       => $name,
+                'language'   => Language::LANGUAGE_RU_ID,
+                'email'      => $email,
+                'dbHost'     => 'tmp',
+                'dbUser'     => 'tmp',
+                'dbPassword' => 'tmp',
+                'dbName'     => 'tmp',
+                'isSource'   => true,
             ]
         );
         $this->_siteModel->save();
@@ -128,7 +166,7 @@ class CreateSourceDbCommand extends AbstractDbCommand
     /**
      * Generates DB credentials
      *
-     * @return CreateSourceDbCommand
+     * @return Create
      */
     private function _generateDbCredentials()
     {
@@ -159,7 +197,7 @@ class CreateSourceDbCommand extends AbstractDbCommand
     /**
      * Creates new DBs
      *
-     * @return CreateSourceDbCommand
+     * @return Create
      */
     private function _createNewDb()
     {
@@ -189,7 +227,7 @@ class CreateSourceDbCommand extends AbstractDbCommand
     /**
      * Updates site model
      *
-     * @return CreateSourceDbCommand
+     * @return Create
      */
     private function _updateSiteModel()
     {
@@ -199,10 +237,10 @@ class CreateSourceDbCommand extends AbstractDbCommand
 
         $this->_siteModel->set(
             [
-            'dbHost'     => $this->_dbHost,
-            'dbUser'     => $this->_dbUser,
-            'dbPassword' => $this->_dbPassword,
-            'dbName'     => $this->_dbName,
+                'dbHost'     => $this->_dbHost,
+                'dbUser'     => $this->_dbUser,
+                'dbPassword' => $this->_dbPassword,
+                'dbName'     => $this->_dbName,
             ]
         );
         $this->_siteModel->save();
@@ -213,7 +251,7 @@ class CreateSourceDbCommand extends AbstractDbCommand
     /**
      * Imports source dump
      *
-     * @return CreateSourceDbCommand
+     * @return Create
      */
     private function _importSourceDump()
     {
