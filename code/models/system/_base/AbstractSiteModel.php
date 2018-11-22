@@ -107,7 +107,7 @@ abstract class AbstractSiteModel extends AbstractModel
                 ],
                 self::FIELD_SKIP_DUPLICATION  => true,
             ],
-            'isSource' => [
+            'isDisabled' => [
                 self::FIELD_TYPE => self::FIELD_TYPE_BOOL,
             ],
             'version' => [

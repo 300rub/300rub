@@ -3,6 +3,7 @@
 namespace ss\commands\db\_abstract;
 
 use ss\application\App;
+use ss\application\exceptions\DbException;
 use ss\commands\_abstract\AbstractCommand;
 
 /**
@@ -21,16 +22,23 @@ abstract class AbstractDbCommand extends AbstractCommand
      *
      * @param int $attempt Attempt
      *
-     * @return bool
+     * @return AbstractDbCommand
+     *
+     * @throws DbException
      */
     protected function checkConnection($attempt = 1)
     {
-        if ($attempt > self::MAX_ATTEMPTS) {
-            return false;
-        }
-
         $config = App::getInstance()->getConfig();
         $dbHost = App::getInstance()->getDb()->getRandomDbHost();
+
+        if ($attempt > self::MAX_ATTEMPTS) {
+            throw new DbException(
+                'Unable to connect to BD host: {host}',
+                [
+                    'host' => $dbHost,
+                ]
+            );
+        }
 
         try {
             $conn = new \PDO(
@@ -43,10 +51,11 @@ abstract class AbstractDbCommand extends AbstractCommand
             );
 
             $conn->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
-            return true;
         } catch (\Exception $e) {
             sleep(1);
-            return $this->checkConnection($attempt + 1);
+            $this->checkConnection($attempt + 1);
         }
+
+        return $this;
     }
 }

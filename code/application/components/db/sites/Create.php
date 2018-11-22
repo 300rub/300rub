@@ -5,10 +5,11 @@ namespace ss\application\components\db\sites;
 use ss\application\App;
 use ss\application\components\common\Language;
 use ss\application\components\db\Db;
+use ss\application\exceptions\DbException;
 use ss\models\system\SiteModel;
 
 /**
- * Creates source DB
+ * Creates DB
  */
 class Create
 {
@@ -54,18 +55,15 @@ class Create
     private $_dbName = '';
 
     /**
-     * Runs the command
-     *
-     * @return void
+     * Creates new DB
      *
      * @throws \Exception
      */
-    public function run()
+    public function create()
     {
-        $this->checkConnection();
-
         try {
             $this
+                ->_checkConnection()
                 ->_createNewSiteRecord()
                 ->_generateDbCredentials()
                 ->_createNewDb()
@@ -74,10 +72,18 @@ class Create
 
             App::getInstance()->getDb()->commitAll();
         } catch (\Exception $e) {
-            App::getInstance()->getDb()->rollBackAll();
-
             throw $e;
         }
+    }
+
+    /**
+     * Gets site model
+     *
+     * @return SiteModel
+     */
+    public function getSiteModel()
+    {
+        return $this->_siteModel;
     }
 
     /**
@@ -85,16 +91,23 @@ class Create
      *
      * @param int $attempt Attempt
      *
-     * @return bool
+     * @return Create
+     *
+     * @throws DbException
      */
-    protected function checkConnection($attempt = 1)
+    private function _checkConnection($attempt = 1)
     {
-        if ($attempt > self::MAX_ATTEMPTS) {
-            return false;
-        }
-
         $config = App::getInstance()->getConfig();
         $dbHost = App::getInstance()->getDb()->getRandomDbHost();
+
+        if ($attempt > self::MAX_ATTEMPTS) {
+            throw new DbException(
+                'Unable to connect to BD host: {host}',
+                [
+                    'host' => $dbHost,
+                ]
+            );
+        }
 
         try {
             $conn = new \PDO(
@@ -107,11 +120,12 @@ class Create
             );
 
             $conn->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
-            return true;
         } catch (\Exception $e) {
             sleep(1);
-            return $this->checkConnection($attempt + 1);
+            $this->_checkConnection($attempt + 1);
         }
+
+        return $this;
     }
 
     /**
@@ -155,7 +169,7 @@ class Create
                 'dbUser'     => 'tmp',
                 'dbPassword' => 'tmp',
                 'dbName'     => 'tmp',
-                'isSource'   => true,
+                'isDisabled' => true,
             ]
         );
         $this->_siteModel->save();

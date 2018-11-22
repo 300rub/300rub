@@ -29,7 +29,7 @@ class Sites extends AbstractMigration
                     'dbName'     => self::TYPE_STRING,
                     'language'   => self::TYPE_TINYINT_UNSIGNED,
                     'email'      => self::TYPE_STRING,
-                    'isSource'   => self::TYPE_BOOL,
+                    'isDisabled' => self::TYPE_BOOL,
                     'version'    => self::TYPE_INT_UNSIGNED,
                 ]
             )

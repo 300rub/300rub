@@ -314,23 +314,6 @@ class SiteModel extends AbstractSiteModel
     }
 
     /**
-     * Adds source condition to SQL request
-     *
-     * @return SiteModel
-     */
-    public function source()
-    {
-        $this->getTable()->addWhere(
-            sprintf(
-                '%s.isSource = 1',
-                Table::DEFAULT_ALIAS
-            )
-        );
-
-        return $this;
-    }
-
-    /**
      * Gets Site model
      *
      * @return SiteModel
