@@ -165,6 +165,8 @@ class ImportFixturesCommand extends AbstractCommand
         );
 
         foreach ($this->_fixtureOrder as $fixture => $modelName) {
+            $this->output($fixture);
+
             $filePath = __DIR__ .
                 '/../../fixtures/' .
                 $this->_type .
@@ -205,6 +207,8 @@ class ImportFixturesCommand extends AbstractCommand
         if (file_exists($filePath) === false) {
             return false;
         }
+
+        $this->output('Saving records...');
 
         $records = include $filePath;
         foreach ($records as $data) {
@@ -253,6 +257,8 @@ class ImportFixturesCommand extends AbstractCommand
         }
 
         $map = include $file;
+
+        $this->output('Uploading images...');
 
         foreach ($map as $imageInstanceId => $data) {
             $mimeType = 'application/octet-stream';
@@ -360,7 +366,10 @@ class ImportFixturesCommand extends AbstractCommand
             && array_key_exists('url', $body) === true
         ) {
             $this->output(
-                'File uploaded. URL: ' . $body['url']
+                'File uploaded. URL: {url}',
+                [
+                    'url' => $body['url']
+                ]
             );
 
             return $this;

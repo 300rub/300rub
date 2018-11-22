@@ -186,22 +186,22 @@ class MigrateCommand extends AbstractCommand
                 $this
                     ->output('----------------------------')
                     ->output(
-                        sprintf(
-                            'ID: %s',
-                            $site['id']
-                        )
+                        'Site ID: {id}',
+                        [
+                            'id' => $site['id']
+                        ]
                     )
                     ->output(
-                        sprintf(
-                            'Name: %s',
-                            $site['name']
-                        )
+                        'Name: {name}',
+                        [
+                            'name' => $site['name']
+                        ]
                     )
                     ->output(
-                        sprintf(
-                            'DB: %s',
-                            $site['dbName']
-                        )
+                        'DB: {dbName}',
+                        [
+                            'dbName' => $site['dbName']
+                        ]
                     );
 
                 $this->_down();
@@ -247,7 +247,7 @@ class MigrateCommand extends AbstractCommand
 
         $this->_setMigrationsUp();
         if (count($this->_migrationsUp) === 0) {
-            $this->output('-', true);
+            $this->output('-');
             return $this;
         }
 
@@ -319,7 +319,7 @@ class MigrateCommand extends AbstractCommand
 
         $this->_setMigrationsDown();
         if (count($this->_migrationsDown) === 0) {
-            $this->output('-', true);
+            $this->output('-');
             return $this;
         }
 

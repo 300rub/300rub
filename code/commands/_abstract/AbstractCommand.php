@@ -75,22 +75,30 @@ abstract class AbstractCommand
     /**
      * Outputs text
      *
-     * @param string $text       Text
-     * @param bool   $isSameLine Is the same line
+     * @param string $message    Message
+     * @param array  $parameters Parameters
      *
      * @return AbstractCommand
      */
-    protected function output($text, $isSameLine = null)
+    protected function output($message, array $parameters = [])
     {
-        $prefix = PHP_EOL;
-        if ($isSameLine === true) {
-            $prefix = '';
+        foreach ($parameters as $key => $value) {
+            if (is_array($value) === true) {
+                $value = json_encode($value);
+            }
+
+            $message = str_replace(
+                '{' . $key . '}',
+                '[' . (string)$value . ']',
+                $message
+            );
         }
 
         echo sprintf(
-            '%s%s ',
-            $prefix,
-            $text
+            '%s[%s] %s ',
+            PHP_EOL,
+            date('H:i:s', time()),
+            $message
         );
 
         return $this;

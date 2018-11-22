@@ -101,10 +101,10 @@ abstract class AbstractRunCommand extends AbstractCommand
         }
 
         $this->output(
-            sprintf(
-                'Instance IDs: %s',
-                implode(', ', $this->_instanceIds)
-            )
+            'Instance IDs: {ids}',
+            [
+                'ids' => implode(', ', $this->_instanceIds)
+            ]
         );
 
         return $this;
@@ -152,10 +152,10 @@ abstract class AbstractRunCommand extends AbstractCommand
         $this->_commandId = $result['Command']['CommandId'];
 
         $this->output(
-            sprintf(
-                'Command ID: %s',
-                $this->_commandId
-            )
+            'Command ID: {commandId}',
+            [
+                'commandId' => $this->_commandId
+            ]
         );
 
         return $this;
@@ -179,10 +179,10 @@ abstract class AbstractRunCommand extends AbstractCommand
         sleep(self::CHECK_TIMEOUT);
 
         $this->output(
-            sprintf(
-                'Checking. %s attempt...',
-                $attempt
-            )
+            'Checking. {attempt} attempt...',
+            [
+                'attempt' => $attempt
+            ]
         );
 
         $awsClient = App::getInstance()
