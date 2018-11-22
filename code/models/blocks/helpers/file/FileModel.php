@@ -59,6 +59,7 @@ class FileModel extends AbstractFileModel
     {
         return sprintf(
             App::getInstance()->getConfig()->getValue(['file', 'urlMask']),
+            'http',
             App::getInstance()
                 ->getSuperGlobalVariable()
                 ->getServerValue('HTTP_HOST'),
@@ -74,8 +75,17 @@ class FileModel extends AbstractFileModel
      */
     private function _getProdUrl()
     {
+        $method = 'http';
+        $isHttps = App::getInstance()
+            ->getSuperGlobalVariable()
+            ->isHttps();
+        if ($isHttps === true) {
+            $method = 'https';
+        }
+
         return sprintf(
             App::getInstance()->getConfig()->getValue(['file', 'urlMask']),
+            $method,
             App::getInstance()->getSite()->getId(),
             $this->get('uniqueName')
         );

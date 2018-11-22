@@ -305,7 +305,7 @@ class ImportFixturesCommand extends AbstractCommand
      * @param string $mimeType   Mime type
      * @param int    $language   Language
      *
-     * @return void
+     * @return ImportFixturesCommand
      */
     private function _sendFile(
         $group,
@@ -350,7 +350,25 @@ class ImportFixturesCommand extends AbstractCommand
             ]
         );
 
-        curl_exec($curl);
+        $body = curl_exec($curl);
+
+        if (is_string($body) === true) {
+            $body = json_decode($body, true);
+        }
+
+        if (is_array($body) === true
+            && array_key_exists('url', $body) === true
+        ) {
+            $this->output(
+                'File uploaded. URL: ' . $body['url']
+            );
+
+            return $this;
+        }
+
+        $this->output(json_encode($body));
+
+        return $this;
     }
 
     /**
