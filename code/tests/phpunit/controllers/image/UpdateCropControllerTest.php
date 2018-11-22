@@ -2,7 +2,6 @@
 
 namespace ss\tests\phpunit\controllers\image;
 
-use ss\application\App;
 use ss\models\blocks\image\ImageInstanceModel;
 use ss\tests\phpunit\controllers\_abstract\AbstractControllerTest;
 
@@ -26,8 +25,6 @@ class UpdateCropControllerTest extends AbstractControllerTest
      */
     public function testUpdateImage($user, $file, $data, $hasError = null)
     {
-        $config = App::getInstance()->getConfig();
-
         // Create new one.
         $this->setUser(self::TYPE_FULL);
         $this->sendFile(
@@ -42,19 +39,7 @@ class UpdateCropControllerTest extends AbstractControllerTest
 
         // Gets parameters of created.
         $body = $this->getBody();
-
         $resultId = $body['id'];
-        $thumbFileName = explode('/', $body['url']);
-        $thumbFileName = end($thumbFileName);
-
-        // Make sure that files exist.
-        $this->assertFileExists(
-            sprintf(
-                $config->getValue(['file', 'pathMask']),
-                App::getInstance()->getSite()->get('name'),
-                $thumbFileName
-            )
-        );
 
         // Update.
         $this->setUser($user);

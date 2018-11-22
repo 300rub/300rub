@@ -2,7 +2,6 @@
 
 namespace ss\tests\phpunit\controllers\image;
 
-use ss\application\App;
 use ss\models\blocks\image\ImageInstanceModel;
 use ss\tests\phpunit\controllers\_abstract\AbstractControllerTest;
 
@@ -52,12 +51,6 @@ class CreateImageControllerTest extends AbstractControllerTest
 
         $thumbFileExplode = explode('/', $body['url']);
         $thumbFile = $thumbFileExplode[(count($thumbFileExplode) - 1)];
-        $thumbFilePath = sprintf(
-            App::getInstance()->getConfig()->getValue(['file', 'pathMask']),
-            App::getInstance()->getSite()->get('name'),
-            $thumbFile
-        );
-        $this->assertTrue(file_exists($thumbFilePath));
 
         $imageInstanceModel = ImageInstanceModel::model()
             ->byId($body['id'])
