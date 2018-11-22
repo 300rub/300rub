@@ -26,11 +26,16 @@ class View
     private function _getTwig()
     {
         if ($this->_twig === null) {
-            $fileSystem = new \Twig_Loader_Filesystem(
+            $loader = new \Twig_Loader_Filesystem(
                 $this->_getViewsRootDir()
             );
 
-            $this->_twig = new \Twig_Environment($fileSystem);
+            $this->_twig = new \Twig_Environment($loader);
+
+            if (APP_ENV === ENV_DEV) {
+                $this->_twig->enableDebug();
+                $this->_twig->addExtension(new \Twig_Extension_Debug());
+            }
         }
 
         return $this->_twig;
