@@ -95,9 +95,8 @@ abstract class AbstractCommand
         }
 
         echo sprintf(
-            '%s[%s] %s ',
+            '%s%s',
             PHP_EOL,
-            date('H:i:s', time()),
             $message
         );
 
