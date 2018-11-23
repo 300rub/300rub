@@ -10,7 +10,6 @@ upload
 release
 
 code/config/release
-code/config/prod.php
 
 code/public/static/*/lib
 code/public/static/min/*
@@ -21,4 +20,3 @@ code/public/upload/phpunit
 code/public/upload/selenium
 
 code/vendor
-code/release*
