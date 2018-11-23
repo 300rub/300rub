@@ -22,8 +22,8 @@ class GenerateConfigCommand extends AbstractCommand
      */
     public function run()
     {
-        $file = CODE_ROOT . '/config/env/prod.json';
-        $content = file_get_contents($file);
+        $filePath = CODE_ROOT . '/config/env/prod.json';
+        $content = file_get_contents($filePath);
 
         preg_match_all('/\{\{[a-zA-Z]+\}\}/', $content, $matches);
         $matches = $matches[0];
@@ -65,6 +65,6 @@ class GenerateConfigCommand extends AbstractCommand
             $content = str_replace($match, $nameValueList[$name], $content);
         }
 
-        var_dump($content);
+        file_put_contents($filePath, $content);
     }
 }
