@@ -2,56 +2,55 @@
   "host": "supers.site",
   "db": {
     "root": {
-      "{{dbRootHost}}": {
+      "{{dbHost}}": {
         "user": "{{dbRootUser}}",
         "password": "{{dbRootPassword}}"
       }
     },
     "dev": {
-      "host": "127.0.0.1",
-      "user": "devUser",
-      "password": "devPassword",
-      "name": "dev"
+      "host": "{{dbHost}}",
+      "user": "{{dbDevUser}}",
+      "password": "{{dbDevPassword}}",
+      "name": "{{dbDevName}}"
     },
     "phpunit": {
-      "host": "127.0.0.1",
-      "user": "phpunitUser",
-      "password": "phpunitPassword",
-      "name": "phpunit"
+      "host": "{{dbHost}}",
+      "user": "{{dbPhpunitUser}}",
+      "password": "{{dbPhpunitPassword}}",
+      "name": "{{dbPhpunitName}}"
     },
     "selenium": {
-      "host": "127.0.0.1",
-      "user": "seleniumUser",
-      "password": "seleniumPassword",
-      "name": "selenium"
+      "host": "{{dbHost}}",
+      "user": "{{dbSeleniumUser}}",
+      "password": "{{dbSeleniumPassword}}",
+      "name": "{{dbSeleniumName}}"
     },
     "system": {
-      "host": "127.0.0.1",
-      "user": "systemUser",
-      "password": "systemPassword",
-      "name": "system"
+      "host": "{{dbHost}}",
+      "user": "{{dbSystemUser}}",
+      "password": "{{dbSystemPassword}}",
+      "name": "{{dbSystemName}}"
     },
     "help": {
-      "host": "127.0.0.1",
-      "user": "helpUser",
-      "password": "helpPassword",
-      "name": "help"
+      "host": "{{dbHost}}",
+      "user": "{{dbHelpUser}}",
+      "password": "{{dbHelpPassword}}",
+      "name": "{{dbHelpName}}"
     },
     "source": {
-      "host": "127.0.0.1",
-      "user": "sourceUser",
-      "password": "sourcePassword",
-      "name": "source"
+      "host": "{{dbHost}}",
+      "user": "{{dbSourceUser}}",
+      "password": "{{dbSourcePassword}}",
+      "name": "{{dbSourceName}}"
     }
   },
   "memcached": {
-    "host": "localhost",
-    "port": 11211,
+    "host": "{{memcachedHost}}",
+    "port": "{{memcachedPort}}",
     "expiration": 1500
   },
   "file": {
-    "pathMask": "/var/www/upload/%s/%s",
-    "urlMask": "%s://%s/upload/%s/%s"
+    "urlMask": "%s://front.supers.site/%s/%s"
   },
   "aws": {
     "client": {
@@ -61,8 +60,8 @@
     },
     "s3": {
       "buckets": {
-        "main": "supers",
-        "release": "release"
+        "main": "{{s3BucketMain}}",
+        "release": "{{s3BucketRelease}}"
       }
     }
   },
