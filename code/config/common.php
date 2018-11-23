@@ -10,11 +10,11 @@ define('FILES_ROOT', __DIR__ . '/../..');
 switch (getenv('APP_ENV')) {
     case ENV_DEV:
         define('APP_ENV', ENV_DEV);
-        return include 'dev.php';
+        return json_decode(file_get_contents(__DIR__ . '/env/dev.json'), true);
     case ENV_DEV_PROD:
         define('APP_ENV', ENV_PROD);
-        return include 'dev.php';
+        return json_decode(file_get_contents(__DIR__ . '/env/dev.json'), true);
     default:
         define('APP_ENV', ENV_PROD);
-        return include 'prod.php';
+        return json_decode(file_get_contents(__DIR__ . '/env/prod.json'), true);
 }
