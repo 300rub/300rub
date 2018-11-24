@@ -35,9 +35,9 @@
          * Init
          */
         create: function (options) {
-            this.window = null;
-            this.body = null;
-            this.overlay = null;
+            this.window = ss.init("template").get("window-helper");
+            this.body = this.window.find(".body");
+            this.overlay = ss.init("template").get("window-overlay");
 
             this
                 .extendOptions(options)
