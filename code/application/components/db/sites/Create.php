@@ -6,6 +6,7 @@ use ss\application\App;
 use ss\application\components\common\Language;
 use ss\application\components\db\Db;
 use ss\application\exceptions\DbException;
+use ss\application\exceptions\SiteCreateException;
 use ss\models\system\SiteModel;
 
 /**
@@ -72,7 +73,7 @@ class Create
 
             App::getInstance()->getDb()->commitAll();
         } catch (\Exception $e) {
-            throw $e;
+            throw new SiteCreateException($e->getMessage());
         }
     }
 

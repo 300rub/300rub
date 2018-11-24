@@ -41,7 +41,7 @@ class CreateSiteController extends AbstractController
         );
 
         App::getInstance()->getLogger()->info(
-            'Creating new user... ' .
+            'Creating new site... ' .
             'name: {name}, userName: {userName}, ' .
             'email: {email}, user: {user}, ' .
             'password: {password}, language: {language}',

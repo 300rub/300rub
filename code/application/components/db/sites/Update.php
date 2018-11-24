@@ -6,6 +6,7 @@ use ss\application\App;
 use ss\application\components\common\Language;
 use ss\application\components\db\Db;
 use ss\application\exceptions\NotFoundException;
+use ss\application\exceptions\SiteCreateException;
 use ss\models\system\SiteModel;
 use ss\models\user\UserModel;
 use ss\models\user\UserSessionModel;
@@ -192,7 +193,7 @@ class Update
             ];
         } catch (\Exception $e) {
             App::getInstance()->getDb()->rollBackAll();
-            throw $e;
+            throw new SiteCreateException($e->getMessage());
         }
     }
 
