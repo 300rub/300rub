@@ -45,14 +45,16 @@ class GenerateConfigCommand extends AbstractCommand
             ]
         );
 
-        $result = $ssmClient->getParameters(
-            [
-                'Names' => $names,
-            ]
-        );
-
         $nameValueList = [];
-        foreach ($result['Parameters'] as $parameter) {
+        foreach ($names as $name) {
+            $result = $ssmClient->getParameter(
+                [
+                    'Name' => $name,
+                ]
+            );
+
+            $parameter = $result['Parameter'];
+
             $nameValueList[$parameter['Name']] = $parameter['Value'];
         }
 
