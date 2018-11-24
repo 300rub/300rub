@@ -194,12 +194,12 @@ class Create
         $this->_dbUser = sprintf(
             'u%s_%s',
             $formattedSiteId,
-            uniqid()
+            substr(uniqid(), 0, 5)
         );
         $this->_dbPassword = sprintf(
             'p%s_%s',
             $formattedSiteId,
-            uniqid()
+            substr(uniqid(), 0, 5)
         );
         $this->_dbName = sprintf(
             'site%s',
