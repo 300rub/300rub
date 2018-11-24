@@ -17,7 +17,7 @@ abstract class AbstractRunCommand extends AbstractCommand
     /**
      * Attempts
      */
-    const ATTEMPTS = 30;
+    const ATTEMPTS = 10;
 
     /**
      * Check timeout
@@ -177,7 +177,7 @@ abstract class AbstractRunCommand extends AbstractCommand
     private function _checkStatus($attempt = 1)
     {
         if ($attempt > self::ATTEMPTS) {
-            return $this;
+            throw new CommonException('Error');
         }
 
         sleep(self::CHECK_TIMEOUT);
