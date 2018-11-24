@@ -47,9 +47,15 @@ class GenerateConfigCommand extends AbstractCommand
 
         $nameValueList = [];
         foreach ($names as $name) {
+            $withDecryption = false;
+            if (strpos($name, 'Password') !== false) {
+                $withDecryption = true;
+            }
+
             $result = $ssmClient->getParameter(
                 [
-                    'Name' => $name,
+                    'Name'           => $name,
+                    'WithDecryption' => $withDecryption,
                 ]
             );
 
