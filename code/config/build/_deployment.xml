@@ -86,58 +86,58 @@
 
     <target name="deployment-release">
         <antcall target="deployment-generate-config" />
-        <!--<antcall target="deployment-prepare-folders" />-->
-        <!--<antcall target="deployment-update-release-number" />-->
-        <!--<antcall target="tools-composer-install" />-->
-        <!--<antcall target="tools-public-vendor" />-->
-        <!--<antcall target="tools-generate-static" />-->
+        <antcall target="deployment-prepare-folders" />
+        <antcall target="deployment-update-release-number" />
+        <antcall target="tools-composer-install" />
+        <antcall target="tools-public-vendor" />
+        <antcall target="tools-generate-static" />
 
-        <!--<if>-->
-            <!--<equals arg1="${env.DB}" arg2="true"/>-->
-            <!--<then>-->
-                <!--<antcall target="db-generate-source" />-->
-            <!--</then>-->
-        <!--</if>-->
+        <if>
+            <equals arg1="${env.DB}" arg2="true"/>
+            <then>
+                <antcall target="db-generate-source" />
+            </then>
+        </if>
 
-        <!--<if>-->
-            <!--<equals arg1="${env.PHPUNIT}" arg2="true"/>-->
-            <!--<then>-->
-                <!--<antcall target="test-phpunit-reload-fixtures" />-->
-            <!--</then>-->
-        <!--</if>-->
+        <if>
+            <equals arg1="${env.PHPUNIT}" arg2="true"/>
+            <then>
+                <antcall target="test-phpunit-reload-fixtures" />
+            </then>
+        </if>
 
-        <!--<antcall target="deployment-archive" />-->
-        <!--<antcall target="deployment-deploy-staging-archive" />-->
+        <antcall target="deployment-archive" />
+        <antcall target="deployment-deploy-staging-archive" />
 
-        <!--<antcall target="deployment-update-staging" />-->
+        <antcall target="deployment-update-staging" />
 
-        <!--<if>-->
-            <!--<equals arg1="${env.SELENIUM}" arg2="true"/>-->
-            <!--<then>-->
-                <!--<antcall target="test-selenium-reload-fixtures" />-->
-            <!--</then>-->
-        <!--</if>-->
+        <if>
+            <equals arg1="${env.SELENIUM}" arg2="true"/>
+            <then>
+                <antcall target="test-selenium-reload-fixtures" />
+            </then>
+        </if>
 
-        <!--<if>-->
-            <!--<equals arg1="${env.DB}" arg2="true"/>-->
-            <!--<then>-->
-                <!--<antcall target="db-migrate" />-->
-            <!--</then>-->
-        <!--</if>-->
+        <if>
+            <equals arg1="${env.DB}" arg2="true"/>
+            <then>
+                <antcall target="db-migrate" />
+            </then>
+        </if>
 
-        <!--<if>-->
-            <!--<equals arg1="${env.PROD}" arg2="true"/>-->
-            <!--<then>-->
-                <!--<antcall target="deployment-create-prod-archive" />-->
-                <!--<antcall target="deployment-update-prod" />-->
-            <!--</then>-->
-        <!--</if>-->
+        <if>
+            <equals arg1="${env.PROD}" arg2="true"/>
+            <then>
+                <antcall target="deployment-create-prod-archive" />
+                <antcall target="deployment-update-prod" />
+            </then>
+        </if>
 
-        <!--<if>-->
-            <!--<equals arg1="${env.NGINX}" arg2="true"/>-->
-            <!--<then>-->
-                <!--<antcall target="deployment-reload-nginx" />-->
-            <!--</then>-->
-        <!--</if>-->
+        <if>
+            <equals arg1="${env.NGINX}" arg2="true"/>
+            <then>
+                <antcall target="deployment-reload-nginx" />
+            </then>
+        </if>
     </target>
 </project>
