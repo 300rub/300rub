@@ -2,6 +2,7 @@
 
 namespace ss\models\blocks\helpers\file;
 
+use Aws\Credentials\Credentials;
 use Aws\S3\S3Client;
 use ss\application\App;
 use ss\application\exceptions\FileException;
@@ -297,6 +298,19 @@ class FileModel extends AbstractFileModel
     private function _prodUpload()
     {
         try {
+            $awsClient = App::getInstance()
+                ->getConfig()
+                ->getValue(['aws', 'client']);
+
+            $s3Credentials = App::getInstance()
+                ->getConfig()
+                ->getValue(['aws', 's3', 'credentials']);
+
+            $credentials = new Credentials(
+                $s3Credentials['accessKeyId'],
+                $s3Credentials['secretAccessKey']
+            );
+
             $bucket = App::getInstance()
                 ->getConfig()
                 ->getValue(['aws', 's3', 'buckets', 'main']);
@@ -307,16 +321,12 @@ class FileModel extends AbstractFileModel
                 $this->get('uniqueName')
             );
 
-            $s3Credentials = App::getInstance()
-                ->getConfig()
-                ->getValue(['aws', 's3', 'credentials']);
-
-            $s3Client = new S3Client(
-                [
-                    'key'    => $s3Credentials['accessKeyId'],
-                    'secret' => $s3Credentials['secretAccessKey'],
-                ]
-            );
+            $s3Client = new S3Client([
+                'profile'     => $awsClient['profile'],
+                'region'      => $awsClient['region'],
+                'version'     => $awsClient['version'],
+                'credentials' => $credentials
+            ]);
 
             $s3Client->putObject(
                 [
