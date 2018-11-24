@@ -48,7 +48,9 @@ class GenerateConfigCommand extends AbstractCommand
         $nameValueList = [];
         foreach ($names as $name) {
             $withDecryption = false;
-            if (strpos($name, 'Password') !== false) {
+            if (strpos($name, 'Password') !== false
+                || strpos($name, 'Access') !== false
+            ) {
                 $withDecryption = true;
             }
 

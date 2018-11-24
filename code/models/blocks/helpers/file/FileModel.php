@@ -297,9 +297,6 @@ class FileModel extends AbstractFileModel
     private function _prodUpload()
     {
         try {
-            $awsClient = App::getInstance()
-                ->getConfig()
-                ->getValue(['aws', 'client']);
             $bucket = App::getInstance()
                 ->getConfig()
                 ->getValue(['aws', 's3', 'buckets', 'main']);
@@ -310,11 +307,14 @@ class FileModel extends AbstractFileModel
                 $this->get('uniqueName')
             );
 
+            $s3Credentials = App::getInstance()
+                ->getConfig()
+                ->getValue(['aws', 's3', 'credentials']);
+
             $s3Client = new S3Client(
                 [
-                    'profile' => $awsClient['profile'],
-                    'region'  => $awsClient['region'],
-                    'version' => $awsClient['version'],
+                    'key'    => $s3Credentials['accessKeyId'],
+                    'secret' => $s3Credentials['secretAccessKey'],
                 ]
             );
 
