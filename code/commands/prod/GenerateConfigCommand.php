@@ -25,7 +25,7 @@ class GenerateConfigCommand extends AbstractCommand
         $filePath = CODE_ROOT . '/config/env/prod.json';
         $content = file_get_contents($filePath);
 
-        preg_match_all('/\{\{[a-zA-Z]+\}\}/', $content, $matches);
+        preg_match_all('/\{\{[a-zA-Z0-9]+\}\}/', $content, $matches);
         $matches = $matches[0];
 
         $names = [];
