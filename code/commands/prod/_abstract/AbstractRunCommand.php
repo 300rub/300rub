@@ -52,8 +52,12 @@ abstract class AbstractRunCommand extends AbstractCommand
      *
      * @return AbstractRunCommand
      */
-    protected function runCommands($commands)
+    protected function runCommands(array $commands)
     {
+        foreach ($commands as $command) {
+            $this->output($command);
+        }
+
         return $this
             ->_setCommands($commands)
             ->_setInstanceIds()
