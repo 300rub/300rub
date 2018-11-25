@@ -39,7 +39,6 @@ class GenerateConfigCommand extends AbstractCommand
 
         $ssmClient = new SsmClient(
             [
-                'profile' => $awsClient['profile'],
                 'region'  => $awsClient['region'],
                 'version' => $awsClient['version'],
             ]

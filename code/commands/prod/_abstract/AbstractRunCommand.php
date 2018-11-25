@@ -93,7 +93,6 @@ abstract class AbstractRunCommand extends AbstractCommand
 
         $autoScalingClient = new AutoScalingClient(
             [
-                'profile' => $awsClient['profile'],
                 'region'  => $awsClient['region'],
                 'version' => $awsClient['version'],
             ]
@@ -127,7 +126,6 @@ abstract class AbstractRunCommand extends AbstractCommand
 
         $ssmClient = new SsmClient(
             [
-                'profile' => $awsClient['profile'],
                 'region'  => $awsClient['region'],
                 'version' => $awsClient['version'],
             ]
@@ -195,7 +193,6 @@ abstract class AbstractRunCommand extends AbstractCommand
 
         $ssmClient = new SsmClient(
             [
-                'profile' => $awsClient['profile'],
                 'region'  => $awsClient['region'],
                 'version' => $awsClient['version'],
             ]
