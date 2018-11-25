@@ -26,8 +26,8 @@ class UpdateProdCommand extends AbstractRunCommand
             'rm -rf /var/www/archives/prod/code',
             'cd /var/www/archives/prod',
             'aws s3 cp s3://supers-releases/prod.tar.gz prod.tar.gz',
-            'tar -xvzf /var/www/archives/prod/prod.tar.gz',
-            'rsync -avzh /var/www/archives/prod/code /var/www/prod --delete',
+            'tar -xzf /var/www/archives/prod/prod.tar.gz',
+            'rsync -azh /var/www/archives/prod/code /var/www/prod --delete',
         ];
 
         $this->runCommands($commands);

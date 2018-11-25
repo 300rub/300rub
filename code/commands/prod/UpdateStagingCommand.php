@@ -26,8 +26,8 @@ class UpdateStagingCommand extends AbstractRunCommand
             'rm -rf /var/www/archives/staging/code',
             'cd /var/www/archives/staging',
             'aws s3 cp s3://supers-releases/staging.tar.gz staging.tar.gz',
-            'tar -xvzf /var/www/archives/staging/staging.tar.gz',
-            'rsync -avzh /var/www/archives/staging/code /var/www/staging --delete',
+            'tar -xzf /var/www/archives/staging/staging.tar.gz',
+            'rsync -azh /var/www/archives/staging/code /var/www/staging --delete',
         ];
 
         $this->runCommands($commands);
