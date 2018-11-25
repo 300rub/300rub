@@ -322,7 +322,6 @@ class FileModel extends AbstractFileModel
             );
 
             $s3Client = new S3Client([
-                'profile'     => $awsClient['profile'],
                 'region'      => $awsClient['region'],
                 'version'     => $awsClient['version'],
                 'credentials' => $credentials
