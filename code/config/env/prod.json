@@ -59,10 +59,6 @@
       "version": "latest"
     },
     "s3": {
-      "credentials": {
-        "accessKeyId": "{{s3AccessKeyId}}",
-        "secretAccessKey": "{{s3SecretAccessKey}}"
-      },
       "buckets": {
         "main": "{{s3BucketMain}}",
         "release": "{{s3BucketRelease}}"

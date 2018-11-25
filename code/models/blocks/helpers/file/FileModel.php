@@ -302,15 +302,6 @@ class FileModel extends AbstractFileModel
                 ->getConfig()
                 ->getValue(['aws', 'client']);
 
-            $s3Credentials = App::getInstance()
-                ->getConfig()
-                ->getValue(['aws', 's3', 'credentials']);
-
-            $credentials = new Credentials(
-                $s3Credentials['accessKeyId'],
-                $s3Credentials['secretAccessKey']
-            );
-
             $bucket = App::getInstance()
                 ->getConfig()
                 ->getValue(['aws', 's3', 'buckets', 'main']);
@@ -322,9 +313,8 @@ class FileModel extends AbstractFileModel
             );
 
             $s3Client = new S3Client([
-                'region'      => $awsClient['region'],
-                'version'     => $awsClient['version'],
-                //'credentials' => $credentials
+                'region'  => $awsClient['region'],
+                'version' => $awsClient['version'],
             ]);
 
             $s3Client->putObject(
