@@ -25,6 +25,6 @@ class FileException extends AbstractException
      */
     protected function getLogName()
     {
-        return 'file';
+        return 'error-file';
     }
 }

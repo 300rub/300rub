@@ -25,6 +25,6 @@ class CommonException extends AbstractException
      */
     protected function getLogName()
     {
-        return 'common';
+        return 'error-common';
     }
 }

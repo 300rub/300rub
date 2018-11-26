@@ -25,6 +25,6 @@ class ModelException extends AbstractException
      */
     protected function getLogName()
     {
-        return 'model';
+        return 'error-model';
     }
 }

@@ -25,6 +25,6 @@ class SiteCreateException extends AbstractException
      */
     protected function getLogName()
     {
-        return 'create';
+        return 'error-create';
     }
 }
