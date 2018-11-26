@@ -144,7 +144,7 @@ abstract class AbstractRunCommand extends AbstractCommand
                     [
                         'Key'    => 'tag:aws:autoscaling:groupName',
                         'Values' => [
-                            'Simple-Group'
+                            'ProdAutoScalingGroup'
                         ],
                     ],
                 ],
