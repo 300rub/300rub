@@ -22,7 +22,7 @@ abstract class AbstractRunCommand extends AbstractCommand
     /**
      * Check timeout
      */
-    const CHECK_TIMEOUT = 2;
+    const CHECK_TIMEOUT = 3;
 
     /**
      * Instance IDs
