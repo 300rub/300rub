@@ -70,10 +70,10 @@
         </exec>
     </target>
 
-    <target name="deployment-reload-nginx">
+    <target name="deployment-update-config">
         <exec executable="php" failonerror="true">
             <arg value='commands/run' />
-            <arg value='prod/ReloadNginxCommand' />
+            <arg value='prod/UpdateConfigCommand' />
         </exec>
     </target>
 
@@ -89,9 +89,9 @@
         <antcall target="deployment-update-prod" />
 
         <if>
-            <equals arg1="${env.NGINX}" arg2="true"/>
+            <equals arg1="${env.CONFIG}" arg2="true"/>
             <then>
-                <antcall target="deployment-reload-nginx" />
+                <antcall target="deployment-update-config" />
             </then>
         </if>
     </target>
