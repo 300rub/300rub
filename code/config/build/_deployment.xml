@@ -84,6 +84,18 @@
         </exec>
     </target>
 
+    <target name="deployment-prod">
+        <antcall target="deployment-create-prod-archive" />
+        <antcall target="deployment-update-prod" />
+
+        <if>
+            <equals arg1="${env.NGINX}" arg2="true"/>
+            <then>
+                <antcall target="deployment-reload-nginx" />
+            </then>
+        </if>
+    </target>
+
     <target name="deployment-release">
         <antcall target="deployment-prepare-folders" />
         <antcall target="deployment-update-release-number" />
@@ -128,15 +140,7 @@
         <if>
             <equals arg1="${env.PROD}" arg2="true"/>
             <then>
-                <antcall target="deployment-create-prod-archive" />
-                <antcall target="deployment-update-prod" />
-            </then>
-        </if>
-
-        <if>
-            <equals arg1="${env.NGINX}" arg2="true"/>
-            <then>
-                <antcall target="deployment-reload-nginx" />
+                <antcall target="deployment-prod" />
             </then>
         </if>
     </target>

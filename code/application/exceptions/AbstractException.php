@@ -57,15 +57,15 @@ abstract class AbstractException extends Exception
         if (empty($xRequestedWith) === false
             && empty($uri) === false
         ) {
-            $message .= "\nREQUEST_URI = " . $uri;
+            $message .= " REQUEST_URI = " . $uri;
         }
 
         $logMessage = sprintf(
-            "%s\nFile: %s (%s)\nTrace:\n%s\n\n",
+            "%s FILE: %s (%s) TRACE: %s",
             $message,
             $this->getFile(),
             $this->getLine(),
-            $this->getTraceAsString()
+            str_replace(PHP_EOL, ' ', $this->getTraceAsString())
         );
 
         App::getInstance()->getLogger()->error(

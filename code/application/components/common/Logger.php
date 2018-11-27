@@ -69,7 +69,7 @@ class Logger
         }
 
         $logMessage = sprintf(
-            '[%s] [%s] %s',
+            '[%s] [%s] %s%s',
             date('Y-m-d H:i:s', time()),
             $name,
             $message,

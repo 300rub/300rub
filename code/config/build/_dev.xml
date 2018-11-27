@@ -1,22 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="dev">
-    <target name="dev-upload-prepare">
+    <target name="dev-prepare-folders">
+        <delete dir="${basedir}/../logs" />
+        <exec executable="mkdir" failonerror="true">
+            <arg value="-m" />
+            <arg value="0777" />
+            <arg value="${basedir}/../logs" />
+        </exec>
+
         <delete dir="${basedir}/../upload/dev" />
-        <mkdir dir="${basedir}/../upload/dev" />
-        <exec executable="chmod" failonerror="true">
-            <arg line="-R 0777 ${basedir}/../upload/dev" />
+        <exec executable="mkdir" failonerror="true">
+            <arg value="-m" />
+            <arg value="0777" />
+            <arg value="${basedir}/../upload/dev" />
         </exec>
     </target>
 
-    <target
-        name="dev-setup"
-        depends="
-            dev-upload-prepare,
-            tools-flush-memcached,
-            db-recreate-system-databases,
-            db-generate-source,
-            db-recreate-dev-database
-        "
-    >
+    <target name="dev-setup">
+        <antcall target="dev-prepare-folders" />
+        <antcall target="tools-flush-memcached" />
+        <antcall target="db-recreate-system-databases" />
+        <antcall target="db-generate-source" />
+        <antcall target="db-recreate-dev-database" />
     </target>
 </project>
