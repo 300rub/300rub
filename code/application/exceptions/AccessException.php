@@ -25,6 +25,6 @@ class AccessException extends AbstractException
      */
     protected function getLogName()
     {
-        return 'error-access';
+        return 'access';
     }
 }

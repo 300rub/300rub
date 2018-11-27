@@ -25,6 +25,6 @@ class MigrationException extends AbstractException
      */
     protected function getLogName()
     {
-        return 'error-migration';
+        return 'migration';
     }
 }

@@ -43,12 +43,7 @@ class Logger
      *
      * @return void
      */
-    public function log(
-        $message,
-        array $parameters = [],
-        $name = self::DEFAULT_NAME,
-        $level = self::LEVEL_INFO
-    ) {
+    private function _log($message, $parameters, $name, $level) {
         foreach ($parameters as $key => $value) {
             if (is_array($value) === true) {
                 $value = json_encode($value);
@@ -61,7 +56,12 @@ class Logger
             );
         }
 
-        $filePath = sprintf('%s/%s.log', FILES_ROOT . '/logs', $name);
+        $filePath = sprintf(
+            '%s/logs/%s-%s.log',
+            FILES_ROOT,
+            $level,
+            $name
+        );
 
         $isNew = false;
         if (file_exists($filePath) === false) {
@@ -69,11 +69,11 @@ class Logger
         }
 
         $logMessage = sprintf(
-            '[%s] [%s] %s %s',
+            '[%s] [%s] %s',
             date('Y-m-d H:i:s', time()),
-            $level,
+            $name,
             $message,
-            PHP_EOL . PHP_EOL
+            PHP_EOL
         );
 
         $file = fopen($filePath, 'a');
@@ -101,7 +101,7 @@ class Logger
         array $parameters = [],
         $name = self::DEFAULT_NAME
     ) {
-        $this->log($message, $parameters, $name, self::LEVEL_INFO);
+        $this->_log($message, $parameters, $name, self::LEVEL_INFO);
     }
 
     /**
@@ -118,7 +118,7 @@ class Logger
         array $parameters = [],
         $name = self::DEFAULT_NAME
     ) {
-        $this->log($message, $parameters, $name, self::LEVEL_WARNING);
+        $this->_log($message, $parameters, $name, self::LEVEL_WARNING);
     }
 
     /**
@@ -135,7 +135,7 @@ class Logger
         array $parameters = [],
         $name = self::DEFAULT_NAME
     ) {
-        $this->log($message, $parameters, $name, self::LEVEL_ERROR);
+        $this->_log($message, $parameters, $name, self::LEVEL_ERROR);
     }
 
     /**
@@ -153,7 +153,7 @@ class Logger
         $name = self::DEFAULT_NAME
     ) {
         if (APP_ENV === ENV_DEV) {
-            $this->log($message, $parameters, $name, self::LEVEL_DEBUG);
+            $this->_log($message, $parameters, $name, self::LEVEL_DEBUG);
         }
     }
 }

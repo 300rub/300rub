@@ -25,6 +25,6 @@ class EmailException extends AbstractException
      */
     protected function getLogName()
     {
-        return 'error-email';
+        return 'email';
     }
 }

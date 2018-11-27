@@ -25,6 +25,6 @@ class MemcacheException extends AbstractException
      */
     protected function getLogName()
     {
-        return 'error-memcache';
+        return 'memcache';
     }
 }

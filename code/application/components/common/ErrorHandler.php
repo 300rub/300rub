@@ -76,11 +76,7 @@ class ErrorHandler
             throw new CommonException($logMessage);
         }
 
-        App::getInstance()->getLogger()->error(
-            $logMessage,
-            [],
-            'common'
-        );
+        App::getInstance()->getLogger()->error($logMessage);
 
         $errorController = new ErrorController();
         $errorController
@@ -125,11 +121,7 @@ class ErrorHandler
             throw new CommonException($logMessage);
         }
 
-        App::getInstance()->getLogger()->error(
-            $logMessage,
-            [],
-            'common'
-        );
+        App::getInstance()->getLogger()->error($logMessage);
 
         $errorController = new ErrorController();
         $errorController
