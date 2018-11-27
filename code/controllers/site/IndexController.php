@@ -19,6 +19,11 @@ class IndexController extends AbstractController
      */
     public function run()
     {
+        App::getInstance()->getLogger()->error('Test log');
+        App::getInstance()->getLogger()->info('Test log');
+        App::getInstance()->getLogger()->warning('Test log');
+        App::getInstance()->getLogger()->info('Test log', [], 'create');
+
         $language = App::getInstance()->getLanguage();
 
         $pageHtml = $this->getPageHtml(
