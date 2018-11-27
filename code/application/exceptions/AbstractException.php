@@ -45,27 +45,13 @@ abstract class AbstractException extends Exception
             );
         }
 
-        $superGlobalVariable = App::getInstance()
-            ->getSuperGlobalVariable();
-
-        $xRequestedWith = $superGlobalVariable
-            ->getServerValue('HTTP_X_REQUESTED_WITH');
-
-        $uri = $superGlobalVariable
-            ->getServerValue('REQUEST_URI');
-
-        if (empty($xRequestedWith) === false
-            && empty($uri) === false
-        ) {
-            $message .= " REQUEST_URI = " . $uri;
-        }
-
         $logMessage = sprintf(
-            "%s FILE: %s (%s) TRACE: %s",
+            "%s FILE: %s (%s) TRACE: %s%s",
             $message,
             $this->getFile(),
             $this->getLine(),
-            str_replace(PHP_EOL, ' ', $this->getTraceAsString())
+            str_replace(PHP_EOL, ' ', $this->getTraceAsString()),
+            $this->_getRequestInfo()
         );
 
         App::getInstance()->getLogger()->error(
@@ -75,5 +61,66 @@ abstract class AbstractException extends Exception
         );
 
         parent::__construct($message, $this->getErrorCode());
+    }
+
+    /**
+     * Gets request info
+     *
+     * @return string
+     */
+    private function _getRequestInfo()
+    {
+        $info = '';
+
+        $superGlobalVariable = App::getInstance()
+            ->getSuperGlobalVariable();
+
+        $uri = $superGlobalVariable
+            ->getServerValue('REQUEST_URI');
+        $httpHost = $superGlobalVariable
+            ->getServerValue('HTTP_HOST');
+        if (empty($uri) === false
+            || empty($httpHost) === false
+        ) {
+            $info .= sprintf(
+                ' URL: %s%s',
+                $httpHost,
+                $uri
+            );
+        }
+
+        $get = $superGlobalVariable->getGetValue();
+        if (empty($get) === false) {
+            $info .= sprintf(
+                ' GET: %s',
+                json_encode($get)
+            );
+        }
+
+        $post = $superGlobalVariable->getPostValue();
+        if (empty($post) === false) {
+            $info .= sprintf(
+                ' POST: %s',
+                json_encode($post)
+            );
+        }
+
+        $files = $superGlobalVariable->getFilesValue();
+        if (empty($files) === false) {
+            $info .= sprintf(
+                ' FILES: %s',
+                json_encode($files)
+            );
+        }
+
+        $put = file_get_contents('php://input');
+        if (empty($put) === false) {
+            $info .= sprintf(
+                ' PUT: %s',
+                $put
+            );
+        }
+
+        return $info;
     }
 }

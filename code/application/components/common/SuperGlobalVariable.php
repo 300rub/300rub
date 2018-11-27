@@ -204,15 +204,10 @@ class SuperGlobalVariable
     public function isHttps()
     {
         $https = $this->getServerValue('HTTPS');
-        $port = $this->getServerValue('SERVER_PORT');
 
         if ($https !== null
             && $https !== 'off'
         ) {
-            return true;
-        }
-
-        if ($port === 443) {
             return true;
         }
 
