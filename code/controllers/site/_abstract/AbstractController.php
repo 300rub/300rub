@@ -32,7 +32,7 @@ abstract class AbstractController extends AbstractDataController
             [
                 'icon'        => '/static/common/core/img/favicon.ico',
                 'content'     => $content,
-                'title'       => $title . $_SERVER['SERVER_ADDR'],
+                'title'       => $title,
                 'keywords'    => $keywords,
                 'description' => $description,
                 'css'         => $this->_getCss(),
