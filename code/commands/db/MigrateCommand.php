@@ -4,6 +4,7 @@ namespace ss\commands\db;
 
 use ss\application\App;
 use ss\application\components\db\Db;
+use ss\application\components\db\sites\Create;
 use ss\application\exceptions\MigrationException;
 use ss\commands\_abstract\AbstractCommand;
 use ss\migrations\_abstract\AbstractMigration;
@@ -100,12 +101,14 @@ class MigrateCommand extends AbstractCommand
         $sites = $sites->findAll(true);
 
         foreach ($sites as $site) {
-            $dbWriteName = $dbObject->getWriteDbName(
-                $site['t_dbName']
-            );
-            $dbReadName = $dbObject->getReadDbName(
-                $site['t_dbName']
-            );
+            $dbName = $site['t_dbName'];
+
+            if ($dbName === Create::TMP_CREDENTIAL) {
+                continue;
+            }
+
+            $dbWriteName = $dbObject->getWriteDbName($dbName);
+            $dbReadName = $dbObject->getReadDbName($dbName);
 
             $this->_sites[] = [
                 'id'         => $site['t_id'],

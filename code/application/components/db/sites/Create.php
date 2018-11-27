@@ -21,6 +21,11 @@ class Create
     const MAX_ATTEMPTS = 15;
 
     /**
+     * Tmp credential
+     */
+    const TMP_CREDENTIAL = 'tmp';
+
+    /**
      * Site Model
      *
      * @var SiteModel
@@ -166,10 +171,10 @@ class Create
                 'name'       => $name,
                 'language'   => Language::LANGUAGE_RU_ID,
                 'email'      => $email,
-                'dbHost'     => 'tmp',
-                'dbUser'     => 'tmp',
-                'dbPassword' => 'tmp',
-                'dbName'     => 'tmp',
+                'dbHost'     => self::TMP_CREDENTIAL,
+                'dbUser'     => self::TMP_CREDENTIAL,
+                'dbPassword' => self::TMP_CREDENTIAL,
+                'dbName'     => self::TMP_CREDENTIAL,
                 'isDisabled' => true,
             ]
         );
