@@ -1,22 +1,16 @@
 .idea
-.aws
 
-backups
-logs
-mysql
+backups/*
+logs/*
+mysql/*
 jenkins/*
-releases
-upload
-release
+upload/*
+release/*
 
 code/config/release
 
 code/public/static/*/lib
 code/public/static/min/*
 !code/public/static/min/.gitkeep
-
-code/public/upload/dev
-code/public/upload/phpunit
-code/public/upload/selenium
 
 code/vendor
