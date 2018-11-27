@@ -140,7 +140,9 @@
         <if>
             <equals arg1="${env.PROD}" arg2="true"/>
             <then>
-                <antcall target="deployment-prod" />
+                <antcall target="deployment-prod">
+                    <param name="env.CONFIG" value="${env.CONFIG}" />
+                </antcall>
             </then>
         </if>
     </target>
