@@ -13,7 +13,7 @@ class MemcacheException extends AbstractException
      *
      * @return integer
      */
-    protected function getErrorCode()
+    public function getErrorCode()
     {
         return 500;
     }

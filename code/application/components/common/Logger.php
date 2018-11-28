@@ -2,6 +2,7 @@
 
 namespace ss\application\components\common;
 use ss\application\App;
+use ss\application\exceptions\AbstractException;
 
 /**
  * Class to work with logs
@@ -140,10 +141,15 @@ class Logger
         $exception = null
     ) {
         if ($exception !== null) {
+            $errorCode = $exception->getCode();
+            if ($exception instanceof AbstractException) {
+                $errorCode = $exception->getErrorCode();
+            }
+            
             $message = sprintf(
                 "%s CODE: %s FILE: %s (%s) TRACE: %s",
                 $message,
-                $exception->getCode(),
+                $errorCode,
                 $exception->getFile(),
                 $exception->getLine(),
                 str_replace(PHP_EOL, ' ', $exception->getTraceAsString())

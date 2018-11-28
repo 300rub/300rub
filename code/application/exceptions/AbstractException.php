@@ -16,7 +16,7 @@ abstract class AbstractException extends Exception
      *
      * @return integer
      */
-    abstract protected function getErrorCode();
+    abstract public function getErrorCode();
 
     /**
      * Get log name
@@ -33,21 +33,9 @@ abstract class AbstractException extends Exception
      */
     public function __construct($message, array $parameters = [])
     {
-        foreach ($parameters as $key => $value) {
-            if (is_array($value) === true) {
-                $value = json_encode($value);
-            }
-
-            $message = str_replace(
-                '{' . $key . '}',
-                '[' . (string)$value . ']',
-                $message
-            );
-        }
-
         App::getInstance()->getLogger()->error(
             $message,
-            [],
+            $parameters,
             $this->getLogName(),
             $this
         );
