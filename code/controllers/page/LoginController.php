@@ -3,6 +3,7 @@
 namespace ss\controllers\page;
 
 use ss\application\App;
+use ss\application\instances\Web;
 use ss\controllers\page\_abstract\AbstractPageController;
 
 /**
@@ -10,11 +11,6 @@ use ss\controllers\page\_abstract\AbstractPageController;
  */
 class LoginController extends AbstractPageController
 {
-
-    /**
-     * Login alias
-     */
-    const LOGIN_ALIAS = 'login';
 
     /**
      * Gets login page
@@ -47,7 +43,7 @@ class LoginController extends AbstractPageController
                 sprintf(
                     '/%s/%s',
                     $language->getActiveAlias(),
-                    self::LOGIN_ALIAS
+                    Web::ALIAS_LOGIN
                 ),
                 $siteHost
             );
