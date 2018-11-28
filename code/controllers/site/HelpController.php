@@ -223,7 +223,7 @@ class HelpController extends AbstractController
         return sprintf(
             '/%s/%s',
             App::getInstance()->getLanguage()->getActiveAlias(),
-            Site::HELP_PREFIX
+            Site::ALIAS_HELP
         );
     }
 }

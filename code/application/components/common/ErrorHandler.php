@@ -58,6 +58,8 @@ class ErrorHandler
         restore_error_handler();
         restore_exception_handler();
 
+        $isApi = $this->_isApi();
+
         App::getInstance()->getLogger()->error(
             '',
             [],
@@ -68,7 +70,7 @@ class ErrorHandler
         if (App::getInstance() instanceof Console
             || App::getInstance() instanceof Phpunit
             || App::getInstance() instanceof Selenium
-            || $this->_isApi() === true
+            || $isApi === true
         ) {
             exit;
         }
@@ -99,6 +101,8 @@ class ErrorHandler
      */
     public function handleError($code, $message, $file, $line)
     {
+        $isApi = $this->_isApi();
+
         $logMessage = sprintf(
             'Error! CODE: [%s], MESSAGE: [%s], ' .
             'FILE: [%s], LINE: [%s]',
@@ -111,7 +115,7 @@ class ErrorHandler
         if (App::getInstance() instanceof Console
             || App::getInstance() instanceof Phpunit
             || App::getInstance() instanceof Selenium
-            || $this->_isApi() === true
+            || $isApi === true
         ) {
             throw new CommonException($logMessage);
         }

@@ -145,7 +145,7 @@ class Logger
             if ($exception instanceof AbstractException) {
                 $errorCode = $exception->getErrorCode();
             }
-            
+
             $message = sprintf(
                 "%s CODE: %s FILE: %s (%s) TRACE: %s",
                 $message,
