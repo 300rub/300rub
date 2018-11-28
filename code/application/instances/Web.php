@@ -6,6 +6,8 @@ use ss\application\App;
 
 use ss\application\components\user\User;
 use ss\application\instances\_abstract\AbstractAjax;
+use ss\controllers\page\AdsController;
+use ss\controllers\page\RobotsController;
 use ss\controllers\page\SiteMapController;
 use ss\models\_abstract\AbstractModel;
 use ss\models\user\UserModel;
@@ -24,6 +26,8 @@ class Web extends AbstractAjax
      */
     const ALIAS_LOGIN = 'login';
     const ALIAS_SITEMAP = 'sitemap.xml';
+    const ALIAS_ROBOTS = 'robots.txt';
+    const ALIAS_ADS = 'ads.txt';
 
     /**
      * User in session
@@ -205,13 +209,21 @@ class Web extends AbstractAjax
         $alias = $this->getSite()->getUri(0);
 
         switch ($alias) {
-            case self::ALIAS_LOGIN:
-                $this->setActiveLanguage(true);
-                $controller = new LoginController();
-                return $controller->run();
             case self::ALIAS_SITEMAP:
                 $this->setActiveLanguage(true);
                 $controller = new SiteMapController();
+                return $controller->run();
+            case self::ALIAS_ROBOTS:
+                $this->setActiveLanguage(true);
+                $controller = new RobotsController();
+                return $controller->run();
+            case self::ALIAS_ADS:
+                $this->setActiveLanguage(true);
+                $controller = new AdsController();
+                return $controller->run();
+            case self::ALIAS_LOGIN:
+                $this->setActiveLanguage(true);
+                $controller = new LoginController();
                 return $controller->run();
             default:
                 break;

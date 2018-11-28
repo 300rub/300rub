@@ -5,9 +5,11 @@ namespace ss\application\instances;
 use ss\application\components\common\Language;
 use ss\application\instances\_abstract\AbstractAjax;
 use ss\controllers\site\_abstract\AbstractController;
+use ss\controllers\site\AdsController;
 use ss\controllers\site\CreateController;
 use ss\controllers\site\HelpController;
 use ss\controllers\site\IndexController;
+use ss\controllers\site\RobotsController;
 use ss\controllers\site\SiteMapController;
 
 /**
@@ -20,6 +22,8 @@ class Site extends AbstractAjax
      * Aliases
      */
     const ALIAS_SITEMAP = 'sitemap.xml';
+    const ALIAS_ROBOTS = 'robots.txt';
+    const ALIAS_ADS = 'ads.txt';
     const ALIAS_HELP = 'help';
     const ALIAS_CREATE = 'create';
 
@@ -86,6 +90,10 @@ class Site extends AbstractAjax
         switch ($alias) {
             case self::ALIAS_SITEMAP:
                 return new SiteMapController();
+            case self::ALIAS_ROBOTS:
+                return new RobotsController();
+            case self::ALIAS_ADS:
+                return new AdsController();
             default:
                 break;
         }

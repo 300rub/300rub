@@ -5,9 +5,9 @@ namespace ss\controllers\page;
 use ss\controllers\page\_abstract\AbstractPageController;
 
 /**
- * Sitemap Controller
+ * Ads Controller
  */
-class SiteMapController extends AbstractPageController
+class AdsController extends AbstractPageController
 {
 
     /**
@@ -17,10 +17,10 @@ class SiteMapController extends AbstractPageController
      */
     public function run()
     {
-        header("Content-type: text/xml");
+        header("Content-Type: text/plain");
 
         return $this->render(
-            'system/sitemap.xml',
+            'system/ads.txt',
             []
         );
     }
