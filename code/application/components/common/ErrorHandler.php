@@ -58,14 +58,11 @@ class ErrorHandler
         restore_error_handler();
         restore_exception_handler();
 
-        $logMessage = sprintf(
-            'Exception occurred with type: [%s], message: [%s], ' .
-            'file: [%s], line: [%s], backtrace: [%s]',
-            get_class($exception),
-            $exception->getMessage(),
-            $exception->getFile(),
-            $exception->getLine(),
-            $exception->getTraceAsString()
+        App::getInstance()->getLogger()->error(
+            '',
+            [],
+            Logger::DEFAULT_NAME,
+            $exception
         );
 
         if (App::getInstance() instanceof Console
@@ -73,10 +70,8 @@ class ErrorHandler
             || App::getInstance() instanceof Selenium
             || $this->_isApi() === true
         ) {
-            throw new CommonException($logMessage);
+            exit;
         }
-
-        App::getInstance()->getLogger()->error($logMessage);
 
         $errorController = new ErrorController();
         $errorController
@@ -105,8 +100,8 @@ class ErrorHandler
     public function handleError($code, $message, $file, $line)
     {
         $logMessage = sprintf(
-            'Error! code: [%s], message: [%s], ' .
-            'file: [%s], line: [%s]',
+            'Error! CODE: [%s], MESSAGE: [%s], ' .
+            'FILE: [%s], LINE: [%s]',
             $code,
             $message,
             $file,
