@@ -362,7 +362,8 @@ class FileModel extends AbstractFileModel
                 [
                     'name' => $this->get('uniqueName')
                 ],
-                'file'
+                'file',
+                $e
             );
         }
     }

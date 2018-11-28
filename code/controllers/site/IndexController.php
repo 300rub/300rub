@@ -74,7 +74,7 @@ class IndexController extends AbstractController
                 'uri'      => sprintf(
                     '/%s/%s',
                     App::getInstance()->getLanguage()->getActiveAlias(),
-                    Site::HELP_PREFIX
+                    Site::ALIAS_HELP
                 ),
                 'name'     => $language->getMessage('site', 'help'),
                 'isActive' => false

@@ -6,6 +6,10 @@ use ss\application\App;
 
 use ss\application\components\user\User;
 use ss\application\instances\_abstract\AbstractAjax;
+use ss\controllers\page\AdsController;
+use ss\controllers\page\FaviconController;
+use ss\controllers\page\RobotsController;
+use ss\controllers\page\SiteMapController;
 use ss\models\_abstract\AbstractModel;
 use ss\models\user\UserModel;
 use ss\models\user\UserSessionModel;
@@ -17,6 +21,15 @@ use ss\controllers\page\PageController;
  */
 class Web extends AbstractAjax
 {
+
+    /**
+     * Aliases
+     */
+    const ALIAS_LOGIN = 'login';
+    const ALIAS_SITEMAP = 'sitemap.xml';
+    const ALIAS_ROBOTS = 'robots.txt';
+    const ALIAS_ADS = 'ads.txt';
+    const ALIAS_FAVICON = 'favicon.ico';
 
     /**
      * User in session
@@ -35,6 +48,10 @@ class Web extends AbstractAjax
         $httpHost = $this
             ->getSuperGlobalVariable()
             ->getServerValue('HTTP_HOST');
+
+        if (filter_var($httpHost, FILTER_VALIDATE_IP) !== false) {
+            exit;
+        }
 
         $this->setSite($httpHost);
         $this->_setUserAndDb();
@@ -191,15 +208,36 @@ class Web extends AbstractAjax
      */
     protected function processPage()
     {
-        if ($this->getSite()->getUri(0) === LoginController::LOGIN_ALIAS) {
-            $this->setActiveLanguage(true);
-            $loginController = new LoginController();
-            return $loginController->run();
+        $alias = $this->getSite()->getUri(0);
+
+        switch ($alias) {
+            case self::ALIAS_SITEMAP:
+                $this->setActiveLanguage(true);
+                $controller = new SiteMapController();
+                return $controller->run();
+            case self::ALIAS_ROBOTS:
+                $this->setActiveLanguage(true);
+                $controller = new RobotsController();
+                return $controller->run();
+            case self::ALIAS_ADS:
+                $this->setActiveLanguage(true);
+                $controller = new AdsController();
+                return $controller->run();
+            case self::ALIAS_FAVICON:
+                $this->setActiveLanguage(true);
+                $controller = new FaviconController();
+                return $controller->run();
+            case self::ALIAS_LOGIN:
+                $this->setActiveLanguage(true);
+                $controller = new LoginController();
+                return $controller->run();
+            default:
+                break;
         }
 
         $this->setActiveLanguage();
 
-        if ($this->getSite()->getUri(1) === LoginController::LOGIN_ALIAS
+        if ($this->getSite()->getUri(1) === self::ALIAS_LOGIN
         ) {
             $loginController = new LoginController();
             return $loginController->run();

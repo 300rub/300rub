@@ -13,7 +13,7 @@ class AccessException extends AbstractException
      *
      * @return integer
      */
-    protected function getErrorCode()
+    public function getErrorCode()
     {
         return 403;
     }

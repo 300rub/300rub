@@ -1,6 +1,8 @@
 <?php
 
 namespace ss\application\components\common;
+use ss\application\App;
+use ss\application\exceptions\AbstractException;
 
 /**
  * Class to work with logs
@@ -118,23 +120,44 @@ class Logger
         array $parameters = [],
         $name = self::DEFAULT_NAME
     ) {
+        $message .= $this->_getRequestInfo();
         $this->_log($message, $parameters, $name, self::LEVEL_WARNING);
     }
 
     /**
      * Logs error
      *
-     * @param string $message    Message
-     * @param array  $parameters Parameters
-     * @param string $name       File name
+     * @param string     $message    Message
+     * @param array      $parameters Parameters
+     * @param string     $name       File name
+     * @param \Exception $exception  Exception
      *
      * @return void
      */
     public function error(
         $message,
         array $parameters = [],
-        $name = self::DEFAULT_NAME
+        $name = self::DEFAULT_NAME,
+        $exception = null
     ) {
+        if ($exception !== null) {
+            $errorCode = $exception->getCode();
+            if ($exception instanceof AbstractException) {
+                $errorCode = $exception->getErrorCode();
+            }
+
+            $message = sprintf(
+                "%s CODE: %s FILE: %s (%s) TRACE: %s",
+                $message,
+                $errorCode,
+                $exception->getFile(),
+                $exception->getLine(),
+                str_replace(PHP_EOL, ' ', $exception->getTraceAsString())
+            );
+        }
+
+        $message .= $this->_getRequestInfo();
+
         $this->_log($message, $parameters, $name, self::LEVEL_ERROR);
     }
 
@@ -155,5 +178,66 @@ class Logger
         if (APP_ENV === ENV_DEV) {
             $this->_log($message, $parameters, $name, self::LEVEL_DEBUG);
         }
+    }
+
+    /**
+     * Gets request info
+     *
+     * @return string
+     */
+    private function _getRequestInfo()
+    {
+        $info = '';
+
+        $superGlobalVariable = App::getInstance()
+            ->getSuperGlobalVariable();
+
+        $uri = $superGlobalVariable
+            ->getServerValue('REQUEST_URI');
+        $httpHost = $superGlobalVariable
+            ->getServerValue('HTTP_HOST');
+        if (empty($uri) === false
+            || empty($httpHost) === false
+        ) {
+            $info .= sprintf(
+                ' URL: %s%s',
+                $httpHost,
+                $uri
+            );
+        }
+
+        $get = $superGlobalVariable->getGetValue();
+        if (empty($get) === false) {
+            $info .= sprintf(
+                ' GET: %s',
+                json_encode($get)
+            );
+        }
+
+        $post = $superGlobalVariable->getPostValue();
+        if (empty($post) === false) {
+            $info .= sprintf(
+                ' POST: %s',
+                json_encode($post)
+            );
+        }
+
+        $files = $superGlobalVariable->getFilesValue();
+        if (empty($files) === false) {
+            $info .= sprintf(
+                ' FILES: %s',
+                json_encode($files)
+            );
+        }
+
+        $put = file_get_contents('php://input');
+        if (empty($put) === false) {
+            $info .= sprintf(
+                ' PUT: %s',
+                $put
+            );
+        }
+
+        return $info;
     }
 }

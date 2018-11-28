@@ -5,9 +5,13 @@ namespace ss\application\instances;
 use ss\application\components\common\Language;
 use ss\application\instances\_abstract\AbstractAjax;
 use ss\controllers\site\_abstract\AbstractController;
+use ss\controllers\site\AdsController;
 use ss\controllers\site\CreateController;
+use ss\controllers\site\FaviconController;
 use ss\controllers\site\HelpController;
 use ss\controllers\site\IndexController;
+use ss\controllers\site\RobotsController;
+use ss\controllers\site\SiteMapController;
 
 /**
  * Class for working with Site application
@@ -16,10 +20,14 @@ class Site extends AbstractAjax
 {
 
     /**
-     * Prefixes
+     * Aliases
      */
-    const HELP_PREFIX = 'help';
-    const CREATE_PREFIX = 'create';
+    const ALIAS_SITEMAP = 'sitemap.xml';
+    const ALIAS_ROBOTS = 'robots.txt';
+    const ALIAS_ADS = 'ads.txt';
+    const ALIAS_HELP = 'help';
+    const ALIAS_CREATE = 'create';
+    const ALIAS_FAVICON = 'favicon.ico';
 
     /**
      * Runs application
@@ -80,6 +88,20 @@ class Site extends AbstractAjax
             return new IndexController();
         }
 
+        $alias = strtolower($requestParameters[0]);
+        switch ($alias) {
+            case self::ALIAS_SITEMAP:
+                return new SiteMapController();
+            case self::ALIAS_ROBOTS:
+                return new RobotsController();
+            case self::ALIAS_ADS:
+                return new AdsController();
+            case self::ALIAS_FAVICON:
+                return new FaviconController();
+            default:
+                break;
+        }
+
         $this->getLanguage()->setIdByAlias(
             $requestParameters[0]
         );
@@ -88,17 +110,16 @@ class Site extends AbstractAjax
             return new IndexController();
         }
 
-        $prefix = strtolower($requestParameters[1]);
+        $alias = strtolower($requestParameters[1]);
 
-        if ($prefix === self::HELP_PREFIX) {
-            return new HelpController();
+        switch ($alias) {
+            case self::ALIAS_HELP:
+                return new HelpController();
+            case self::ALIAS_CREATE:
+                return new CreateController();
+            default:
+                return new IndexController();
         }
-
-        if ($prefix === self::CREATE_PREFIX) {
-            return new CreateController();
-        }
-
-        return new IndexController();
     }
 
     /**
