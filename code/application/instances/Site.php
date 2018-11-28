@@ -7,6 +7,7 @@ use ss\application\instances\_abstract\AbstractAjax;
 use ss\controllers\site\_abstract\AbstractController;
 use ss\controllers\site\AdsController;
 use ss\controllers\site\CreateController;
+use ss\controllers\site\FaviconController;
 use ss\controllers\site\HelpController;
 use ss\controllers\site\IndexController;
 use ss\controllers\site\RobotsController;
@@ -26,6 +27,7 @@ class Site extends AbstractAjax
     const ALIAS_ADS = 'ads.txt';
     const ALIAS_HELP = 'help';
     const ALIAS_CREATE = 'create';
+    const ALIAS_FAVICON = 'favicon.ico';
 
     /**
      * Runs application
@@ -94,6 +96,8 @@ class Site extends AbstractAjax
                 return new RobotsController();
             case self::ALIAS_ADS:
                 return new AdsController();
+            case self::ALIAS_FAVICON:
+                return new FaviconController();
             default:
                 break;
         }

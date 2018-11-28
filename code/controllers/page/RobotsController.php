@@ -11,7 +11,7 @@ class RobotsController extends AbstractPageController
 {
 
     /**
-     * Gets login page
+     * Gets robots.txt
      *
      * @return string
      */

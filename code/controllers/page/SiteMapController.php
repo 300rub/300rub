@@ -11,7 +11,7 @@ class SiteMapController extends AbstractPageController
 {
 
     /**
-     * Gets login page
+     * Gets sitemap.xml
      *
      * @return string
      */

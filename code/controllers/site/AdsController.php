@@ -11,7 +11,7 @@ class AdsController extends AbstractController
 {
 
     /**
-     * Gets login page
+     * Gets ads.txt
      *
      * @return string
      */

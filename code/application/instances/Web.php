@@ -7,6 +7,7 @@ use ss\application\App;
 use ss\application\components\user\User;
 use ss\application\instances\_abstract\AbstractAjax;
 use ss\controllers\page\AdsController;
+use ss\controllers\page\FaviconController;
 use ss\controllers\page\RobotsController;
 use ss\controllers\page\SiteMapController;
 use ss\models\_abstract\AbstractModel;
@@ -28,6 +29,7 @@ class Web extends AbstractAjax
     const ALIAS_SITEMAP = 'sitemap.xml';
     const ALIAS_ROBOTS = 'robots.txt';
     const ALIAS_ADS = 'ads.txt';
+    const ALIAS_FAVICON = 'favicon.ico';
 
     /**
      * User in session
@@ -220,6 +222,10 @@ class Web extends AbstractAjax
             case self::ALIAS_ADS:
                 $this->setActiveLanguage(true);
                 $controller = new AdsController();
+                return $controller->run();
+            case self::ALIAS_FAVICON:
+                $this->setActiveLanguage(true);
+                $controller = new FaviconController();
                 return $controller->run();
             case self::ALIAS_LOGIN:
                 $this->setActiveLanguage(true);
