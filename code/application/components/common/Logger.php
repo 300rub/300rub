@@ -156,7 +156,7 @@ class Logger
             );
         }
 
-        $message .= $this->_getRequestInfo();
+        //$message .= $this->_getRequestInfo();
 
         $this->_log($message, $parameters, $name, self::LEVEL_ERROR);
     }
