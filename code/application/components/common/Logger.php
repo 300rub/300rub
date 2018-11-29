@@ -46,51 +46,46 @@ class Logger
      * @return void
      */
     private function _log($message, $parameters, $name, $level) {
-        try {
-            foreach ($parameters as $key => $value) {
-                if (is_array($value) === true) {
-                    $value = json_encode($value);
-                }
-
-                $message = str_replace(
-                    '{' . $key . '}',
-                    '[' . (string)$value . ']',
-                    $message
-                );
+        foreach ($parameters as $key => $value) {
+            if (is_array($value) === true) {
+                $value = json_encode($value);
             }
 
-            $filePath = sprintf(
-                '%s/logs/%s-%s.log',
-                FILES_ROOT,
-                $level,
-                $name
+            $message = str_replace(
+                '{' . $key . '}',
+                '[' . (string)$value . ']',
+                $message
             );
+        }
 
-            $isNew = false;
-            if (file_exists($filePath) === false) {
-                $isNew = true;
-            }
+        $filePath = sprintf(
+            '%s/logs/%s-%s.log',
+            FILES_ROOT,
+            $level,
+            $name
+        );
 
-            $logMessage = sprintf(
-                '[%s] [%s] %s%s',
-                date('Y-m-d H:i:s', time()),
-                $name,
-                $message,
-                PHP_EOL
-            );
+        $isNew = false;
+        if (file_exists($filePath) === false) {
+            $isNew = true;
+        }
 
-            $file = fopen($filePath, 'a');
-            flock($file, LOCK_EX);
-            fwrite($file, $logMessage);
-            flock($file, LOCK_UN);
-            fclose($file);
+        $logMessage = sprintf(
+            '[%s] [%s] %s%s',
+            date('Y-m-d H:i:s', time()),
+            $name,
+            $message,
+            PHP_EOL
+        );
 
-            if ($isNew === true) {
-                chmod($filePath, 0777);
-            }
-        } catch (\Exception $e) {
-            var_dump($e->getMessage());
-            exit;
+        $file = fopen($filePath, 'a');
+        flock($file, LOCK_EX);
+        fwrite($file, $logMessage);
+        flock($file, LOCK_UN);
+        fclose($file);
+
+        if ($isNew === true) {
+            chmod($filePath, 0777);
         }
     }
 
@@ -163,7 +158,7 @@ class Logger
 
         //$message .= $this->_getRequestInfo();
 
-        $this->_log($message, $parameters, $name, self::LEVEL_ERROR);
+        //$this->_log($message, $parameters, $name, self::LEVEL_ERROR);
     }
 
     /**
