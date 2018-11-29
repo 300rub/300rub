@@ -59,12 +59,12 @@ class ErrorHandler
         restore_error_handler();
         restore_exception_handler();
 
-//        App::getInstance()->getLogger()->error(
-//            '',
-//            [],
-//            Logger::DEFAULT_NAME,
-//            $exception
-//        );
+        App::getInstance()->getLogger()->error(
+            '',
+            [],
+            Logger::DEFAULT_NAME,
+            $exception
+        );
 
         if (App::getInstance() instanceof Web
             || $this->_isApi() === false

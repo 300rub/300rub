@@ -33,13 +33,11 @@ abstract class AbstractException extends Exception
      */
     public function __construct($message, array $parameters = [])
     {
-        App::getInstance()->getLogger()->error(
+        $message = App::getInstance()->getLogger()->getCompiledMessage(
             $message,
-            $parameters,
-            $this->getLogName(),
-            $this
+            $parameters
         );
 
-        parent::__construct($message, $this->getErrorCode());
+        parent::__construct($message, $this->getErrorCode(), $this);
     }
 }

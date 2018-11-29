@@ -36,16 +36,15 @@ class Logger
     const DEFAULT_NAME = 'common';
 
     /**
-     * Logs the message
+     * Gets compiled message
      *
      * @param string $message    Message
      * @param array  $parameters Parameters
-     * @param string $name       File name
-     * @param string $level      Level
      *
-     * @return void
+     * @return string
      */
-    private function _log($message, $parameters, $name, $level) {
+    public function getCompiledMessage($message, $parameters)
+    {
         foreach ($parameters as $key => $value) {
             if (is_array($value) === true) {
                 $value = json_encode($value);
@@ -57,6 +56,22 @@ class Logger
                 $message
             );
         }
+
+        return $message;
+    }
+
+    /**
+     * Logs the message
+     *
+     * @param string $message    Message
+     * @param array  $parameters Parameters
+     * @param string $name       File name
+     * @param string $level      Level
+     *
+     * @return void
+     */
+    private function _log($message, $parameters, $name, $level) {
+        $message = $this->getCompiledMessage($message, $parameters);
 
         $filePath = sprintf(
             '%s/logs/%s-%s.log',
@@ -144,6 +159,10 @@ class Logger
             $errorCode = $exception->getCode();
             if ($exception instanceof AbstractException) {
                 $errorCode = $exception->getErrorCode();
+            }
+
+            if ((string)$message === '') {
+                $message = $exception->getMessage();
             }
 
             $message = sprintf(
