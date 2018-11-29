@@ -60,12 +60,12 @@ class ErrorHandler
 
         $isApi = $this->_isApi();
 
-        App::getInstance()->getLogger()->error(
-            '',
-            [],
-            Logger::DEFAULT_NAME,
-            $exception
-        );
+//        App::getInstance()->getLogger()->error(
+//            '',
+//            [],
+//            Logger::DEFAULT_NAME,
+//            $exception
+//        );
 
         if (App::getInstance() instanceof Console
             || App::getInstance() instanceof Phpunit
