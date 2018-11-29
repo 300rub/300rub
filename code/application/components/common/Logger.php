@@ -84,9 +84,9 @@ class Logger
         flock($file, LOCK_UN);
         fclose($file);
 
-        if ($isNew === true) {
-            chmod($filePath, 0777);
-        }
+//        if ($isNew === true) {
+//            chmod($filePath, 0777);
+//        }
     }
 
     /**
