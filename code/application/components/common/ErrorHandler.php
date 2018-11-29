@@ -8,6 +8,7 @@ use ss\application\instances\_abstract\AbstractAjax;
 use ss\application\instances\Console;
 use ss\application\instances\Phpunit;
 use ss\application\instances\Selenium;
+use ss\application\instances\Web;
 use ss\controllers\page\ErrorController;
 
 /**
@@ -58,8 +59,6 @@ class ErrorHandler
         restore_error_handler();
         restore_exception_handler();
 
-        $isApi = $this->_isApi();
-
 //        App::getInstance()->getLogger()->error(
 //            '',
 //            [],
@@ -67,22 +66,18 @@ class ErrorHandler
 //            $exception
 //        );
 
-        if (App::getInstance() instanceof Console
-            || App::getInstance() instanceof Phpunit
-            || App::getInstance() instanceof Selenium
-            || $isApi === true
+        if (App::getInstance() instanceof Web
+            || $this->_isApi() === false
         ) {
-            exit;
+            $errorController = new ErrorController();
+            $errorController
+                ->setCode($exception->getCode())
+                ->setMessage($exception->getMessage())
+                ->setFile($exception->getFile())
+                ->setLine($exception->getLine())
+                ->setBacktrace($exception->getTrace());
+            echo $errorController->run();
         }
-
-        $errorController = new ErrorController();
-        $errorController
-            ->setCode($exception->getCode())
-            ->setMessage($exception->getMessage())
-            ->setFile($exception->getFile())
-            ->setLine($exception->getLine())
-            ->setBacktrace($exception->getTrace());
-        echo $errorController->run();
     }
 
     /**
