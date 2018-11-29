@@ -36,15 +36,16 @@ class Logger
     const DEFAULT_NAME = 'common';
 
     /**
-     * Gets compiled message
+     * Logs the message
      *
      * @param string $message    Message
      * @param array  $parameters Parameters
+     * @param string $name       File name
+     * @param string $level      Level
      *
-     * @return string
+     * @return void
      */
-    public function getCompiledMessage($message, $parameters)
-    {
+    private function _log($message, $parameters, $name, $level) {
         foreach ($parameters as $key => $value) {
             if (is_array($value) === true) {
                 $value = json_encode($value);
@@ -56,22 +57,6 @@ class Logger
                 $message
             );
         }
-
-        return $message;
-    }
-
-    /**
-     * Logs the message
-     *
-     * @param string $message    Message
-     * @param array  $parameters Parameters
-     * @param string $name       File name
-     * @param string $level      Level
-     *
-     * @return void
-     */
-    private function _log($message, $parameters, $name, $level) {
-        $message = $this->getCompiledMessage($message, $parameters);
 
         $filePath = sprintf(
             '%s/logs/%s-%s.log',

@@ -3,6 +3,7 @@
 namespace ss\application\components\common;
 
 use ss\application\App;
+use ss\application\exceptions\AbstractException;
 use ss\application\exceptions\CommonException;
 use ss\application\instances\_abstract\AbstractAjax;
 use ss\application\instances\Console;
@@ -59,12 +60,14 @@ class ErrorHandler
         restore_error_handler();
         restore_exception_handler();
 
-        App::getInstance()->getLogger()->error(
-            '',
-            [],
-            Logger::DEFAULT_NAME,
-            $exception
-        );
+        if ($exception instanceof AbstractException === false) {
+            App::getInstance()->getLogger()->error(
+                '',
+                [],
+                Logger::DEFAULT_NAME,
+                $exception
+            );
+        }
 
         if (App::getInstance() instanceof Web
             || $this->_isApi() === false
