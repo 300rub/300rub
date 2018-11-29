@@ -1,6 +1,5 @@
 <?php
-http_response_code(404);
-exit;
+
 require __DIR__ . '/../application/App.php';
 
 use ss\application\App;
