@@ -78,6 +78,7 @@ class Logger
             PHP_EOL
         );
 
+        echo 'aaaaaaaaa'; exit;
 //        $file = fopen($filePath, 'a');
 //        flock($file, LOCK_EX);
 //        fwrite($file, $logMessage);
