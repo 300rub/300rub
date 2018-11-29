@@ -78,13 +78,17 @@ class Logger
             PHP_EOL
         );
 
-        echo $filePath;
-        echo $logMessage; exit;
-//        $file = fopen($filePath, 'a');
-//        flock($file, LOCK_EX);
-//        fwrite($file, $logMessage);
-//        flock($file, LOCK_UN);
-//        fclose($file);
+        try {
+            $file = fopen($filePath, 'a');
+            flock($file, LOCK_EX);
+            fwrite($file, $logMessage);
+            flock($file, LOCK_UN);
+            fclose($file);
+        } catch (\Exception $e) {
+            echo $e->getMessage();
+        }
+
+        exit;
 
 //        if ($isNew === true) {
 //            chmod($filePath, 0777);
