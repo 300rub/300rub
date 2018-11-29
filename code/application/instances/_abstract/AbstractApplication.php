@@ -197,10 +197,6 @@ abstract class AbstractApplication extends AbstractComponents
         if ($siteModel === null) {
             $siteModel = SiteModel::model()->byDomain($hostname)->find();
             if ($siteModel === null) {
-                http_response_code(404);
-                echo '111';
-                exit;
-
                 throw new NotFoundException(
                     'Unable to find site with host: {host}',
                     [
