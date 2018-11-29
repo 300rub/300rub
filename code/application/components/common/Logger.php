@@ -46,46 +46,51 @@ class Logger
      * @return void
      */
     private function _log($message, $parameters, $name, $level) {
-        foreach ($parameters as $key => $value) {
-            if (is_array($value) === true) {
-                $value = json_encode($value);
+        try {
+            foreach ($parameters as $key => $value) {
+                if (is_array($value) === true) {
+                    $value = json_encode($value);
+                }
+
+                $message = str_replace(
+                    '{' . $key . '}',
+                    '[' . (string)$value . ']',
+                    $message
+                );
             }
 
-            $message = str_replace(
-                '{' . $key . '}',
-                '[' . (string)$value . ']',
-                $message
+            $filePath = sprintf(
+                '%s/logs/%s-%s.log',
+                FILES_ROOT,
+                $level,
+                $name
             );
-        }
 
-        $filePath = sprintf(
-            '%s/logs/%s-%s.log',
-            FILES_ROOT,
-            $level,
-            $name
-        );
+            $isNew = false;
+            if (file_exists($filePath) === false) {
+                $isNew = true;
+            }
 
-        $isNew = false;
-        if (file_exists($filePath) === false) {
-            $isNew = true;
-        }
+            $logMessage = sprintf(
+                '[%s] [%s] %s%s',
+                date('Y-m-d H:i:s', time()),
+                $name,
+                $message,
+                PHP_EOL
+            );
 
-        $logMessage = sprintf(
-            '[%s] [%s] %s%s',
-            date('Y-m-d H:i:s', time()),
-            $name,
-            $message,
-            PHP_EOL
-        );
+            $file = fopen($filePath, 'a');
+            flock($file, LOCK_EX);
+            fwrite($file, $logMessage);
+            flock($file, LOCK_UN);
+            fclose($file);
 
-        $file = fopen($filePath, 'a');
-        flock($file, LOCK_EX);
-        fwrite($file, $logMessage);
-        flock($file, LOCK_UN);
-        fclose($file);
-
-        if ($isNew === true) {
-            chmod($filePath, 0777);
+            if ($isNew === true) {
+                chmod($filePath, 0777);
+            }
+        } catch (\Exception $e) {
+            var_dump($e->getMessage());
+            exit;
         }
     }
 
