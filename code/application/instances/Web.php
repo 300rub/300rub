@@ -32,6 +32,11 @@ class Web extends AbstractAjax
     const ALIAS_FAVICON = 'favicon.ico';
 
     /**
+     * AWS host
+     */
+    const AWS_HOST = 'amazonaws.com';
+
+    /**
      * User in session
      *
      * @var User
@@ -45,15 +50,15 @@ class Web extends AbstractAjax
      */
     public function run()
     {
-        $httpHost = $this
+        $host = $this
             ->getSuperGlobalVariable()
             ->getServerValue('HTTP_HOST');
+        $host = mb_strtolower(trim($host));
 
-        if (filter_var($httpHost, FILTER_VALIDATE_IP) !== false) {
-            exit;
-        }
+        $this
+            ->_checkHost($host)
+            ->setSite($host);
 
-        $this->setSite($httpHost);
         $this->_setUserAndDb();
 
         $isAjax = false;
@@ -62,6 +67,26 @@ class Web extends AbstractAjax
         }
 
         echo $this->_getOutput($isAjax);
+    }
+
+    /**
+     * Checks host
+     *
+     * @param string $host Host
+     *
+     * @return Web
+     */
+    private function _checkHost($host)
+    {
+        if ($host === ''
+            || filter_var($host, FILTER_VALIDATE_IP) !== false
+            || strpos($host, self::AWS_HOST) !== false
+            || strpos($host, ':80') !== false
+        ) {
+            exit;
+        }
+
+        return $this;
     }
 
     /**

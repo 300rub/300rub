@@ -78,6 +78,8 @@ $adminJs = [
 ];
 
 $adminFiles = [
+    "underscore-min.map"
+        => "components/underscore/underscore-min.map",
     "colorpicker/images/bar.png"
         => "vanderlee/colorpicker/images/bar.png",
     "colorpicker/images/bar-alpha.png"
