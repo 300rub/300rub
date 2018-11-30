@@ -146,6 +146,10 @@ class Logger
                 $errorCode = $exception->getErrorCode();
             }
 
+            if ((string)$message === '') {
+                $message = $exception->getMessage();
+            }
+
             $message = sprintf(
                 "%s CODE: %s FILE: %s (%s) TRACE: %s",
                 $message,

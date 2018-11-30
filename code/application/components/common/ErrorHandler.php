@@ -3,11 +3,13 @@
 namespace ss\application\components\common;
 
 use ss\application\App;
+use ss\application\exceptions\AbstractException;
 use ss\application\exceptions\CommonException;
 use ss\application\instances\_abstract\AbstractAjax;
 use ss\application\instances\Console;
 use ss\application\instances\Phpunit;
 use ss\application\instances\Selenium;
+use ss\application\instances\Web;
 use ss\controllers\page\ErrorController;
 
 /**
@@ -58,31 +60,27 @@ class ErrorHandler
         restore_error_handler();
         restore_exception_handler();
 
-        $isApi = $this->_isApi();
-
-        App::getInstance()->getLogger()->error(
-            '',
-            [],
-            Logger::DEFAULT_NAME,
-            $exception
-        );
-
-        if (App::getInstance() instanceof Console
-            || App::getInstance() instanceof Phpunit
-            || App::getInstance() instanceof Selenium
-            || $isApi === true
-        ) {
-            exit;
+        if ($exception instanceof AbstractException === false) {
+            App::getInstance()->getLogger()->error(
+                '',
+                [],
+                Logger::DEFAULT_NAME,
+                $exception
+            );
         }
 
-        $errorController = new ErrorController();
-        $errorController
-            ->setCode($exception->getCode())
-            ->setMessage($exception->getMessage())
-            ->setFile($exception->getFile())
-            ->setLine($exception->getLine())
-            ->setBacktrace($exception->getTrace());
-        echo $errorController->run();
+        if (App::getInstance() instanceof Web
+            || $this->_isApi() === false
+        ) {
+            $errorController = new ErrorController();
+            $errorController
+                ->setCode($exception->getCode())
+                ->setMessage($exception->getMessage())
+                ->setFile($exception->getFile())
+                ->setLine($exception->getLine())
+                ->setBacktrace($exception->getTrace());
+            echo $errorController->run();
+        }
     }
 
     /**
