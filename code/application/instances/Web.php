@@ -37,6 +37,11 @@ class Web extends AbstractAjax
     const AWS_HOST = 'amazonaws.com';
 
     /**
+     * WWW prefix
+     */
+    const WWW_PREFIX = 'www.';
+
+    /**
      * User in session
      *
      * @var User
@@ -50,14 +55,7 @@ class Web extends AbstractAjax
      */
     public function run()
     {
-        $host = $this
-            ->getSuperGlobalVariable()
-            ->getServerValue('HTTP_HOST');
-        $host = mb_strtolower(trim($host));
-
-        $this
-            ->_checkHost($host)
-            ->setSite($host);
+        $this->setSite($this->_getHost());
 
         $this->_setUserAndDb();
 
@@ -72,12 +70,15 @@ class Web extends AbstractAjax
     /**
      * Checks host
      *
-     * @param string $host Host
-     *
-     * @return Web
+     * @return string
      */
-    private function _checkHost($host)
+    private function _getHost()
     {
+        $host = $this
+            ->getSuperGlobalVariable()
+            ->getServerValue('HTTP_HOST');
+        $host = mb_strtolower(trim($host));
+
         if ($host === ''
             || filter_var($host, FILTER_VALIDATE_IP) !== false
             || strpos($host, self::AWS_HOST) !== false
@@ -86,7 +87,11 @@ class Web extends AbstractAjax
             exit;
         }
 
-        return $this;
+        if (strpos($host, self::WWW_PREFIX) === 0) {
+            $host = str_replace(self::WWW_PREFIX, '', $host);
+        }
+
+        return $host;
     }
 
     /**
