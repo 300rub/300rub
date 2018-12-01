@@ -41,7 +41,7 @@ return [
     ],
     'alias'     => [
         Language::LANGUAGE_EN_ID => 'Alias',
-        Language::LANGUAGE_RU_ID => 'Alias',
+        Language::LANGUAGE_RU_ID => 'Адрес',
     ],
     'title'     => [
         Language::LANGUAGE_EN_ID => 'Title',
