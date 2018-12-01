@@ -17,7 +17,7 @@ return [
     ],
     'users'  => [
         Language::LANGUAGE_EN_ID => 'Users',
-        Language::LANGUAGE_RU_ID => '',
+        Language::LANGUAGE_RU_ID => 'Пользователи',
     ],
     'password'  => [
         Language::LANGUAGE_EN_ID => 'Password',
@@ -53,27 +53,27 @@ return [
     ],
     'typeOwner' => [
         Language::LANGUAGE_EN_ID => 'Owner',
-        Language::LANGUAGE_RU_ID => '',
+        Language::LANGUAGE_RU_ID => 'Владелец',
     ],
     'typeFull' => [
         Language::LANGUAGE_EN_ID => 'Full',
-        Language::LANGUAGE_RU_ID => '',
+        Language::LANGUAGE_RU_ID => 'Администратор',
     ],
     'typeLimited' => [
         Language::LANGUAGE_EN_ID => 'Limited',
-        Language::LANGUAGE_RU_ID => '',
+        Language::LANGUAGE_RU_ID => 'Ограниченный доступ',
     ],
     'typeBlocked' => [
         Language::LANGUAGE_EN_ID => 'Blocked',
-        Language::LANGUAGE_RU_ID => '',
+        Language::LANGUAGE_RU_ID => 'Заблокированный',
     ],
     'sessions' => [
         Language::LANGUAGE_EN_ID => 'Sessions',
-        Language::LANGUAGE_RU_ID => '',
+        Language::LANGUAGE_RU_ID => 'Сессии',
     ],
     'access' => [
         Language::LANGUAGE_EN_ID => 'Access',
-        Language::LANGUAGE_RU_ID => '',
+        Language::LANGUAGE_RU_ID => 'Доступ',
     ],
     'passwordsMatch' => [
         Language::LANGUAGE_EN_ID => 'Passwords do not match',
@@ -81,71 +81,76 @@ return [
     ],
     'token' => [
         Language::LANGUAGE_EN_ID => 'Token',
-        Language::LANGUAGE_RU_ID => '',
+        Language::LANGUAGE_RU_ID => 'Ключ',
     ],
     'lastActivity' => [
         Language::LANGUAGE_EN_ID => 'Last activity',
-        Language::LANGUAGE_RU_ID => '',
+        Language::LANGUAGE_RU_ID => 'Последняя активность',
     ],
     'platform' => [
         Language::LANGUAGE_EN_ID => 'Platform',
-        Language::LANGUAGE_RU_ID => '',
+        Language::LANGUAGE_RU_ID => 'Платформа',
     ],
     'browser' => [
         Language::LANGUAGE_EN_ID => 'Browser',
-        Language::LANGUAGE_RU_ID => '',
+        Language::LANGUAGE_RU_ID => 'Браузер',
     ],
     'online' => [
         Language::LANGUAGE_EN_ID => 'Online',
-        Language::LANGUAGE_RU_ID => '',
+        Language::LANGUAGE_RU_ID => 'Онлайн',
     ],
     'current' => [
         Language::LANGUAGE_EN_ID => 'Current',
-        Language::LANGUAGE_RU_ID => '',
+        Language::LANGUAGE_RU_ID => 'Текущий',
     ],
     'deleteAllSessions' => [
         Language::LANGUAGE_EN_ID => 'Delete all sessions',
-        Language::LANGUAGE_RU_ID => '',
+        Language::LANGUAGE_RU_ID => 'Удалить все сессии',
     ],
     'deleteSessionConfirmText' => [
-        Language::LANGUAGE_EN_ID => 'Are you sure to delete the session?',
-        Language::LANGUAGE_RU_ID => '',
+        Language::LANGUAGE_EN_ID
+            => 'Are you sure to delete the session?',
+        Language::LANGUAGE_RU_ID
+            => 'Вы действительно хотите удалить сессию?',
     ],
     'deleteSessionConfirmYes' => [
         Language::LANGUAGE_EN_ID => 'Yes, delete it',
-        Language::LANGUAGE_RU_ID => '',
+        Language::LANGUAGE_RU_ID => 'Да, удалить',
     ],
     'deleteAllSessionsConfirmText' => [
-        Language::LANGUAGE_EN_ID => 'Are you sure to delete all the sessions?',
-        Language::LANGUAGE_RU_ID => '',
+        Language::LANGUAGE_EN_ID
+            => 'Are you sure to delete all the sessions?',
+        Language::LANGUAGE_RU_ID
+            => 'Вы действительно хотите удалить все сессии?',
     ],
     'deleteAllSessionsConfirmYes' => [
         Language::LANGUAGE_EN_ID => 'Yes, delete them',
-        Language::LANGUAGE_RU_ID => '',
+        Language::LANGUAGE_RU_ID => 'Да, удалить все',
     ],
     'deleteUserConfirmText' => [
         Language::LANGUAGE_EN_ID => 'Are you sure to delete the user?',
-        Language::LANGUAGE_RU_ID => '',
+        Language::LANGUAGE_RU_ID
+            => 'Вы действительно хотите удалить пользователя?',
     ],
     'addUser' => [
         Language::LANGUAGE_EN_ID => 'Add user',
-        Language::LANGUAGE_RU_ID => '',
+        Language::LANGUAGE_RU_ID => 'Добавить пользователя',
     ],
     'editUser' => [
         Language::LANGUAGE_EN_ID => 'Edit user',
-        Language::LANGUAGE_RU_ID => '',
+        Language::LANGUAGE_RU_ID => 'Редактировать пользователя',
     ],
     'type' => [
         Language::LANGUAGE_EN_ID => 'Type',
-        Language::LANGUAGE_RU_ID => '',
+        Language::LANGUAGE_RU_ID => 'Тип',
     ],
     'operations' => [
         Language::LANGUAGE_EN_ID => 'Operations',
-        Language::LANGUAGE_RU_ID => '',
+        Language::LANGUAGE_RU_ID => 'Операции',
     ],
     'isChangePassword' => [
         Language::LANGUAGE_EN_ID => 'Change password',
-        Language::LANGUAGE_RU_ID => '',
+        Language::LANGUAGE_RU_ID => 'Изменить пароль',
     ],
     'name'      => [
         Language::LANGUAGE_EN_ID => 'Name',

@@ -24,7 +24,7 @@ return [
     ],
     'ip'               => [
         Language::LANGUAGE_EN_ID => 'Incorrect ip address',
-        Language::LANGUAGE_RU_ID => '',
+        Language::LANGUAGE_RU_ID => 'Неправильный IP адресс',
     ],
     'email'     => [
         Language::LANGUAGE_EN_ID => 'Incorrect email',
