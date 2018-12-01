@@ -177,7 +177,7 @@ abstract class AbstractDbRequest extends AbstractDbTransaction
         exec(
             sprintf(
                 'export MYSQL_PWD=\'%s\'; ' .
-                'mysqldump -u %s -h \'%s\' %s > %s',
+                'mysqldump --skip-comments -u %s -h \'%s\' %s > %s',
                 $rootUser['password'],
                 $rootUser['user'],
                 $host,

@@ -1,8 +1,3 @@
--- MySQL dump 10.13  Distrib 5.7.24, for Linux (x86_64)
---
--- Host: 127.0.0.1    Database: source
--- ------------------------------------------------------
--- Server version	5.7.22
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -14,11 +9,6 @@
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-
---
--- Table structure for table `blocks`
---
-
 DROP TABLE IF EXISTS `blocks`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
@@ -34,19 +24,10 @@ CREATE TABLE `blocks` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `blocks`
---
-
 LOCK TABLES `blocks` WRITE;
 /*!40000 ALTER TABLE `blocks` DISABLE KEYS */;
 /*!40000 ALTER TABLE `blocks` ENABLE KEYS */;
 UNLOCK TABLES;
-
---
--- Table structure for table `catalogBins`
---
-
 DROP TABLE IF EXISTS `catalogBins`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
@@ -65,19 +46,10 @@ CREATE TABLE `catalogBins` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `catalogBins`
---
-
 LOCK TABLES `catalogBins` WRITE;
 /*!40000 ALTER TABLE `catalogBins` DISABLE KEYS */;
 /*!40000 ALTER TABLE `catalogBins` ENABLE KEYS */;
 UNLOCK TABLES;
-
---
--- Table structure for table `catalogInstanceLinks`
---
-
 DROP TABLE IF EXISTS `catalogInstanceLinks`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
@@ -93,19 +65,10 @@ CREATE TABLE `catalogInstanceLinks` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `catalogInstanceLinks`
---
-
 LOCK TABLES `catalogInstanceLinks` WRITE;
 /*!40000 ALTER TABLE `catalogInstanceLinks` DISABLE KEYS */;
 /*!40000 ALTER TABLE `catalogInstanceLinks` ENABLE KEYS */;
 UNLOCK TABLES;
-
---
--- Table structure for table `catalogInstances`
---
-
 DROP TABLE IF EXISTS `catalogInstances`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
@@ -135,19 +98,10 @@ CREATE TABLE `catalogInstances` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `catalogInstances`
---
-
 LOCK TABLES `catalogInstances` WRITE;
 /*!40000 ALTER TABLE `catalogInstances` DISABLE KEYS */;
 /*!40000 ALTER TABLE `catalogInstances` ENABLE KEYS */;
 UNLOCK TABLES;
-
---
--- Table structure for table `catalogMenu`
---
-
 DROP TABLE IF EXISTS `catalogMenu`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
@@ -168,19 +122,10 @@ CREATE TABLE `catalogMenu` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `catalogMenu`
---
-
 LOCK TABLES `catalogMenu` WRITE;
 /*!40000 ALTER TABLE `catalogMenu` DISABLE KEYS */;
 /*!40000 ALTER TABLE `catalogMenu` ENABLE KEYS */;
 UNLOCK TABLES;
-
---
--- Table structure for table `catalogOrders`
---
-
 DROP TABLE IF EXISTS `catalogOrders`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
@@ -197,19 +142,10 @@ CREATE TABLE `catalogOrders` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `catalogOrders`
---
-
 LOCK TABLES `catalogOrders` WRITE;
 /*!40000 ALTER TABLE `catalogOrders` DISABLE KEYS */;
 /*!40000 ALTER TABLE `catalogOrders` ENABLE KEYS */;
 UNLOCK TABLES;
-
---
--- Table structure for table `catalogs`
---
-
 DROP TABLE IF EXISTS `catalogs`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
@@ -242,19 +178,10 @@ CREATE TABLE `catalogs` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `catalogs`
---
-
 LOCK TABLES `catalogs` WRITE;
 /*!40000 ALTER TABLE `catalogs` DISABLE KEYS */;
 /*!40000 ALTER TABLE `catalogs` ENABLE KEYS */;
 UNLOCK TABLES;
-
---
--- Table structure for table `designBlocks`
---
-
 DROP TABLE IF EXISTS `designBlocks`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
@@ -323,19 +250,10 @@ CREATE TABLE `designBlocks` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `designBlocks`
---
-
 LOCK TABLES `designBlocks` WRITE;
 /*!40000 ALTER TABLE `designBlocks` DISABLE KEYS */;
 /*!40000 ALTER TABLE `designBlocks` ENABLE KEYS */;
 UNLOCK TABLES;
-
---
--- Table structure for table `designCatalogs`
---
-
 DROP TABLE IF EXISTS `designCatalogs`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
@@ -420,19 +338,10 @@ CREATE TABLE `designCatalogs` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `designCatalogs`
---
-
 LOCK TABLES `designCatalogs` WRITE;
 /*!40000 ALTER TABLE `designCatalogs` DISABLE KEYS */;
 /*!40000 ALTER TABLE `designCatalogs` ENABLE KEYS */;
 UNLOCK TABLES;
-
---
--- Table structure for table `designFields`
---
-
 DROP TABLE IF EXISTS `designFields`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
@@ -472,19 +381,10 @@ CREATE TABLE `designFields` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `designFields`
---
-
 LOCK TABLES `designFields` WRITE;
 /*!40000 ALTER TABLE `designFields` DISABLE KEYS */;
 /*!40000 ALTER TABLE `designFields` ENABLE KEYS */;
 UNLOCK TABLES;
-
---
--- Table structure for table `designForms`
---
-
 DROP TABLE IF EXISTS `designForms`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
@@ -524,19 +424,10 @@ CREATE TABLE `designForms` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `designForms`
---
-
 LOCK TABLES `designForms` WRITE;
 /*!40000 ALTER TABLE `designForms` DISABLE KEYS */;
 /*!40000 ALTER TABLE `designForms` ENABLE KEYS */;
 UNLOCK TABLES;
-
---
--- Table structure for table `designImageAlbums`
---
-
 DROP TABLE IF EXISTS `designImageAlbums`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
@@ -558,19 +449,10 @@ CREATE TABLE `designImageAlbums` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `designImageAlbums`
---
-
 LOCK TABLES `designImageAlbums` WRITE;
 /*!40000 ALTER TABLE `designImageAlbums` DISABLE KEYS */;
 /*!40000 ALTER TABLE `designImageAlbums` ENABLE KEYS */;
 UNLOCK TABLES;
-
---
--- Table structure for table `designImageSimple`
---
-
 DROP TABLE IF EXISTS `designImageSimple`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
@@ -594,19 +476,10 @@ CREATE TABLE `designImageSimple` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `designImageSimple`
---
-
 LOCK TABLES `designImageSimple` WRITE;
 /*!40000 ALTER TABLE `designImageSimple` DISABLE KEYS */;
 /*!40000 ALTER TABLE `designImageSimple` ENABLE KEYS */;
 UNLOCK TABLES;
-
---
--- Table structure for table `designImageSliders`
---
-
 DROP TABLE IF EXISTS `designImageSliders`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
@@ -636,19 +509,10 @@ CREATE TABLE `designImageSliders` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `designImageSliders`
---
-
 LOCK TABLES `designImageSliders` WRITE;
 /*!40000 ALTER TABLE `designImageSliders` DISABLE KEYS */;
 /*!40000 ALTER TABLE `designImageSliders` ENABLE KEYS */;
 UNLOCK TABLES;
-
---
--- Table structure for table `designImageZooms`
---
-
 DROP TABLE IF EXISTS `designImageZooms`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
@@ -662,19 +526,10 @@ CREATE TABLE `designImageZooms` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `designImageZooms`
---
-
 LOCK TABLES `designImageZooms` WRITE;
 /*!40000 ALTER TABLE `designImageZooms` DISABLE KEYS */;
 /*!40000 ALTER TABLE `designImageZooms` ENABLE KEYS */;
 UNLOCK TABLES;
-
---
--- Table structure for table `designMenu`
---
-
 DROP TABLE IF EXISTS `designMenu`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
@@ -723,19 +578,10 @@ CREATE TABLE `designMenu` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `designMenu`
---
-
 LOCK TABLES `designMenu` WRITE;
 /*!40000 ALTER TABLE `designMenu` DISABLE KEYS */;
 /*!40000 ALTER TABLE `designMenu` ENABLE KEYS */;
 UNLOCK TABLES;
-
---
--- Table structure for table `designRecordClones`
---
-
 DROP TABLE IF EXISTS `designRecordClones`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
@@ -770,19 +616,10 @@ CREATE TABLE `designRecordClones` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `designRecordClones`
---
-
 LOCK TABLES `designRecordClones` WRITE;
 /*!40000 ALTER TABLE `designRecordClones` DISABLE KEYS */;
 /*!40000 ALTER TABLE `designRecordClones` ENABLE KEYS */;
 UNLOCK TABLES;
-
---
--- Table structure for table `designRecords`
---
-
 DROP TABLE IF EXISTS `designRecords`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
@@ -844,19 +681,10 @@ CREATE TABLE `designRecords` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `designRecords`
---
-
 LOCK TABLES `designRecords` WRITE;
 /*!40000 ALTER TABLE `designRecords` DISABLE KEYS */;
 /*!40000 ALTER TABLE `designRecords` ENABLE KEYS */;
 UNLOCK TABLES;
-
---
--- Table structure for table `designSearch`
---
-
 DROP TABLE IF EXISTS `designSearch`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
@@ -890,19 +718,10 @@ CREATE TABLE `designSearch` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `designSearch`
---
-
 LOCK TABLES `designSearch` WRITE;
 /*!40000 ALTER TABLE `designSearch` DISABLE KEYS */;
 /*!40000 ALTER TABLE `designSearch` ENABLE KEYS */;
 UNLOCK TABLES;
-
---
--- Table structure for table `designTabs`
---
-
 DROP TABLE IF EXISTS `designTabs`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
@@ -924,19 +743,10 @@ CREATE TABLE `designTabs` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `designTabs`
---
-
 LOCK TABLES `designTabs` WRITE;
 /*!40000 ALTER TABLE `designTabs` DISABLE KEYS */;
 /*!40000 ALTER TABLE `designTabs` ENABLE KEYS */;
 UNLOCK TABLES;
-
---
--- Table structure for table `designTexts`
---
-
 DROP TABLE IF EXISTS `designTexts`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
@@ -965,19 +775,10 @@ CREATE TABLE `designTexts` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `designTexts`
---
-
 LOCK TABLES `designTexts` WRITE;
 /*!40000 ALTER TABLE `designTexts` DISABLE KEYS */;
 /*!40000 ALTER TABLE `designTexts` ENABLE KEYS */;
 UNLOCK TABLES;
-
---
--- Table structure for table `feedback`
---
-
 DROP TABLE IF EXISTS `feedback`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
@@ -999,19 +800,10 @@ CREATE TABLE `feedback` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `feedback`
---
-
 LOCK TABLES `feedback` WRITE;
 /*!40000 ALTER TABLE `feedback` DISABLE KEYS */;
 /*!40000 ALTER TABLE `feedback` ENABLE KEYS */;
 UNLOCK TABLES;
-
---
--- Table structure for table `fieldGroups`
---
-
 DROP TABLE IF EXISTS `fieldGroups`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
@@ -1024,19 +816,10 @@ CREATE TABLE `fieldGroups` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `fieldGroups`
---
-
 LOCK TABLES `fieldGroups` WRITE;
 /*!40000 ALTER TABLE `fieldGroups` DISABLE KEYS */;
 /*!40000 ALTER TABLE `fieldGroups` ENABLE KEYS */;
 UNLOCK TABLES;
-
---
--- Table structure for table `fieldInstances`
---
-
 DROP TABLE IF EXISTS `fieldInstances`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
@@ -1054,19 +837,10 @@ CREATE TABLE `fieldInstances` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `fieldInstances`
---
-
 LOCK TABLES `fieldInstances` WRITE;
 /*!40000 ALTER TABLE `fieldInstances` DISABLE KEYS */;
 /*!40000 ALTER TABLE `fieldInstances` ENABLE KEYS */;
 UNLOCK TABLES;
-
---
--- Table structure for table `fieldListValues`
---
-
 DROP TABLE IF EXISTS `fieldListValues`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
@@ -1083,19 +857,10 @@ CREATE TABLE `fieldListValues` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `fieldListValues`
---
-
 LOCK TABLES `fieldListValues` WRITE;
 /*!40000 ALTER TABLE `fieldListValues` DISABLE KEYS */;
 /*!40000 ALTER TABLE `fieldListValues` ENABLE KEYS */;
 UNLOCK TABLES;
-
---
--- Table structure for table `fieldTemplates`
---
-
 DROP TABLE IF EXISTS `fieldTemplates`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
@@ -1115,19 +880,10 @@ CREATE TABLE `fieldTemplates` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `fieldTemplates`
---
-
 LOCK TABLES `fieldTemplates` WRITE;
 /*!40000 ALTER TABLE `fieldTemplates` DISABLE KEYS */;
 /*!40000 ALTER TABLE `fieldTemplates` ENABLE KEYS */;
 UNLOCK TABLES;
-
---
--- Table structure for table `fields`
---
-
 DROP TABLE IF EXISTS `fields`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
@@ -1140,19 +896,10 @@ CREATE TABLE `fields` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `fields`
---
-
 LOCK TABLES `fields` WRITE;
 /*!40000 ALTER TABLE `fields` DISABLE KEYS */;
 /*!40000 ALTER TABLE `fields` ENABLE KEYS */;
 UNLOCK TABLES;
-
---
--- Table structure for table `files`
---
-
 DROP TABLE IF EXISTS `files`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
@@ -1167,19 +914,10 @@ CREATE TABLE `files` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `files`
---
-
 LOCK TABLES `files` WRITE;
 /*!40000 ALTER TABLE `files` DISABLE KEYS */;
 /*!40000 ALTER TABLE `files` ENABLE KEYS */;
 UNLOCK TABLES;
-
---
--- Table structure for table `formInstances`
---
-
 DROP TABLE IF EXISTS `formInstances`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
@@ -1198,19 +936,10 @@ CREATE TABLE `formInstances` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `formInstances`
---
-
 LOCK TABLES `formInstances` WRITE;
 /*!40000 ALTER TABLE `formInstances` DISABLE KEYS */;
 /*!40000 ALTER TABLE `formInstances` ENABLE KEYS */;
 UNLOCK TABLES;
-
---
--- Table structure for table `formListValues`
---
-
 DROP TABLE IF EXISTS `formListValues`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
@@ -1227,19 +956,10 @@ CREATE TABLE `formListValues` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `formListValues`
---
-
 LOCK TABLES `formListValues` WRITE;
 /*!40000 ALTER TABLE `formListValues` DISABLE KEYS */;
 /*!40000 ALTER TABLE `formListValues` ENABLE KEYS */;
 UNLOCK TABLES;
-
---
--- Table structure for table `forms`
---
-
 DROP TABLE IF EXISTS `forms`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
@@ -1254,19 +974,10 @@ CREATE TABLE `forms` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `forms`
---
-
 LOCK TABLES `forms` WRITE;
 /*!40000 ALTER TABLE `forms` DISABLE KEYS */;
 /*!40000 ALTER TABLE `forms` ENABLE KEYS */;
 UNLOCK TABLES;
-
---
--- Table structure for table `gridLines`
---
-
 DROP TABLE IF EXISTS `gridLines`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
@@ -1287,19 +998,10 @@ CREATE TABLE `gridLines` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `gridLines`
---
-
 LOCK TABLES `gridLines` WRITE;
 /*!40000 ALTER TABLE `gridLines` DISABLE KEYS */;
 /*!40000 ALTER TABLE `gridLines` ENABLE KEYS */;
 UNLOCK TABLES;
-
---
--- Table structure for table `grids`
---
-
 DROP TABLE IF EXISTS `grids`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
@@ -1318,19 +1020,10 @@ CREATE TABLE `grids` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `grids`
---
-
 LOCK TABLES `grids` WRITE;
 /*!40000 ALTER TABLE `grids` DISABLE KEYS */;
 /*!40000 ALTER TABLE `grids` ENABLE KEYS */;
 UNLOCK TABLES;
-
---
--- Table structure for table `imageGroups`
---
-
 DROP TABLE IF EXISTS `imageGroups`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
@@ -1360,19 +1053,10 @@ CREATE TABLE `imageGroups` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `imageGroups`
---
-
 LOCK TABLES `imageGroups` WRITE;
 /*!40000 ALTER TABLE `imageGroups` DISABLE KEYS */;
 /*!40000 ALTER TABLE `imageGroups` ENABLE KEYS */;
 UNLOCK TABLES;
-
---
--- Table structure for table `imageInstances`
---
-
 DROP TABLE IF EXISTS `imageInstances`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
@@ -1414,19 +1098,10 @@ CREATE TABLE `imageInstances` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `imageInstances`
---
-
 LOCK TABLES `imageInstances` WRITE;
 /*!40000 ALTER TABLE `imageInstances` DISABLE KEYS */;
 /*!40000 ALTER TABLE `imageInstances` ENABLE KEYS */;
 UNLOCK TABLES;
-
---
--- Table structure for table `images`
---
-
 DROP TABLE IF EXISTS `images`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
@@ -1459,19 +1134,10 @@ CREATE TABLE `images` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `images`
---
-
 LOCK TABLES `images` WRITE;
 /*!40000 ALTER TABLE `images` DISABLE KEYS */;
 /*!40000 ALTER TABLE `images` ENABLE KEYS */;
 UNLOCK TABLES;
-
---
--- Table structure for table `menu`
---
-
 DROP TABLE IF EXISTS `menu`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
@@ -1485,19 +1151,10 @@ CREATE TABLE `menu` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `menu`
---
-
 LOCK TABLES `menu` WRITE;
 /*!40000 ALTER TABLE `menu` DISABLE KEYS */;
 /*!40000 ALTER TABLE `menu` ENABLE KEYS */;
 UNLOCK TABLES;
-
---
--- Table structure for table `menuInstances`
---
-
 DROP TABLE IF EXISTS `menuInstances`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
@@ -1520,19 +1177,10 @@ CREATE TABLE `menuInstances` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `menuInstances`
---
-
 LOCK TABLES `menuInstances` WRITE;
 /*!40000 ALTER TABLE `menuInstances` DISABLE KEYS */;
 /*!40000 ALTER TABLE `menuInstances` ENABLE KEYS */;
 UNLOCK TABLES;
-
---
--- Table structure for table `migrations`
---
-
 DROP TABLE IF EXISTS `migrations`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
@@ -1544,20 +1192,11 @@ CREATE TABLE `migrations` (
 ) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `migrations`
---
-
 LOCK TABLES `migrations` WRITE;
 /*!40000 ALTER TABLE `migrations` DISABLE KEYS */;
 INSERT INTO `migrations` VALUES (1,'M160302000005Blocks','DROP TABLE IF EXISTS blocks;'),(2,'M160302000010DesignBlocks','DROP TABLE IF EXISTS designBlocks;'),(3,'M160302000020DesignTexts','DROP TABLE IF EXISTS designTexts;'),(4,'M160303000000Seo','DROP TABLE IF EXISTS seo;'),(5,'M160305000000Sections','DROP TABLE IF EXISTS sections;'),(6,'M160307000000Users','DROP TABLE IF EXISTS userEvents; DROP TABLE IF EXISTS userSettingsOperations; DROP TABLE IF EXISTS userSectionGroupOperations; DROP TABLE IF EXISTS userSectionOperations; DROP TABLE IF EXISTS userBlockGroupOperations; DROP TABLE IF EXISTS userBlockOperations; DROP TABLE IF EXISTS userSessions; DROP TABLE IF EXISTS users;'),(7,'M160308000000Files','DROP TABLE IF EXISTS removedFiles; DROP TABLE IF EXISTS files;'),(8,'M160309000000Texts','DROP TABLE IF EXISTS textInstanceFileMap; DROP TABLE IF EXISTS textInstances; DROP TABLE IF EXISTS texts;'),(9,'M160311000000Grids','DROP TABLE IF EXISTS grids; DROP TABLE IF EXISTS gridLines;'),(10,'M160317000000Images','ALTER TABLE designBlocks DROP FOREIGN KEY designBlocks_imageInstanceId_fk; DROP TABLE IF EXISTS imageInstances; DROP TABLE IF EXISTS imageGroups; DROP TABLE IF EXISTS images; DROP TABLE IF EXISTS designImageSliders; DROP TABLE IF EXISTS designImageZooms; DROP TABLE IF EXISTS designImageSimple; DROP TABLE IF EXISTS designImageAlbums;'),(11,'M160317001000Forms','DROP TABLE IF EXISTS formListValues; DROP TABLE IF EXISTS formInstances; DROP TABLE IF EXISTS forms; DROP TABLE IF EXISTS designForms;'),(12,'M160321000000Feedback','DROP TABLE IF EXISTS feedback;'),(13,'M160321000100Records','DROP TABLE IF EXISTS recordInstances; DROP TABLE IF EXISTS recordClones; DROP TABLE IF EXISTS designRecordClones; DROP TABLE IF EXISTS records; DROP TABLE IF EXISTS designRecords;'),(14,'M160321000200Menu','DROP TABLE IF EXISTS menuInstances; DROP TABLE IF EXISTS menu; DROP TABLE IF EXISTS designMenu;'),(15,'M160321000300SiteMaps','DROP TABLE IF EXISTS siteMaps;'),(16,'M160321000400Search','DROP TABLE IF EXISTS searchQueries; DROP TABLE IF EXISTS search; DROP TABLE IF EXISTS designSearch;'),(17,'M160321000500Fields','DROP TABLE IF EXISTS fieldListValues; DROP TABLE IF EXISTS fieldInstances; DROP TABLE IF EXISTS fieldGroups; DROP TABLE IF EXISTS fieldTemplates; DROP TABLE IF EXISTS fields; DROP TABLE IF EXISTS designFields;'),(18,'M160321000550Tabs','DROP TABLE IF EXISTS tabInstances; DROP TABLE IF EXISTS tabGroups; DROP TABLE IF EXISTS tabTemplates; DROP TABLE IF EXISTS tabs; DROP TABLE IF EXISTS designTabs;'),(19,'M160321000700Catalogs','DROP TABLE IF EXISTS catalogOrders; DROP TABLE IF EXISTS catalogBins; DROP TABLE IF EXISTS catalogInstanceLinks; DROP TABLE IF EXISTS catalogInstances; DROP TABLE IF EXISTS catalogMenu; DROP TABLE IF EXISTS catalogs; DROP TABLE IF EXISTS designCatalogs;'),(20,'M160321000800Settings','DROP TABLE IF EXISTS settings;');
 /*!40000 ALTER TABLE `migrations` ENABLE KEYS */;
 UNLOCK TABLES;
-
---
--- Table structure for table `recordClones`
---
-
 DROP TABLE IF EXISTS `recordClones`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
@@ -1584,19 +1223,10 @@ CREATE TABLE `recordClones` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `recordClones`
---
-
 LOCK TABLES `recordClones` WRITE;
 /*!40000 ALTER TABLE `recordClones` DISABLE KEYS */;
 /*!40000 ALTER TABLE `recordClones` ENABLE KEYS */;
 UNLOCK TABLES;
-
---
--- Table structure for table `recordInstances`
---
-
 DROP TABLE IF EXISTS `recordInstances`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
@@ -1628,19 +1258,10 @@ CREATE TABLE `recordInstances` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `recordInstances`
---
-
 LOCK TABLES `recordInstances` WRITE;
 /*!40000 ALTER TABLE `recordInstances` DISABLE KEYS */;
 /*!40000 ALTER TABLE `recordInstances` ENABLE KEYS */;
 UNLOCK TABLES;
-
---
--- Table structure for table `records`
---
-
 DROP TABLE IF EXISTS `records`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
@@ -1673,19 +1294,10 @@ CREATE TABLE `records` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `records`
---
-
 LOCK TABLES `records` WRITE;
 /*!40000 ALTER TABLE `records` DISABLE KEYS */;
 /*!40000 ALTER TABLE `records` ENABLE KEYS */;
 UNLOCK TABLES;
-
---
--- Table structure for table `removedFiles`
---
-
 DROP TABLE IF EXISTS `removedFiles`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
@@ -1696,19 +1308,10 @@ CREATE TABLE `removedFiles` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `removedFiles`
---
-
 LOCK TABLES `removedFiles` WRITE;
 /*!40000 ALTER TABLE `removedFiles` DISABLE KEYS */;
 /*!40000 ALTER TABLE `removedFiles` ENABLE KEYS */;
 UNLOCK TABLES;
-
---
--- Table structure for table `search`
---
-
 DROP TABLE IF EXISTS `search`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
@@ -1724,19 +1327,10 @@ CREATE TABLE `search` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `search`
---
-
 LOCK TABLES `search` WRITE;
 /*!40000 ALTER TABLE `search` DISABLE KEYS */;
 /*!40000 ALTER TABLE `search` ENABLE KEYS */;
 UNLOCK TABLES;
-
---
--- Table structure for table `searchQueries`
---
-
 DROP TABLE IF EXISTS `searchQueries`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
@@ -1755,19 +1349,10 @@ CREATE TABLE `searchQueries` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `searchQueries`
---
-
 LOCK TABLES `searchQueries` WRITE;
 /*!40000 ALTER TABLE `searchQueries` DISABLE KEYS */;
 /*!40000 ALTER TABLE `searchQueries` ENABLE KEYS */;
 UNLOCK TABLES;
-
---
--- Table structure for table `sections`
---
-
 DROP TABLE IF EXISTS `sections`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
@@ -1790,19 +1375,10 @@ CREATE TABLE `sections` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `sections`
---
-
 LOCK TABLES `sections` WRITE;
 /*!40000 ALTER TABLE `sections` DISABLE KEYS */;
 /*!40000 ALTER TABLE `sections` ENABLE KEYS */;
 UNLOCK TABLES;
-
---
--- Table structure for table `seo`
---
-
 DROP TABLE IF EXISTS `seo`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
@@ -1819,19 +1395,10 @@ CREATE TABLE `seo` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `seo`
---
-
 LOCK TABLES `seo` WRITE;
 /*!40000 ALTER TABLE `seo` DISABLE KEYS */;
 /*!40000 ALTER TABLE `seo` ENABLE KEYS */;
 UNLOCK TABLES;
-
---
--- Table structure for table `settings`
---
-
 DROP TABLE IF EXISTS `settings`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
@@ -1844,19 +1411,10 @@ CREATE TABLE `settings` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `settings`
---
-
 LOCK TABLES `settings` WRITE;
 /*!40000 ALTER TABLE `settings` DISABLE KEYS */;
 /*!40000 ALTER TABLE `settings` ENABLE KEYS */;
 UNLOCK TABLES;
-
---
--- Table structure for table `siteMaps`
---
-
 DROP TABLE IF EXISTS `siteMaps`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
@@ -1876,19 +1434,10 @@ CREATE TABLE `siteMaps` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `siteMaps`
---
-
 LOCK TABLES `siteMaps` WRITE;
 /*!40000 ALTER TABLE `siteMaps` DISABLE KEYS */;
 /*!40000 ALTER TABLE `siteMaps` ENABLE KEYS */;
 UNLOCK TABLES;
-
---
--- Table structure for table `tabGroups`
---
-
 DROP TABLE IF EXISTS `tabGroups`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
@@ -1901,19 +1450,10 @@ CREATE TABLE `tabGroups` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `tabGroups`
---
-
 LOCK TABLES `tabGroups` WRITE;
 /*!40000 ALTER TABLE `tabGroups` DISABLE KEYS */;
 /*!40000 ALTER TABLE `tabGroups` ENABLE KEYS */;
 UNLOCK TABLES;
-
---
--- Table structure for table `tabInstances`
---
-
 DROP TABLE IF EXISTS `tabInstances`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
@@ -1932,19 +1472,10 @@ CREATE TABLE `tabInstances` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `tabInstances`
---
-
 LOCK TABLES `tabInstances` WRITE;
 /*!40000 ALTER TABLE `tabInstances` DISABLE KEYS */;
 /*!40000 ALTER TABLE `tabInstances` ENABLE KEYS */;
 UNLOCK TABLES;
-
---
--- Table structure for table `tabTemplates`
---
-
 DROP TABLE IF EXISTS `tabTemplates`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
@@ -1960,19 +1491,10 @@ CREATE TABLE `tabTemplates` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `tabTemplates`
---
-
 LOCK TABLES `tabTemplates` WRITE;
 /*!40000 ALTER TABLE `tabTemplates` DISABLE KEYS */;
 /*!40000 ALTER TABLE `tabTemplates` ENABLE KEYS */;
 UNLOCK TABLES;
-
---
--- Table structure for table `tabs`
---
-
 DROP TABLE IF EXISTS `tabs`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
@@ -1990,19 +1512,10 @@ CREATE TABLE `tabs` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `tabs`
---
-
 LOCK TABLES `tabs` WRITE;
 /*!40000 ALTER TABLE `tabs` DISABLE KEYS */;
 /*!40000 ALTER TABLE `tabs` ENABLE KEYS */;
 UNLOCK TABLES;
-
---
--- Table structure for table `textInstanceFileMap`
---
-
 DROP TABLE IF EXISTS `textInstanceFileMap`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
@@ -2018,19 +1531,10 @@ CREATE TABLE `textInstanceFileMap` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `textInstanceFileMap`
---
-
 LOCK TABLES `textInstanceFileMap` WRITE;
 /*!40000 ALTER TABLE `textInstanceFileMap` DISABLE KEYS */;
 /*!40000 ALTER TABLE `textInstanceFileMap` ENABLE KEYS */;
 UNLOCK TABLES;
-
---
--- Table structure for table `textInstances`
---
-
 DROP TABLE IF EXISTS `textInstances`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
@@ -2045,19 +1549,10 @@ CREATE TABLE `textInstances` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `textInstances`
---
-
 LOCK TABLES `textInstances` WRITE;
 /*!40000 ALTER TABLE `textInstances` DISABLE KEYS */;
 /*!40000 ALTER TABLE `textInstances` ENABLE KEYS */;
 UNLOCK TABLES;
-
---
--- Table structure for table `texts`
---
-
 DROP TABLE IF EXISTS `texts`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
@@ -2075,19 +1570,10 @@ CREATE TABLE `texts` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `texts`
---
-
 LOCK TABLES `texts` WRITE;
 /*!40000 ALTER TABLE `texts` DISABLE KEYS */;
 /*!40000 ALTER TABLE `texts` ENABLE KEYS */;
 UNLOCK TABLES;
-
---
--- Table structure for table `userBlockGroupOperations`
---
-
 DROP TABLE IF EXISTS `userBlockGroupOperations`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
@@ -2102,19 +1588,10 @@ CREATE TABLE `userBlockGroupOperations` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `userBlockGroupOperations`
---
-
 LOCK TABLES `userBlockGroupOperations` WRITE;
 /*!40000 ALTER TABLE `userBlockGroupOperations` DISABLE KEYS */;
 /*!40000 ALTER TABLE `userBlockGroupOperations` ENABLE KEYS */;
 UNLOCK TABLES;
-
---
--- Table structure for table `userBlockOperations`
---
-
 DROP TABLE IF EXISTS `userBlockOperations`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
@@ -2132,19 +1609,10 @@ CREATE TABLE `userBlockOperations` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `userBlockOperations`
---
-
 LOCK TABLES `userBlockOperations` WRITE;
 /*!40000 ALTER TABLE `userBlockOperations` DISABLE KEYS */;
 /*!40000 ALTER TABLE `userBlockOperations` ENABLE KEYS */;
 UNLOCK TABLES;
-
---
--- Table structure for table `userEvents`
---
-
 DROP TABLE IF EXISTS `userEvents`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
@@ -2162,19 +1630,10 @@ CREATE TABLE `userEvents` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `userEvents`
---
-
 LOCK TABLES `userEvents` WRITE;
 /*!40000 ALTER TABLE `userEvents` DISABLE KEYS */;
 /*!40000 ALTER TABLE `userEvents` ENABLE KEYS */;
 UNLOCK TABLES;
-
---
--- Table structure for table `userSectionGroupOperations`
---
-
 DROP TABLE IF EXISTS `userSectionGroupOperations`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
@@ -2188,19 +1647,10 @@ CREATE TABLE `userSectionGroupOperations` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `userSectionGroupOperations`
---
-
 LOCK TABLES `userSectionGroupOperations` WRITE;
 /*!40000 ALTER TABLE `userSectionGroupOperations` DISABLE KEYS */;
 /*!40000 ALTER TABLE `userSectionGroupOperations` ENABLE KEYS */;
 UNLOCK TABLES;
-
---
--- Table structure for table `userSectionOperations`
---
-
 DROP TABLE IF EXISTS `userSectionOperations`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
@@ -2217,19 +1667,10 @@ CREATE TABLE `userSectionOperations` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `userSectionOperations`
---
-
 LOCK TABLES `userSectionOperations` WRITE;
 /*!40000 ALTER TABLE `userSectionOperations` DISABLE KEYS */;
 /*!40000 ALTER TABLE `userSectionOperations` ENABLE KEYS */;
 UNLOCK TABLES;
-
---
--- Table structure for table `userSessions`
---
-
 DROP TABLE IF EXISTS `userSessions`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
@@ -2247,19 +1688,10 @@ CREATE TABLE `userSessions` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `userSessions`
---
-
 LOCK TABLES `userSessions` WRITE;
 /*!40000 ALTER TABLE `userSessions` DISABLE KEYS */;
 /*!40000 ALTER TABLE `userSessions` ENABLE KEYS */;
 UNLOCK TABLES;
-
---
--- Table structure for table `userSettingsOperations`
---
-
 DROP TABLE IF EXISTS `userSettingsOperations`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
@@ -2273,19 +1705,10 @@ CREATE TABLE `userSettingsOperations` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `userSettingsOperations`
---
-
 LOCK TABLES `userSettingsOperations` WRITE;
 /*!40000 ALTER TABLE `userSettingsOperations` DISABLE KEYS */;
 /*!40000 ALTER TABLE `userSettingsOperations` ENABLE KEYS */;
 UNLOCK TABLES;
-
---
--- Table structure for table `users`
---
-
 DROP TABLE IF EXISTS `users`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
@@ -2303,10 +1726,6 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `users`
---
-
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
@@ -2321,4 +1740,3 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-11-28 13:11:19
