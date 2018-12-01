@@ -31,7 +31,6 @@ class UpdateDesignController extends AbstractBlockController
             [
                 'id'               => [self::TYPE_INT, self::NOT_EMPTY],
                 'designBlockModel' => [self::TYPE_ARRAY, self::NOT_EMPTY],
-                'designTextModel'  => [self::TYPE_ARRAY, self::NOT_EMPTY],
             ]
         );
 
@@ -50,10 +49,19 @@ class UpdateDesignController extends AbstractBlockController
 
         $textModel->set(
             [
-                'designTextModel'  => $this->get('designTextModel'),
                 'designBlockModel' => $this->get('designBlockModel'),
             ]
         );
+
+        $designTextModel = $this->get('designTextModel');
+        if ($designTextModel !== null) {
+            $textModel->set(
+                [
+                    'designTextModel' => $this->get('designTextModel'),
+                ]
+            );
+        }
+
         $textModel->save();
 
         App::getInstance()->getUser()->writeEvent(
