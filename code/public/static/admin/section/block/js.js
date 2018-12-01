@@ -17,7 +17,7 @@
         init: function () {
             this.create(
                 {
-                    name: "create-site"
+                    name: "section-blocks"
                 }
             );
 
