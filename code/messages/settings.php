@@ -5,23 +5,23 @@ use ss\application\components\common\Language;
 return [
     'settings' => [
         Language::LANGUAGE_EN_ID => 'Settings',
-        Language::LANGUAGE_RU_ID => '',
+        Language::LANGUAGE_RU_ID => 'Настройки',
     ],
     'description' => [
-        Language::LANGUAGE_EN_ID => 'description...',
-        Language::LANGUAGE_RU_ID => '',
+        Language::LANGUAGE_EN_ID => '...',
+        Language::LANGUAGE_RU_ID => '...',
     ],
     'seo'      => [
         Language::LANGUAGE_EN_ID => 'SEO',
-        Language::LANGUAGE_RU_ID => '',
+        Language::LANGUAGE_RU_ID => 'СЕО',
     ],
     'icon'     => [
         Language::LANGUAGE_EN_ID => 'Icon',
-        Language::LANGUAGE_RU_ID => '',
+        Language::LANGUAGE_RU_ID => 'Иконка',
     ],
     'users'    => [
         Language::LANGUAGE_EN_ID => 'Users',
-        Language::LANGUAGE_RU_ID => '',
+        Language::LANGUAGE_RU_ID => 'Пользователи',
     ],
     'buttonName' => [
         Language::LANGUAGE_EN_ID => 'Settings',

@@ -5,27 +5,27 @@ use ss\application\components\common\Language;
 return [
     'width'               => [
         Language::LANGUAGE_EN_ID => 'Width',
-        Language::LANGUAGE_RU_ID => '',
+        Language::LANGUAGE_RU_ID => 'Ширина',
     ],
     'main'                => [
         Language::LANGUAGE_EN_ID => 'Main',
-        Language::LANGUAGE_RU_ID => '',
+        Language::LANGUAGE_RU_ID => 'Главный',
     ],
     'sections'            => [
         Language::LANGUAGE_EN_ID => 'Sections',
         Language::LANGUAGE_RU_ID => 'Разделы',
     ],
     'panelDescription' => [
-        Language::LANGUAGE_EN_ID => 'Description...',
-        Language::LANGUAGE_RU_ID => '',
+        Language::LANGUAGE_EN_ID => '...',
+        Language::LANGUAGE_RU_ID => '...',
     ],
     'designDescription'   => [
         Language::LANGUAGE_EN_ID => "You can configure section's design",
-        Language::LANGUAGE_RU_ID => '',
+        Language::LANGUAGE_RU_ID => 'Вы можете настроить дизайн раздела',
     ],
     'background'          => [
         Language::LANGUAGE_EN_ID => 'Background',
-        Language::LANGUAGE_RU_ID => '',
+        Language::LANGUAGE_RU_ID => 'Задний фон',
     ],
     'line'                => [
         Language::LANGUAGE_EN_ID => 'Line',
@@ -37,7 +37,7 @@ return [
     ],
     'container'           => [
         Language::LANGUAGE_EN_ID => 'Container',
-        Language::LANGUAGE_RU_ID => '',
+        Language::LANGUAGE_RU_ID => 'Контейнер',
     ],
     'addBlock'            => [
         Language::LANGUAGE_EN_ID => 'Add block',
@@ -49,7 +49,7 @@ return [
     ],
     'addSections' => [
         Language::LANGUAGE_EN_ID => 'Add new section',
-        Language::LANGUAGE_RU_ID => '',
+        Language::LANGUAGE_RU_ID => 'Добавить новый раздел',
     ],
     'buttonName' => [
         Language::LANGUAGE_EN_ID => 'Sections',
