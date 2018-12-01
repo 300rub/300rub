@@ -11,14 +11,28 @@
 }
 
 .fancybox-navigation {
-  button {
-    &:before {
+  .fancybox-button {
+    height: 100px;
+    margin: 0;
+    padding: 0;
+    width: 60px;
+
+    div {
       background: none;
+      color: @grayLinkColor;
+      height: 60px;
+      width: 60px;
     }
 
     &:hover {
-      &:before {
-        background: @grayBackground;
+      div {
+        color: @redLinkColor;
+      }
+    }
+
+    &:disabled {
+      div {
+        color: @grayLinkColor;
       }
     }
   }
@@ -27,9 +41,10 @@
 .fancybox-toolbar {
   .fancybox-button {
     background: none;
+    color: @grayLinkColor;
 
     &:hover {
-      background: @grayBackground;
+      color: @redLinkColor;
     }
   }
 }
