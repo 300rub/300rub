@@ -21,7 +21,7 @@
                     type: this.getType(),
                     beforeSend: this.getBeforeSend(),
                     success: this.getSuccess(),
-                    error: this.getError(),
+                    error: this.displayError,
                     complete: this.getComplete()
                 }
             );
@@ -94,19 +94,6 @@
             }
 
             return this.emptyFunction;
-        },
-
-        /**
-         * Gets error function
-         *
-         * @returns {Function}
-         */
-        getError: function () {
-            if ($.type(this.getOption("error") === "function")) {
-                return this.getOption("error");
-            } else {
-                return this.displayError;
-            }
         },
 
         /**

@@ -71,7 +71,7 @@
                         }
 
                         var settings = null;
-                        if (itemData.canUpdateDesign === true) {
+                        if (itemData.canUpdateSettings === true) {
                             settings = function () {
                                 ss.init(
                                     "adminBlockImageSettings",

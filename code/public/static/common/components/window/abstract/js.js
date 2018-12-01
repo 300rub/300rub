@@ -411,14 +411,6 @@
                         },
                         this
                     ),
-                error: $.proxy(
-                    function (jqXHR) {
-                            ss.init("commonComponentsError")
-                                .displayAjaxError(jqXHR);
-                            this.remove();
-                    },
-                    this
-                )
                 }
             );
 

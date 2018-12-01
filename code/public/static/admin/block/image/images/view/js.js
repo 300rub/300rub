@@ -241,8 +241,8 @@
         /**
          * Sets Edit button
          *
-         * @param {Object}  buttons
-         * @param {integer} instanceId
+         * @param {Object} buttons
+         * @param {int}    instanceId
          */
         setEditButton: function(buttons, instanceId) {
             if (this.getOption(["edit", "hasOperation"]) !== true) {
@@ -280,8 +280,8 @@
         /**
          * Sets Crop button
          *
-         * @param {Object}  buttons
-         * @param {integer} instanceId
+         * @param {Object} buttons
+         * @param {int}    instanceId
          */
         setCropButton: function(buttons, instanceId) {
             if (this.getOption(["crop", "hasOperation"]) !== true) {
@@ -319,9 +319,9 @@
         /**
          * Sets Remove button
          *
-         * @param {Object}  buttons
-         * @param {integer} instanceId
-         * @param {Object}  itemElement
+         * @param {Object} buttons
+         * @param {int}    instanceId
+         * @param {Object} itemElement
          */
         setRemoveButton: function(buttons, instanceId, itemElement) {
             if (this.getOption(["remove", "hasOperation"]) !== true) {
@@ -355,6 +355,7 @@
                                 {},
                                 this.getOption(["remove", "data"], {}),
                                 {
+                                    blockId: this.getOption(["blockId"]),
                                     id: instanceId
                                 }
                             )
