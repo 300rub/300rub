@@ -161,9 +161,10 @@ abstract class AbstractFile
     protected function getMinimizedUri()
     {
         return sprintf(
-            '/static/min/%s.min.%s',
+            '/static/min/%s.min.%s?%s',
             $this->_type,
-            static::EXTENSION
+            static::EXTENSION,
+            $this->_version
         );
     }
 
