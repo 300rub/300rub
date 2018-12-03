@@ -232,7 +232,7 @@ abstract class AbstractUpdateModel extends AbstractUploadModel
             $this->get('originalFileModel')->getUrl()
         );
 
-        switch ($data['flip']) {
+        switch ($data['thumbFlip']) {
             case self::FLIP_BOTH:
                 $image->flip(true, true);
                 break;
@@ -244,8 +244,8 @@ abstract class AbstractUpdateModel extends AbstractUploadModel
                 break;
         }
 
-        if ($data['angle'] !== 0) {
-            $image->rotate($data['angle']);
+        if ($data['thumbAngle'] !== 0) {
+            $image->rotate($data['thumbAngle']);
         }
 
         $thumbWidth = ($data['thumbX2'] - $data['thumbX1']);

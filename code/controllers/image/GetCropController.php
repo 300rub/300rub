@@ -38,7 +38,7 @@ class GetCropController extends AbstractGetCropController
         return array_merge(
             $this->getCrop($this->get('id')),
             [
-                'blockId' => $this->get('blockId'),
+                'blockId' => (int)$this->get('blockId'),
             ]
         );
     }

@@ -190,7 +190,7 @@
                     ajax: {
                         data: {
                             group: "image",
-                            controller: "content",
+                            controller: "crop",
                             data: $.proxy(this.generateData, this)
                         },
                         type: "PUT",
@@ -207,8 +207,8 @@
          */
         generateData: function() {
             return {
-                blockId: this.getData("blockId"),
-                id: this.getData("id"),
+                blockId: parseInt(this.getData("blockId")),
+                id: parseInt(this.getData("id")),
                 x1: parseInt(this.viewX),
                 y1: parseInt(this.viewY),
                 x2: parseInt(this.viewX + this.viewWidth),

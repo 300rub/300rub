@@ -26,6 +26,7 @@ abstract class AbstractGetCropController extends AbstractController
      */
     public function getCrop($instanceId)
     {
+        $instanceId = (int)$instanceId;
         $imageModel = ImageModel::model()->findByImageInstanceId($instanceId);
 
         $imageInstanceModel = ImageInstanceModel::model()
