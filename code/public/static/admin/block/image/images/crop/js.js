@@ -26,11 +26,136 @@
         viewImage: null,
 
         /**
+         * View X
+         *
+         * @var {Integer}
+         */
+        viewX: 0,
+
+        /**
+         * View Y
+         *
+         * @var {Integer}
+         */
+        viewY: 0,
+
+        /**
+         * View width
+         *
+         * @var {Integer}
+         */
+        viewWidth: 0,
+
+        /**
+         * View height
+         *
+         * @var {Integer}
+         */
+        viewHeight: 0,
+
+        /**
+         * View Rotate
+         *
+         * @var {Integer}
+         */
+        viewRotate: 0,
+
+        /**
+         * View Scale X
+         *
+         * @var {Integer}
+         */
+        viewScaleX: 1,
+
+        /**
+         * View Scale Y
+         *
+         * @var {Integer}
+         */
+        viewScaleY: 1,
+
+        /**
+         * Thumb X
+         *
+         * @var {Integer}
+         */
+        thumbX: 0,
+
+        /**
+         * Thumb Y
+         *
+         * @var {Integer}
+         */
+        thumbY: 0,
+
+        /**
+         * Thumb width
+         *
+         * @var {Integer}
+         */
+        thumbWidth: 0,
+
+        /**
+         * Thumb height
+         *
+         * @var {Integer}
+         */
+        thumbHeight: 0,
+
+        /**
+         * Thumb Rotate
+         *
+         * @var {Integer}
+         */
+        thumbRotate: 0,
+
+        /**
+         * Thumb Scale X
+         *
+         * @var {Integer}
+         */
+        thumbScaleX: 1,
+
+        /**
+         * Thumb Scale Y
+         *
+         * @var {Integer}
+         */
+        thumbScaleY: 1,
+
+        /**
+         * Flip types
+         *
+         * @var {Object}
+         */
+        flipTypes: {
+            NONE: 0,
+            HORIZONTAL: 1,
+            VERTICAL: 2,
+            BOTH: 3
+        },
+
+        /**
          * Init
          */
         init: function () {
             this.viewContainer = null;
             this.viewImage = null;
+
+            this.viewX = 0;
+            this.viewY = 0;
+            this.viewWidth = 0;
+            this.viewHeight = 0;
+            this.viewRotate = 0;
+            this.viewScaleX = 1;
+            this.viewScaleY = 1;
+            this.thumbX = 0;
+            this.thumbY = 0;
+            this.thumbWidth = 0;
+            this.thumbHeight = 0;
+            this.thumbRotate = 0;
+            this.thumbScaleX = 1;
+            this.thumbScaleY = 1;
 
             this.create(
                 {
@@ -51,7 +176,7 @@
         onLoadSuccess: function () {
             this
                 .setContainers()
-                .setView()
+                .setViewCropper()
                 .setViewRotate()
                 .setViewFlip()
                 .setViewZoom()
@@ -66,32 +191,63 @@
                         data: {
                             group: "image",
                             controller: "content",
-                            data: $.proxy(
-                                function () {
-                                    return {
-                                        blockId: this.getData("blockId"),
-                                        id: this.getData("id"),
-                                        isCover: false,
-                                        x1: 0,
-                                        y1: 0,
-                                        x2: 0,
-                                        y2: 0,
-                                        thumbX1: 0,
-                                        thumbY1: 0,
-                                        thumbX2: 0,
-                                        thumbY2: 0,
-                                        angle: 0,
-                                        flip: 0
-                                    };
-                                },
-                                this
-                            )
+                            data: $.proxy(this.generateData, this)
                         },
                         type: "PUT",
                         success: $.proxy(this.onSendSuccess, this)
                     }
                 }
             );
+        },
+
+        /**
+         * Function to generate request data
+         *
+         * @return {Object}
+         */
+        generateData: function() {
+            return {
+                blockId: this.getData("blockId"),
+                id: this.getData("id"),
+                x1: parseInt(this.viewX),
+                y1: parseInt(this.viewY),
+                x2: parseInt(this.viewX + this.viewWidth),
+                y2: parseInt(this.viewY + this.viewHeight),
+                angle: parseInt(this.viewRotate),
+                flip: this.getFlip(this.viewScaleX, this.viewScaleY),
+                thumbX1: parseInt(this.thumbX),
+                thumbY1: parseInt(this.thumbY),
+                thumbX2: parseInt(this.thumbX + this.thumbWidth),
+                thumbY2: parseInt(this.thumbY + this.thumbHeight),
+                thumbAngle: parseInt(this.thumbRotate),
+                thumbFlip: this.getFlip(this.thumbScaleX, this.thumbScaleY)
+            };
+        },
+
+        /**
+         * Gets flip
+         *
+         * @param {Integer} scaleX
+         * @param {Integer} scaleY
+         *
+         * @returns {Integer}
+         */
+        getFlip: function(scaleX, scaleY) {
+            if (scaleX === -1
+                && scaleY === -1
+            ) {
+                return this.flipTypes.BOTH;
+            }
+
+            if (scaleX === -1) {
+                return this.flipTypes.HORIZANTAL;
+            }
+
+            if (scaleY === -1) {
+                return this.flipTypes.VERTICAL;
+            }
+
+            return this.flipTypes.NONE;
         },
 
         /**
@@ -105,11 +261,13 @@
             return this;
         },
 
-        setView: function () {
-            this.viewImage = this.viewContainer.find(".view-image");
+        /**
+         * Sets view cropper
+         */
+        setViewCropper: function () {
+            this.viewImage = this.viewContainer.find(".cropper");
             this.viewImage.attr("src", this.getData("url"));
 
-            /* jshint ignore:start */
             this.viewImage.cropper(
                 {
                     viewMode: 2,
@@ -117,20 +275,17 @@
                     aspectRatio: 1,
                     autoCropArea: 1,
                     movable: false,
-                    crop: function (event) {
-                        /*ignore jslint start */
-                        // console.log(event.detail.x);
-                        // console.log(event.detail.y);
-                        // console.log(event.detail.width);
-                        // console.log(event.detail.height);
-                        // console.log(event.detail.rotate);
-                        // console.log(event.detail.scaleX);
-                        // console.log(event.detail.scaleY);
-                        /*jsl:end */
-                    }
+                    crop: $.proxy(function (event) {
+                        this.viewX = event.detail.x;
+                        this.viewY = event.detail.y;
+                        this.viewWidth = event.detail.width;
+                        this.viewHeight = event.detail.height;
+                        this.viewRotate = event.detail.rotate;
+                        this.viewScaleX = event.detail.scaleX;
+                        this.viewScaleY = event.detail.scaleY;
+                    }, this)
                 }
             );
-            /* jshint ignore:end */
 
             return this;
         },
