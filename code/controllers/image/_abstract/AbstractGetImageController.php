@@ -39,11 +39,6 @@ abstract class AbstractGetImageController extends AbstractController
             );
         }
 
-        $isCover = false;
-        if ($imageModel->get('useAlbums') === true) {
-            $isCover = $imageInstanceModel->get('isCover');
-        }
-
         $language = App::getInstance()->getLanguage();
 
         return [
@@ -67,7 +62,7 @@ abstract class AbstractGetImageController extends AbstractController
                 'isCover'      => [
                     'name'  => 'isCover',
                     'label' => $language->getMessage('image', 'cover'),
-                    'value' => $isCover,
+                    'value' => $imageInstanceModel->get('isCover'),
                 ],
             ],
             'labels'  => [
