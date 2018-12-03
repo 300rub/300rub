@@ -24,15 +24,25 @@ abstract class AbstractUpdateImageController extends AbstractController
                 'id'      => [self::TYPE_INT, self::NOT_EMPTY],
                 'isCover' => [self::TYPE_BOOL],
                 'alt'     => [self::TYPE_STRING],
+                'link'    => [self::TYPE_STRING],
             ]
         );
 
         $data = [
             'isCover' => $this->get('isCover'),
             'alt'     => $this->get('alt'),
+            'link'    => $this->get('link'),
         ];
 
-        $this->_getImageInstanceModel()->update($data);
+        $model = $this->_getImageInstanceModel();
+        $model->update($data);
+
+        $errors = $model->getParsedErrors();
+        if (count($errors) > 0) {
+            return [
+                'errors' => $errors
+            ];
+        }
 
         return $this->getSimpleSuccessResult();
     }

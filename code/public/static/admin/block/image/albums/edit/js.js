@@ -1,7 +1,7 @@
 !function ($, ss) {
     "use strict";
 
-    var name = "adminBlockImageAlbumsSettings";
+    var name = "adminBlockImageAlbumsEdit";
 
     var parameters = {
         /**
@@ -30,7 +30,7 @@
                         blockId: this.getOption("blockId"),
                         id: this.getOption("id")
                     },
-                    name: "image-albums-settings",
+                    name: "album-edit",
                     parent: "image-content",
                     level: 2
                 }

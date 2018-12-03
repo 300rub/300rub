@@ -110,9 +110,10 @@ abstract class AbstractDataController extends AbstractBaseController
             && is_int($value) === false
         ) {
             throw new BadRequestException(
-                'The field type of {field} is not integer',
+                'The field type of {field} is not integer. Type: {type}',
                 [
-                    'field' => $field
+                    'field' => $field,
+                    'type'  => gettype($value)
                 ]
             );
         }

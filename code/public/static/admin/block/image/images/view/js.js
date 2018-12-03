@@ -267,7 +267,7 @@
                     appendTo: buttons,
                     onClick: $.proxy(
                         function () {
-                            ss.init("adminBlockImageEditImage", editOptions);
+                            ss.init("adminBlockImageImagesEdit", editOptions);
                         },
                         this
                     )

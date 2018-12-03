@@ -150,4 +150,12 @@ return [
         Language::LANGUAGE_EN_ID => 'Add album',
         Language::LANGUAGE_RU_ID => 'Добавить альбом',
     ],
+    'cover' => [
+        Language::LANGUAGE_EN_ID => 'Cover',
+        Language::LANGUAGE_RU_ID => 'Обложка',
+    ],
+    'alt' => [
+        Language::LANGUAGE_EN_ID => 'Alt',
+        Language::LANGUAGE_RU_ID => 'Описание',
+    ],
 ];

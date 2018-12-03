@@ -2,6 +2,7 @@
 
 namespace ss\controllers\image\_abstract;
 
+use ss\application\App;
 use ss\application\exceptions\NotFoundException;
 use ss\controllers\_abstract\AbstractController;
 use ss\models\blocks\image\ImageInstanceModel;
@@ -43,10 +44,35 @@ abstract class AbstractGetImageController extends AbstractController
             $isCover = $imageInstanceModel->get('isCover');
         }
 
+        $language = App::getInstance()->getLanguage();
+
         return [
-            'isCover' => $isCover,
-            'alt'     => $imageInstanceModel->get('alt'),
-            'link'    => $imageInstanceModel->get('link'),
+            'id'      => $instanceId,
+            'blockId' => $this->get('blockId'),
+            'forms'     => [
+                'alt'      => [
+                    'name'       => 'alt',
+                    'label'      => $language->getMessage('image', 'alt'),
+                    'value'      => $imageInstanceModel->get('alt'),
+                    'validation' => $imageInstanceModel
+                        ->getValidationRulesForField('alt'),
+                ],
+                'link'      => [
+                    'name'       => 'link',
+                    'label'      => $language->getMessage('common', 'link'),
+                    'value'      => $imageInstanceModel->get('link'),
+                    'validation' => $imageInstanceModel
+                        ->getValidationRulesForField('link'),
+                ],
+                'isCover'      => [
+                    'name'  => 'isCover',
+                    'label' => $language->getMessage('image', 'cover'),
+                    'value' => $isCover,
+                ],
+            ],
+            'labels'  => [
+                'button' => $language->getMessage('common', 'save')
+            ]
         ];
     }
 }
