@@ -140,6 +140,8 @@ abstract class AbstractUpdateModel extends AbstractUploadModel
             $this->get('originalFileModel')->getUrl()
         );
 
+        $image->setForceCache(false);
+
         switch ($data['flip']) {
             case self::FLIP_BOTH:
                 $image->flip(true, true);
@@ -153,7 +155,7 @@ abstract class AbstractUpdateModel extends AbstractUploadModel
         }
 
         if ($data['angle'] !== 0) {
-            $image->rotate($data['angle']);
+            $image->rotate($data['angle'] * -1);
         }
 
         $viewWidth = ($data['x2'] - $data['x1']);
@@ -232,6 +234,8 @@ abstract class AbstractUpdateModel extends AbstractUploadModel
             $this->get('originalFileModel')->getUrl()
         );
 
+        $image->setForceCache(false);
+
         switch ($data['thumbFlip']) {
             case self::FLIP_BOTH:
                 $image->flip(true, true);
@@ -245,7 +249,7 @@ abstract class AbstractUpdateModel extends AbstractUploadModel
         }
 
         if ($data['thumbAngle'] !== 0) {
-            $image->rotate($data['thumbAngle']);
+            $image->rotate($data['thumbAngle'] * -1);
         }
 
         $thumbWidth = ($data['thumbX2'] - $data['thumbX1']);
