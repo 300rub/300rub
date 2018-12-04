@@ -240,7 +240,7 @@
             }
 
             if (scaleX === -1) {
-                return this.flipTypes.HORIZANTAL;
+                return this.flipTypes.HORIZONTAL;
             }
 
             if (scaleY === -1) {
