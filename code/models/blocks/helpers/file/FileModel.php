@@ -338,11 +338,25 @@ class FileModel extends AbstractFileModel
      */
     public function deleteByUniqueName($uniqueName)
     {
-        RemovedFileModel::model()
-            ->set(['uniqueName' => $uniqueName])
-            ->save();
+        // @TODO
 
         return $this;
+    }
+
+    /**
+     * Marks as used
+     */
+    public function markAsUsed()
+    {
+        $this->set(['isUsed' => true])->save();
+    }
+
+    /**
+     * Marks as unused
+     */
+    public function markAsUnused()
+    {
+        $this->set(['isUsed' => false])->save();
     }
 
     /**

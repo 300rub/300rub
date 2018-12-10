@@ -12,20 +12,6 @@ abstract class AbstractUpdateModel extends AbstractUploadModel
 {
 
     /**
-     * Is view changed
-     *
-     * @var boolean
-     */
-    private $_isViewChanged = false;
-
-    /**
-     * Is thumb changed
-     *
-     * @var boolean
-     */
-    private $_isThumbChanged = false;
-
-    /**
      * Updates the image
      *
      * @param array $data Request data
@@ -34,22 +20,9 @@ abstract class AbstractUpdateModel extends AbstractUploadModel
      */
     public function crop(array $data)
     {
-        $viewName = $this->get('viewFileModel')->get('uniqueName');
-        $thumbName = $this->get('thumbFileModel')->get('uniqueName');
-
         $this
             ->_updateView($data)
             ->_updateThumb($data);
-
-        $file = new FileModel();
-
-        if ($this->_isViewChanged === true) {
-            $file->deleteByUniqueName($viewName);
-        }
-
-        if ($this->_isThumbChanged === true) {
-            $file->deleteByUniqueName($thumbName);
-        }
 
         $this->set($data)->save();
 
@@ -122,14 +95,15 @@ abstract class AbstractUpdateModel extends AbstractUploadModel
             return $this;
         }
 
-        $viewFileModel = $this->get('viewFileModel');
+        $oldViewFileModel = $this->get('viewFileModel');
+        $newViewFileModel = $this->_getNewFileModel($oldViewFileModel);
 
-        $viewFileModel->generateTmpName();
-        $viewFileModel->setUniqueName(
+        $newViewFileModel->generateTmpName();
+        $newViewFileModel->setUniqueName(
             trim(
                 strtolower(
                     pathinfo(
-                        $viewFileModel->get('uniqueName'),
+                        $newViewFileModel->get('uniqueName'),
                         PATHINFO_EXTENSION
                     )
                 )
@@ -171,12 +145,19 @@ abstract class AbstractUpdateModel extends AbstractUploadModel
             ->setViewSizes();
 
         $image->resize($this->getViewWidth(), $this->getViewHeight());
-        $image->save($viewFileModel->getTmpName());
-        $viewFileModel->upload();
+        $image->save($newViewFileModel->getTmpName());
+        $newViewFileModel->upload();
 
-        $viewFileModel->save();
+        $newViewFileModel->save();
 
-        $this->_isViewChanged = true;
+        $oldViewFileModel->markAsUnused();
+
+        $this->set(
+            [
+                'viewFileId'    => $newViewFileModel->getId(),
+                'viewFileModel' => $newViewFileModel,
+            ]
+        );
 
         return $this;
     }
@@ -218,14 +199,15 @@ abstract class AbstractUpdateModel extends AbstractUploadModel
             return $this;
         }
 
-        $thumbFileModel = $this->get('thumbFileModel');
+        $oldThumbFileModel = $this->get('thumbFileModel');
+        $newThumbFileModel = $this->_getNewFileModel($oldThumbFileModel);
 
-        $thumbFileModel->generateTmpName();
-        $thumbFileModel->setUniqueName(
+        $newThumbFileModel->generateTmpName();
+        $newThumbFileModel->setUniqueName(
             trim(
                 strtolower(
                     pathinfo(
-                        $thumbFileModel->get('uniqueName'),
+                        $newThumbFileModel->get('uniqueName'),
                         PATHINFO_EXTENSION
                     )
                 )
@@ -267,13 +249,34 @@ abstract class AbstractUpdateModel extends AbstractUploadModel
             ->setThumbSizes();
 
         $image->resize($this->getThumbWidth(), $this->getThumbHeight());
-        $image->save($thumbFileModel->getTmpName());
-        $thumbFileModel->upload();
+        $image->save($newThumbFileModel->getTmpName());
+        $newThumbFileModel->upload();
 
-        $thumbFileModel->save();
+        $newThumbFileModel->save();
 
-        $this->_isThumbChanged = true;
+        $oldThumbFileModel->markAsUnused();
+
+        $this->set(
+            [
+                'thumbFileId'    => $newThumbFileModel->getId(),
+                'thumbFileModel' => $newThumbFileModel,
+            ]
+        );
 
         return $this;
+    }
+
+    /**
+     * Gets new File Model
+     *
+     * @param FileModel $oldFileModel File Model
+     *
+     * @return FileModel
+     */
+    private function _getNewFileModel($oldFileModel)
+    {
+        $newFileModel = clone $oldFileModel;
+        $newFileModel->clearId();
+        return $newFileModel;
     }
 }
