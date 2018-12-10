@@ -277,6 +277,7 @@ abstract class AbstractUpdateModel extends AbstractUploadModel
     {
         $newFileModel = clone $oldFileModel;
         $newFileModel->clearId();
+        $newFileModel->set(['isUsed' => true]);
         return $newFileModel;
     }
 }

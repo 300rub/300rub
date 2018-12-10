@@ -116,39 +116,30 @@ class AbstractImageInstanceModelEmptyTest extends AbstractEmptyModelTest
                 [
                     'imageGroupId' => 1,
                     'originalFileModel' => [
-                        'uniqueName' => 'file.jpg',
+                        'uniqueName' => uniqid() . '.jpg',
                     ],
                     'viewFileModel' => [
-                        'uniqueName' => 'view_file.jpg',
+                        'uniqueName' => uniqid() . '.jpg',
                     ],
                     'thumbFileModel' => [
-                        'uniqueName' => 'thumb_file.jpg',
+                        'uniqueName' => uniqid() . '.jpg',
                     ]
                 ],
                 [
-                    'imageGroupId'      => 1,
-                    'originalFileModel' => [
-                        'uniqueName' => 'file.jpg',
-                    ],
-                    'viewFileModel'     => [
-                        'uniqueName' => 'view_file.jpg',
-                    ],
-                    'thumbFileModel'    => [
-                        'uniqueName' => 'thumb_file.jpg',
-                    ],
-                    'isCover'           => false,
-                    'sort'              => 0,
-                    'alt'               => '',
-                    'width'             => 0,
-                    'height'            => 0,
-                    'viewX'             => 0,
-                    'viewY'             => 0,
-                    'viewWidth'         => 0,
-                    'viewHeight'        => 0,
-                    'thumbX'            => 0,
-                    'thumbY'            => 0,
-                    'thumbWidth'        => 0,
-                    'thumbHeight'       => 0,
+                    'imageGroupId' => 1,
+                    'isCover'      => false,
+                    'sort'         => 0,
+                    'alt'          => '',
+                    'width'        => 0,
+                    'height'       => 0,
+                    'viewX'        => 0,
+                    'viewY'        => 0,
+                    'viewWidth'    => 0,
+                    'viewHeight'   => 0,
+                    'thumbX'       => 0,
+                    'thumbY'       => 0,
+                    'thumbWidth'   => 0,
+                    'thumbHeight'  => 0,
                 ],
             ],
         ];

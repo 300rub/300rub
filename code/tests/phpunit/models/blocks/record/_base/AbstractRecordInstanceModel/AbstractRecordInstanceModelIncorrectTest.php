@@ -108,13 +108,13 @@ class AbstractRecordInstanceModelIncorrectTest extends AbstractIncorrectModelTes
             'coverImageInstanceModel' => [
                 'imageGroupId'      => '1asd',
                 'originalFileModel' => [
-                    'uniqueName' => '<b> record'
+                    'uniqueName' => '<b> ' . uniqid()
                 ],
                 'viewFileModel'     => [
-                    'uniqueName' => '<b>view_record'
+                    'uniqueName' => '<b>' . uniqid()
                 ],
                 'thumbFileModel'    => [
-                    'uniqueName' => '<b>thumb_record'
+                    'uniqueName' => '<b>' . uniqid()
                 ],
                 'isCover'           => 0,
                 'sort'              => 'incorrect',
@@ -167,15 +167,6 @@ class AbstractRecordInstanceModelIncorrectTest extends AbstractIncorrectModelTes
             ],
             'coverImageInstanceModel' => [
                 'imageGroupId'      => 1,
-                'originalFileModel' => [
-                    'uniqueName' => 'record'
-                ],
-                'viewFileModel'     => [
-                    'uniqueName' => 'view_record'
-                ],
-                'thumbFileModel'    => [
-                    'uniqueName' => 'thumb_record'
-                ],
                 'isCover'           => false,
                 'sort'              => 0,
                 'alt'               => '333',

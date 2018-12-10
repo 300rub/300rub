@@ -31,13 +31,13 @@ class GetImageControllerTest extends AbstractControllerTest
             [
                 'imageGroupId'      => 1,
                 'originalFileModel' => [
-                    'uniqueName' => 'new_file.jpg',
+                    'uniqueName' => uniqid() . '.jpg',
                 ],
                 'viewFileModel'     => [
-                    'uniqueName' => 'view_new_file.jpg',
+                    'uniqueName' => uniqid() . '.jpg',
                 ],
                 'thumbFileModel'    => [
-                    'uniqueName' => 'thumb_new_file.jpg',
+                    'uniqueName' => uniqid() . '.jpg',
                 ],
                 'alt'               => 'Alt 1',
                 'width'             => 800,

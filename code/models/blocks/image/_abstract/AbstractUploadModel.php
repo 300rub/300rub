@@ -215,6 +215,7 @@ abstract class AbstractUploadModel extends AbstractImageInstanceModel
     {
         $this->_originalFileModel = new FileModel();
         $this->_originalFileModel->parsePostRequest();
+        $this->_originalFileModel->set(['isUsed' => true]);
 
         return $this;
     }
@@ -387,7 +388,8 @@ abstract class AbstractUploadModel extends AbstractImageInstanceModel
             ->setUniqueName($this->_extension)
             ->set(
                 [
-                    'type' => $this->_originalFileModel->get('type')
+                    'type'   => $this->_originalFileModel->get('type'),
+                    'isUsed' => true
                 ]
             );
 
@@ -397,7 +399,8 @@ abstract class AbstractUploadModel extends AbstractImageInstanceModel
             ->setUniqueName($this->_extension)
             ->set(
                 [
-                    'type' => $this->_originalFileModel->get('type')
+                    'type'   => $this->_originalFileModel->get('type'),
+                    'isUsed' => true
                 ]
             );
 

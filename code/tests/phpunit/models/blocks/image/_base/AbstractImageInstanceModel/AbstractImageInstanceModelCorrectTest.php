@@ -48,13 +48,16 @@ class AbstractImageInstanceModelCorrectTest extends AbstractCorrectModelTest
         return [
             'imageGroupId'      => 1,
             'originalFileModel' => [
-                'uniqueName' => 'file.jpg',
+                'uniqueName' => uniqid() . '.jpg',
+                'isUsed'     => true,
             ],
             'viewFileModel'     => [
-                'uniqueName' => 'view_file.jpg',
+                'uniqueName' => uniqid(). '.jpg',
+                'isUsed'     => true,
             ],
             'thumbFileModel'    => [
-                'uniqueName' => 'thumb_file.jpg',
+                'uniqueName' => uniqid() . '.jpg',
+                'isUsed'     => true,
             ],
             'isCover'           => true,
             'sort'              => 10,
@@ -82,13 +85,13 @@ class AbstractImageInstanceModelCorrectTest extends AbstractCorrectModelTest
         return [
             'imageGroupId'      => 1,
             'originalFileModel' => [
-                'uniqueName' => 'file.jpg',
+                'isUsed' => true,
             ],
             'viewFileModel'     => [
-                'uniqueName' => 'view_file.jpg',
+                'isUsed' => true,
             ],
             'thumbFileModel'    => [
-                'uniqueName' => 'thumb_file.jpg',
+                'isUsed' => true,
             ],
             'isCover'           => true,
             'sort'              => 10,

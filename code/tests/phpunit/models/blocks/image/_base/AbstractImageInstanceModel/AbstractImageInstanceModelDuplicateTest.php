@@ -32,13 +32,13 @@ class AbstractImageInstanceModelDuplicateTest extends AbstractDuplicateModelTest
             [
                 'imageGroupId'      => 1,
                 'originalFileModel' => [
-                    'uniqueName' => 'file.jpg',
+                    'uniqueName' => uniqid() . '.jpg',
                 ],
                 'viewFileModel'     => [
-                    'uniqueName' => 'view_file.jpg',
+                    'uniqueName' => uniqid() . '.jpg',
                 ],
                 'thumbFileModel'    => [
-                    'uniqueName' => 'thumb_file.jpg',
+                    'uniqueName' => uniqid() . '.jpg',
                 ],
                 'isCover'           => true,
                 'sort'              => 10,

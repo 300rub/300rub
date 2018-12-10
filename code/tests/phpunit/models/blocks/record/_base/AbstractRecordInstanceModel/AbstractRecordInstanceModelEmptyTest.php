@@ -173,13 +173,13 @@ class AbstractRecordInstanceModelEmptyTest extends AbstractEmptyModelTest
                 'coverImageInstanceModel'      => [
                     'imageGroupId' => 1,
                     'originalFileModel' => [
-                        'uniqueName' => 'name'
+                        'uniqueName' => uniqid()
                     ],
                     'viewFileModel' => [
-                        'uniqueName' => 'view_name'
+                        'uniqueName' => uniqid()
                     ],
                     'thumbFileModel' => [
-                        'uniqueName' => 'thumb_name'
+                        'uniqueName' => uniqid()
                     ],
                 ],
             ],
@@ -209,15 +209,6 @@ class AbstractRecordInstanceModelEmptyTest extends AbstractEmptyModelTest
                 ],
                 'coverImageInstanceModel' => [
                     'imageGroupId'      => 1,
-                    'originalFileModel' => [
-                        'uniqueName' => 'name'
-                    ],
-                    'viewFileModel'     => [
-                        'uniqueName' => 'view_name'
-                    ],
-                    'thumbFileModel'    => [
-                        'uniqueName' => 'thumb_name'
-                    ],
                     'isCover'           => false,
                     'sort'              => 0,
                     'alt'               => '',
