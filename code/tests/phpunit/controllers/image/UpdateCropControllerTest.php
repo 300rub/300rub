@@ -70,8 +70,14 @@ class UpdateCropControllerTest extends AbstractControllerTest
         $imageInstanceModel = ImageInstanceModel::model()
             ->byId($resultId)
             ->find();
-        $this->assertSame($data['x1'], $imageInstanceModel->get('x1'));
-        $this->assertSame($data['y1'], $imageInstanceModel->get('y1'));
+        $this->assertSame(
+            $data['viewX'],
+            $imageInstanceModel->get('viewX')
+        );
+        $this->assertSame(
+            $data['viewY'],
+            $imageInstanceModel->get('viewY')
+        );
         $this->assertSame(
             $data['viewWidth'],
             $imageInstanceModel->get('viewWidth')
@@ -97,12 +103,12 @@ class UpdateCropControllerTest extends AbstractControllerTest
             $imageInstanceModel->get('thumbHeight')
         );
         $this->assertSame(
-            $data['angle'],
-            $imageInstanceModel->get('angle')
+            $data['viewAngle'],
+            $imageInstanceModel->get('viewAngle')
         );
         $this->assertSame(
-            $data['flip'],
-            $imageInstanceModel->get('flip')
+            $data['viewFlip'],
+            $imageInstanceModel->get('viewFlip')
         );
 
         $imageInstanceModel->delete();
@@ -121,16 +127,16 @@ class UpdateCropControllerTest extends AbstractControllerTest
                 'file'     => 'mediumImage.jpg',
                 [
                     'blockId'     => 3,
-                    'x1'          => 0,
-                    'y1'          => 0,
-                    'viewWidth'          => 3000,
-                    'viewHeight'          => 1000,
+                    'viewX'       => 0,
+                    'viewY'       => 0,
+                    'viewWidth'   => 3000,
+                    'viewHeight'  => 1000,
                     'thumbX'      => 0,
                     'thumbY'      => 0,
                     'thumbWidth'  => 3000,
                     'thumbHeight' => 1000,
-                    'angle'       => 90,
-                    'flip'        => 3,
+                    'viewAngle'   => 90,
+                    'viewFlip'    => 3,
                 ],
                 'hasError' => false
             ],
@@ -139,16 +145,16 @@ class UpdateCropControllerTest extends AbstractControllerTest
                 'file'     => 'mediumImage.png',
                 [
                     'blockId'     => 3,
-                    'x1'          => 0,
-                    'y1'          => 0,
-                    'viewWidth'          => 3000,
-                    'viewHeight'          => 1000,
+                    'viewX'       => 0,
+                    'viewY'       => 0,
+                    'viewWidth'   => 3000,
+                    'viewHeight'  => 1000,
                     'thumbX'      => 0,
                     'thumbY'      => 0,
                     'thumbWidth'  => 3000,
                     'thumbHeight' => 1000,
-                    'angle'       => 90,
-                    'flip'        => 3,
+                    'viewAngle'   => 90,
+                    'viewFlip'    => 3,
                 ],
                 'hasError' => false
             ],
@@ -157,16 +163,16 @@ class UpdateCropControllerTest extends AbstractControllerTest
                 'file'     => 'mediumImage.jpg',
                 [
                     'blockId'     => 3,
-                    'x1'          => 0,
-                    'y1'          => 0,
-                    'viewWidth'          => 3000,
-                    'viewHeight'          => 1000,
+                    'viewX'       => 0,
+                    'viewY'       => 0,
+                    'viewWidth'   => 3000,
+                    'viewHeight'  => 1000,
                     'thumbX'      => 0,
                     'thumbY'      => 0,
                     'thumbWidth'  => 3000,
                     'thumbHeight' => 1000,
-                    'angle'       => 90,
-                    'flip'        => 3,
+                    'viewAngle'   => 90,
+                    'viewFlip'    => 3,
                 ],
                 'hasError' => true
             ],

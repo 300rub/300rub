@@ -55,7 +55,7 @@ class AbstractRecordInstanceModelDuplicateTest extends AbstractDuplicateModelTes
                     ],
                     'sort'    => 0,
                 ],
-                'coverImageInstanceModel' => [
+                'coverImageInstanceModel'      => [
                     'imageGroupId'      => 1,
                     'originalFileModel' => [
                         'uniqueName' => 'record'
@@ -71,10 +71,10 @@ class AbstractRecordInstanceModelDuplicateTest extends AbstractDuplicateModelTes
                     'alt'               => '',
                     'width'             => 0,
                     'height'            => 0,
-                    'x1'                => 0,
-                    'y1'                => 0,
-                    'viewWidth'                => 0,
-                    'viewHeight'                => 0,
+                    'viewX'             => 0,
+                    'viewY'             => 0,
+                    'viewWidth'         => 0,
+                    'viewHeight'        => 0,
                     'thumbX'            => 0,
                     'thumbY'            => 0,
                     'thumbWidth'        => 0,

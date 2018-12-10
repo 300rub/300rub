@@ -54,28 +54,23 @@ abstract class AbstractGetCropController extends AbstractController
 
         $language = App::getInstance()->getLanguage();
 
-        switch ($imageInstanceModel->get('flip')) {
-            case ImageInstanceModel::FLIP_HORIZONTAL:
-                break;
-        }
-
         $data = [
-            'title'   => $language->getMessage('image', 'cropNoun'),
-            'id'      => $instanceId,
-            'labels'  => [
+            'title'      => $language->getMessage('image', 'cropNoun'),
+            'id'         => $instanceId,
+            'labels'     => [
                 'button' => App::getInstance()
                     ->getLanguage()
                     ->getMessage('image', 'cropVerb')
             ],
-            'url'     => $fileModel->getUrl(),
-            'width'   => $imageInstanceModel->get('width'),
-            'height'  => $imageInstanceModel->get('height'),
-            'x1'      => $imageInstanceModel->get('x1'),
-            'y1'      => $imageInstanceModel->get('y1'),
-            'viewWidth'      => $imageInstanceModel->get('viewWidth'),
-            'viewHeight'      => $imageInstanceModel->get('viewHeight'),
-            'angle'   => $imageInstanceModel->get('angle'),
-            'flip'    => $imageInstanceModel->get('flip'),
+            'url'        => $fileModel->getUrl(),
+            'width'      => $imageInstanceModel->get('width'),
+            'height'     => $imageInstanceModel->get('height'),
+            'viewX'      => $imageInstanceModel->get('viewX'),
+            'viewY'      => $imageInstanceModel->get('viewY'),
+            'viewWidth'  => $imageInstanceModel->get('viewWidth'),
+            'viewHeight' => $imageInstanceModel->get('viewHeight'),
+            'viewAngle'  => $imageInstanceModel->get('viewAngle'),
+            'viewFlip'   => $imageInstanceModel->get('viewFlip'),
         ];
 
         if ($imageModel->get('type') !== ImageModel::TYPE_ZOOM) {

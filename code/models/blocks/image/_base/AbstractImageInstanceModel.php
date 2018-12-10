@@ -116,38 +116,38 @@ abstract class AbstractImageInstanceModel extends AbstractModel
     private function _getFieldsInfoCrop()
     {
         return [
-            'x1'          => [
+            'viewX'       => [
                 self::FIELD_TYPE             => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE            => [
                     ValueGenerator::MIN => 0,
                 ],
                 self::FIELD_SKIP_DUPLICATION => true,
             ],
-            'y1'          => [
+            'viewY'       => [
                 self::FIELD_TYPE             => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE            => [
                     ValueGenerator::MIN => 0,
                 ],
                 self::FIELD_SKIP_DUPLICATION => true,
             ],
-            'viewWidth'          => [
+            'viewWidth'   => [
                 self::FIELD_TYPE             => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE            => [
                     ValueGenerator::MIN => 0,
                 ],
                 self::FIELD_SKIP_DUPLICATION => true,
             ],
-            'viewHeight'          => [
+            'viewHeight'  => [
                 self::FIELD_TYPE             => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE            => [
                     ValueGenerator::MIN => 0,
                 ],
                 self::FIELD_SKIP_DUPLICATION => true,
             ],
-            'angle'       => [
+            'viewAngle'   => [
                 self::FIELD_TYPE => self::FIELD_TYPE_INT,
             ],
-            'flip'        => [
+            'viewFlip'    => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
                     ValueGenerator::ARRAY_KEY => [

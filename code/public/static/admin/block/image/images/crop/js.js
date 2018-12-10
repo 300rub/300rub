@@ -214,7 +214,7 @@
                 viewWidth: parseInt(this.viewWidth),
                 viewHeight: parseInt(this.viewHeight),
                 angle: parseInt(this.viewRotate),
-                flip: this.getFlip(this.viewScaleX, this.viewScaleY),
+                viewFlip: this.getFlip(this.viewScaleX, this.viewScaleY),
                 thumbX: parseInt(this.thumbX),
                 thumbY: parseInt(this.thumbY),
                 thumbWidth: parseInt(this.thumbWidth),

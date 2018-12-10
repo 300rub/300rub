@@ -22,12 +22,12 @@ abstract class AbstractUpdateCropController extends AbstractController
         $this->checkData(
             [
                 'id'          => [self::TYPE_INT, self::NOT_EMPTY],
-                'x1'          => [self::TYPE_INT],
-                'y1'          => [self::TYPE_INT],
-                'viewWidth'          => [self::TYPE_INT],
-                'viewHeight'          => [self::TYPE_INT],
-                'angle'       => [self::TYPE_INT],
-                'flip'        => [self::TYPE_INT],
+                'viewX'       => [self::TYPE_INT],
+                'viewY'       => [self::TYPE_INT],
+                'viewWidth'   => [self::TYPE_INT],
+                'viewHeight'  => [self::TYPE_INT],
+                'viewAngle'   => [self::TYPE_INT],
+                'viewFlip'    => [self::TYPE_INT],
                 'thumbX'      => [self::TYPE_INT],
                 'thumbY'      => [self::TYPE_INT],
                 'thumbWidth'  => [self::TYPE_INT],
@@ -38,12 +38,12 @@ abstract class AbstractUpdateCropController extends AbstractController
         );
 
         $data = [
-            'x1'          => $this->get('x1'),
-            'y1'          => $this->get('y1'),
-            'viewWidth'          => $this->get('viewWidth'),
-            'viewHeight'          => $this->get('viewHeight'),
-            'angle'       => $this->get('angle'),
-            'flip'        => $this->get('flip'),
+            'viewX'       => $this->get('viewX'),
+            'viewY'       => $this->get('viewY'),
+            'viewWidth'   => $this->get('viewWidth'),
+            'viewHeight'  => $this->get('viewHeight'),
+            'viewAngle'   => $this->get('viewAngle'),
+            'viewFlip'    => $this->get('viewFlip'),
             'thumbX'      => $this->get('thumbX'),
             'thumbY'      => $this->get('thumbY'),
             'thumbWidth'  => $this->get('thumbWidth'),

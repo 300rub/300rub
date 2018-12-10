@@ -94,12 +94,12 @@ abstract class AbstractUpdateModel extends AbstractUploadModel
      */
     private function _isChangedViewData(array $data)
     {
-        if ($data['x1'] === $this->get('x1')
-            && $data['y1'] === $this->get('y1')
+        if ($data['viewX'] === $this->get('viewX')
+            && $data['viewY'] === $this->get('viewY')
             && $data['viewWidth'] === $this->get('viewWidth')
             && $data['viewHeight'] === $this->get('viewHeight')
-            && $data['angle'] === $this->get('angle')
-            && $data['flip'] === $this->get('flip')
+            && $data['viewAngle'] === $this->get('viewAngle')
+            && $data['viewFlip'] === $this->get('viewFlip')
         ) {
             return false;
         }
@@ -142,7 +142,7 @@ abstract class AbstractUpdateModel extends AbstractUploadModel
 
         $image->setForceCache(false);
 
-        switch ($data['flip']) {
+        switch ($data['viewFlip']) {
             case self::FLIP_BOTH:
                 $image->flip(true, true);
                 break;
@@ -154,13 +154,13 @@ abstract class AbstractUpdateModel extends AbstractUploadModel
                 break;
         }
 
-        if ($data['angle'] !== 0) {
-            $image->rotate($data['angle'] * -1);
+        if ($data['viewAngle'] !== 0) {
+            $image->rotate($data['viewAngle'] * -1);
         }
 
         $image->crop(
-            $data['x1'],
-            $data['y1'],
+            $data['viewX'],
+            $data['viewY'],
             $data['viewWidth'],
             $data['viewHeight']
         );
