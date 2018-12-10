@@ -72,8 +72,8 @@ abstract class AbstractGetCropController extends AbstractController
             'height'  => $imageInstanceModel->get('height'),
             'x1'      => $imageInstanceModel->get('x1'),
             'y1'      => $imageInstanceModel->get('y1'),
-            'x2'      => $imageInstanceModel->get('x2'),
-            'y2'      => $imageInstanceModel->get('y2'),
+            'viewWidth'      => $imageInstanceModel->get('viewWidth'),
+            'viewHeight'      => $imageInstanceModel->get('viewHeight'),
             'angle'   => $imageInstanceModel->get('angle'),
             'flip'    => $imageInstanceModel->get('flip'),
         ];
@@ -85,12 +85,12 @@ abstract class AbstractGetCropController extends AbstractController
         return array_merge(
             $data,
             [
-                'thumbX1'    => $imageInstanceModel->get('thumbX1'),
-                'thumbY1'    => $imageInstanceModel->get('thumbY1'),
-                'thumbX2'    => $imageInstanceModel->get('thumbX2'),
-                'thumbY2'    => $imageInstanceModel->get('thumbY2'),
-                'thumbAngle' => $imageInstanceModel->get('thumbAngle'),
-                'thumbFlip'  => $imageInstanceModel->get('thumbFlip'),
+                'thumbX'      => $imageInstanceModel->get('thumbX'),
+                'thumbY'      => $imageInstanceModel->get('thumbY'),
+                'thumbWidth'  => $imageInstanceModel->get('thumbWidth'),
+                'thumbHeight' => $imageInstanceModel->get('thumbHeight'),
+                'thumbAngle'  => $imageInstanceModel->get('thumbAngle'),
+                'thumbFlip'   => $imageInstanceModel->get('thumbFlip'),
             ]
         );
     }

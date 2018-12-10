@@ -44,12 +44,12 @@ class GetImageControllerTest extends AbstractControllerTest
                 'height'            => 600,
                 'x1'                => 10,
                 'y1'                => 30,
-                'x2'                => 70,
-                'y2'                => 80,
-                'thumbX1'           => 5,
-                'thumbY1'           => 15,
-                'thumbX2'           => 35,
-                'thumbY2'           => 45,
+                'viewWidth'                => 70,
+                'viewHeight'                => 80,
+                'thumbX'            => 5,
+                'thumbY'            => 15,
+                'thumbWidth'        => 35,
+                'thumbHeight'       => 45,
             ]
         );
         $imageInstanceModel->save();

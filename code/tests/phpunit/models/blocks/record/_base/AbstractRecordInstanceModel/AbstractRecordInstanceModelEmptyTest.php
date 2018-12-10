@@ -207,30 +207,30 @@ class AbstractRecordInstanceModelEmptyTest extends AbstractEmptyModelTest
                     ],
                     'sort'    => 0,
                 ],
-                'coverImageInstanceModel'      => [
-                    'imageGroupId' => 1,
+                'coverImageInstanceModel' => [
+                    'imageGroupId'      => 1,
                     'originalFileModel' => [
                         'uniqueName' => 'name'
                     ],
-                    'viewFileModel' => [
+                    'viewFileModel'     => [
                         'uniqueName' => 'view_name'
                     ],
-                    'thumbFileModel' => [
+                    'thumbFileModel'    => [
                         'uniqueName' => 'thumb_name'
                     ],
-                    'isCover'      => false,
-                    'sort'         => 0,
-                    'alt'          => '',
-                    'width'        => 0,
-                    'height'       => 0,
-                    'x1'           => 0,
-                    'y1'           => 0,
-                    'x2'           => 0,
-                    'y2'           => 0,
-                    'thumbX1'      => 0,
-                    'thumbY1'      => 0,
-                    'thumbX2'      => 0,
-                    'thumbY2'      => 0,
+                    'isCover'           => false,
+                    'sort'              => 0,
+                    'alt'               => '',
+                    'width'             => 0,
+                    'height'            => 0,
+                    'x1'                => 0,
+                    'y1'                => 0,
+                    'viewWidth'                => 0,
+                    'viewHeight'                => 0,
+                    'thumbX'            => 0,
+                    'thumbY'            => 0,
+                    'thumbWidth'        => 0,
+                    'thumbHeight'       => 0,
                 ],
                 'sort'                         => 0,
             ],

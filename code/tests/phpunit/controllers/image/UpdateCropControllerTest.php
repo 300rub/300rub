@@ -72,23 +72,29 @@ class UpdateCropControllerTest extends AbstractControllerTest
             ->find();
         $this->assertSame($data['x1'], $imageInstanceModel->get('x1'));
         $this->assertSame($data['y1'], $imageInstanceModel->get('y1'));
-        $this->assertSame($data['x2'], $imageInstanceModel->get('x2'));
-        $this->assertSame($data['y2'], $imageInstanceModel->get('y2'));
         $this->assertSame(
-            $data['thumbX1'],
-            $imageInstanceModel->get('thumbX1')
+            $data['viewWidth'],
+            $imageInstanceModel->get('viewWidth')
         );
         $this->assertSame(
-            $data['thumbY1'],
-            $imageInstanceModel->get('thumbY1')
+            $data['viewHeight'],
+            $imageInstanceModel->get('viewHeight')
         );
         $this->assertSame(
-            $data['thumbX2'],
-            $imageInstanceModel->get('thumbX2')
+            $data['thumbX'],
+            $imageInstanceModel->get('thumbX')
         );
         $this->assertSame(
-            $data['thumbY2'],
-            $imageInstanceModel->get('thumbY2')
+            $data['thumbY'],
+            $imageInstanceModel->get('thumbY')
+        );
+        $this->assertSame(
+            $data['thumbWidth'],
+            $imageInstanceModel->get('thumbWidth')
+        );
+        $this->assertSame(
+            $data['thumbHeight'],
+            $imageInstanceModel->get('thumbHeight')
         );
         $this->assertSame(
             $data['angle'],
@@ -114,17 +120,17 @@ class UpdateCropControllerTest extends AbstractControllerTest
                 'user'     => self::TYPE_LIMITED,
                 'file'     => 'mediumImage.jpg',
                 [
-                    'blockId' => 3,
-                    'x1'      => 0,
-                    'y1'      => 0,
-                    'x2'      => 3000,
-                    'y2'      => 1000,
-                    'thumbX1' => 0,
-                    'thumbY1' => 0,
-                    'thumbX2' => 3000,
-                    'thumbY2' => 1000,
-                    'angle'   => 90,
-                    'flip'    => 3,
+                    'blockId'     => 3,
+                    'x1'          => 0,
+                    'y1'          => 0,
+                    'viewWidth'          => 3000,
+                    'viewHeight'          => 1000,
+                    'thumbX'      => 0,
+                    'thumbY'      => 0,
+                    'thumbWidth'  => 3000,
+                    'thumbHeight' => 1000,
+                    'angle'       => 90,
+                    'flip'        => 3,
                 ],
                 'hasError' => false
             ],
@@ -132,17 +138,17 @@ class UpdateCropControllerTest extends AbstractControllerTest
                 'user'     => self::TYPE_LIMITED,
                 'file'     => 'mediumImage.png',
                 [
-                    'blockId' => 3,
-                    'x1'      => 0,
-                    'y1'      => 0,
-                    'x2'      => 3000,
-                    'y2'      => 1000,
-                    'thumbX1' => 0,
-                    'thumbY1' => 0,
-                    'thumbX2' => 3000,
-                    'thumbY2' => 1000,
-                    'angle'   => 90,
-                    'flip'    => 3,
+                    'blockId'     => 3,
+                    'x1'          => 0,
+                    'y1'          => 0,
+                    'viewWidth'          => 3000,
+                    'viewHeight'          => 1000,
+                    'thumbX'      => 0,
+                    'thumbY'      => 0,
+                    'thumbWidth'  => 3000,
+                    'thumbHeight' => 1000,
+                    'angle'       => 90,
+                    'flip'        => 3,
                 ],
                 'hasError' => false
             ],
@@ -150,17 +156,17 @@ class UpdateCropControllerTest extends AbstractControllerTest
                 'user'     => self::TYPE_BLOCKED_USER,
                 'file'     => 'mediumImage.jpg',
                 [
-                    'blockId' => 3,
-                    'x1'      => 0,
-                    'y1'      => 0,
-                    'x2'      => 3000,
-                    'y2'      => 1000,
-                    'thumbX1' => 0,
-                    'thumbY1' => 0,
-                    'thumbX2' => 3000,
-                    'thumbY2' => 1000,
-                    'angle'   => 90,
-                    'flip'    => 3,
+                    'blockId'     => 3,
+                    'x1'          => 0,
+                    'y1'          => 0,
+                    'viewWidth'          => 3000,
+                    'viewHeight'          => 1000,
+                    'thumbX'      => 0,
+                    'thumbY'      => 0,
+                    'thumbWidth'  => 3000,
+                    'thumbHeight' => 1000,
+                    'angle'       => 90,
+                    'flip'        => 3,
                 ],
                 'hasError' => true
             ],

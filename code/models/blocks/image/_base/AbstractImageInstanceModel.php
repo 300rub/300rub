@@ -116,38 +116,38 @@ abstract class AbstractImageInstanceModel extends AbstractModel
     private function _getFieldsInfoCrop()
     {
         return [
-            'x1'             => [
+            'x1'          => [
                 self::FIELD_TYPE             => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE            => [
                     ValueGenerator::MIN => 0,
                 ],
                 self::FIELD_SKIP_DUPLICATION => true,
             ],
-            'y1'             => [
+            'y1'          => [
                 self::FIELD_TYPE             => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE            => [
                     ValueGenerator::MIN => 0,
                 ],
                 self::FIELD_SKIP_DUPLICATION => true,
             ],
-            'x2'             => [
+            'viewWidth'          => [
                 self::FIELD_TYPE             => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE            => [
                     ValueGenerator::MIN => 0,
                 ],
                 self::FIELD_SKIP_DUPLICATION => true,
             ],
-            'y2'             => [
+            'viewHeight'          => [
                 self::FIELD_TYPE             => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE            => [
                     ValueGenerator::MIN => 0,
                 ],
                 self::FIELD_SKIP_DUPLICATION => true,
             ],
-            'angle'          => [
+            'angle'       => [
                 self::FIELD_TYPE => self::FIELD_TYPE_INT,
             ],
-            'flip'           => [
+            'flip'        => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
                     ValueGenerator::ARRAY_KEY => [
@@ -156,38 +156,38 @@ abstract class AbstractImageInstanceModel extends AbstractModel
                     ]
                 ],
             ],
-            'thumbX1'        => [
+            'thumbX'      => [
                 self::FIELD_TYPE             => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE            => [
                     ValueGenerator::MIN => 0,
                 ],
                 self::FIELD_SKIP_DUPLICATION => true,
             ],
-            'thumbY1'        => [
+            'thumbY'      => [
                 self::FIELD_TYPE             => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE            => [
                     ValueGenerator::MIN => 0,
                 ],
                 self::FIELD_SKIP_DUPLICATION => true,
             ],
-            'thumbX2'        => [
+            'thumbWidth'  => [
                 self::FIELD_TYPE             => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE            => [
                     ValueGenerator::MIN => 0,
                 ],
                 self::FIELD_SKIP_DUPLICATION => true,
             ],
-            'thumbY2'        => [
+            'thumbHeight' => [
                 self::FIELD_TYPE             => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE            => [
                     ValueGenerator::MIN => 0,
                 ],
                 self::FIELD_SKIP_DUPLICATION => true,
             ],
-            'thumbAngle'          => [
+            'thumbAngle'  => [
                 self::FIELD_TYPE => self::FIELD_TYPE_INT,
             ],
-            'thumbFlip'           => [
+            'thumbFlip'   => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
                     ValueGenerator::ARRAY_KEY => [

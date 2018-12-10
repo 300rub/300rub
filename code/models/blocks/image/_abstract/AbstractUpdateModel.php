@@ -95,9 +95,9 @@ abstract class AbstractUpdateModel extends AbstractUploadModel
     private function _isChangedViewData(array $data)
     {
         if ($data['x1'] === $this->get('x1')
-            && $data['x2'] === $this->get('x2')
             && $data['y1'] === $this->get('y1')
-            && $data['y2'] === $this->get('y2')
+            && $data['viewWidth'] === $this->get('viewWidth')
+            && $data['viewHeight'] === $this->get('viewHeight')
             && $data['angle'] === $this->get('angle')
             && $data['flip'] === $this->get('flip')
         ) {
@@ -158,14 +158,16 @@ abstract class AbstractUpdateModel extends AbstractUploadModel
             $image->rotate($data['angle'] * -1);
         }
 
-        $viewWidth = ($data['x2'] - $data['x1']);
-        $viewHeight = ($data['y2'] - $data['y1']);
-
-        $image->crop($data['x1'], $data['y1'], $viewWidth, $viewHeight);
+        $image->crop(
+            $data['x1'],
+            $data['y1'],
+            $data['viewWidth'],
+            $data['viewHeight']
+        );
 
         $this
-            ->setWidth($viewWidth)
-            ->setHeight($viewHeight)
+            ->setWidth($data['viewWidth'])
+            ->setHeight($data['viewHeight'])
             ->setViewSizes();
 
         $image->resize($this->getViewWidth(), $this->getViewHeight());
@@ -188,12 +190,12 @@ abstract class AbstractUpdateModel extends AbstractUploadModel
      */
     private function _isChangedThumbData(array $data)
     {
-        if ($data['thumbX1'] === $this->get('thumbX1')
-            && $data['thumbX2'] === $this->get('thumbX2')
-            && $data['thumbY1'] === $this->get('thumbY1')
-            && $data['thumbY2'] === $this->get('thumbY2')
-            && $data['angle'] === $this->get('angle')
-            && $data['flip'] === $this->get('flip')
+        if ($data['thumbX'] === $this->get('thumbX')
+            && $data['thumbY'] === $this->get('thumbY')
+            && $data['thumbWidth'] === $this->get('thumbWidth')
+            && $data['thumbHeight'] === $this->get('thumbHeight')
+            && $data['thumbAngle'] === $this->get('thumbAngle')
+            && $data['thumbFlip'] === $this->get('thumbFlip')
         ) {
             return false;
         }
@@ -252,19 +254,16 @@ abstract class AbstractUpdateModel extends AbstractUploadModel
             $image->rotate($data['thumbAngle'] * -1);
         }
 
-        $thumbWidth = ($data['thumbX2'] - $data['thumbX1']);
-        $thumbHeight = ($data['thumbY2'] - $data['thumbY1']);
-
         $image->crop(
-            $data['thumbX1'],
-            $data['thumbY1'],
-            $thumbWidth,
-            $thumbHeight
+            $data['thumbX'],
+            $data['thumbY'],
+            $data['thumbWidth'],
+            $data['thumbHeight']
         );
 
         $this
-            ->setWidth($thumbWidth)
-            ->setHeight($thumbHeight)
+            ->setWidth($data['thumbWidth'])
+            ->setHeight($data['thumbHeight'])
             ->setThumbSizes();
 
         $image->resize($this->getThumbWidth(), $this->getThumbHeight());

@@ -30,38 +30,38 @@ class AbstractImageInstanceModelDuplicateTest extends AbstractDuplicateModelTest
     {
         $this->duplicate(
             [
-                'imageGroupId' => 1,
+                'imageGroupId'      => 1,
                 'originalFileModel' => [
                     'uniqueName' => 'file.jpg',
                 ],
-                'viewFileModel' => [
+                'viewFileModel'     => [
                     'uniqueName' => 'view_file.jpg',
                 ],
-                'thumbFileModel' => [
+                'thumbFileModel'    => [
                     'uniqueName' => 'thumb_file.jpg',
                 ],
-                'isCover'      => true,
-                'sort'         => 10,
-                'alt'          => 'Alt 1',
-                'width'        => 800,
-                'height'       => 600,
-                'x1'           => 10,
-                'y1'           => 30,
-                'x2'           => 70,
-                'y2'           => 80,
-                'thumbX1'      => 5,
-                'thumbY1'      => 15,
-                'thumbX2'      => 35,
-                'thumbY2'      => 45,
+                'isCover'           => true,
+                'sort'              => 10,
+                'alt'               => 'Alt 1',
+                'width'             => 800,
+                'height'            => 600,
+                'x1'                => 10,
+                'y1'                => 30,
+                'viewWidth'                => 70,
+                'viewHeight'                => 80,
+                'thumbX'            => 5,
+                'thumbY'            => 15,
+                'thumbWidth'        => 35,
+                'thumbHeight'       => 45,
             ],
             [
                 'originalFileModel' => [
                     'uniqueName' => ['required'],
                 ],
-                'viewFileModel' => [
+                'viewFileModel'     => [
                     'uniqueName' => ['required'],
                 ],
-                'thumbFileModel' => [
+                'thumbFileModel'    => [
                     'uniqueName' => ['required'],
                 ],
             ]

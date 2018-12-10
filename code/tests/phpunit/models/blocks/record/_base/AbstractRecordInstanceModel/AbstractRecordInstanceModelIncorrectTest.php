@@ -105,30 +105,30 @@ class AbstractRecordInstanceModelIncorrectTest extends AbstractIncorrectModelTes
                 ],
                 'sort'    => '25',
             ],
-            'coverImageInstanceModel'      => [
-                'imageGroupId' => '1asd',
+            'coverImageInstanceModel' => [
+                'imageGroupId'      => '1asd',
                 'originalFileModel' => [
                     'uniqueName' => '<b> record'
                 ],
-                'viewFileModel' => [
+                'viewFileModel'     => [
                     'uniqueName' => '<b>view_record'
                 ],
-                'thumbFileModel' => [
+                'thumbFileModel'    => [
                     'uniqueName' => '<b>thumb_record'
                 ],
-                'isCover'      => 0,
-                'sort'         => 'incorrect',
-                'alt'          => 333,
-                'width'        => '10s',
-                'height'       => '10s',
-                'x1'           => '10s',
-                'y1'           => '10s',
-                'x2'           => '10s',
-                'y2'           => '10s',
-                'thumbX1'      => '10s',
-                'thumbY1'      => '10s',
-                'thumbX2'      => '10s',
-                'thumbY2'      => '10s',
+                'isCover'           => 0,
+                'sort'              => 'incorrect',
+                'alt'               => 333,
+                'width'             => '10s',
+                'height'            => '10s',
+                'x1'                => '10s',
+                'y1'                => '10s',
+                'viewWidth'                => '10s',
+                'viewHeight'                => '10s',
+                'thumbX'            => '10s',
+                'thumbY'            => '10s',
+                'thumbWidth'        => '10s',
+                'thumbHeight'       => '10s',
             ],
             'sort'                         => '45asd',
         ];
@@ -165,30 +165,30 @@ class AbstractRecordInstanceModelIncorrectTest extends AbstractIncorrectModelTes
                 ],
                 'sort'    => 25,
             ],
-            'coverImageInstanceModel'      => [
-                'imageGroupId' => 1,
+            'coverImageInstanceModel' => [
+                'imageGroupId'      => 1,
                 'originalFileModel' => [
                     'uniqueName' => 'record'
                 ],
-                'viewFileModel' => [
+                'viewFileModel'     => [
                     'uniqueName' => 'view_record'
                 ],
-                'thumbFileModel' => [
+                'thumbFileModel'    => [
                     'uniqueName' => 'thumb_record'
                 ],
-                'isCover'      => false,
-                'sort'         => 0,
-                'alt'          => '333',
-                'width'        => 10,
-                'height'       => 10,
-                'x1'           => 10,
-                'y1'           => 10,
-                'x2'           => 10,
-                'y2'           => 10,
-                'thumbX1'      => 10,
-                'thumbY1'      => 10,
-                'thumbX2'      => 10,
-                'thumbY2'      => 10,
+                'isCover'           => false,
+                'sort'              => 0,
+                'alt'               => '333',
+                'width'             => 10,
+                'height'            => 10,
+                'x1'                => 10,
+                'y1'                => 10,
+                'viewWidth'                => 10,
+                'viewHeight'                => 10,
+                'thumbX'            => 10,
+                'thumbY'            => 10,
+                'thumbWidth'        => 10,
+                'thumbHeight'       => 10,
             ],
             'sort'                         => 45,
         ];
