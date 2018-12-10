@@ -181,7 +181,7 @@ class AbstractRecordInstanceModelIncorrectTest extends AbstractIncorrectModelTes
                 'alt'               => '333',
                 'width'             => 10,
                 'height'            => 10,
-                'x1'                => 10,
+                'viewX'             => 10,
                 'viewY'             => 10,
                 'viewWidth'         => 10,
                 'viewHeight'        => 10,
