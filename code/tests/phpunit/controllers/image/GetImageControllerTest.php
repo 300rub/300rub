@@ -75,9 +75,17 @@ class GetImageControllerTest extends AbstractControllerTest
 
         $body = $this->getBody();
         $expected = [
-            'isCover' => false,
-            'alt'     => 'Alt 1',
-            'link'    => '',
+            'forms' => [
+                'isCover' => [
+                    'value' => false
+                ],
+                'alt'     => [
+                    'value' => 'Alt 1'
+                ],
+                'link'    => [
+                    'value' => ''
+                ],
+            ]
         ];
 
         $this->compareExpectedAndActual($expected, $body);

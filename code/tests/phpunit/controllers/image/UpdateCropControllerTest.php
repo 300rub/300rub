@@ -70,6 +70,7 @@ class UpdateCropControllerTest extends AbstractControllerTest
         $imageInstanceModel = ImageInstanceModel::model()
             ->byId($resultId)
             ->find();
+
         $this->assertSame(
             $data['viewX'],
             $imageInstanceModel->get('viewX')
@@ -131,12 +132,14 @@ class UpdateCropControllerTest extends AbstractControllerTest
                     'viewY'       => 0,
                     'viewWidth'   => 3000,
                     'viewHeight'  => 1000,
+                    'viewAngle'   => 90,
+                    'viewFlip'    => 3,
                     'thumbX'      => 0,
                     'thumbY'      => 0,
                     'thumbWidth'  => 3000,
                     'thumbHeight' => 1000,
-                    'viewAngle'   => 90,
-                    'viewFlip'    => 3,
+                    'thumbAngle'  => 90,
+                    'thumbFlip'   => 3,
                 ],
                 'hasError' => false
             ],
@@ -149,12 +152,14 @@ class UpdateCropControllerTest extends AbstractControllerTest
                     'viewY'       => 0,
                     'viewWidth'   => 3000,
                     'viewHeight'  => 1000,
+                    'viewAngle'   => 90,
+                    'viewFlip'    => 3,
                     'thumbX'      => 0,
                     'thumbY'      => 0,
                     'thumbWidth'  => 3000,
                     'thumbHeight' => 1000,
-                    'viewAngle'   => 90,
-                    'viewFlip'    => 3,
+                    'thumbAngle'  => 90,
+                    'thumbFlip'   => 3,
                 ],
                 'hasError' => false
             ],
@@ -167,12 +172,14 @@ class UpdateCropControllerTest extends AbstractControllerTest
                     'viewY'       => 0,
                     'viewWidth'   => 3000,
                     'viewHeight'  => 1000,
+                    'viewAngle'   => 90,
+                    'viewFlip'    => 3,
                     'thumbX'      => 0,
                     'thumbY'      => 0,
                     'thumbWidth'  => 3000,
                     'thumbHeight' => 1000,
-                    'viewAngle'   => 90,
-                    'viewFlip'    => 3,
+                    'thumbAngle'  => 90,
+                    'thumbFlip'   => 3,
                 ],
                 'hasError' => true
             ],
