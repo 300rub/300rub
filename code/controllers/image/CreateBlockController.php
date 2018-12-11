@@ -46,7 +46,7 @@ class CreateBlockController extends AbstractController
             [
                 'type'              => $this->get('type'),
                 'useAlbums'         => $this->get('useAlbums'),
-                'viewAutoCropType'  => $this->get('autoCropType'),
+                'viewAutoCropType'  => $this->get('viewAutoCropType'),
                 'viewCropX'         => $this->get('viewCropX'),
                 'viewCropY'         => $this->get('viewCropY'),
                 'thumbAutoCropType' => $this->get('thumbAutoCropType'),
