@@ -44,18 +44,18 @@ class GetBlockControllerTest extends AbstractControllerTest
                     'name'  => 'type',
                     'list'  => []
                 ],
-                'autoCropType'      => [
-                    'value' => $data['autoCropType'],
-                    'name'  => 'autoCropType',
+                'viewAutoCropType'  => [
+                    'value' => $data['viewAutoCropType'],
+                    'name'  => 'viewAutoCropType',
                     'list'  => []
                 ],
-                'cropX'             => [
-                    'name'  => 'cropX',
-                    'value' => $data['cropX'],
+                'viewCropX'         => [
+                    'name'  => 'viewCropX',
+                    'value' => $data['viewCropX'],
                 ],
-                'cropY'             => [
-                    'name'  => 'cropY',
-                    'value' => $data['cropY'],
+                'viewCropY'         => [
+                    'name'  => 'viewCropY',
+                    'value' => $data['viewCropY'],
                 ],
                 'thumbAutoCropType' => [
                     'value' => $data['thumbAutoCropType'],
@@ -126,9 +126,9 @@ class GetBlockControllerTest extends AbstractControllerTest
                     'title'             => 'Add image',
                     'name'              => '',
                     'type'              => 0,
-                    'autoCropType'      => 0,
-                    'cropX'             => 0,
-                    'cropY'             => 0,
+                    'viewAutoCropType'  => 0,
+                    'viewCropX'         => 0,
+                    'viewCropY'         => 0,
                     'thumbAutoCropType' => 0,
                     'useAlbums'         => false,
                     'thumbCropX'        => 0,
@@ -143,9 +143,9 @@ class GetBlockControllerTest extends AbstractControllerTest
                     'title'             => 'Edit image',
                     'name'              => 'Zoom image',
                     'type'              => 2,
-                    'autoCropType'      => 0,
-                    'cropX'             => 0,
-                    'cropY'             => 0,
+                    'viewAutoCropType'  => 0,
+                    'viewCropX'         => 0,
+                    'viewCropY'         => 0,
                     'thumbAutoCropType' => 0,
                     'useAlbums'         => false,
                     'thumbCropX'        => 0,
@@ -160,9 +160,9 @@ class GetBlockControllerTest extends AbstractControllerTest
                     'title'             => 'Edit image',
                     'name'              => 'Slider image',
                     'type'              => 1,
-                    'autoCropType'      => 5,
-                    'cropX'             => 3,
-                    'cropY'             => 4,
+                    'viewAutoCropType'  => 5,
+                    'viewCropX'         => 3,
+                    'viewCropY'         => 4,
                     'thumbAutoCropType' => 8,
                     'useAlbums'         => true,
                     'thumbCropX'        => 1,

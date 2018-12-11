@@ -46,17 +46,17 @@ class AbstractImageModelDuplicateTest extends AbstractDuplicateModelTest
                 'marginTop' => 10,
             ],
             'designImageSliderModel' => [
-                'bulletDesignBlockModel'   => [
+                'bulletDesignBlockModel' => [
                     'marginTop' => 10
                 ],
-                'hasAutoPlay'                 => true,
-                'playSpeed'                   => 10,
+                'hasAutoPlay'            => true,
+                'playSpeed'              => 10,
             ],
             'designImageZoomModel'   => [
-                'designBlockModel'     => [
+                'designBlockModel' => [
                     'marginTop' => 20
                 ],
-                'effect'               => 0,
+                'effect'           => 0,
             ],
             'designImageSimpleModel' => [
                 'containerDesignBlockModel' => [
@@ -68,9 +68,9 @@ class AbstractImageModelDuplicateTest extends AbstractDuplicateModelTest
                 'alignment'                 => 1
             ],
             'type'                   => 1,
-            'autoCropType'           => 1,
-            'cropX'                  => 30,
-            'cropY'                  => 40,
+            'viewAutoCropType'       => 1,
+            'viewCropX'              => 30,
+            'viewCropY'              => 40,
             'thumbAutoCropType'      => 1,
             'thumbCropX'             => 20,
             'thumbCropY'             => 30,
@@ -90,17 +90,17 @@ class AbstractImageModelDuplicateTest extends AbstractDuplicateModelTest
                 'marginTop' => 10,
             ],
             'designImageSliderModel' => [
-                'bulletDesignBlockModel'   => [
+                'bulletDesignBlockModel' => [
                     'marginTop' => 10
                 ],
-                'hasAutoPlay'                 => true,
-                'playSpeed'                   => 10,
+                'hasAutoPlay'            => true,
+                'playSpeed'              => 10,
             ],
             'designImageZoomModel'   => [
-                'designBlockModel'     => [
+                'designBlockModel' => [
                     'marginTop' => 20
                 ],
-                'effect'               => 0,
+                'effect'           => 0,
             ],
             'designImageSimpleModel' => [
                 'containerDesignBlockModel' => [
@@ -112,9 +112,9 @@ class AbstractImageModelDuplicateTest extends AbstractDuplicateModelTest
                 'alignment'                 => 1
             ],
             'type'                   => 1,
-            'autoCropType'           => 1,
-            'cropX'                  => 30,
-            'cropY'                  => 40,
+            'viewAutoCropType'       => 1,
+            'viewCropX'              => 30,
+            'viewCropY'              => 40,
             'thumbAutoCropType'      => 1,
             'thumbCropX'             => 20,
             'thumbCropY'             => 30,

@@ -25,11 +25,11 @@ class UpdateBlockController extends AbstractController
                 'id'                => [self::TYPE_INT, self::NOT_EMPTY],
                 'name'              => [self::TYPE_STRING],
                 'type'              => [self::TYPE_INT],
-                'autoCropType'      => [self::TYPE_INT],
-                'cropX'             => [self::TYPE_INT],
-                'cropY'             => [self::TYPE_INT],
-                'thumbAutoCropType' => [self::TYPE_INT],
                 'useAlbums'         => [self::TYPE_BOOL],
+                'viewAutoCropType'  => [self::TYPE_INT],
+                'viewCropX'         => [self::TYPE_INT],
+                'viewCropY'         => [self::TYPE_INT],
+                'thumbAutoCropType' => [self::TYPE_INT],
                 'thumbCropX'        => [self::TYPE_INT],
                 'thumbCropY'        => [self::TYPE_INT],
             ]
@@ -50,11 +50,11 @@ class UpdateBlockController extends AbstractController
         $imageModel->set(
             [
                 'type'              => $this->get('type'),
-                'autoCropType'      => $this->get('autoCropType'),
-                'cropX'             => $this->get('cropX'),
-                'cropY'             => $this->get('cropY'),
-                'thumbAutoCropType' => $this->get('thumbAutoCropType'),
                 'useAlbums'         => $this->get('useAlbums'),
+                'viewAutoCropType'  => $this->get('autoCropType'),
+                'viewCropX'         => $this->get('viewCropX'),
+                'viewCropY'         => $this->get('viewCropY'),
+                'thumbAutoCropType' => $this->get('thumbAutoCropType'),
                 'thumbCropX'        => $this->get('thumbCropX'),
                 'thumbCropY'        => $this->get('thumbCropY'),
             ]

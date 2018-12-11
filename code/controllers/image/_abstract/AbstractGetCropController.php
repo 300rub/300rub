@@ -71,6 +71,7 @@ abstract class AbstractGetCropController extends AbstractController
             'viewHeight' => $imageInstanceModel->get('viewHeight'),
             'viewAngle'  => $imageInstanceModel->get('viewAngle'),
             'viewFlip'   => $imageInstanceModel->get('viewFlip'),
+            'hasThumb'   => false,
         ];
 
         if ($imageModel->get('type') !== ImageModel::TYPE_ZOOM) {
@@ -80,6 +81,7 @@ abstract class AbstractGetCropController extends AbstractController
         return array_merge(
             $data,
             [
+                'hasThumb'    => true,
                 'thumbX'      => $imageInstanceModel->get('thumbX'),
                 'thumbY'      => $imageInstanceModel->get('thumbY'),
                 'thumbWidth'  => $imageInstanceModel->get('thumbWidth'),

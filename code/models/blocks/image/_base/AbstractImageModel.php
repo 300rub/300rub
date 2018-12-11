@@ -117,7 +117,7 @@ abstract class AbstractImageModel extends AbstractContentModel
 
                 ],
             ],
-            'autoCropType'        => [
+            'viewAutoCropType'        => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
                     ValueGenerator::ARRAY_KEY => [
@@ -126,13 +126,13 @@ abstract class AbstractImageModel extends AbstractContentModel
                     ]
                 ],
             ],
-            'cropX'               => [
+            'viewCropX'               => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
                     ValueGenerator::MIN => 0,
                 ],
             ],
-            'cropY'               => [
+            'viewCropY'               => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
                     ValueGenerator::MIN => 0,

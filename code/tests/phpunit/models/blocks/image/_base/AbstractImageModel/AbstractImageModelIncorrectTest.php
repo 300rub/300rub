@@ -46,9 +46,9 @@ class AbstractImageModelIncorrectTest extends AbstractIncorrectModelTest
                 'designBlockModel'       => 'incorrect',
                 'designImageSliderModel' => 'incorrect',
                 'type'                   => 'incorrect',
-                'autoCropType'           => 'incorrect',
-                'cropX'                  => 'incorrect',
-                'cropY'                  => 'incorrect',
+                'viewAutoCropType'       => 'incorrect',
+                'viewCropX'              => 'incorrect',
+                'viewCropY'              => 'incorrect',
                 'thumbAutoCropType'      => 'incorrect',
                 'thumbCropX'             => 'incorrect',
                 'thumbCropY'             => 'incorrect',
@@ -59,12 +59,12 @@ class AbstractImageModelIncorrectTest extends AbstractIncorrectModelTest
                     'marginTop' => 0,
                 ],
                 'designImageSliderModel' => [
-                    'bulletDesignBlockModel'   => [
+                    'bulletDesignBlockModel' => [
                         'marginTop' => 0
                     ],
                 ],
                 'designImageZoomModel'   => [
-                    'designBlockModel'     => [
+                    'designBlockModel' => [
                         'marginTop' => 0
                     ],
                 ],
@@ -74,9 +74,9 @@ class AbstractImageModelIncorrectTest extends AbstractIncorrectModelTest
                     ],
                 ],
                 'type'                   => 0,
-                'autoCropType'           => 0,
-                'cropX'                  => 0,
-                'cropY'                  => 0,
+                'viewAutoCropType'       => 0,
+                'viewCropX'              => 0,
+                'viewCropY'              => 0,
                 'thumbAutoCropType'      => 0,
                 'thumbCropX'             => 0,
                 'thumbCropY'             => 0,
@@ -87,12 +87,12 @@ class AbstractImageModelIncorrectTest extends AbstractIncorrectModelTest
                     'marginTop' => ' 20 a',
                 ],
                 'designImageSliderModel' => [
-                    'bulletDesignBlockModel'   => [
+                    'bulletDesignBlockModel' => [
                         'marginTop' => ' 20 a',
                     ],
                 ],
                 'designImageZoomModel'   => [
-                    'designBlockModel'     => [
+                    'designBlockModel' => [
                         'marginTop' => ' 20 a',
                     ],
                 ],
@@ -107,12 +107,12 @@ class AbstractImageModelIncorrectTest extends AbstractIncorrectModelTest
                     'marginTop' => 20,
                 ],
                 'designImageSliderModel' => [
-                    'bulletDesignBlockModel'   => [
+                    'bulletDesignBlockModel' => [
                         'marginTop' => 20
                     ],
                 ],
                 'designImageZoomModel'   => [
-                    'designBlockModel'     => [
+                    'designBlockModel' => [
                         'marginTop' => 20
                     ],
                 ],
@@ -122,9 +122,9 @@ class AbstractImageModelIncorrectTest extends AbstractIncorrectModelTest
                     ],
                 ],
                 'type'                   => 0,
-                'autoCropType'           => 0,
-                'cropX'                  => 0,
-                'cropY'                  => 0,
+                'viewAutoCropType'       => 0,
+                'viewCropX'              => 0,
+                'viewCropY'              => 0,
                 'thumbAutoCropType'      => 0,
                 'thumbCropX'             => 0,
                 'thumbCropY'             => 0,
@@ -142,44 +142,44 @@ class AbstractImageModelIncorrectTest extends AbstractIncorrectModelTest
     {
         return [
             [
-                'type'                   => ' 1 a ',
-                'autoCropType'           => ' 1 a ',
-                'cropX'                  => ' 1 a ',
-                'cropY'                  => ' 1 a ',
-                'thumbAutoCropType'      => ' 1 a ',
-                'thumbCropX'             => ' 1 a ',
-                'thumbCropY'             => ' 1 a ',
-                'useAlbums'              => ' 1 a ',
+                'type'              => ' 1 a ',
+                'viewAutoCropType'  => ' 1 a ',
+                'viewCropX'         => ' 1 a ',
+                'viewCropY'         => ' 1 a ',
+                'thumbAutoCropType' => ' 1 a ',
+                'thumbCropX'        => ' 1 a ',
+                'thumbCropY'        => ' 1 a ',
+                'useAlbums'         => ' 1 a ',
             ],
             [
-                'type'                   => 1,
-                'autoCropType'           => 1,
-                'cropX'                  => 1,
-                'cropY'                  => 1,
-                'thumbAutoCropType'      => 1,
-                'thumbCropX'             => 1,
-                'thumbCropY'             => 1,
-                'useAlbums'              => false,
+                'type'              => 1,
+                'viewAutoCropType'  => 1,
+                'viewCropX'         => 1,
+                'viewCropY'         => 1,
+                'thumbAutoCropType' => 1,
+                'thumbCropX'        => 1,
+                'thumbCropY'        => 1,
+                'useAlbums'         => false,
             ],
             [
-                'type'                   => 999,
-                'autoCropType'           => 999,
-                'cropX'                  => 999,
-                'cropY'                  => 999,
-                'thumbAutoCropType'      => 999,
-                'thumbCropX'             => 999,
-                'thumbCropY'             => 999,
-                'useAlbums'              => 1,
+                'type'              => 999,
+                'viewAutoCropType'  => 999,
+                'viewCropX'         => 999,
+                'viewCropY'         => 999,
+                'thumbAutoCropType' => 999,
+                'thumbCropX'        => 999,
+                'thumbCropY'        => 999,
+                'useAlbums'         => 1,
             ],
             [
-                'type'                   => 0,
-                'autoCropType'           => 0,
-                'cropX'                  => 999,
-                'cropY'                  => 999,
-                'thumbAutoCropType'      => 0,
-                'thumbCropX'             => 999,
-                'thumbCropY'             => 999,
-                'useAlbums'              => true,
+                'type'              => 0,
+                'viewAutoCropType'  => 0,
+                'viewCropX'         => 999,
+                'viewCropY'         => 999,
+                'thumbAutoCropType' => 0,
+                'thumbCropX'        => 999,
+                'thumbCropY'        => 999,
+                'useAlbums'         => true,
             ]
         ];
     }

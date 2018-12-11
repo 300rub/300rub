@@ -87,17 +87,17 @@ class AbstractCatalogModelDuplicateTest extends AbstractDuplicateModelTest
                 'marginTop' => 10,
             ],
             'designImageSliderModel' => [
-                'arrowDesignTextModel'   => [
+                'arrowDesignTextModel' => [
                     'size' => 10
                 ],
-                'hasAutoPlay'                 => true,
-                'playSpeed'                   => 10,
+                'hasAutoPlay'          => true,
+                'playSpeed'            => 10,
             ],
             'designImageZoomModel'   => [
-                'designBlockModel'     => [
+                'designBlockModel' => [
                     'marginTop' => 20
                 ],
-                'effect'               => 0,
+                'effect'           => 0,
             ],
             'designImageSimpleModel' => [
                 'containerDesignBlockModel' => [
@@ -109,9 +109,9 @@ class AbstractCatalogModelDuplicateTest extends AbstractDuplicateModelTest
                 'alignment'                 => 1
             ],
             'type'                   => 1,
-            'autoCropType'           => 1,
-            'cropX'                  => 30,
-            'cropY'                  => 40,
+            'viewAutoCropType'       => 1,
+            'viewCropX'              => 30,
+            'viewCropY'              => 40,
             'thumbAutoCropType'      => 1,
             'thumbCropX'             => 20,
             'thumbCropY'             => 30,
@@ -356,14 +356,14 @@ class AbstractCatalogModelDuplicateTest extends AbstractDuplicateModelTest
     private function _imageModelExpectData()
     {
         return [
-            'type'                   => 1,
-            'autoCropType'           => 1,
-            'cropX'                  => 30,
-            'cropY'                  => 40,
-            'thumbAutoCropType'      => 1,
-            'thumbCropX'             => 20,
-            'thumbCropY'             => 30,
-            'useAlbums'              => true,
+            'type'              => 1,
+            'viewAutoCropType'  => 1,
+            'viewCropX'         => 30,
+            'viewCropY'         => 40,
+            'thumbAutoCropType' => 1,
+            'thumbCropX'        => 20,
+            'thumbCropY'        => 30,
+            'useAlbums'         => true,
         ];
     }
 

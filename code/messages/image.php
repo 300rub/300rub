@@ -69,7 +69,7 @@ return [
         Language::LANGUAGE_EN_ID => '...',
         Language::LANGUAGE_RU_ID => '...',
     ],
-    'autoCropType' => [
+    'viewAutoCropType' => [
         Language::LANGUAGE_EN_ID => 'Auto crop type',
         Language::LANGUAGE_RU_ID => 'Тип автообрезки',
     ],

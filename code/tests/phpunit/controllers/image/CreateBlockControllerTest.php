@@ -70,16 +70,16 @@ class CreateBlockControllerTest extends AbstractControllerTest
             $imageModel->get('type')
         );
         $this->assertSame(
-            $data['autoCropType'],
-            $imageModel->get('autoCropType')
+            $data['viewAutoCropType'],
+            $imageModel->get('viewAutoCropType')
         );
         $this->assertSame(
-            $data['cropX'],
-            $imageModel->get('cropX')
+            $data['viewCropX'],
+            $imageModel->get('viewCropX')
         );
         $this->assertSame(
-            $data['cropY'],
-            $imageModel->get('cropY')
+            $data['viewCropY'],
+            $imageModel->get('viewCropY')
         );
         $this->assertSame(
             $data['thumbAutoCropType'],
@@ -130,14 +130,14 @@ class CreateBlockControllerTest extends AbstractControllerTest
     private function _dataProvider1()
     {
         return [
-            'fullCorrect'                    => [
+            'fullCorrect'   => [
                 'user'                => self::TYPE_FULL,
                 'data'                => [
                     'name'              => 'Block name',
                     'type'              => 1,
-                    'autoCropType'      => 2,
-                    'cropX'             => 300,
-                    'cropY'             => 400,
+                    'viewAutoCropType'  => 2,
+                    'viewCropX'         => 300,
+                    'viewCropY'         => 400,
                     'thumbAutoCropType' => 3,
                     'useAlbums'         => true,
                     'thumbCropX'        => 10,
@@ -146,14 +146,14 @@ class CreateBlockControllerTest extends AbstractControllerTest
                 'hasError'            => false,
                 'hasValidationErrors' => false,
             ],
-            'fullEmptyName'                  => [
+            'fullEmptyName' => [
                 'user'                => self::TYPE_FULL,
                 'data'                => [
                     'name'              => '',
                     'type'              => 1,
-                    'autoCropType'      => 2,
-                    'cropX'             => 300,
-                    'cropY'             => 400,
+                    'viewAutoCropType'  => 2,
+                    'viewCropX'         => 300,
+                    'viewCropY'         => 400,
                     'thumbAutoCropType' => 3,
                     'useAlbums'         => true,
                     'thumbCropX'        => 10,
@@ -162,14 +162,14 @@ class CreateBlockControllerTest extends AbstractControllerTest
                 'hasError'            => false,
                 'hasValidationErrors' => true,
             ],
-            'guest'                          => [
+            'guest' => [
                 'user'     => null,
                 'data'     => [
                     'name'              => 'Block name',
                     'type'              => 1,
-                    'autoCropType'      => 2,
-                    'cropX'             => 300,
-                    'cropY'             => 400,
+                    'viewAutoCropType'  => 2,
+                    'viewCropX'         => 300,
+                    'viewCropY'         => 400,
                     'thumbAutoCropType' => 3,
                     'useAlbums'         => true,
                     'thumbCropX'        => 10,
@@ -179,12 +179,12 @@ class CreateBlockControllerTest extends AbstractControllerTest
             ],
             'blocked'                        => [
                 'user'     => self::TYPE_BLOCKED_USER,
-                'data'     => [
+                'data' => [
                     'name'              => 'Block name',
                     'type'              => 1,
-                    'autoCropType'      => 2,
-                    'cropX'             => 300,
-                    'cropY'             => 400,
+                    'viewAutoCropType'  => 2,
+                    'viewCropX'         => 300,
+                    'viewCropY'         => 400,
                     'thumbAutoCropType' => 3,
                     'useAlbums'         => true,
                     'thumbCropX'        => 10,
@@ -197,9 +197,9 @@ class CreateBlockControllerTest extends AbstractControllerTest
                 'data'     => [
                     'name'              => 'Block name',
                     'type'              => 1,
-                    'autoCropType'      => 2,
-                    'cropX'             => 300,
-                    'cropY'             => 400,
+                    'viewAutoCropType'  => 2,
+                    'viewCropX'         => 300,
+                    'viewCropY'         => 400,
                     'thumbAutoCropType' => 3,
                     'useAlbums'         => true,
                     'thumbCropX'        => 10,
@@ -222,9 +222,9 @@ class CreateBlockControllerTest extends AbstractControllerTest
                 'user'                => self::TYPE_LIMITED,
                 'data'                => [
                     'name'              => 'Block name',
-                    'autoCropType'      => 2,
-                    'cropX'             => 300,
-                    'cropY'             => 400,
+                    'viewAutoCropType'  => 2,
+                    'viewCropX'         => 300,
+                    'viewCropY'         => 400,
                     'thumbAutoCropType' => 3,
                     'useAlbums'         => true,
                     'thumbCropX'        => 10,
@@ -238,9 +238,9 @@ class CreateBlockControllerTest extends AbstractControllerTest
                 'data'                => [
                     'name'              => 'Block name',
                     'type'              => 'incorrect',
-                    'autoCropType'      => 2,
-                    'cropX'             => 300,
-                    'cropY'             => 400,
+                    'viewAutoCropType'  => 2,
+                    'viewCropX'         => 300,
+                    'viewCropY'         => 400,
                     'thumbAutoCropType' => 3,
                     'useAlbums'         => true,
                     'thumbCropX'        => 10,
@@ -254,8 +254,8 @@ class CreateBlockControllerTest extends AbstractControllerTest
                 'data'                => [
                     'name'              => 'Block name',
                     'type'              => 1,
-                    'cropX'             => 300,
-                    'cropY'             => 400,
+                    'viewCropX'             => 300,
+                    'viewCropY'             => 400,
                     'thumbAutoCropType' => 3,
                     'useAlbums'         => true,
                     'thumbCropX'        => 10,
@@ -269,9 +269,9 @@ class CreateBlockControllerTest extends AbstractControllerTest
                 'data'                => [
                     'name'              => 'Block name',
                     'type'              => 1,
-                    'autoCropType'      => 'incorrect',
-                    'cropX'             => 300,
-                    'cropY'             => 400,
+                    'viewAutoCropType'  => 'incorrect',
+                    'viewCropX'         => 300,
+                    'viewCropY'         => 400,
                     'thumbAutoCropType' => 3,
                     'useAlbums'         => true,
                     'thumbCropX'        => 10,
@@ -296,8 +296,8 @@ class CreateBlockControllerTest extends AbstractControllerTest
                 'data'                => [
                     'name'              => 'Block name',
                     'type'              => 1,
-                    'autoCropType'      => 2,
-                    'cropY'             => 400,
+                    'viewAutoCropType'  => 2,
+                    'viewCropY'         => 400,
                     'thumbAutoCropType' => 3,
                     'useAlbums'         => true,
                     'thumbCropX'        => 10,
@@ -311,9 +311,9 @@ class CreateBlockControllerTest extends AbstractControllerTest
                 'data'                => [
                     'name'              => 'Block name',
                     'type'              => 1,
-                    'autoCropType'      => 2,
-                    'cropX'             => 'incorrect',
-                    'cropY'             => 400,
+                    'viewAutoCropType'  => 2,
+                    'viewCropX'         => 'incorrect',
+                    'viewCropY'         => 400,
                     'thumbAutoCropType' => 3,
                     'useAlbums'         => true,
                     'thumbCropX'        => 10,
@@ -338,8 +338,8 @@ class CreateBlockControllerTest extends AbstractControllerTest
                 'data'                => [
                     'name'              => 'Block name',
                     'type'              => 1,
-                    'autoCropType'      => 2,
-                    'cropX'             => 400,
+                    'viewAutoCropType'  => 2,
+                    'viewCropX'         => 400,
                     'thumbAutoCropType' => 3,
                     'useAlbums'         => true,
                     'thumbCropX'        => 10,
@@ -353,9 +353,9 @@ class CreateBlockControllerTest extends AbstractControllerTest
                 'data'                => [
                     'name'              => 'Block name',
                     'type'              => 1,
-                    'autoCropType'      => 2,
-                    'cropX'             => 300,
-                    'cropY'             => 'incorrect',
+                    'viewAutoCropType'  => 2,
+                    'viewCropX'         => 300,
+                    'viewCropY'         => 'incorrect',
                     'thumbAutoCropType' => 3,
                     'useAlbums'         => true,
                     'thumbCropX'        => 10,
@@ -367,14 +367,14 @@ class CreateBlockControllerTest extends AbstractControllerTest
             'userWithoutThumbAutoCropType'   => [
                 'user'                => self::TYPE_LIMITED,
                 'data'                => [
-                    'name'         => 'Block name',
-                    'type'         => 1,
-                    'autoCropType' => 2,
-                    'cropX'        => 300,
-                    'cropY'        => 400,
-                    'useAlbums'    => true,
-                    'thumbCropX'   => 10,
-                    'thumbCropY'   => 20,
+                    'name'             => 'Block name',
+                    'type'             => 1,
+                    'viewAutoCropType' => 2,
+                    'viewCropX'        => 300,
+                    'viewCropY'        => 400,
+                    'useAlbums'        => true,
+                    'thumbCropX'       => 10,
+                    'thumbCropY'       => 20,
                 ],
                 'hasError'            => true,
                 'hasValidationErrors' => false,
@@ -384,9 +384,9 @@ class CreateBlockControllerTest extends AbstractControllerTest
                 'data'                => [
                     'name'              => 'Block name',
                     'type'              => 1,
-                    'autoCropType'      => 2,
-                    'cropX'             => 300,
-                    'cropY'             => 400,
+                    'viewAutoCropType'  => 2,
+                    'viewCropX'         => 300,
+                    'viewCropY'         => 400,
                     'thumbAutoCropType' => 'incorrect',
                     'useAlbums'         => true,
                     'thumbCropX'        => 10,
@@ -400,9 +400,9 @@ class CreateBlockControllerTest extends AbstractControllerTest
                 'data'                => [
                     'name'              => 'Block name',
                     'type'              => 1,
-                    'autoCropType'      => 2,
-                    'cropX'             => 300,
-                    'cropY'             => 400,
+                    'viewAutoCropType'  => 2,
+                    'viewCropX'         => 300,
+                    'viewCropY'         => 400,
                     'thumbAutoCropType' => 3,
                     'thumbCropX'        => 10,
                     'thumbCropY'        => 20,
@@ -426,9 +426,9 @@ class CreateBlockControllerTest extends AbstractControllerTest
                 'data'                => [
                     'name'              => 'Block name',
                     'type'              => 1,
-                    'autoCropType'      => 2,
-                    'cropX'             => 300,
-                    'cropY'             => 400,
+                    'viewAutoCropType'  => 2,
+                    'viewCropX'         => 300,
+                    'viewCropY'         => 400,
                     'thumbAutoCropType' => 3,
                     'useAlbums'         => 'incorrect',
                     'thumbCropX'        => 10,
@@ -442,9 +442,9 @@ class CreateBlockControllerTest extends AbstractControllerTest
                 'data'                => [
                     'name'              => 'Block name',
                     'type'              => 1,
-                    'autoCropType'      => 2,
-                    'cropX'             => 300,
-                    'cropY'             => 400,
+                    'viewAutoCropType'  => 2,
+                    'viewCropX'         => 300,
+                    'viewCropY'         => 400,
                     'thumbAutoCropType' => 3,
                     'useAlbums'         => true,
                     'thumbCropY'        => 20,
@@ -457,9 +457,9 @@ class CreateBlockControllerTest extends AbstractControllerTest
                 'data'                => [
                     'name'              => 'Block name',
                     'type'              => 1,
-                    'autoCropType'      => 2,
-                    'cropX'             => 300,
-                    'cropY'             => 400,
+                    'viewAutoCropType'  => 2,
+                    'viewCropX'         => 300,
+                    'viewCropY'         => 400,
                     'thumbAutoCropType' => 3,
                     'useAlbums'         => true,
                     'thumbCropX'        => 'incorrect',
@@ -473,9 +473,9 @@ class CreateBlockControllerTest extends AbstractControllerTest
                 'data'                => [
                     'name'              => 'Block name',
                     'type'              => 1,
-                    'autoCropType'      => 2,
-                    'cropX'             => 300,
-                    'cropY'             => 400,
+                    'viewAutoCropType'  => 2,
+                    'viewCropX'         => 300,
+                    'viewCropY'         => 400,
                     'thumbAutoCropType' => 3,
                     'useAlbums'         => true,
                     'thumbCropX'        => 20,
@@ -499,9 +499,9 @@ class CreateBlockControllerTest extends AbstractControllerTest
                 'data'                => [
                     'name'              => 'Block name',
                     'type'              => 1,
-                    'autoCropType'      => 2,
-                    'cropX'             => 300,
-                    'cropY'             => 400,
+                    'viewAutoCropType'  => 2,
+                    'viewCropX'         => 300,
+                    'viewCropY'         => 400,
                     'thumbAutoCropType' => 3,
                     'useAlbums'         => true,
                     'thumbCropX'        => 10,
@@ -515,9 +515,9 @@ class CreateBlockControllerTest extends AbstractControllerTest
                 'data'                => [
                     'name'              => 'Block name',
                     'type'              => 1,
-                    'autoCropType'      => 2,
-                    'cropX'             => 300,
-                    'cropY'             => 400,
+                    'viewAutoCropType'  => 2,
+                    'viewCropX'         => 300,
+                    'viewCropY'         => 400,
                     'thumbAutoCropType' => 3,
                     'useAlbums'         => true,
                     'thumbCropX'        => 10,

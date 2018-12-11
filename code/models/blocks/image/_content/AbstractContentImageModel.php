@@ -168,8 +168,8 @@ abstract class AbstractContentImageModel extends AbstractImageModel
         $maxWidth = 100;
         $maxHeight = 100;
 
-        $width = $this->get('cropX');
-        $height = $this->get('cropY');
+        $width = $this->get('viewCropX');
+        $height = $this->get('viewCropY');
 
         $imagesContent = '';
         foreach ($images as $image) {

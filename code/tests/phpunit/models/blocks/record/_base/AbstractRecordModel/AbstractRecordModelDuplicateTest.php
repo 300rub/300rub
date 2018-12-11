@@ -93,17 +93,17 @@ class AbstractRecordModelDuplicateTest extends AbstractDuplicateModelTest
                 'marginTop' => 10,
             ],
             'designImageSliderModel' => [
-                'bulletDesignBlockModel'   => [
+                'bulletDesignBlockModel' => [
                     'marginTop' => 10
                 ],
-                'hasAutoPlay'                 => true,
-                'playSpeed'                   => 1,
+                'hasAutoPlay'            => true,
+                'playSpeed'              => 1,
             ],
             'designImageZoomModel'   => [
-                'designBlockModel'     => [
+                'designBlockModel' => [
                     'marginTop' => 10
                 ],
-                'effect'               => 0,
+                'effect'           => 0,
             ],
             'designImageSimpleModel' => [
                 'containerDesignBlockModel' => [
@@ -115,9 +115,9 @@ class AbstractRecordModelDuplicateTest extends AbstractDuplicateModelTest
                 'alignment'                 => 1
             ],
             'type'                   => 1,
-            'autoCropType'           => 1,
-            'cropX'                  => 1,
-            'cropY'                  => 1,
+            'viewAutoCropType'       => 1,
+            'viewCropX'              => 1,
+            'viewCropY'              => 1,
             'thumbAutoCropType'      => 1,
             'thumbCropX'             => 1,
             'thumbCropY'             => 1,
@@ -137,17 +137,17 @@ class AbstractRecordModelDuplicateTest extends AbstractDuplicateModelTest
                 'marginTop' => 10,
             ],
             'designImageSliderModel' => [
-                'bulletDesignBlockModel'   => [
+                'bulletDesignBlockModel' => [
                     'marginTop' => 10
                 ],
-                'hasAutoPlay'                 => true,
-                'playSpeed'                   => 1,
+                'hasAutoPlay'            => true,
+                'playSpeed'              => 1,
             ],
             'designImageZoomModel'   => [
-                'designBlockModel'     => [
+                'designBlockModel' => [
                     'marginTop' => 10
                 ],
-                'effect'               => 0,
+                'effect'           => 0,
             ],
             'designImageSimpleModel' => [
                 'containerDesignBlockModel' => [
@@ -159,9 +159,9 @@ class AbstractRecordModelDuplicateTest extends AbstractDuplicateModelTest
                 'alignment'                 => 1
             ],
             'type'                   => 1,
-            'autoCropType'           => 1,
-            'cropX'                  => 1,
-            'cropY'                  => 1,
+            'viewAutoCropType'       => 1,
+            'viewCropX'              => 1,
+            'viewCropY'              => 1,
             'thumbAutoCropType'      => 1,
             'thumbCropX'             => 1,
             'thumbCropY'             => 1,
