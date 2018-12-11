@@ -185,6 +185,10 @@
          * @returns {*}
          */
         getData: function (pointer, defaultValue) {
+            if (pointer === undefined) {
+                return this.data;
+            }
+
             if (defaultValue === undefined) {
                 defaultValue = null;
             }
