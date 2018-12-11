@@ -201,56 +201,6 @@
         },
 
         /**
-         * Function to generate request data
-         *
-         * @return {Object}
-         */
-        generateData: function() {
-            return {
-                blockId: parseInt(this.getData("blockId")),
-                id: parseInt(this.getData("id")),
-                x1: parseInt(this.viewX),
-                y1: parseInt(this.viewY),
-                x2: parseInt(this.viewX + this.viewWidth),
-                y2: parseInt(this.viewY + this.viewHeight),
-                angle: parseInt(this.viewRotate),
-                flip: this.getFlip(this.viewScaleX, this.viewScaleY),
-                thumbX1: parseInt(this.thumbX),
-                thumbY1: parseInt(this.thumbY),
-                thumbX2: parseInt(this.thumbX + this.thumbWidth),
-                thumbY2: parseInt(this.thumbY + this.thumbHeight),
-                thumbAngle: parseInt(this.thumbRotate),
-                thumbFlip: this.getFlip(this.thumbScaleX, this.thumbScaleY)
-            };
-        },
-
-        /**
-         * Gets flip
-         *
-         * @param {Integer} scaleX
-         * @param {Integer} scaleY
-         *
-         * @returns {Integer}
-         */
-        getFlip: function(scaleX, scaleY) {
-            if (scaleX === -1
-                && scaleY === -1
-            ) {
-                return this.flipTypes.BOTH;
-            }
-
-            if (scaleX === -1) {
-                return this.flipTypes.HORIZONTAL;
-            }
-
-            if (scaleY === -1) {
-                return this.flipTypes.VERTICAL;
-            }
-
-            return this.flipTypes.NONE;
-        },
-
-        /**
          * Sets container
          */
         setContainers: function () {
@@ -275,6 +225,7 @@
                     aspectRatio: 1,
                     autoCropArea: 1,
                     movable: false,
+                    data: this.getViewCropData(),
                     crop: $.proxy(function (event) {
                         this.viewX = event.detail.x;
                         this.viewY = event.detail.y;
@@ -329,6 +280,126 @@
             );
 
             return this;
+        },
+
+        /**
+         * Function to generate request data
+         *
+         * @return {Object}
+         */
+        generateData: function() {
+            return {
+                blockId: parseInt(this.getData("blockId")),
+                id: parseInt(this.getData("id")),
+                viewX: parseInt(this.viewX),
+                viewY: parseInt(this.viewY),
+                viewWidth: parseInt(this.viewWidth),
+                viewHeight: parseInt(this.viewHeight),
+                viewAngle: parseInt(this.viewRotate),
+                viewFlip: this.getFlip(this.viewScaleX, this.viewScaleY),
+                thumbX: parseInt(this.thumbX),
+                thumbY: parseInt(this.thumbY),
+                thumbWidth: parseInt(this.thumbWidth),
+                thumbHeight: parseInt(this.thumbHeight),
+                thumbAngle: parseInt(this.thumbRotate),
+                thumbFlip: this.getFlip(this.thumbScaleX, this.thumbScaleY)
+            };
+        },
+
+        /**
+         * Gets view crop data
+         *
+         * @returns {Object}
+         */
+        getViewCropData: function() {
+            return {
+                x: this.getData("viewX"),
+                y: this.getData("viewY"),
+                width: this.getData("viewWidth"),
+                height: this.getData("viewHeight"),
+                rotate: this.getData("viewAngle"),
+                scaleX: this.getScaleX(this.getData("viewFlip")),
+                scaleY: this.getScaleY(this.getData("viewFlip"))
+            };
+        },
+
+        /**
+         * Gets thumb crop data
+         *
+         * @returns {Object}
+         */
+        getThumbCropData: function() {
+            return {
+                x: this.getData("thumbX"),
+                y: this.getData("thumbY"),
+                width: this.getData("thumbWidth"),
+                height: this.getData("thumbHeight"),
+                rotate: this.getData("thumbAngle"),
+                scaleX: this.getScaleX(this.getData("thumbFlip")),
+                scaleY: this.getScaleY(this.getData("thumbFlip"))
+            };
+        },
+
+        /**
+         * Gets scale X
+         *
+         * @param {int} flip
+         *
+         * @returns {int}
+         */
+        getScaleX: function(flip) {
+            switch (flip) {
+                case this.flipTypes.BOTH:
+                    return -1;
+                case this.flipTypes.HORIZONTAL:
+                    return -1;
+                default:
+                    return 1;
+            }
+        },
+
+        /**
+         * Gets scale Y
+         *
+         * @param {int} flip
+         *
+         * @returns {int}
+         */
+        getScaleY: function(flip) {
+            switch (flip) {
+                case this.flipTypes.BOTH:
+                    return -1;
+                case this.flipTypes.VERTICAL:
+                    return -1;
+                default:
+                    return 1;
+            }
+        },
+
+        /**
+         * Gets flip
+         *
+         * @param {Integer} scaleX
+         * @param {Integer} scaleY
+         *
+         * @returns {Integer}
+         */
+        getFlip: function(scaleX, scaleY) {
+            if (scaleX === -1
+                && scaleY === -1
+            ) {
+                return this.flipTypes.BOTH;
+            }
+
+            if (scaleX === -1) {
+                return this.flipTypes.HORIZONTAL;
+            }
+
+            if (scaleY === -1) {
+                return this.flipTypes.VERTICAL;
+            }
+
+            return this.flipTypes.NONE;
         },
 
         /**

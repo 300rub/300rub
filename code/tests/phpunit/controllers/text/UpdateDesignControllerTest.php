@@ -139,7 +139,7 @@ class UpdateDesignControllerTest extends AbstractControllerTest
                 'user'     => self::TYPE_FULL,
                 'blockId'  => null,
                 'data'     => [
-                    'designBlockModel' => [
+                    'designTextModel' => [
                         'marginTop' => 10
                     ],
                 ],

@@ -266,8 +266,8 @@
          */
         setConfigureCrop: function () {
             var useCrop = false;
-            if ((this.getData(["forms", "cropX", "value"], 0) > 0
-                && this.getData(["forms", "cropY", "value"], 0) > 0)
+            if ((this.getData(["forms", "viewCropX", "value"], 0) > 0
+                && this.getData(["forms", "viewCropY", "value"], 0) > 0)
                 || (this.getData(["forms", "thumbCropX", "value"], 0) > 0
                 && this.getData(["forms", "thumbCropY", "value"], 0) > 0)
             ) {
@@ -291,8 +291,8 @@
                     function () {
                         this.container.removeClass("use-crop");
 
-                        this.forms.cropX.setValue(0);
-                        this.forms.cropY.setValue(0);
+                        this.forms.viewCropX.setValue(0);
+                        this.forms.viewCropY.setValue(0);
                         this.forms.thumbCropX.setValue(0);
                         this.forms.thumbCropY.setValue(0);
                     },
@@ -314,11 +314,11 @@
                 .find(".label-text")
                 .text(this.getLabel("cropProportions"));
 
-            this.forms.cropX = ss.init(
+            this.forms.viewCropX = ss.init(
                 "commonComponentsFormSpinner",
                 $.extend(
                     {},
-                    this.getData(["forms", "cropX"], {}),
+                    this.getData(["forms", "viewCropX"], {}),
                     {
                         appendTo: cropContainer.find(".crop-x"),
                         min: 0
@@ -326,11 +326,11 @@
                 )
             );
 
-            this.forms.cropY = ss.init(
+            this.forms.viewCropY = ss.init(
                 "commonComponentsFormSpinner",
                 $.extend(
                     {},
-                    this.getData(["forms", "cropY"], {}),
+                    this.getData(["forms", "viewCropY"], {}),
                     {
                         appendTo: cropContainer.find(".crop-y"),
                         min: 0
@@ -348,7 +348,7 @@
          */
         setAutoCrop: function () {
             var hasAutoCrop = false;
-            if (this.getData(["forms", "autoCropType", "value"], 0) > 0) {
+            if (this.getData(["forms", "viewAutoCropType", "value"], 0) > 0) {
                 hasAutoCrop = true;
                 this.container.addClass("auto-crop");
             }
@@ -363,25 +363,25 @@
                     onCheck: $.proxy(
                         function () {
                             this.container.addClass("auto-crop");
-                            this.forms.autoCropType.setValue(5);
+                            this.forms.viewAutoCropType.setValue(5);
                         },
                         this
                     ),
                 onUnCheck: $.proxy(
                     function () {
                             this.container.removeClass("auto-crop");
-                            this.forms.autoCropType.setValue(0);
+                            this.forms.viewAutoCropType.setValue(0);
                     },
                     this
                 )
                 }
             );
 
-            this.forms.autoCropType = ss.init(
+            this.forms.viewAutoCropType = ss.init(
                 "commonComponentsFormRadioButtons",
                 $.extend(
                     {},
-                    this.getData(["forms", "autoCropType"], {}),
+                    this.getData(["forms", "viewAutoCropType"], {}),
                     {
                         css: "auto-crop-type icon-buttons big",
                         grid: 3,

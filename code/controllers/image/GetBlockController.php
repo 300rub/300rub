@@ -68,13 +68,13 @@ class GetBlockController extends AbstractController
             'labels'      => $this->_getLabels(),
             'forms'       => [
                 'name'              => [
-                    'name'       => 'name',
-                    'label'      => $language->getMessage('common', 'name'),
+                    'name'  => 'name',
+                    'label' => $language->getMessage('common', 'name'),
                     'validation'
-                        => $this->_blockModel->getValidationRulesForField(
-                            'name'
-                        ),
-                    'value'      => $this->_blockModel->get('name'),
+                            => $this->_blockModel->getValidationRulesForField(
+                        'name'
+                    ),
+                    'value' => $this->_blockModel->get('name'),
                 ],
                 'type'              => [
                     'label' => $language->getMessage('common', 'type'),
@@ -87,18 +87,18 @@ class GetBlockController extends AbstractController
                     'label' => $language->getMessage('image', 'useAlbums'),
                     'value' => $this->_imageModel->get('useAlbums'),
                 ],
-                'cropX'             => [
-                    'name'  => 'cropX',
-                    'value' => $this->_imageModel->get('cropX'),
+                'viewCropX'         => [
+                    'name'  => 'viewCropX',
+                    'value' => $this->_imageModel->get('viewCropX'),
                 ],
-                'cropY'             => [
-                    'name'  => 'cropY',
-                    'value' => $this->_imageModel->get('cropY'),
+                'viewCropY'         => [
+                    'name'  => 'viewCropY',
+                    'value' => $this->_imageModel->get('viewCropY'),
                 ],
-                'autoCropType'      => [
-                    'label' => $language->getMessage('image', 'autoCropType'),
-                    'value' => $this->_imageModel->get('autoCropType'),
-                    'name'  => 'autoCropType',
+                'viewAutoCropType'  => [
+                    'label' => $language->getMessage('image', 'viewAutoCropType'),
+                    'value' => $this->_imageModel->get('viewAutoCropType'),
+                    'name'  => 'viewAutoCropType',
                     'list'  => $this->_imageModel->getAutoCropTypeList()
                 ],
                 'thumbCropX'        => [

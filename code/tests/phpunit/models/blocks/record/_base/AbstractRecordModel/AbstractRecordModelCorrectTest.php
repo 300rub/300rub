@@ -58,17 +58,17 @@ class AbstractRecordModelCorrectTest extends AbstractCorrectModelTest
                 'marginTop' => 10,
             ],
             'designImageSliderModel' => [
-                'bulletDesignBlockModel'   => [
+                'bulletDesignBlockModel' => [
                     'marginTop' => 10
                 ],
-                'hasAutoPlay'                 => true,
-                'playSpeed'                   => 1,
+                'hasAutoPlay'            => true,
+                'playSpeed'              => 1,
             ],
             'designImageZoomModel'   => [
-                'designBlockModel'     => [
+                'designBlockModel' => [
                     'marginTop' => 10
                 ],
-                'effect'               => 0,
+                'effect'           => 0,
             ],
             'designImageSimpleModel' => [
                 'containerDesignBlockModel' => [
@@ -80,9 +80,9 @@ class AbstractRecordModelCorrectTest extends AbstractCorrectModelTest
                 'alignment'                 => 1
             ],
             'type'                   => 1,
-            'autoCropType'           => 1,
-            'cropX'                  => 1,
-            'cropY'                  => 1,
+            'viewAutoCropType'       => 1,
+            'viewCropX'              => 1,
+            'viewCropY'              => 1,
             'thumbAutoCropType'      => 1,
             'thumbCropX'             => 1,
             'thumbCropY'             => 1,
@@ -102,17 +102,17 @@ class AbstractRecordModelCorrectTest extends AbstractCorrectModelTest
                 'marginTop' => 10,
             ],
             'designImageSliderModel' => [
-                'bulletDesignBlockModel'   => [
+                'bulletDesignBlockModel' => [
                     'marginTop' => 10
                 ],
-                'hasAutoPlay'                 => true,
-                'playSpeed'                   => 1,
+                'hasAutoPlay'            => true,
+                'playSpeed'              => 1,
             ],
             'designImageZoomModel'   => [
-                'designBlockModel'     => [
+                'designBlockModel' => [
                     'marginTop' => 10
                 ],
-                'effect'               => 0,
+                'effect'           => 0,
             ],
             'designImageSimpleModel' => [
                 'containerDesignBlockModel' => [
@@ -124,9 +124,9 @@ class AbstractRecordModelCorrectTest extends AbstractCorrectModelTest
                 'alignment'                 => 1
             ],
             'type'                   => 1,
-            'autoCropType'           => 1,
-            'cropX'                  => 1,
-            'cropY'                  => 1,
+            'viewAutoCropType'       => 1,
+            'viewCropX'              => 1,
+            'viewCropY'              => 1,
             'thumbAutoCropType'      => 1,
             'thumbCropX'             => 1,
             'thumbCropY'             => 1,
@@ -197,17 +197,17 @@ class AbstractRecordModelCorrectTest extends AbstractCorrectModelTest
                 'marginTop' => 30,
             ],
             'designImageSliderModel' => [
-                'bulletDesignBlockModel'   => [
+                'bulletDesignBlockModel' => [
                     'marginTop' => 30
                 ],
-                'hasAutoPlay'                 => false,
-                'playSpeed'                   => 0,
+                'hasAutoPlay'            => false,
+                'playSpeed'              => 0,
             ],
             'designImageZoomModel'   => [
-                'designBlockModel'     => [
+                'designBlockModel' => [
                     'marginTop' => 30
                 ],
-                'effect'               => 0,
+                'effect'           => 0,
             ],
             'designImageSimpleModel' => [
                 'containerDesignBlockModel' => [
@@ -219,9 +219,9 @@ class AbstractRecordModelCorrectTest extends AbstractCorrectModelTest
                 'alignment'                 => 0
             ],
             'type'                   => 0,
-            'autoCropType'           => 0,
-            'cropX'                  => 0,
-            'cropY'                  => 0,
+            'viewAutoCropType'       => 0,
+            'viewCropX'              => 0,
+            'viewCropY'              => 0,
             'thumbAutoCropType'      => 0,
             'thumbCropX'             => 0,
             'thumbCropY'             => 0,
@@ -241,17 +241,17 @@ class AbstractRecordModelCorrectTest extends AbstractCorrectModelTest
                 'marginTop' => 30,
             ],
             'designImageSliderModel' => [
-                'bulletDesignBlockModel'   => [
+                'bulletDesignBlockModel' => [
                     'marginTop' => 30
                 ],
-                'hasAutoPlay'                 => false,
-                'playSpeed'                   => 0,
+                'hasAutoPlay'            => false,
+                'playSpeed'              => 0,
             ],
             'designImageZoomModel'   => [
-                'designBlockModel'     => [
+                'designBlockModel' => [
                     'marginTop' => 30
                 ],
-                'effect'               => 0,
+                'effect'           => 0,
             ],
             'designImageSimpleModel' => [
                 'containerDesignBlockModel' => [
@@ -263,9 +263,9 @@ class AbstractRecordModelCorrectTest extends AbstractCorrectModelTest
                 'alignment'                 => 0
             ],
             'type'                   => 0,
-            'autoCropType'           => 0,
-            'cropX'                  => 0,
-            'cropY'                  => 0,
+            'viewAutoCropType'       => 0,
+            'viewCropX'              => 0,
+            'viewCropY'              => 0,
             'thumbAutoCropType'      => 0,
             'thumbCropX'             => 0,
             'thumbCropY'             => 0,

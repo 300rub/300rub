@@ -87,23 +87,26 @@ abstract class AbstractImageInstanceModel extends AbstractModel
             'imageGroupId'   => [
                 self::FIELD_RELATION_TO_PARENT
                     => '\\ss\\models\\blocks\\image\\ImageGroupModel',
-                self::FIELD_SKIP_DUPLICATION   => true,
-                self::FIELD_ALLOW_NULL => true,
+                self::FIELD_SKIP_DUPLICATION => true,
+                self::FIELD_ALLOW_NULL       => true,
             ],
             'originalFileId' => [
                 self::FIELD_RELATION
                     => '\\ss\\models\\blocks\\helpers\\file\\FileModel',
                 self::FIELD_SKIP_DUPLICATION => true,
+                self::FIELD_SKIP_REMOVAL     => true,
             ],
             'viewFileId'     => [
                 self::FIELD_RELATION
                     => '\\ss\\models\\blocks\\helpers\\file\\FileModel',
                 self::FIELD_SKIP_DUPLICATION => true,
+                self::FIELD_SKIP_REMOVAL     => true,
             ],
             'thumbFileId'    => [
                 self::FIELD_RELATION
                     => '\\ss\\models\\blocks\\helpers\\file\\FileModel',
                 self::FIELD_SKIP_DUPLICATION => true,
+                self::FIELD_SKIP_REMOVAL     => true,
             ],
         ];
     }
@@ -116,38 +119,38 @@ abstract class AbstractImageInstanceModel extends AbstractModel
     private function _getFieldsInfoCrop()
     {
         return [
-            'x1'             => [
+            'viewX'       => [
                 self::FIELD_TYPE             => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE            => [
                     ValueGenerator::MIN => 0,
                 ],
                 self::FIELD_SKIP_DUPLICATION => true,
             ],
-            'y1'             => [
+            'viewY'       => [
                 self::FIELD_TYPE             => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE            => [
                     ValueGenerator::MIN => 0,
                 ],
                 self::FIELD_SKIP_DUPLICATION => true,
             ],
-            'x2'             => [
+            'viewWidth'   => [
                 self::FIELD_TYPE             => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE            => [
                     ValueGenerator::MIN => 0,
                 ],
                 self::FIELD_SKIP_DUPLICATION => true,
             ],
-            'y2'             => [
+            'viewHeight'  => [
                 self::FIELD_TYPE             => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE            => [
                     ValueGenerator::MIN => 0,
                 ],
                 self::FIELD_SKIP_DUPLICATION => true,
             ],
-            'angle'          => [
+            'viewAngle'   => [
                 self::FIELD_TYPE => self::FIELD_TYPE_INT,
             ],
-            'flip'           => [
+            'viewFlip'    => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
                     ValueGenerator::ARRAY_KEY => [
@@ -156,38 +159,38 @@ abstract class AbstractImageInstanceModel extends AbstractModel
                     ]
                 ],
             ],
-            'thumbX1'        => [
+            'thumbX'      => [
                 self::FIELD_TYPE             => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE            => [
                     ValueGenerator::MIN => 0,
                 ],
                 self::FIELD_SKIP_DUPLICATION => true,
             ],
-            'thumbY1'        => [
+            'thumbY'      => [
                 self::FIELD_TYPE             => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE            => [
                     ValueGenerator::MIN => 0,
                 ],
                 self::FIELD_SKIP_DUPLICATION => true,
             ],
-            'thumbX2'        => [
+            'thumbWidth'  => [
                 self::FIELD_TYPE             => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE            => [
                     ValueGenerator::MIN => 0,
                 ],
                 self::FIELD_SKIP_DUPLICATION => true,
             ],
-            'thumbY2'        => [
+            'thumbHeight' => [
                 self::FIELD_TYPE             => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE            => [
                     ValueGenerator::MIN => 0,
                 ],
                 self::FIELD_SKIP_DUPLICATION => true,
             ],
-            'thumbAngle'          => [
+            'thumbAngle'  => [
                 self::FIELD_TYPE => self::FIELD_TYPE_INT,
             ],
-            'thumbFlip'           => [
+            'thumbFlip'   => [
                 self::FIELD_TYPE  => self::FIELD_TYPE_INT,
                 self::FIELD_VALUE => [
                     ValueGenerator::ARRAY_KEY => [

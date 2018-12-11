@@ -84,7 +84,9 @@ abstract class AbstractDeleteModel extends AbstractSaveModel
         $info = $this->getFieldsInfo();
 
         foreach ($info as $field => $parameters) {
-            if (array_key_exists(self::FIELD_RELATION, $parameters) === false) {
+            if (array_key_exists(self::FIELD_RELATION, $parameters) === false
+                || array_key_exists(self::FIELD_SKIP_REMOVAL, $parameters) === true
+            ) {
                 continue;
             }
 

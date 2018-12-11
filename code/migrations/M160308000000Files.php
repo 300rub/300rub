@@ -26,15 +26,15 @@ class M160308000000Files extends AbstractMigration
                     'type'         => self::TYPE_STRING_50,
                     'size'         => self::TYPE_INT_UNSIGNED,
                     'uniqueName'   => self::TYPE_STRING_25,
+                    'date'         => self::TYPE_DATETIME,
+                    'isUsed'       => self::TYPE_BOOL,
                 ]
             )
             ->createUniqueIndex('files', 'files_uniqueName', 'uniqueName')
-            ->createTable(
-                'removedFiles',
-                [
-                    'id'         => self::TYPE_PK,
-                    'uniqueName' => self::TYPE_STRING,
-                ]
+            ->createIndex(
+                'files',
+                'date, isUsed',
+                'files_date_isUsed'
             );
     }
 
@@ -45,8 +45,6 @@ class M160308000000Files extends AbstractMigration
      */
     protected function down()
     {
-        $this
-            ->dropTable('removedFiles')
-            ->dropTable('files');
+        $this->dropTable('files');
     }
 }

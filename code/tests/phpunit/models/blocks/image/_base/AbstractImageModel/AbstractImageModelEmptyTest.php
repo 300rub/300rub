@@ -49,17 +49,17 @@ class AbstractImageModelEmptyTest extends AbstractEmptyModelTest
                     'marginTop' => 0,
                 ],
                 'designImageSliderModel' => [
-                    'bulletDesignBlockModel'   => [
+                    'bulletDesignBlockModel' => [
                         'marginTop' => 0
                     ],
-                    'hasAutoPlay'                 => false,
-                    'playSpeed'                   => 0,
+                    'hasAutoPlay'            => false,
+                    'playSpeed'              => 0,
                 ],
                 'designImageZoomModel'   => [
-                    'designBlockModel'     => [
+                    'designBlockModel' => [
                         'marginTop' => 0
                     ],
-                    'effect'               => 0,
+                    'effect'           => 0,
                 ],
                 'designImageSimpleModel' => [
                     'containerDesignBlockModel' => [
@@ -71,9 +71,9 @@ class AbstractImageModelEmptyTest extends AbstractEmptyModelTest
                     'alignment'                 => 0
                 ],
                 'type'                   => 0,
-                'autoCropType'           => 0,
-                'cropX'                  => 0,
-                'cropY'                  => 0,
+                'viewAutoCropType'       => 0,
+                'viewCropX'              => 0,
+                'viewCropY'              => 0,
                 'thumbAutoCropType'      => 0,
                 'thumbCropX'             => 0,
                 'thumbCropY'             => 0,
@@ -96,9 +96,9 @@ class AbstractImageModelEmptyTest extends AbstractEmptyModelTest
                 'designImageZoomModel'   => '',
                 'designImageSimpleModel' => '',
                 'type'                   => '',
-                'autoCropType'           => '',
-                'cropX'                  => '',
-                'cropY'                  => '',
+                'viewAutoCropType'       => '',
+                'viewCropX'              => '',
+                'viewCropY'              => '',
                 'thumbAutoCropType'      => '',
                 'thumbCropX'             => '',
                 'thumbCropY'             => '',
@@ -109,17 +109,17 @@ class AbstractImageModelEmptyTest extends AbstractEmptyModelTest
                     'marginTop' => 0,
                 ],
                 'designImageSliderModel' => [
-                    'bulletDesignBlockModel'   => [
+                    'bulletDesignBlockModel' => [
                         'marginTop' => 0
                     ],
-                    'hasAutoPlay'                 => false,
-                    'playSpeed'                   => 0,
+                    'hasAutoPlay'            => false,
+                    'playSpeed'              => 0,
                 ],
                 'designImageZoomModel'   => [
-                    'designBlockModel'     => [
+                    'designBlockModel' => [
                         'marginTop' => 0
                     ],
-                    'effect'               => 0,
+                    'effect'           => 0,
                 ],
                 'designImageSimpleModel' => [
                     'containerDesignBlockModel' => [
@@ -131,9 +131,9 @@ class AbstractImageModelEmptyTest extends AbstractEmptyModelTest
                     'alignment'                 => 0
                 ],
                 'type'                   => 0,
-                'autoCropType'           => 0,
-                'cropX'                  => 0,
-                'cropY'                  => 0,
+                'viewAutoCropType'       => 0,
+                'viewCropX'              => 0,
+                'viewCropY'              => 0,
                 'thumbAutoCropType'      => 0,
                 'thumbCropX'             => 0,
                 'thumbCropY'             => 0,
@@ -176,17 +176,17 @@ class AbstractImageModelEmptyTest extends AbstractEmptyModelTest
                     'marginTop' => 0,
                 ],
                 'designImageSliderModel' => [
-                    'bulletDesignBlockModel'   => [
+                    'bulletDesignBlockModel' => [
                         'marginTop' => 0
                     ],
-                    'hasAutoPlay'                 => false,
-                    'playSpeed'                   => 0,
+                    'hasAutoPlay'            => false,
+                    'playSpeed'              => 0,
                 ],
                 'designImageZoomModel'   => [
-                    'designBlockModel'     => [
+                    'designBlockModel' => [
                         'marginTop' => 0
                     ],
-                    'effect'               => 0,
+                    'effect'           => 0,
                 ],
                 'designImageSimpleModel' => [
                     'containerDesignBlockModel' => [
@@ -198,9 +198,9 @@ class AbstractImageModelEmptyTest extends AbstractEmptyModelTest
                     'alignment'                 => 0
                 ],
                 'type'                   => 0,
-                'autoCropType'           => 0,
-                'cropX'                  => 0,
-                'cropY'                  => 0,
+                'viewAutoCropType'       => 0,
+                'viewCropX'              => 0,
+                'viewCropY'              => 0,
                 'thumbAutoCropType'      => 0,
                 'thumbCropX'             => 0,
                 'thumbCropY'             => 0,

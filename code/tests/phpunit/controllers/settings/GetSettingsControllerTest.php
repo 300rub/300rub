@@ -52,7 +52,7 @@ class GetSettingsControllerTest extends AbstractControllerTest
                 self::TYPE_NO_OPERATIONS_USER,
                 [
                     'title'       => 'Settings',
-                    'description' => 'description...',
+                    'description' => '...',
                     'list'        => [
                         'users' => 'Users',
                     ]
@@ -62,7 +62,7 @@ class GetSettingsControllerTest extends AbstractControllerTest
                 self::TYPE_FULL,
                 [
                     'title'       => 'Settings',
-                    'description' => 'description...',
+                    'description' => '...',
                     'list'        => [
                         'users' => 'Users',
                         'icon'  => 'Icon',

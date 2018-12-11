@@ -54,28 +54,24 @@ abstract class AbstractGetCropController extends AbstractController
 
         $language = App::getInstance()->getLanguage();
 
-        switch ($imageInstanceModel->get('flip')) {
-            case ImageInstanceModel::FLIP_HORIZONTAL:
-                break;
-        }
-
         $data = [
-            'title'   => $language->getMessage('image', 'cropNoun'),
-            'id'      => $instanceId,
-            'labels'  => [
+            'title'      => $language->getMessage('image', 'cropNoun'),
+            'id'         => $instanceId,
+            'labels'     => [
                 'button' => App::getInstance()
                     ->getLanguage()
                     ->getMessage('image', 'cropVerb')
             ],
-            'url'     => $fileModel->getUrl(),
-            'width'   => $imageInstanceModel->get('width'),
-            'height'  => $imageInstanceModel->get('height'),
-            'x1'      => $imageInstanceModel->get('x1'),
-            'y1'      => $imageInstanceModel->get('y1'),
-            'x2'      => $imageInstanceModel->get('x2'),
-            'y2'      => $imageInstanceModel->get('y2'),
-            'angle'   => $imageInstanceModel->get('angle'),
-            'flip'    => $imageInstanceModel->get('flip'),
+            'url'        => $fileModel->getUrl(),
+            'width'      => $imageInstanceModel->get('width'),
+            'height'     => $imageInstanceModel->get('height'),
+            'viewX'      => $imageInstanceModel->get('viewX'),
+            'viewY'      => $imageInstanceModel->get('viewY'),
+            'viewWidth'  => $imageInstanceModel->get('viewWidth'),
+            'viewHeight' => $imageInstanceModel->get('viewHeight'),
+            'viewAngle'  => $imageInstanceModel->get('viewAngle'),
+            'viewFlip'   => $imageInstanceModel->get('viewFlip'),
+            'hasThumb'   => false,
         ];
 
         if ($imageModel->get('type') !== ImageModel::TYPE_ZOOM) {
@@ -85,12 +81,13 @@ abstract class AbstractGetCropController extends AbstractController
         return array_merge(
             $data,
             [
-                'thumbX1'    => $imageInstanceModel->get('thumbX1'),
-                'thumbY1'    => $imageInstanceModel->get('thumbY1'),
-                'thumbX2'    => $imageInstanceModel->get('thumbX2'),
-                'thumbY2'    => $imageInstanceModel->get('thumbY2'),
-                'thumbAngle' => $imageInstanceModel->get('thumbAngle'),
-                'thumbFlip'  => $imageInstanceModel->get('thumbFlip'),
+                'hasThumb'    => true,
+                'thumbX'      => $imageInstanceModel->get('thumbX'),
+                'thumbY'      => $imageInstanceModel->get('thumbY'),
+                'thumbWidth'  => $imageInstanceModel->get('thumbWidth'),
+                'thumbHeight' => $imageInstanceModel->get('thumbHeight'),
+                'thumbAngle'  => $imageInstanceModel->get('thumbAngle'),
+                'thumbFlip'   => $imageInstanceModel->get('thumbFlip'),
             ]
         );
     }

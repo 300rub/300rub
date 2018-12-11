@@ -12,20 +12,6 @@ abstract class AbstractUpdateModel extends AbstractUploadModel
 {
 
     /**
-     * Is view changed
-     *
-     * @var boolean
-     */
-    private $_isViewChanged = false;
-
-    /**
-     * Is thumb changed
-     *
-     * @var boolean
-     */
-    private $_isThumbChanged = false;
-
-    /**
      * Updates the image
      *
      * @param array $data Request data
@@ -34,22 +20,9 @@ abstract class AbstractUpdateModel extends AbstractUploadModel
      */
     public function crop(array $data)
     {
-        $viewName = $this->get('viewFileModel')->get('uniqueName');
-        $thumbName = $this->get('thumbFileModel')->get('uniqueName');
-
         $this
             ->_updateView($data)
             ->_updateThumb($data);
-
-        $file = new FileModel();
-
-        if ($this->_isViewChanged === true) {
-            $file->deleteByUniqueName($viewName);
-        }
-
-        if ($this->_isThumbChanged === true) {
-            $file->deleteByUniqueName($thumbName);
-        }
 
         $this->set($data)->save();
 
@@ -94,12 +67,12 @@ abstract class AbstractUpdateModel extends AbstractUploadModel
      */
     private function _isChangedViewData(array $data)
     {
-        if ($data['x1'] === $this->get('x1')
-            && $data['x2'] === $this->get('x2')
-            && $data['y1'] === $this->get('y1')
-            && $data['y2'] === $this->get('y2')
-            && $data['angle'] === $this->get('angle')
-            && $data['flip'] === $this->get('flip')
+        if ($data['viewX'] === $this->get('viewX')
+            && $data['viewY'] === $this->get('viewY')
+            && $data['viewWidth'] === $this->get('viewWidth')
+            && $data['viewHeight'] === $this->get('viewHeight')
+            && $data['viewAngle'] === $this->get('viewAngle')
+            && $data['viewFlip'] === $this->get('viewFlip')
         ) {
             return false;
         }
@@ -122,14 +95,15 @@ abstract class AbstractUpdateModel extends AbstractUploadModel
             return $this;
         }
 
-        $viewFileModel = $this->get('viewFileModel');
+        $oldViewFileModel = $this->get('viewFileModel');
+        $newViewFileModel = $this->_getNewFileModel($oldViewFileModel);
 
-        $viewFileModel->generateTmpName();
-        $viewFileModel->setUniqueName(
+        $newViewFileModel->generateTmpName();
+        $newViewFileModel->setUniqueName(
             trim(
                 strtolower(
                     pathinfo(
-                        $viewFileModel->get('uniqueName'),
+                        $newViewFileModel->get('uniqueName'),
                         PATHINFO_EXTENSION
                     )
                 )
@@ -143,7 +117,7 @@ abstract class AbstractUpdateModel extends AbstractUploadModel
         $image->setForceCache(false);
         $image->setActualCacheDir('/tmp');
 
-        switch ($data['flip']) {
+        switch ($data['viewFlip']) {
             case self::FLIP_BOTH:
                 $image->flip(true, true);
                 break;
@@ -155,27 +129,36 @@ abstract class AbstractUpdateModel extends AbstractUploadModel
                 break;
         }
 
-        if ($data['angle'] !== 0) {
-            $image->rotate($data['angle'] * -1);
+        if ($data['viewAngle'] !== 0) {
+            $image->rotate($data['viewAngle'] * -1);
         }
 
-        $viewWidth = ($data['x2'] - $data['x1']);
-        $viewHeight = ($data['y2'] - $data['y1']);
-
-        $image->crop($data['x1'], $data['y1'], $viewWidth, $viewHeight);
+        $image->crop(
+            $data['viewX'],
+            $data['viewY'],
+            $data['viewWidth'],
+            $data['viewHeight']
+        );
 
         $this
-            ->setWidth($viewWidth)
-            ->setHeight($viewHeight)
+            ->setWidth($data['viewWidth'])
+            ->setHeight($data['viewHeight'])
             ->setViewSizes();
 
         $image->resize($this->getViewWidth(), $this->getViewHeight());
-        $image->save($viewFileModel->getTmpName());
-        $viewFileModel->upload();
+        $image->save($newViewFileModel->getTmpName());
+        $newViewFileModel->upload();
 
-        $viewFileModel->save();
+        $newViewFileModel->save();
 
-        $this->_isViewChanged = true;
+        $oldViewFileModel->markAsUnused();
+
+        $this->set(
+            [
+                'viewFileId'    => $newViewFileModel->getId(),
+                'viewFileModel' => $newViewFileModel,
+            ]
+        );
 
         return $this;
     }
@@ -189,12 +172,12 @@ abstract class AbstractUpdateModel extends AbstractUploadModel
      */
     private function _isChangedThumbData(array $data)
     {
-        if ($data['thumbX1'] === $this->get('thumbX1')
-            && $data['thumbX2'] === $this->get('thumbX2')
-            && $data['thumbY1'] === $this->get('thumbY1')
-            && $data['thumbY2'] === $this->get('thumbY2')
-            && $data['angle'] === $this->get('angle')
-            && $data['flip'] === $this->get('flip')
+        if ($data['thumbX'] === $this->get('thumbX')
+            && $data['thumbY'] === $this->get('thumbY')
+            && $data['thumbWidth'] === $this->get('thumbWidth')
+            && $data['thumbHeight'] === $this->get('thumbHeight')
+            && $data['thumbAngle'] === $this->get('thumbAngle')
+            && $data['thumbFlip'] === $this->get('thumbFlip')
         ) {
             return false;
         }
@@ -217,14 +200,15 @@ abstract class AbstractUpdateModel extends AbstractUploadModel
             return $this;
         }
 
-        $thumbFileModel = $this->get('thumbFileModel');
+        $oldThumbFileModel = $this->get('thumbFileModel');
+        $newThumbFileModel = $this->_getNewFileModel($oldThumbFileModel);
 
-        $thumbFileModel->generateTmpName();
-        $thumbFileModel->setUniqueName(
+        $newThumbFileModel->generateTmpName();
+        $newThumbFileModel->setUniqueName(
             trim(
                 strtolower(
                     pathinfo(
-                        $thumbFileModel->get('uniqueName'),
+                        $newThumbFileModel->get('uniqueName'),
                         PATHINFO_EXTENSION
                     )
                 )
@@ -254,29 +238,48 @@ abstract class AbstractUpdateModel extends AbstractUploadModel
             $image->rotate($data['thumbAngle'] * -1);
         }
 
-        $thumbWidth = ($data['thumbX2'] - $data['thumbX1']);
-        $thumbHeight = ($data['thumbY2'] - $data['thumbY1']);
-
         $image->crop(
-            $data['thumbX1'],
-            $data['thumbY1'],
-            $thumbWidth,
-            $thumbHeight
+            $data['thumbX'],
+            $data['thumbY'],
+            $data['thumbWidth'],
+            $data['thumbHeight']
         );
 
         $this
-            ->setWidth($thumbWidth)
-            ->setHeight($thumbHeight)
+            ->setWidth($data['thumbWidth'])
+            ->setHeight($data['thumbHeight'])
             ->setThumbSizes();
 
         $image->resize($this->getThumbWidth(), $this->getThumbHeight());
-        $image->save($thumbFileModel->getTmpName());
-        $thumbFileModel->upload();
+        $image->save($newThumbFileModel->getTmpName());
+        $newThumbFileModel->upload();
 
-        $thumbFileModel->save();
+        $newThumbFileModel->save();
 
-        $this->_isThumbChanged = true;
+        $oldThumbFileModel->markAsUnused();
+
+        $this->set(
+            [
+                'thumbFileId'    => $newThumbFileModel->getId(),
+                'thumbFileModel' => $newThumbFileModel,
+            ]
+        );
 
         return $this;
+    }
+
+    /**
+     * Gets new File Model
+     *
+     * @param FileModel $oldFileModel File Model
+     *
+     * @return FileModel
+     */
+    private function _getNewFileModel($oldFileModel)
+    {
+        $newFileModel = clone $oldFileModel;
+        $newFileModel->clearId();
+        $newFileModel->set(['isUsed' => true]);
+        return $newFileModel;
     }
 }

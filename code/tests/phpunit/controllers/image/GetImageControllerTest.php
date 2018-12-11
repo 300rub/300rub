@@ -31,25 +31,25 @@ class GetImageControllerTest extends AbstractControllerTest
             [
                 'imageGroupId'      => 1,
                 'originalFileModel' => [
-                    'uniqueName' => 'new_file.jpg',
+                    'uniqueName' => uniqid() . '.jpg',
                 ],
                 'viewFileModel'     => [
-                    'uniqueName' => 'view_new_file.jpg',
+                    'uniqueName' => uniqid() . '.jpg',
                 ],
                 'thumbFileModel'    => [
-                    'uniqueName' => 'thumb_new_file.jpg',
+                    'uniqueName' => uniqid() . '.jpg',
                 ],
                 'alt'               => 'Alt 1',
                 'width'             => 800,
                 'height'            => 600,
-                'x1'                => 10,
-                'y1'                => 30,
-                'x2'                => 70,
-                'y2'                => 80,
-                'thumbX1'           => 5,
-                'thumbY1'           => 15,
-                'thumbX2'           => 35,
-                'thumbY2'           => 45,
+                'viewX'             => 10,
+                'viewY'             => 30,
+                'viewWidth'         => 70,
+                'viewHeight'        => 80,
+                'thumbX'            => 5,
+                'thumbY'            => 15,
+                'thumbWidth'        => 35,
+                'thumbHeight'       => 45,
             ]
         );
         $imageInstanceModel->save();
@@ -75,9 +75,17 @@ class GetImageControllerTest extends AbstractControllerTest
 
         $body = $this->getBody();
         $expected = [
-            'isCover' => false,
-            'alt'     => 'Alt 1',
-            'link'    => '',
+            'forms' => [
+                'isCover' => [
+                    'value' => false
+                ],
+                'alt'     => [
+                    'value' => 'Alt 1'
+                ],
+                'link'    => [
+                    'value' => ''
+                ],
+            ]
         ];
 
         $this->compareExpectedAndActual($expected, $body);
