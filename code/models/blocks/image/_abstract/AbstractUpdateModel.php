@@ -141,6 +141,7 @@ abstract class AbstractUpdateModel extends AbstractUploadModel
         );
 
         $image->setForceCache(false);
+        $image->setActualCacheDir('/tmp');
 
         switch ($data['flip']) {
             case self::FLIP_BOTH:
@@ -235,6 +236,7 @@ abstract class AbstractUpdateModel extends AbstractUploadModel
         );
 
         $image->setForceCache(false);
+        $image->setActualCacheDir('/tmp');
 
         switch ($data['thumbFlip']) {
             case self::FLIP_BOTH:
