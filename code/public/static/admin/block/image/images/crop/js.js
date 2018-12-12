@@ -12,7 +12,7 @@
         parent: "commonComponentsWindowAbstract",
 
         /**
-         * Container
+         * View container
          *
          * @var {Object}
          */
@@ -24,6 +24,20 @@
          * @var {Object}
          */
         viewImage: null,
+
+        /**
+         * Thumb container
+         *
+         * @var {Object}
+         */
+        thumbContainer: null,
+
+        /**
+         * Thumb image
+         *
+         * @var {Object}
+         */
+        thumbImage: null,
 
         /**
          * View X
@@ -141,6 +155,8 @@
         init: function () {
             this.viewContainer = null;
             this.viewImage = null;
+            this.thumbContainer = null;
+            this.thumbImage = null;
 
             this.viewX = 0;
             this.viewY = 0;
@@ -175,13 +191,22 @@
          */
         onLoadSuccess: function () {
             this
-                .setContainers()
+                .setViewContainer()
                 .setViewCropper()
                 .setViewRotate()
                 .setViewFlip()
                 .setViewZoom()
                 .setViewAspectRatio()
                 .setViewReset();
+
+            if (this.getData("hasThumb") === true) {
+                this
+                    .setThumbContainer()
+                    .setThumbCropper()
+                    .setThumbRotate()
+                    .setThumbFlip()
+                ;
+            }
 
             this.setSubmit(
                 {
@@ -201,12 +226,23 @@
         },
 
         /**
-         * Sets container
+         * Sets view container
          */
-        setContainers: function () {
+        setViewContainer: function () {
             this.viewContainer
                 = ss.init("template").get("image-crop-container");
             this.getBody().append(this.viewContainer);
+
+            return this;
+        },
+
+        /**
+         * Sets thumb container
+         */
+        setThumbContainer: function () {
+            this.thumbContainer
+                = ss.init("template").get("image-crop-container");
+            this.getBody().append(this.thumbContainer);
 
             return this;
         },
@@ -218,11 +254,26 @@
             this.viewImage = this.viewContainer.find(".cropper");
             this.viewImage.attr("src", this.getData("url"));
 
+            var aspectRatio = NaN;
+            var width = this.getData("viewWidth");
+            var height = this.getData("viewHeight");
+            var viewCropX = this.getData("viewCropX");
+            var viewCropY = this.getData("viewCropY");
+            if (width > 0
+                && height > 0
+            ) {
+                aspectRatio = (width / height);
+            } else if (viewCropX > 0
+                && viewCropY > 0
+            ) {
+                aspectRatio = (viewCropX / viewCropY);
+            }
+
             this.viewImage.cropper(
                 {
                     viewMode: 2,
                     preview: this.viewContainer.find(".preview"),
-                    aspectRatio: 1,
+                    aspectRatio: aspectRatio,
                     autoCropArea: 1,
                     movable: false,
                     data: this.getViewCropData(),
@@ -234,6 +285,51 @@
                         this.viewRotate = event.detail.rotate;
                         this.viewScaleX = event.detail.scaleX;
                         this.viewScaleY = event.detail.scaleY;
+                    }, this)
+                }
+            );
+
+            return this;
+        },
+
+        /**
+         * Sets thumb cropper
+         */
+        setThumbCropper: function () {
+            this.thumbImage = this.thumbContainer.find(".cropper");
+            this.thumbImage.attr("src", this.getData("url"));
+
+            var aspectRatio = NaN;
+            var width = this.getData("thumbWidth");
+            var height = this.getData("thumbHeight");
+            var thumbCropX = this.getData("thumbCropX");
+            var thumbCropY = this.getData("thumbCropY");
+            if (width > 0
+                && height > 0
+            ) {
+                aspectRatio = (width / height);
+            } else if (thumbCropX > 0
+                && thumbCropY > 0
+            ) {
+                aspectRatio = (thumbwCropX / thumbCropY);
+            }
+
+            this.thumbImage.cropper(
+                {
+                    viewMode: 2,
+                    preview: this.thumbContainer.find(".preview"),
+                    aspectRatio: aspectRatio,
+                    autoCropArea: 1,
+                    movable: false,
+                    data: this.getThumbCropData(),
+                    crop: $.proxy(function (event) {
+                        this.thumbX = event.detail.x;
+                        this.thumbY = event.detail.y;
+                        this.thumbWidth = event.detail.width;
+                        this.thumbHeight = event.detail.height;
+                        this.thumbRotate = event.detail.rotate;
+                        this.thumbScaleX = event.detail.scaleX;
+                        this.thumbScaleY = event.detail.scaleY;
                     }, this)
                 }
             );
@@ -283,12 +379,53 @@
         },
 
         /**
+         * Sets thumb rotate
+         */
+        setThumbRotate: function () {
+            var rotateContainer = this.thumbContainer.find(".rotate-container");
+
+            ss.init(
+                "commonComponentsFormButton",
+                {
+                    css: "btn btn-blue btn-icon",
+                    icon: "fas fa-undo",
+                    label: '',
+                    appendTo: rotateContainer,
+                    onClick: $.proxy(
+                        function () {
+                            this.thumbImage.cropper("rotate", -45);
+                        },
+                        this
+                    )
+                }
+            );
+
+            ss.init(
+                "commonComponentsFormButton",
+                {
+                    css: "btn btn-blue btn-icon",
+                    icon: "fas fa-redo",
+                    label: '',
+                    appendTo: rotateContainer,
+                    onClick: $.proxy(
+                        function () {
+                            this.thumbImage.cropper("rotate", 45);
+                        },
+                        this
+                    )
+                }
+            );
+
+            return this;
+        },
+
+        /**
          * Function to generate request data
          *
          * @return {Object}
          */
         generateData: function() {
-            return {
+            var data = {
                 blockId: parseInt(this.getData("blockId")),
                 id: parseInt(this.getData("id")),
                 viewX: parseInt(this.viewX),
@@ -296,14 +433,25 @@
                 viewWidth: parseInt(this.viewWidth),
                 viewHeight: parseInt(this.viewHeight),
                 viewAngle: parseInt(this.viewRotate),
-                viewFlip: this.getFlip(this.viewScaleX, this.viewScaleY),
-                thumbX: parseInt(this.thumbX),
-                thumbY: parseInt(this.thumbY),
-                thumbWidth: parseInt(this.thumbWidth),
-                thumbHeight: parseInt(this.thumbHeight),
-                thumbAngle: parseInt(this.thumbRotate),
-                thumbFlip: this.getFlip(this.thumbScaleX, this.thumbScaleY)
+                viewFlip: this.getFlip(this.viewScaleX, this.viewScaleY)
             };
+
+            if (this.getData("hasThumb") === false) {
+                return data;
+            }
+
+            return $.extend(
+                {},
+                data,
+                {
+                    thumbX: parseInt(this.thumbX),
+                    thumbY: parseInt(this.thumbY),
+                    thumbWidth: parseInt(this.thumbWidth),
+                    thumbHeight: parseInt(this.thumbHeight),
+                    thumbAngle: parseInt(this.thumbRotate),
+                    thumbFlip: this.getFlip(this.thumbScaleX, this.thumbScaleY)
+                }
+            );
         },
 
         /**
@@ -456,6 +604,59 @@
         },
 
         /**
+         * Sets thumb flip
+         */
+        setThumbFlip: function () {
+            var flipContainer = this.thumbContainer.find(".flip-container");
+
+            ss.init(
+                "commonComponentsFormButton",
+                {
+                    css: "btn btn-blue btn-icon",
+                    icon: "fas fa-arrows-alt-h",
+                    label: '',
+                    appendTo: flipContainer,
+                    onClick: $.proxy(
+                        function () {
+                            if (flipContainer.hasClass("flipped-x") === true) {
+                                this.thumbImage.cropper("scaleX", 1);
+                                flipContainer.removeClass("flipped-x");
+                            } else {
+                                this.thumbImage.cropper("scaleX", -1);
+                                flipContainer.addClass("flipped-x");
+                            }
+                        },
+                        this
+                    )
+                }
+            );
+
+            ss.init(
+                "commonComponentsFormButton",
+                {
+                    css: "btn btn-blue btn-icon",
+                    icon: "fas fa-arrows-alt-v",
+                    label: '',
+                    appendTo: flipContainer,
+                    onClick: $.proxy(
+                        function () {
+                            if (flipContainer.hasClass("flipped-y") === true) {
+                                this.thumbImage.cropper("scaleY", 1);
+                                flipContainer.removeClass("flipped-y");
+                            } else {
+                                this.thumbImage.cropper("scaleY",-1);
+                                flipContainer.addClass("flipped-y");
+                            }
+                        },
+                        this
+                    )
+                }
+            );
+
+            return this;
+        },
+
+        /**
          * Sets view zoom
          */
         setViewZoom: function () {
@@ -505,21 +706,29 @@
             var defaultAspectRatio
                 = this.viewContainer.find(".default-aspect-container");
 
-            ss.init(
-                "commonComponentsFormButton",
-                {
-                    css: "btn btn-blue",
-                    label: "1024:200",
-                    appendTo: userAspectRatio,
-                    onClick: $.proxy(
-                        function () {
-                            this.viewImage
-                                .cropper("setAspectRatio", (1024 / 200));
-                        },
-                        this
-                    )
-                }
-            );
+            var viewCropX = this.getData("viewCropX");
+            var viewCropY = this.getData("viewCropY");
+            if (viewCropX > 0
+                && viewCropY > 0
+            ) {
+                ss.init(
+                    "commonComponentsFormButton",
+                    {
+                        css: "btn btn-blue",
+                        label: viewCropX + ":" + viewCropY,
+                        appendTo: userAspectRatio,
+                        onClick: $.proxy(
+                            function () {
+                                this.viewImage.cropper(
+                                    "setAspectRatio",
+                                    (viewCropX / viewCropY)
+                                );
+                            },
+                            this
+                        )
+                    }
+                );
+            }
 
             ss.init(
                 "commonComponentsFormButton",

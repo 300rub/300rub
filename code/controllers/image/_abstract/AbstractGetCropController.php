@@ -71,6 +71,8 @@ abstract class AbstractGetCropController extends AbstractController
             'viewHeight' => $imageInstanceModel->get('viewHeight'),
             'viewAngle'  => $imageInstanceModel->get('viewAngle'),
             'viewFlip'   => $imageInstanceModel->get('viewFlip'),
+            'viewCropX'  => $imageInstanceModel->get('viewCropX'),
+            'viewCropY'  => $imageInstanceModel->get('viewCropY'),
             'hasThumb'   => false,
         ];
 
@@ -88,6 +90,8 @@ abstract class AbstractGetCropController extends AbstractController
                 'thumbHeight' => $imageInstanceModel->get('thumbHeight'),
                 'thumbAngle'  => $imageInstanceModel->get('thumbAngle'),
                 'thumbFlip'   => $imageInstanceModel->get('thumbFlip'),
+                'thumbCropX'  => $imageInstanceModel->get('thumbCropX'),
+                'thumbCropY'  => $imageInstanceModel->get('thumbCropY'),
             ]
         );
     }
