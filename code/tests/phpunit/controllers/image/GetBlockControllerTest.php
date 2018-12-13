@@ -142,7 +142,7 @@ class GetBlockControllerTest extends AbstractControllerTest
                     'hasError'          => false,
                     'title'             => 'Edit image',
                     'name'              => 'Zoom image',
-                    'type'              => 2,
+                    'type'              => 0,
                     'viewAutoCropType'  => 0,
                     'viewCropX'         => 0,
                     'viewCropY'         => 0,

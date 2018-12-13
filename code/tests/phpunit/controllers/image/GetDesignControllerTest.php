@@ -115,27 +115,19 @@ class GetDesignControllerTest extends AbstractControllerTest
                 'cssContainerId' => 'image-1-block',
                 'type'           => 'block',
                 'namespace'
-                                 => 'designImageSimpleModel.containerDesignBlockModel',
-                'values'         => [
-                    'marginTop' => 0
-                ]
-            ],
-            [
-                'selector'       => '.image-1 .image-instance',
-                'cssContainerId' => 'image-1-image-instance-block',
-                'type'           => 'block',
-                'namespace'      => 'designImageSimpleModel.imageDesignBlockModel',
+                     => 'designImageZoomModel.designBlockModel',
                 'values'         => [
                     'marginTop' => 0
                 ]
             ],
             [
                 'selector'       => '.image-1',
-                'cssContainerId' => 'image-1-image-simple',
-                'type'           => 'image-simple',
-                'namespace'      => 'designImageSimpleModel',
+                'cssContainerId' => 'image-1-image-zoom',
+                'type'           => 'image-zoom',
+                'namespace'
+                    => 'designImageZoomModel',
                 'values'         => [
-                    'alignment' => 0
+                    'effect' => 0
                 ]
             ]
         ];

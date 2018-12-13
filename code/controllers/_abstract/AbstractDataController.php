@@ -74,6 +74,7 @@ abstract class AbstractDataController extends AbstractBaseController
         foreach ($check as $field => $options) {
             if (is_array($options) === true
                 && array_key_exists(0, $options) === false
+                && count($options) > 0
             ) {
                 $this->checkData($options, $this->get($field));
             }
@@ -85,9 +86,10 @@ abstract class AbstractDataController extends AbstractBaseController
 
             if (array_key_exists($field, $data) === false) {
                 throw new BadRequestException(
-                    'Unable to find {field} in request',
+                    'Unable to find {field} in request {data}',
                     [
-                        'field' => $field
+                        'field' => $field,
+                        'data'  => json_encode($data)
                     ]
                 );
             }
