@@ -4,13 +4,14 @@ namespace ss\controllers\image;
 
 use ss\application\components\user\Operation;
 use ss\application\exceptions\BadRequestException;
-use ss\controllers\_abstract\AbstractController;
+use ss\controllers\_abstract\AbstractBlockController;
 use ss\models\blocks\block\BlockModel;
+use ss\models\user\UserEventModel;
 
 /**
  * Duplicates block
  */
-class CreateBlockDuplicationController extends AbstractController
+class CreateBlockDuplicationController extends AbstractBlockController
 {
 
     /**
@@ -45,6 +46,11 @@ class CreateBlockDuplicationController extends AbstractController
                 ]
             );
         }
+
+        $this->writeBlockDuplicatedEvent(
+            UserEventModel::CATEGORY_BLOCK_IMAGE,
+            $blockModel
+        );
 
         return [
             'id' => $blockModel->duplicate()->getId()

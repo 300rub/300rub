@@ -4,15 +4,16 @@ namespace ss\controllers\image;
 
 use ss\application\components\user\Operation;
 use ss\application\exceptions\BadRequestException;
-use ss\controllers\_abstract\AbstractController;
+use ss\controllers\_abstract\AbstractBlockController;
 use ss\models\_abstract\AbstractModel;
 use ss\models\blocks\block\BlockModel;
 use ss\models\blocks\image\ImageModel;
+use ss\models\user\UserEventModel;
 
 /**
  * Updates block's design
  */
-class UpdateDesignController extends AbstractController
+class UpdateDesignController extends AbstractBlockController
 {
 
     /**
@@ -42,6 +43,11 @@ class UpdateDesignController extends AbstractController
 
         $imageModel = $this->_setImageDesign($imageModel);
         $imageModel->save();
+
+        $this->writeBlockDesignChangedEvent(
+            UserEventModel::CATEGORY_BLOCK_IMAGE,
+            $blockModel
+        );
 
         return $this->getSimpleSuccessResult();
     }

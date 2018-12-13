@@ -4,13 +4,14 @@ namespace ss\controllers\image;
 
 use ss\application\components\user\Operation;
 use ss\application\exceptions\BadRequestException;
-use ss\controllers\_abstract\AbstractController;
+use ss\controllers\_abstract\AbstractBlockController;
 use ss\models\blocks\block\BlockModel;
+use ss\models\user\UserEventModel;
 
 /**
  * Deletes block
  */
-class DeleteBlockController extends AbstractController
+class DeleteBlockController extends AbstractBlockController
 {
 
     /**
@@ -47,6 +48,11 @@ class DeleteBlockController extends AbstractController
         }
 
         $blockModel->delete();
+
+        $this->writeBlockDeletedEvent(
+            UserEventModel::CATEGORY_BLOCK_IMAGE,
+            $blockModel
+        );
 
         return $this->getSimpleSuccessResult();
     }

@@ -65,10 +65,9 @@ class UpdateContentController extends AbstractBlockController
 
         $blockModel->setContent();
 
-        App::getInstance()->getUser()->writeEvent(
+        $this->writeBlockContentChangedEvent(
             UserEventModel::CATEGORY_BLOCK_TEXT,
-            UserEventModel::TYPE_ADD,
-            $this->getBlockContentChangedEvent($blockModel)
+            $blockModel
         );
 
         return [

@@ -64,10 +64,9 @@ class UpdateDesignController extends AbstractBlockController
 
         $textModel->save();
 
-        App::getInstance()->getUser()->writeEvent(
+        $this->writeBlockDesignChangedEvent(
             UserEventModel::CATEGORY_BLOCK_TEXT,
-            UserEventModel::TYPE_ADD,
-            $this->getBlockDesignChangedEvent($blockModel)
+            $blockModel
         );
 
         return $this->getSimpleSuccessResult();

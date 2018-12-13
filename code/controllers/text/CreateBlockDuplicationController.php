@@ -50,10 +50,9 @@ class CreateBlockDuplicationController extends AbstractBlockController
 
         $duplication = $blockModel->duplicate();
 
-        App::getInstance()->getUser()->writeEvent(
+        $this->writeBlockDuplicatedEvent(
             UserEventModel::CATEGORY_BLOCK_TEXT,
-            UserEventModel::TYPE_ADD,
-            $this->getBlockDuplicatedEvent($blockModel)
+            $blockModel
         );
 
         return [

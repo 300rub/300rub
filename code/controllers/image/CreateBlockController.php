@@ -4,14 +4,16 @@ namespace ss\controllers\image;
 
 use ss\application\App;
 use ss\application\components\user\Operation;
+use ss\controllers\_abstract\AbstractBlockController;
 use ss\controllers\_abstract\AbstractController;
 use ss\models\blocks\block\BlockModel;
 use ss\models\blocks\image\ImageModel;
+use ss\models\user\UserEventModel;
 
 /**
  * Adds block
  */
-class CreateBlockController extends AbstractController
+class CreateBlockController extends AbstractBlockController
 {
 
     /**
@@ -76,6 +78,11 @@ class CreateBlockController extends AbstractController
                 'errors' => $errors
             ];
         }
+
+        $this->writeBlockCreatedEvent(
+            UserEventModel::CATEGORY_BLOCK_IMAGE,
+            $blockModel
+        );
 
         return $this->getSimpleSuccessResult();
     }

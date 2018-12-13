@@ -3,14 +3,15 @@
 namespace ss\controllers\image;
 
 use ss\application\components\user\Operation;
-use ss\controllers\_abstract\AbstractController;
+use ss\controllers\_abstract\AbstractBlockController;
 use ss\models\blocks\block\BlockModel;
 use ss\models\blocks\image\ImageModel;
+use ss\models\user\UserEventModel;
 
 /**
  * Updates block
  */
-class UpdateBlockController extends AbstractController
+class UpdateBlockController extends AbstractBlockController
 {
 
     /**
@@ -42,6 +43,7 @@ class UpdateBlockController extends AbstractController
         );
 
         $blockModel = BlockModel::model()->getById($this->get('id'));
+        $oldBlock = clone $blockModel;
 
         $imageModel = $blockModel
             ->getContentModel(
@@ -78,6 +80,12 @@ class UpdateBlockController extends AbstractController
         }
 
         $blockModel->setContent();
+
+        $this->writeBlockSettingsUpdatedEvent(
+            UserEventModel::CATEGORY_BLOCK_IMAGE,
+            $oldBlock,
+            $blockModel
+        );
 
         return $this->getSimpleSuccessResult();
     }

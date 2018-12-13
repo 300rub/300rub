@@ -19,6 +19,7 @@ abstract class AbstractUserEventModel extends AbstractModel
     const CATEGORY_SECTION = 1;
     const CATEGORY_SETTINGS = 2;
     const CATEGORY_BLOCK_TEXT = 3;
+    const CATEGORY_BLOCK_IMAGE = 4;
 
     /**
      * Types

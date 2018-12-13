@@ -2,9 +2,11 @@
 
 namespace ss\controllers\image;
 
+use ss\application\App;
 use ss\application\components\user\Operation;
 use ss\controllers\image\_abstract\AbstractCreateImageController;
 use ss\models\blocks\block\BlockModel;
+use ss\models\user\UserEventModel;
 
 /**
  * Adds image
@@ -35,6 +37,21 @@ class CreateImageController extends AbstractCreateImageController
             ->setImageGroupId($this->get('imageGroupId'))
             ->setBlockId($this->get('blockId'))
             ->create();
+
+        $blockModel = BlockModel::model()->getById($this->get('blockId'));
+
+        App::getInstance()->getUser()->writeEvent(
+            UserEventModel::CATEGORY_BLOCK_IMAGE,
+            UserEventModel::TYPE_ADD,
+            sprintf(
+                App::getInstance()->getLanguage()->getMessage(
+                    'event',
+                    'imageUploaded'
+                ),
+                $result['originalUrl'],
+                $blockModel->get('name')
+            )
+        );
 
         return [
             'id'   => $result['id'],

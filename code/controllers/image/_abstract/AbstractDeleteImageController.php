@@ -25,6 +25,7 @@ abstract class AbstractDeleteImageController extends AbstractController
     {
         $imageInstanceModel = ImageInstanceModel::model()
             ->byId($instanceId)
+            ->withRelations(['originalFileModel'])
             ->find();
         if ($imageInstanceModel instanceof ImageInstanceModel === false) {
             throw new NotFoundException(
@@ -35,8 +36,10 @@ abstract class AbstractDeleteImageController extends AbstractController
             );
         }
 
+        $url = $imageInstanceModel->get('originalFileModel')->getUrl();
+
         $imageInstanceModel->delete();
 
-        return $this->getSimpleSuccessResult();
+        return $url;
     }
 }

@@ -2,9 +2,11 @@
 
 namespace ss\controllers\image;
 
+use ss\application\App;
 use ss\application\components\user\Operation;
 use ss\controllers\image\_abstract\AbstractDeleteImageController;
 use ss\models\blocks\block\BlockModel;
+use ss\models\user\UserEventModel;
 
 /**
  * Deletes the image
@@ -32,6 +34,22 @@ class DeleteImageController extends AbstractDeleteImageController
             Operation::IMAGE_UPLOAD
         );
 
-        return $this->delete($this->get('id'));
+        $url =  $this->delete($this->get('id'));
+        $blockModel = BlockModel::model()->getById($this->get('blockId'));
+
+        App::getInstance()->getUser()->writeEvent(
+            UserEventModel::CATEGORY_BLOCK_IMAGE,
+            UserEventModel::TYPE_DELETE,
+            sprintf(
+                App::getInstance()->getLanguage()->getMessage(
+                    'event',
+                    'imageDeleted'
+                ),
+                $url,
+                $blockModel->get('name')
+            )
+        );
+
+        return $this->getSimpleSuccessResult();
     }
 }

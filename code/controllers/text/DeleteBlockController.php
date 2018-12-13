@@ -49,10 +49,9 @@ class DeleteBlockController extends AbstractBlockController
 
         $blockModel->delete();
 
-        App::getInstance()->getUser()->writeEvent(
+        $this->writeBlockDeletedEvent(
             UserEventModel::CATEGORY_BLOCK_TEXT,
-            UserEventModel::TYPE_ADD,
-            $this->getBlockDeletedEvent($blockModel)
+            $blockModel
         );
 
         return $this->getSimpleSuccessResult();

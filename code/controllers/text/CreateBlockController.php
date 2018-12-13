@@ -78,10 +78,9 @@ class CreateBlockController extends AbstractBlockController
             ];
         }
 
-        App::getInstance()->getUser()->writeEvent(
+        $this->writeBlockCreatedEvent(
             UserEventModel::CATEGORY_BLOCK_TEXT,
-            UserEventModel::TYPE_ADD,
-            $this->getBlockCreatedEvent($blockModel)
+            $blockModel
         );
 
         return $this->getSimpleSuccessResult();

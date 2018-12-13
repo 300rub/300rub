@@ -4,6 +4,7 @@ namespace ss\controllers\_abstract;
 
 use ss\application\App;
 use ss\models\blocks\block\BlockModel;
+use ss\models\user\UserEventModel;
 
 /**
  * Abstract class for working with controllers
@@ -12,122 +13,173 @@ abstract class AbstractBlockController extends AbstractController
 {
 
     /**
-     * Gets block created event
+     * Writes block created event
      *
-     * @param BlockModel $block Block model
+     * @param string     $category Category
+     * @param BlockModel $block    Block model
      *
-     * @return string
+     * @return AbstractBlockController
      */
-    protected function getBlockCreatedEvent($block)
+    protected function writeBlockCreatedEvent($category, $block)
     {
-        return sprintf(
-            App::getInstance()->getLanguage()->getMessage(
-                'event',
-                'blockCreatedEventMask'
-            ),
-            $block->get('name')
+        App::getInstance()->getUser()->writeEvent(
+            $category,
+            UserEventModel::TYPE_ADD,
+            sprintf(
+                App::getInstance()->getLanguage()->getMessage(
+                    'event',
+                    'blockCreatedEventMask'
+                ),
+                $block->get('name')
+            )
         );
+
+        return $this;
     }
 
     /**
-     * Gets block duplicated event
+     * Writes block duplicated event
      *
-     * @param BlockModel $block Block model
+     * @param string     $category Category
+     * @param BlockModel $block    Block model
      *
-     * @return string
+     * @return AbstractBlockController
      */
-    protected function getBlockDuplicatedEvent($block)
+    protected function writeBlockDuplicatedEvent($category, $block)
     {
-        return sprintf(
-            App::getInstance()->getLanguage()->getMessage(
-                'event',
-                'blockDuplicatedEventMask'
-            ),
-            $block->get('name')
+        App::getInstance()->getUser()->writeEvent(
+            $category,
+            UserEventModel::TYPE_ADD,
+            sprintf(
+                App::getInstance()->getLanguage()->getMessage(
+                    'event',
+                    'blockDuplicatedEventMask'
+                ),
+                $block->get('name')
+            )
         );
+
+        return $this;
     }
 
     /**
-     * Gets block deleted event
+     * Writes block deleted event
      *
-     * @param BlockModel $block Block model
+     * @param string     $category Category
+     * @param BlockModel $block    Block model
      *
-     * @return string
+     * @return AbstractBlockController
      */
-    protected function getBlockDeletedEvent($block)
+    protected function writeBlockDeletedEvent($category, $block)
     {
-        return sprintf(
-            App::getInstance()->getLanguage()->getMessage(
-                'event',
-                'blockDeletedEventMask'
-            ),
-            $block->get('name')
+        App::getInstance()->getUser()->writeEvent(
+            $category,
+            UserEventModel::TYPE_DELETE,
+            sprintf(
+                App::getInstance()->getLanguage()->getMessage(
+                    'event',
+                    'blockDeletedEventMask'
+                ),
+                $block->get('name')
+            )
         );
+
+        return $this;
     }
 
     /**
-     * Gets block settings updated event
+     * Writes block settings updated event
      *
+     * @param string     $category Category
      * @param BlockModel $oldBlock Old block model
      * @param BlockModel $newBlock New block model
      *
-     * @return string
+     * @return AbstractBlockController
      */
-    protected function getBlockSettingsUpdatedEvent($oldBlock, $newBlock)
-    {
+    protected function writeBlockSettingsUpdatedEvent(
+        $category,
+        $oldBlock,
+        $newBlock
+    ) {
         if ($oldBlock->get('name') === $newBlock->get('name')) {
-            return sprintf(
-                App::getInstance()->getLanguage()->getMessage(
-                    'event',
-                    'blockSettingsUpdatedEventMask'
-                ),
-                $oldBlock->get('name')
+            App::getInstance()->getUser()->writeEvent(
+                $category,
+                UserEventModel::TYPE_EDIT,
+                sprintf(
+                    App::getInstance()->getLanguage()->getMessage(
+                        'event',
+                        'blockSettingsUpdatedEventMask'
+                    ),
+                    $oldBlock->get('name')
+                )
             );
+
+            return $this;
         }
 
-        return sprintf(
-            App::getInstance()->getLanguage()->getMessage(
-                'event',
-                'blockSettingsUpdatedNameChangedEventMask'
-            ),
-            $oldBlock->get('name'),
-            $newBlock->get('name')
+        App::getInstance()->getUser()->writeEvent(
+            $category,
+            UserEventModel::TYPE_EDIT,
+            sprintf(
+                App::getInstance()->getLanguage()->getMessage(
+                    'event',
+                    'blockSettingsUpdatedNameChangedEventMask'
+                ),
+                $oldBlock->get('name'),
+                $newBlock->get('name')
+            )
         );
+
+        return $this;
     }
 
     /**
-     * Gets block content changed event
+     * Writes block content changed event
      *
-     * @param BlockModel $block Block model
+     * @param string     $category Category
+     * @param BlockModel $block    Block model
      *
-     * @return string
+     * @return AbstractBlockController
      */
-    protected function getBlockContentChangedEvent($block)
+    protected function writeBlockContentChangedEvent($category, $block)
     {
-        return sprintf(
-            App::getInstance()->getLanguage()->getMessage(
-                'event',
-                'blockContentChangedEventMask'
-            ),
-            $block->get('name')
+        App::getInstance()->getUser()->writeEvent(
+            $category,
+            UserEventModel::TYPE_EDIT,
+            sprintf(
+                App::getInstance()->getLanguage()->getMessage(
+                    'event',
+                    'blockContentChangedEventMask'
+                ),
+                $block->get('name')
+            )
         );
+
+        return $this;
     }
 
     /**
-     * Gets block design changed event
+     * Write block design changed event
      *
-     * @param BlockModel $block Block model
+     * @param string     $category Category
+     * @param BlockModel $block    Block model
      *
-     * @return string
+     * @return AbstractBlockController
      */
-    protected function getBlockDesignChangedEvent($block)
+    protected function writeBlockDesignChangedEvent($category, $block)
     {
-        return sprintf(
-            App::getInstance()->getLanguage()->getMessage(
-                'event',
-                'blockDesignChangedEventMask'
-            ),
-            $block->get('name')
+        App::getInstance()->getUser()->writeEvent(
+            $category,
+            UserEventModel::TYPE_EDIT,
+            sprintf(
+                App::getInstance()->getLanguage()->getMessage(
+                    'event',
+                    'blockDesignChangedEventMask'
+                ),
+                $block->get('name')
+            )
         );
+
+        return $this;
     }
 }
