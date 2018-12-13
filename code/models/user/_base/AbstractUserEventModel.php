@@ -44,6 +44,8 @@ abstract class AbstractUserEventModel extends AbstractModel
                 => $language->getMessage('event', 'categorySettings'),
             self::CATEGORY_BLOCK_TEXT
                 => $language->getMessage('event', 'categoryBlockText'),
+            self::CATEGORY_BLOCK_IMAGE
+                => $language->getMessage('event', 'categoryBlockImage'),
         ];
     }
 

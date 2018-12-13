@@ -15,6 +15,10 @@ return [
         Language::LANGUAGE_EN_ID => 'Blocks. Text',
         Language::LANGUAGE_RU_ID => 'Блоки. Текст',
     ],
+    'categoryBlockImage'                        => [
+        Language::LANGUAGE_EN_ID => 'Blocks. Image',
+        Language::LANGUAGE_RU_ID => 'Блоки. Изображение',
+    ],
     'settingsCodeHeader'                       => [
         Language::LANGUAGE_EN_ID => 'Code inside the tag <header>',
         Language::LANGUAGE_RU_ID => 'Код внутри тега <header>',
