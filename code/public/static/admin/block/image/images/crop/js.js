@@ -610,11 +610,9 @@
 
         /**
          * On send success
-         *
-         * @param {Object} data
          */
-        onSendSuccess: function (data) {
-            console.log(data);
+        onSendSuccess: function () {
+            this.remove(true);
         }
     };
 
