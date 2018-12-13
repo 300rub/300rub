@@ -12,130 +12,38 @@
         parent: "commonComponentsWindowAbstract",
 
         /**
-         * View container
+         * View
          *
          * @var {Object}
          */
-        viewContainer: null,
+        view: {
+            container: null,
+            image: null,
+            x: 0,
+            y: 0,
+            width: 0,
+            height: 0,
+            rotate: 0,
+            scaleX: 0,
+            scaleY: 0
+        },
 
         /**
-         * View image
+         * Thumb
          *
          * @var {Object}
          */
-        viewImage: null,
-
-        /**
-         * Thumb container
-         *
-         * @var {Object}
-         */
-        thumbContainer: null,
-
-        /**
-         * Thumb image
-         *
-         * @var {Object}
-         */
-        thumbImage: null,
-
-        /**
-         * View X
-         *
-         * @var {Integer}
-         */
-        viewX: 0,
-
-        /**
-         * View Y
-         *
-         * @var {Integer}
-         */
-        viewY: 0,
-
-        /**
-         * View width
-         *
-         * @var {Integer}
-         */
-        viewWidth: 0,
-
-        /**
-         * View height
-         *
-         * @var {Integer}
-         */
-        viewHeight: 0,
-
-        /**
-         * View Rotate
-         *
-         * @var {Integer}
-         */
-        viewRotate: 0,
-
-        /**
-         * View Scale X
-         *
-         * @var {Integer}
-         */
-        viewScaleX: 1,
-
-        /**
-         * View Scale Y
-         *
-         * @var {Integer}
-         */
-        viewScaleY: 1,
-
-        /**
-         * Thumb X
-         *
-         * @var {Integer}
-         */
-        thumbX: 0,
-
-        /**
-         * Thumb Y
-         *
-         * @var {Integer}
-         */
-        thumbY: 0,
-
-        /**
-         * Thumb width
-         *
-         * @var {Integer}
-         */
-        thumbWidth: 0,
-
-        /**
-         * Thumb height
-         *
-         * @var {Integer}
-         */
-        thumbHeight: 0,
-
-        /**
-         * Thumb Rotate
-         *
-         * @var {Integer}
-         */
-        thumbRotate: 0,
-
-        /**
-         * Thumb Scale X
-         *
-         * @var {Integer}
-         */
-        thumbScaleX: 1,
-
-        /**
-         * Thumb Scale Y
-         *
-         * @var {Integer}
-         */
-        thumbScaleY: 1,
+        thumb: {
+            container: null,
+            image: null,
+            x: 0,
+            y: 0,
+            width: 0,
+            height: 0,
+            rotate: 0,
+            scaleX: 0,
+            scaleY: 0
+        },
 
         /**
          * Flip types
@@ -153,25 +61,29 @@
          * Init
          */
         init: function () {
-            this.viewContainer = null;
-            this.viewImage = null;
-            this.thumbContainer = null;
-            this.thumbImage = null;
+            this.view = {
+                container: null,
+                image: null,
+                x: 0,
+                y: 0,
+                width: 0,
+                height: 0,
+                rotate: 0,
+                scaleX: 0,
+                scaleY: 0
+            };
 
-            this.viewX = 0;
-            this.viewY = 0;
-            this.viewWidth = 0;
-            this.viewHeight = 0;
-            this.viewRotate = 0;
-            this.viewScaleX = 1;
-            this.viewScaleY = 1;
-            this.thumbX = 0;
-            this.thumbY = 0;
-            this.thumbWidth = 0;
-            this.thumbHeight = 0;
-            this.thumbRotate = 0;
-            this.thumbScaleX = 1;
-            this.thumbScaleY = 1;
+            this.thumb = {
+                container: null,
+                image: null,
+                x: 0,
+                y: 0,
+                width: 0,
+                height: 0,
+                rotate: 0,
+                scaleX: 0,
+                scaleY: 0
+            };
 
             this.create(
                 {
@@ -190,22 +102,9 @@
          * On load success
          */
         onLoadSuccess: function () {
-            this
-                .setViewContainer()
-                .setViewCropper()
-                .setViewRotate()
-                .setViewFlip()
-                .setViewZoom()
-                .setViewAspectRatio()
-                .setViewReset();
-
+            this.setType("view");
             if (this.getData("hasThumb") === true) {
-                this
-                    .setThumbContainer()
-                    .setThumbCropper()
-                    .setThumbRotate()
-                    .setThumbFlip()
-                ;
+                this.setType("thumb");
             }
 
             this.setSubmit(
@@ -226,65 +125,111 @@
         },
 
         /**
-         * Sets view container
+         * Sets type
+         * 
+         * @param {String} type
          */
-        setViewContainer: function () {
-            this.viewContainer
+        setType: function(type) {
+            return this
+                .setContainer(type)
+                .setCropper(type)
+                .setRotate(type)
+                .setFlip(type)
+                .setZoom(type)
+                .setAspectRatio(type)
+                .setReset(type);
+        },
+
+        /**
+         * Sets container
+         * 
+         * @param {String} type
+         */
+        setContainer: function (type) {
+            this[type].container
                 = ss.init("template").get("image-crop-container");
-            this.getBody().append(this.viewContainer);
+            this.getBody().append(this[type].container);
 
             return this;
         },
 
         /**
-         * Sets thumb container
+         * Gets crop data
+         *
+         * @param {String} type
+         *
+         * @returns {Object}
          */
-        setThumbContainer: function () {
-            this.thumbContainer
-                = ss.init("template").get("image-crop-container");
-            this.getBody().append(this.thumbContainer);
+        getCropData: function(type) {
+            var flip = this.getData([type, "flip"]);
+            var scaleX = 1;
+            var scaleY = 1;
+            switch (flip) {
+                case this.flipTypes.BOTH:
+                    scaleX = -1;
+                    scaleY = -1;
+                    break;
+                case this.flipTypes.HORIZONTAL:
+                    scaleX = -1;
+                    break;
+                case this.flipTypes.VERTICAL:
+                    scaleY = -1;
+                    break;
+                default:
+                    break;
+            }
 
-            return this;
+            return {
+                x: this.getData([type, "x"]),
+                y: this.getData([type, "y"]),
+                width: this.getData([type, "width"]),
+                height: this.getData([type, "height"]),
+                rotate: this.getData([type, "angle"]),
+                scaleX: scaleX,
+                scaleY: scaleY
+            };
         },
 
         /**
-         * Sets view cropper
+         * Sets cropper
+         * 
+         * @param {String} type
          */
-        setViewCropper: function () {
-            this.viewImage = this.viewContainer.find(".cropper");
-            this.viewImage.attr("src", this.getData("url"));
+        setCropper: function (type) {
+            this[type].image = this[type].container.find(".cropper");
+            this[type].image.attr("src", this.getData("url"));
 
             var aspectRatio = NaN;
-            var width = this.getData("viewWidth");
-            var height = this.getData("viewHeight");
-            var viewCropX = this.getData("viewCropX");
-            var viewCropY = this.getData("viewCropY");
+            var width = this.getData([type, "width"]);
+            var height = this.getData([type, "height"]);
+            var cropX = this.getData([type, "cropX"]);
+            var cropY = this.getData([type, "cropY"]);
             if (width > 0
                 && height > 0
             ) {
                 aspectRatio = (width / height);
-            } else if (viewCropX > 0
-                && viewCropY > 0
+            } else if (cropX > 0
+                && cropY > 0
             ) {
-                aspectRatio = (viewCropX / viewCropY);
+                aspectRatio = (cropX / cropY);
             }
 
-            this.viewImage.cropper(
+            this[type].image.cropper(
                 {
                     viewMode: 2,
-                    preview: this.viewContainer.find(".preview"),
+                    preview: this[type].container.find(".preview"),
                     aspectRatio: aspectRatio,
                     autoCropArea: 1,
                     movable: false,
-                    data: this.getViewCropData(),
+                    data: this.getCropData(type),
                     crop: $.proxy(function (event) {
-                        this.viewX = event.detail.x;
-                        this.viewY = event.detail.y;
-                        this.viewWidth = event.detail.width;
-                        this.viewHeight = event.detail.height;
-                        this.viewRotate = event.detail.rotate;
-                        this.viewScaleX = event.detail.scaleX;
-                        this.viewScaleY = event.detail.scaleY;
+                        this[type].x = event.detail.x;
+                        this[type].y = event.detail.y;
+                        this[type].width = event.detail.width;
+                        this[type].height = event.detail.height;
+                        this[type].rotate = event.detail.rotate;
+                        this[type].scaleX = event.detail.scaleX;
+                        this[type].scaleY = event.detail.scaleY;
                     }, this)
                 }
             );
@@ -293,55 +238,12 @@
         },
 
         /**
-         * Sets thumb cropper
+         * Sets rotate
+         * 
+         * @param {String} type
          */
-        setThumbCropper: function () {
-            this.thumbImage = this.thumbContainer.find(".cropper");
-            this.thumbImage.attr("src", this.getData("url"));
-
-            var aspectRatio = NaN;
-            var width = this.getData("thumbWidth");
-            var height = this.getData("thumbHeight");
-            var thumbCropX = this.getData("thumbCropX");
-            var thumbCropY = this.getData("thumbCropY");
-            if (width > 0
-                && height > 0
-            ) {
-                aspectRatio = (width / height);
-            } else if (thumbCropX > 0
-                && thumbCropY > 0
-            ) {
-                aspectRatio = (thumbwCropX / thumbCropY);
-            }
-
-            this.thumbImage.cropper(
-                {
-                    viewMode: 2,
-                    preview: this.thumbContainer.find(".preview"),
-                    aspectRatio: aspectRatio,
-                    autoCropArea: 1,
-                    movable: false,
-                    data: this.getThumbCropData(),
-                    crop: $.proxy(function (event) {
-                        this.thumbX = event.detail.x;
-                        this.thumbY = event.detail.y;
-                        this.thumbWidth = event.detail.width;
-                        this.thumbHeight = event.detail.height;
-                        this.thumbRotate = event.detail.rotate;
-                        this.thumbScaleX = event.detail.scaleX;
-                        this.thumbScaleY = event.detail.scaleY;
-                    }, this)
-                }
-            );
-
-            return this;
-        },
-
-        /**
-         * Sets view rotate
-         */
-        setViewRotate: function () {
-            var rotateContainer = this.viewContainer.find(".rotate-container");
+        setRotate: function (type) {
+            var container = this[type].container.find(".rotate-container");
 
             ss.init(
                 "commonComponentsFormButton",
@@ -349,10 +251,10 @@
                     css: "btn btn-blue btn-icon",
                     icon: "fas fa-undo",
                     label: '',
-                    appendTo: rotateContainer,
+                    appendTo: container,
                     onClick: $.proxy(
                         function () {
-                            this.viewImage.cropper("rotate", -45);
+                            this[type].image.cropper("rotate", -45);
                         },
                         this
                     )
@@ -365,10 +267,10 @@
                     css: "btn btn-blue btn-icon",
                     icon: "fas fa-redo",
                     label: '',
-                    appendTo: rotateContainer,
+                    appendTo: container,
                     onClick: $.proxy(
                         function () {
-                            this.viewImage.cropper("rotate", 45);
+                            this[type].image.cropper("rotate", 45);
                         },
                         this
                     )
@@ -379,21 +281,45 @@
         },
 
         /**
-         * Sets thumb rotate
+         * Sets flip
+         *
+         * @param {String} type
          */
-        setThumbRotate: function () {
-            var rotateContainer = this.thumbContainer.find(".rotate-container");
+        setFlip: function (type) {
+            var container = this[type].container.find(".flip-container");
+
+            var flip = this.getData([type, "flip"]);
+            switch (flip) {
+                case this.flipTypes.BOTH:
+                    container.addClass("flipped-x");
+                    container.addClass("flipped-y");
+                    break;
+                case this.flipTypes.HORIZONTAL:
+                    container.addClass("flipped-x");
+                    break;
+                case this.flipTypes.VERTICAL:
+                    container.addClass("flipped-y");
+                    break;
+                default:
+                    break;
+            }
 
             ss.init(
                 "commonComponentsFormButton",
                 {
                     css: "btn btn-blue btn-icon",
-                    icon: "fas fa-undo",
+                    icon: "fas fa-arrows-alt-h",
                     label: '',
-                    appendTo: rotateContainer,
+                    appendTo: container,
                     onClick: $.proxy(
                         function () {
-                            this.thumbImage.cropper("rotate", -45);
+                            if (container.hasClass("flipped-x") === true) {
+                                this[type].image.cropper("scaleX", 1);
+                                container.removeClass("flipped-x");
+                            } else {
+                                this[type].image.cropper("scaleX", -1);
+                                container.addClass("flipped-x");
+                            }
                         },
                         this
                     )
@@ -404,12 +330,210 @@
                 "commonComponentsFormButton",
                 {
                     css: "btn btn-blue btn-icon",
-                    icon: "fas fa-redo",
+                    icon: "fas fa-arrows-alt-v",
                     label: '',
-                    appendTo: rotateContainer,
+                    appendTo: container,
                     onClick: $.proxy(
                         function () {
-                            this.thumbImage.cropper("rotate", 45);
+                            if (container.hasClass("flipped-y") === true) {
+                                this[type].image.cropper("scaleY", 1);
+                                container.removeClass("flipped-y");
+                            } else {
+                                this[type].image.cropper("scaleY",-1);
+                                container.addClass("flipped-y");
+                            }
+                        },
+                        this
+                    )
+                }
+            );
+
+            return this;
+        },
+
+        /**
+         * Sets view zoom
+         *
+         * @param {String} type
+         */
+        setZoom: function (type) {
+            var container = this[type].container.find(".zoom-container");
+
+            ss.init(
+                "commonComponentsFormButton",
+                {
+                    css: "btn btn-blue btn-icon",
+                    icon: "fas fa-search-plus",
+                    label: '',
+                    appendTo: container,
+                    onClick: $.proxy(
+                        function () {
+                            this[type].image.cropper("zoom", 0.1);
+                        },
+                        this
+                    )
+                }
+            );
+
+            ss.init(
+                "commonComponentsFormButton",
+                {
+                    css: "btn btn-blue btn-icon",
+                    icon: "fas fa-search-minus",
+                    label: '',
+                    appendTo: container,
+                    onClick: $.proxy(
+                        function () {
+                            this[type].image.cropper("zoom", -0.1);
+                        },
+                        this
+                    )
+                }
+            );
+
+            return this;
+        },
+
+        /**
+         * Sets aspect ratio
+         *
+         * @param {String} type
+         */
+        setAspectRatio: function (type) {
+            var userAspectRatio
+                = this[type].container.find(".user-aspect-container");
+            var defaultAspectRatio
+                = this[type].container.find(".default-aspect-container");
+
+            var cropX = this.getData([type, "cropX"]);
+            var cropY = this.getData([type, "cropY"]);
+            if (cropX > 0
+                && cropY > 0
+            ) {
+                ss.init(
+                    "commonComponentsFormButton",
+                    {
+                        css: "btn btn-blue",
+                        label: cropX + ":" + cropY,
+                        appendTo: userAspectRatio,
+                        onClick: $.proxy(
+                            function () {
+                                this[type].image.cropper(
+                                    "setAspectRatio",
+                                    (cropX / cropY)
+                                );
+                            },
+                            this
+                        )
+                    }
+                );
+            }
+
+            ss.init(
+                "commonComponentsFormButton",
+                {
+                    css: "btn btn-blue",
+                    label: "Free",
+                    appendTo: userAspectRatio,
+                    onClick: $.proxy(
+                        function () {
+                            this[type].image.cropper("setAspectRatio", NaN);
+                        },
+                        this
+                    )
+                }
+            );
+
+            ss.init(
+                "commonComponentsFormButton",
+                {
+                    css: "btn btn-blue",
+                    label: "16:9",
+                    appendTo: defaultAspectRatio,
+                    onClick: $.proxy(
+                        function () {
+                            this[type].image.cropper(
+                                "setAspectRatio",
+                                (16 / 9)
+                            );
+                        },
+                        this
+                    )
+                }
+            );
+
+            ss.init(
+                "commonComponentsFormButton",
+                {
+                    css: "btn btn-blue",
+                    label: "4:3",
+                    appendTo: defaultAspectRatio,
+                    onClick: $.proxy(
+                        function () {
+                            this[type].image.cropper(
+                                "setAspectRatio",
+                                (4 / 3)
+                            );
+                        },
+                        this
+                    )
+                }
+            );
+
+            ss.init(
+                "commonComponentsFormButton",
+                {
+                    css: "btn btn-blue",
+                    label: "1:1",
+                    appendTo: defaultAspectRatio,
+                    onClick: $.proxy(
+                        function () {
+                            this[type].image.cropper("setAspectRatio", 1);
+                        },
+                        this
+                    )
+                }
+            );
+
+            ss.init(
+                "commonComponentsFormButton",
+                {
+                    css: "btn btn-blue",
+                    label: "2:3",
+                    appendTo: defaultAspectRatio,
+                    onClick: $.proxy(
+                        function () {
+                            this[type].image.cropper(
+                                "setAspectRatio",
+                                (2 / 3)
+                            );
+                        },
+                        this
+                    )
+                }
+            );
+
+            return this;
+        },
+
+        /**
+         * Sets reset
+         *
+         * @param {String} type
+         */
+        setReset: function (type) {
+            var container = this[type].container.find(".reset-container");
+
+            ss.init(
+                "commonComponentsFormButton",
+                {
+                    css: "btn btn-blue btn-icon",
+                    icon: "fas fa-retweet",
+                    label: "",
+                    appendTo: container,
+                    onClick: $.proxy(
+                        function () {
+                            this[type].image.cropper("reset");
                         },
                         this
                     )
@@ -428,12 +552,14 @@
             var data = {
                 blockId: parseInt(this.getData("blockId")),
                 id: parseInt(this.getData("id")),
-                viewX: parseInt(this.viewX),
-                viewY: parseInt(this.viewY),
-                viewWidth: parseInt(this.viewWidth),
-                viewHeight: parseInt(this.viewHeight),
-                viewAngle: parseInt(this.viewRotate),
-                viewFlip: this.getFlip(this.viewScaleX, this.viewScaleY)
+                view: {
+                    x: parseInt(this.view.x),
+                    y: parseInt(this.view.y),
+                    width: parseInt(this.view.width),
+                    height: parseInt(this.view.height),
+                    angle: parseInt(this.view.rotate),
+                    flip: this.getFlip(this.view.scaleX, this.view.scaleY)
+                }
             };
 
             if (this.getData("hasThumb") === false) {
@@ -444,84 +570,16 @@
                 {},
                 data,
                 {
-                    thumbX: parseInt(this.thumbX),
-                    thumbY: parseInt(this.thumbY),
-                    thumbWidth: parseInt(this.thumbWidth),
-                    thumbHeight: parseInt(this.thumbHeight),
-                    thumbAngle: parseInt(this.thumbRotate),
-                    thumbFlip: this.getFlip(this.thumbScaleX, this.thumbScaleY)
+                    thumb: {
+                        x: parseInt(this.thumb.x),
+                        y: parseInt(this.thumb.y),
+                        width: parseInt(this.thumb.width),
+                        height: parseInt(this.thumb.height),
+                        angle: parseInt(this.thumb.rotate),
+                        flip: this.getFlip(this.thumb.scaleX, this.thumb.scaleY)
+                    }
                 }
             );
-        },
-
-        /**
-         * Gets view crop data
-         *
-         * @returns {Object}
-         */
-        getViewCropData: function() {
-            return {
-                x: this.getData("viewX"),
-                y: this.getData("viewY"),
-                width: this.getData("viewWidth"),
-                height: this.getData("viewHeight"),
-                rotate: this.getData("viewAngle"),
-                scaleX: this.getScaleX(this.getData("viewFlip")),
-                scaleY: this.getScaleY(this.getData("viewFlip"))
-            };
-        },
-
-        /**
-         * Gets thumb crop data
-         *
-         * @returns {Object}
-         */
-        getThumbCropData: function() {
-            return {
-                x: this.getData("thumbX"),
-                y: this.getData("thumbY"),
-                width: this.getData("thumbWidth"),
-                height: this.getData("thumbHeight"),
-                rotate: this.getData("thumbAngle"),
-                scaleX: this.getScaleX(this.getData("thumbFlip")),
-                scaleY: this.getScaleY(this.getData("thumbFlip"))
-            };
-        },
-
-        /**
-         * Gets scale X
-         *
-         * @param {int} flip
-         *
-         * @returns {int}
-         */
-        getScaleX: function(flip) {
-            switch (flip) {
-                case this.flipTypes.BOTH:
-                    return -1;
-                case this.flipTypes.HORIZONTAL:
-                    return -1;
-                default:
-                    return 1;
-            }
-        },
-
-        /**
-         * Gets scale Y
-         *
-         * @param {int} flip
-         *
-         * @returns {int}
-         */
-        getScaleY: function(flip) {
-            switch (flip) {
-                case this.flipTypes.BOTH:
-                    return -1;
-                case this.flipTypes.VERTICAL:
-                    return -1;
-                default:
-                    return 1;
-            }
         },
 
         /**
@@ -548,289 +606,6 @@
             }
 
             return this.flipTypes.NONE;
-        },
-
-        /**
-         * Sets view flip
-         */
-        setViewFlip: function () {
-            var flipContainer = this.viewContainer.find(".flip-container");
-
-            ss.init(
-                "commonComponentsFormButton",
-                {
-                    css: "btn btn-blue btn-icon",
-                    icon: "fas fa-arrows-alt-h",
-                    label: '',
-                    appendTo: flipContainer,
-                    onClick: $.proxy(
-                        function () {
-                            if (flipContainer.hasClass("flipped-x") === true) {
-                                this.viewImage.cropper("scaleX", 1);
-                                flipContainer.removeClass("flipped-x");
-                            } else {
-                                this.viewImage.cropper("scaleX", -1);
-                                flipContainer.addClass("flipped-x");
-                            }
-                        },
-                        this
-                    )
-                }
-            );
-
-            ss.init(
-                "commonComponentsFormButton",
-                {
-                    css: "btn btn-blue btn-icon",
-                    icon: "fas fa-arrows-alt-v",
-                    label: '',
-                    appendTo: flipContainer,
-                    onClick: $.proxy(
-                        function () {
-                            if (flipContainer.hasClass("flipped-y") === true) {
-                                this.viewImage.cropper("scaleY", 1);
-                                flipContainer.removeClass("flipped-y");
-                            } else {
-                                this.viewImage.cropper("scaleY",-1);
-                                flipContainer.addClass("flipped-y");
-                            }
-                        },
-                        this
-                    )
-                }
-            );
-
-            return this;
-        },
-
-        /**
-         * Sets thumb flip
-         */
-        setThumbFlip: function () {
-            var flipContainer = this.thumbContainer.find(".flip-container");
-
-            ss.init(
-                "commonComponentsFormButton",
-                {
-                    css: "btn btn-blue btn-icon",
-                    icon: "fas fa-arrows-alt-h",
-                    label: '',
-                    appendTo: flipContainer,
-                    onClick: $.proxy(
-                        function () {
-                            if (flipContainer.hasClass("flipped-x") === true) {
-                                this.thumbImage.cropper("scaleX", 1);
-                                flipContainer.removeClass("flipped-x");
-                            } else {
-                                this.thumbImage.cropper("scaleX", -1);
-                                flipContainer.addClass("flipped-x");
-                            }
-                        },
-                        this
-                    )
-                }
-            );
-
-            ss.init(
-                "commonComponentsFormButton",
-                {
-                    css: "btn btn-blue btn-icon",
-                    icon: "fas fa-arrows-alt-v",
-                    label: '',
-                    appendTo: flipContainer,
-                    onClick: $.proxy(
-                        function () {
-                            if (flipContainer.hasClass("flipped-y") === true) {
-                                this.thumbImage.cropper("scaleY", 1);
-                                flipContainer.removeClass("flipped-y");
-                            } else {
-                                this.thumbImage.cropper("scaleY",-1);
-                                flipContainer.addClass("flipped-y");
-                            }
-                        },
-                        this
-                    )
-                }
-            );
-
-            return this;
-        },
-
-        /**
-         * Sets view zoom
-         */
-        setViewZoom: function () {
-            var zoomContainer = this.viewContainer.find(".zoom-container");
-
-            ss.init(
-                "commonComponentsFormButton",
-                {
-                    css: "btn btn-blue btn-icon",
-                    icon: "fas fa-search-plus",
-                    label: '',
-                    appendTo: zoomContainer,
-                    onClick: $.proxy(
-                        function () {
-                            this.viewImage.cropper("zoom", 0.1);
-                        },
-                        this
-                    )
-                }
-            );
-
-            ss.init(
-                "commonComponentsFormButton",
-                {
-                    css: "btn btn-blue btn-icon",
-                    icon: "fas fa-search-minus",
-                    label: '',
-                    appendTo: zoomContainer,
-                    onClick: $.proxy(
-                        function () {
-                            this.viewImage.cropper("zoom", -0.1);
-                        },
-                        this
-                    )
-                }
-            );
-
-            return this;
-        },
-
-        /**
-         * Sets view aspect ratio
-         */
-        setViewAspectRatio: function () {
-            var userAspectRatio
-                = this.viewContainer.find(".user-aspect-container");
-            var defaultAspectRatio
-                = this.viewContainer.find(".default-aspect-container");
-
-            var viewCropX = this.getData("viewCropX");
-            var viewCropY = this.getData("viewCropY");
-            if (viewCropX > 0
-                && viewCropY > 0
-            ) {
-                ss.init(
-                    "commonComponentsFormButton",
-                    {
-                        css: "btn btn-blue",
-                        label: viewCropX + ":" + viewCropY,
-                        appendTo: userAspectRatio,
-                        onClick: $.proxy(
-                            function () {
-                                this.viewImage.cropper(
-                                    "setAspectRatio",
-                                    (viewCropX / viewCropY)
-                                );
-                            },
-                            this
-                        )
-                    }
-                );
-            }
-
-            ss.init(
-                "commonComponentsFormButton",
-                {
-                    css: "btn btn-blue",
-                    label: "Free",
-                    appendTo: userAspectRatio,
-                    onClick: $.proxy(
-                        function () {
-                            this.viewImage.cropper("setAspectRatio", NaN);
-                        },
-                        this
-                    )
-                }
-            );
-
-            ss.init(
-                "commonComponentsFormButton",
-                {
-                    css: "btn btn-blue",
-                    label: "16:9",
-                    appendTo: defaultAspectRatio,
-                    onClick: $.proxy(
-                        function () {
-                            this.viewImage.cropper("setAspectRatio", (16 / 9));
-                        },
-                        this
-                    )
-                }
-            );
-
-            ss.init(
-                "commonComponentsFormButton",
-                {
-                    css: "btn btn-blue",
-                    label: "4:3",
-                    appendTo: defaultAspectRatio,
-                    onClick: $.proxy(
-                        function () {
-                            this.viewImage.cropper("setAspectRatio", (4 / 3));
-                        },
-                        this
-                    )
-                }
-            );
-
-            ss.init(
-                "commonComponentsFormButton",
-                {
-                    css: "btn btn-blue",
-                    label: "1:1",
-                    appendTo: defaultAspectRatio,
-                    onClick: $.proxy(
-                        function () {
-                            this.viewImage.cropper("setAspectRatio", 1);
-                        },
-                        this
-                    )
-                }
-            );
-
-            ss.init(
-                "commonComponentsFormButton",
-                {
-                    css: "btn btn-blue",
-                    label: "2:3",
-                    appendTo: defaultAspectRatio,
-                    onClick: $.proxy(
-                        function () {
-                            this.viewImage.cropper("setAspectRatio", (2 / 3));
-                        },
-                        this
-                    )
-                }
-            );
-
-            return this;
-        },
-
-        /**
-         * Sets view reset
-         */
-        setViewReset: function () {
-            var resetContainer = this.viewContainer.find(".reset-container");
-
-            ss.init(
-                "commonComponentsFormButton",
-                {
-                    css: "btn btn-blue btn-icon",
-                    icon: "fas fa-retweet",
-                    label: "",
-                    appendTo: resetContainer,
-                    onClick: $.proxy(
-                        function () {
-                            this.viewImage.cropper("reset");
-                        },
-                        this
-                    )
-                }
-            );
-
-            return this;
         },
 
         /**

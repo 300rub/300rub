@@ -55,25 +55,24 @@ abstract class AbstractGetCropController extends AbstractController
         $language = App::getInstance()->getLanguage();
 
         $data = [
-            'title'      => $language->getMessage('image', 'cropNoun'),
-            'id'         => $instanceId,
-            'labels'     => [
+            'title'    => $language->getMessage('image', 'cropNoun'),
+            'id'       => $instanceId,
+            'labels'   => [
                 'button' => App::getInstance()
                     ->getLanguage()
                     ->getMessage('image', 'cropVerb')
             ],
-            'url'        => $fileModel->getUrl(),
-            'width'      => $imageInstanceModel->get('width'),
-            'height'     => $imageInstanceModel->get('height'),
-            'viewX'      => $imageInstanceModel->get('viewX'),
-            'viewY'      => $imageInstanceModel->get('viewY'),
-            'viewWidth'  => $imageInstanceModel->get('viewWidth'),
-            'viewHeight' => $imageInstanceModel->get('viewHeight'),
-            'viewAngle'  => $imageInstanceModel->get('viewAngle'),
-            'viewFlip'   => $imageInstanceModel->get('viewFlip'),
-            'viewCropX'  => $imageInstanceModel->get('viewCropX'),
-            'viewCropY'  => $imageInstanceModel->get('viewCropY'),
-            'hasThumb'   => false,
+            'hasThumb' => false,
+            'view'     => [
+                'x'      => $imageInstanceModel->get('viewX'),
+                'y'      => $imageInstanceModel->get('viewY'),
+                'width'  => $imageInstanceModel->get('viewWidth'),
+                'height' => $imageInstanceModel->get('viewHeight'),
+                'angle'  => $imageInstanceModel->get('viewAngle'),
+                'flip'   => $imageInstanceModel->get('viewFlip'),
+                'cropX'  => $imageModel->get('viewCropX'),
+                'cropY'  => $imageModel->get('viewCropY'),
+            ],
         ];
 
         if ($imageModel->get('type') !== ImageModel::TYPE_ZOOM) {
@@ -83,15 +82,17 @@ abstract class AbstractGetCropController extends AbstractController
         return array_merge(
             $data,
             [
-                'hasThumb'    => true,
-                'thumbX'      => $imageInstanceModel->get('thumbX'),
-                'thumbY'      => $imageInstanceModel->get('thumbY'),
-                'thumbWidth'  => $imageInstanceModel->get('thumbWidth'),
-                'thumbHeight' => $imageInstanceModel->get('thumbHeight'),
-                'thumbAngle'  => $imageInstanceModel->get('thumbAngle'),
-                'thumbFlip'   => $imageInstanceModel->get('thumbFlip'),
-                'thumbCropX'  => $imageInstanceModel->get('thumbCropX'),
-                'thumbCropY'  => $imageInstanceModel->get('thumbCropY'),
+                'hasThumb' => true,
+                'thumb'    => [
+                    'x'      => $imageInstanceModel->get('thumbX'),
+                    'y'      => $imageInstanceModel->get('thumbY'),
+                    'width'  => $imageInstanceModel->get('thumbWidth'),
+                    'height' => $imageInstanceModel->get('thumbHeight'),
+                    'angle'  => $imageInstanceModel->get('thumbAngle'),
+                    'flip'   => $imageInstanceModel->get('thumbFlip'),
+                    'cropX'  => $imageModel->get('thumbCropX'),
+                    'cropY'  => $imageModel->get('thumbCropY'),
+                ],
             ]
         );
     }
