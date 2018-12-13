@@ -4,7 +4,7 @@ use ss\models\blocks\image\ImageModel;
 
 return [
     1 => [
-        'type'              => ImageModel::TYPE_SIMPLE,
+        'type'              => ImageModel::TYPE_ZOOM,
         'viewAutoCropType'  => ImageModel::AUTO_CROP_TYPE_NONE,
         'viewCropX'         => 0,
         'viewCropY'         => 0,

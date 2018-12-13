@@ -68,12 +68,12 @@ abstract class AbstractUpdateCropController extends AbstractController
         $data = array_merge(
             $data,
             [
-                'viewX'       => $thumbData['x'],
-                'viewY'       => $thumbData['y'],
-                'viewWidth'   => $thumbData['width'],
-                'viewHeight'  => $thumbData['height'],
-                'viewAngle'   => $thumbData['angle'],
-                'viewFlip'    => $thumbData['flip'],
+                'thumbX'       => $thumbData['x'],
+                'thumbY'       => $thumbData['y'],
+                'thumbWidth'   => $thumbData['width'],
+                'thumbHeight'  => $thumbData['height'],
+                'thumbAngle'   => $thumbData['angle'],
+                'thumbFlip'    => $thumbData['flip'],
             ]
         );
 

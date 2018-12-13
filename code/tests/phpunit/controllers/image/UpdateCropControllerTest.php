@@ -66,50 +66,57 @@ class UpdateCropControllerTest extends AbstractControllerTest
      * @return void
      */
     private function _checkResult($resultId, $data) {
-        // Check DB.
         $imageInstanceModel = ImageInstanceModel::model()
             ->byId($resultId)
             ->find();
 
         $this->assertSame(
-            $data['viewX'],
+            $data['view']['x'],
             $imageInstanceModel->get('viewX')
         );
         $this->assertSame(
-            $data['viewY'],
+            $data['view']['y'],
             $imageInstanceModel->get('viewY')
         );
         $this->assertSame(
-            $data['viewWidth'],
+            $data['view']['width'],
             $imageInstanceModel->get('viewWidth')
         );
         $this->assertSame(
-            $data['viewHeight'],
+            $data['view']['height'],
             $imageInstanceModel->get('viewHeight')
         );
         $this->assertSame(
-            $data['thumbX'],
-            $imageInstanceModel->get('thumbX')
-        );
-        $this->assertSame(
-            $data['thumbY'],
-            $imageInstanceModel->get('thumbY')
-        );
-        $this->assertSame(
-            $data['thumbWidth'],
-            $imageInstanceModel->get('thumbWidth')
-        );
-        $this->assertSame(
-            $data['thumbHeight'],
-            $imageInstanceModel->get('thumbHeight')
-        );
-        $this->assertSame(
-            $data['viewAngle'],
+            $data['view']['angle'],
             $imageInstanceModel->get('viewAngle')
         );
         $this->assertSame(
-            $data['viewFlip'],
+            $data['view']['flip'],
             $imageInstanceModel->get('viewFlip')
+        );
+        $this->assertSame(
+            $data['thumb']['x'],
+            $imageInstanceModel->get('thumbX')
+        );
+        $this->assertSame(
+            $data['thumb']['y'],
+            $imageInstanceModel->get('thumbY')
+        );
+        $this->assertSame(
+            $data['thumb']['width'],
+            $imageInstanceModel->get('thumbWidth')
+        );
+        $this->assertSame(
+            $data['thumb']['height'],
+            $imageInstanceModel->get('thumbHeight')
+        );
+        $this->assertSame(
+            $data['thumb']['angle'],
+            $imageInstanceModel->get('thumbAngle')
+        );
+        $this->assertSame(
+            $data['thumb']['flip'],
+            $imageInstanceModel->get('thumbFlip')
         );
 
         $imageInstanceModel->delete();
@@ -128,18 +135,22 @@ class UpdateCropControllerTest extends AbstractControllerTest
                 'file'     => 'mediumImage.jpg',
                 [
                     'blockId'     => 3,
-                    'viewX'       => 0,
-                    'viewY'       => 0,
-                    'viewWidth'   => 3000,
-                    'viewHeight'  => 1000,
-                    'viewAngle'   => 90,
-                    'viewFlip'    => 3,
-                    'thumbX'      => 0,
-                    'thumbY'      => 0,
-                    'thumbWidth'  => 3000,
-                    'thumbHeight' => 1000,
-                    'thumbAngle'  => 90,
-                    'thumbFlip'   => 3,
+                    'view' => [
+                        'x'       => 0,
+                        'y'       => 0,
+                        'width'   => 3000,
+                        'height'  => 1000,
+                        'angle'   => 90,
+                        'flip'    => 3,
+                    ],
+                    'thumb' => [
+                        'x'      => 0,
+                        'y'      => 0,
+                        'width'  => 3000,
+                        'height' => 1000,
+                        'angle'  => 90,
+                        'flip'   => 3,
+                    ]
                 ],
                 'hasError' => false
             ],
@@ -148,18 +159,22 @@ class UpdateCropControllerTest extends AbstractControllerTest
                 'file'     => 'mediumImage.png',
                 [
                     'blockId'     => 3,
-                    'viewX'       => 0,
-                    'viewY'       => 0,
-                    'viewWidth'   => 3000,
-                    'viewHeight'  => 1000,
-                    'viewAngle'   => 90,
-                    'viewFlip'    => 3,
-                    'thumbX'      => 0,
-                    'thumbY'      => 0,
-                    'thumbWidth'  => 3000,
-                    'thumbHeight' => 1000,
-                    'thumbAngle'  => 90,
-                    'thumbFlip'   => 3,
+                    'view' => [
+                        'x'       => 0,
+                        'y'       => 0,
+                        'width'   => 3000,
+                        'height'  => 1000,
+                        'angle'   => 90,
+                        'flip'    => 3,
+                    ],
+                    'thumb' => [
+                        'x'      => 0,
+                        'y'      => 0,
+                        'width'  => 3000,
+                        'height' => 1000,
+                        'angle'  => 90,
+                        'flip'   => 3,
+                    ]
                 ],
                 'hasError' => false
             ],
@@ -168,18 +183,22 @@ class UpdateCropControllerTest extends AbstractControllerTest
                 'file'     => 'mediumImage.jpg',
                 [
                     'blockId'     => 3,
-                    'viewX'       => 0,
-                    'viewY'       => 0,
-                    'viewWidth'   => 3000,
-                    'viewHeight'  => 1000,
-                    'viewAngle'   => 90,
-                    'viewFlip'    => 3,
-                    'thumbX'      => 0,
-                    'thumbY'      => 0,
-                    'thumbWidth'  => 3000,
-                    'thumbHeight' => 1000,
-                    'thumbAngle'  => 90,
-                    'thumbFlip'   => 3,
+                    'view' => [
+                        'x'       => 0,
+                        'y'       => 0,
+                        'width'   => 3000,
+                        'height'  => 1000,
+                        'angle'   => 90,
+                        'flip'    => 3,
+                    ],
+                    'thumb' => [
+                        'x'      => 0,
+                        'y'      => 0,
+                        'width'  => 3000,
+                        'height' => 1000,
+                        'angle'  => 90,
+                        'flip'   => 3,
+                    ]
                 ],
                 'hasError' => true
             ],
