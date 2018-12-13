@@ -172,6 +172,10 @@ abstract class AbstractUpdateModel extends AbstractUploadModel
      */
     private function _isChangedThumbData(array $data)
     {
+        if (array_key_exists('thumbX', $data) === false) {
+            return false;
+        }
+
         if ($data['thumbX'] === $this->get('thumbX')
             && $data['thumbY'] === $this->get('thumbY')
             && $data['thumbWidth'] === $this->get('thumbWidth')

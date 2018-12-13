@@ -59,20 +59,31 @@ abstract class AbstractDataController extends AbstractBaseController
      * Checks the data
      *
      * @param array $check Data to check
+     * @param array $data  Data
      *
      * @throws BadRequestException
      *
      * @return AbstractDataController
      */
-    protected function checkData(array $check)
+    protected function checkData(array $check, array $data = null)
     {
+        if ($data === null) {
+            $data = $this->_data;
+        }
+
         foreach ($check as $field => $options) {
+            if (is_array($options) === true
+                && array_key_exists(0, $options) === false
+            ) {
+                $this->checkData($options, $this->get($field));
+            }
+
             if (is_array($options) === false) {
                 $field = $options;
                 $options = [];
             }
 
-            if (array_key_exists($field, $this->_data) === false) {
+            if (array_key_exists($field, $data) === false) {
                 throw new BadRequestException(
                     'Unable to find {field} in request',
                     [
@@ -81,12 +92,17 @@ abstract class AbstractDataController extends AbstractBaseController
                 );
             }
 
+            $value = null;
+            if (array_key_exists($field, $data) === true) {
+                $value = $data[$field];
+            }
+
             $this
-                ->_checkInteger($options, $field)
-                ->_checkString($options, $field)
-                ->_checkBoolean($options, $field)
-                ->_checkArray($options, $field)
-                ->_checkNotEmpty($options, $field);
+                ->_checkInteger($options, $field, $value)
+                ->_checkString($options, $field, $value)
+                ->_checkBoolean($options, $field, $value)
+                ->_checkArray($options, $field, $value)
+                ->_checkNotEmpty($options, $field, $value);
         }
 
         return $this;
@@ -97,15 +113,14 @@ abstract class AbstractDataController extends AbstractBaseController
      *
      * @param array  $options Options
      * @param string $field   Field
+     * @param mixed  $value   Value
      *
      * @return AbstractDataController
      *
      * @throws BadRequestException
      */
-    private function _checkInteger($options, $field)
+    private function _checkInteger($options, $field, $value)
     {
-        $value = $this->get($field);
-
         if (in_array(self::TYPE_INT, $options) === true
             && is_int($value) === false
         ) {
@@ -126,15 +141,14 @@ abstract class AbstractDataController extends AbstractBaseController
      *
      * @param array  $options Options
      * @param string $field   Field
+     * @param mixed  $value   Value
      *
      * @return AbstractDataController
      *
      * @throws BadRequestException
      */
-    private function _checkString($options, $field)
+    private function _checkString($options, $field, $value)
     {
-        $value = $this->get($field);
-
         if (in_array(self::TYPE_STRING, $options) === true
             && is_string($value) === false
         ) {
@@ -154,15 +168,14 @@ abstract class AbstractDataController extends AbstractBaseController
      *
      * @param array  $options Options
      * @param string $field   Field
+     * @param mixed  $value   Value
      *
      * @return AbstractDataController
      *
      * @throws BadRequestException
      */
-    private function _checkBoolean($options, $field)
+    private function _checkBoolean($options, $field, $value)
     {
-        $value = $this->get($field);
-
         if (in_array(self::TYPE_BOOL, $options) === true
             && is_bool($value) === false
         ) {
@@ -182,15 +195,14 @@ abstract class AbstractDataController extends AbstractBaseController
      *
      * @param array  $options Options
      * @param string $field   Field
+     * @param mixed  $value   Value
      *
      * @return AbstractDataController
      *
      * @throws BadRequestException
      */
-    private function _checkArray($options, $field)
+    private function _checkArray($options, $field, $value)
     {
-        $value = $this->get($field);
-
         if (in_array(self::TYPE_ARRAY, $options) === true
             && is_array($value) === false
         ) {
@@ -210,15 +222,14 @@ abstract class AbstractDataController extends AbstractBaseController
      *
      * @param array  $options Options
      * @param string $field   Field
+     * @param mixed  $value   Value
      *
      * @return AbstractDataController
      *
      * @throws BadRequestException
      */
-    private function _checkNotEmpty($options, $field)
+    private function _checkNotEmpty($options, $field, $value)
     {
-        $value = $this->get($field);
-
         if (in_array(self::NOT_EMPTY, $options) === true
             && empty($value) === true
         ) {
