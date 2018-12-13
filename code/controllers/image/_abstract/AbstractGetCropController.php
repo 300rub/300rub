@@ -62,6 +62,7 @@ abstract class AbstractGetCropController extends AbstractController
                     ->getLanguage()
                     ->getMessage('image', 'cropVerb')
             ],
+            'url'      => $fileModel->getUrl(),
             'hasThumb' => false,
             'view'     => [
                 'x'      => $imageInstanceModel->get('viewX'),
