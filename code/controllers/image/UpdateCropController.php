@@ -2,9 +2,11 @@
 
 namespace ss\controllers\image;
 
+use ss\application\App;
 use ss\application\components\user\Operation;
 use ss\controllers\image\_abstract\AbstractUpdateCropController;
 use ss\models\blocks\block\BlockModel;
+use ss\models\user\UserEventModel;
 
 /**
  * Crops image
@@ -31,6 +33,23 @@ class UpdateCropController extends AbstractUpdateCropController
             Operation::IMAGE_UPDATE
         );
 
-        return $this->crop();
+        $result = $this->crop();
+
+        $blockModel = BlockModel::model()->getById($this->get('blockId'));
+
+        App::getInstance()->getUser()->writeEvent(
+            UserEventModel::CATEGORY_BLOCK_IMAGE,
+            UserEventModel::TYPE_EDIT,
+            sprintf(
+                App::getInstance()->getLanguage()->getMessage(
+                    'event',
+                    'imageCropped'
+                ),
+                $result['originalUrl'],
+                $blockModel->get('name')
+            )
+        );
+
+        return $result;
     }
 }

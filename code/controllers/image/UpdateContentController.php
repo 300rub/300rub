@@ -2,6 +2,7 @@
 
 namespace ss\controllers\image;
 
+use ss\application\App;
 use ss\application\components\user\Operation;
 use ss\application\exceptions\BadRequestException;
 use ss\controllers\_abstract\AbstractController;
@@ -10,6 +11,7 @@ use ss\models\blocks\block\BlockModel;
 use ss\models\blocks\image\ImageGroupModel;
 use ss\models\blocks\image\ImageInstanceModel;
 use ss\models\blocks\image\ImageModel;
+use ss\models\user\UserEventModel;
 
 /**
  * Updates block's content
@@ -62,6 +64,23 @@ class UpdateContentController extends AbstractController
 
             $sort += 10;
         }
+
+        $key = 'imagesSorted';
+        if ($this->get('groupId') > 0) {
+            $key = 'albumsSorted';
+        }
+
+        App::getInstance()->getUser()->writeEvent(
+            UserEventModel::CATEGORY_BLOCK_IMAGE,
+            UserEventModel::TYPE_EDIT,
+            sprintf(
+                App::getInstance()->getLanguage()->getMessage(
+                    'event',
+                    $key
+                ),
+                $blockModel->get('name')
+            )
+        );
 
         return $this->getSimpleSuccessResult();
     }

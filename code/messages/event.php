@@ -15,7 +15,7 @@ return [
         Language::LANGUAGE_EN_ID => 'Blocks. Text',
         Language::LANGUAGE_RU_ID => 'Блоки. Текст',
     ],
-    'categoryBlockImage'                        => [
+    'categoryBlockImage'                       => [
         Language::LANGUAGE_EN_ID => 'Blocks. Image',
         Language::LANGUAGE_RU_ID => 'Блоки. Изображение',
     ],
@@ -69,12 +69,34 @@ return [
         Language::LANGUAGE_EN_ID => 'Deleted album "%s" for block "%s"',
         Language::LANGUAGE_RU_ID => 'Удален альбом "%s" для блока "%s"',
     ],
-    'imageUploaded'                        => [
+    'imageUploaded'                            => [
         Language::LANGUAGE_EN_ID => 'Uploaded image "%s" for block "%s"',
         Language::LANGUAGE_RU_ID => 'Загружено изображение "%s" для блока"%s"',
     ],
-    'imageDeleted'                        => [
+    'imageDeleted'                             => [
         Language::LANGUAGE_EN_ID => 'Deleted image "%s" for block "%s"',
         Language::LANGUAGE_RU_ID => 'Удалено изображение "%s" для блока"%s"',
+    ],
+    'imagesSorted'                             => [
+        Language::LANGUAGE_EN_ID => 'Images ordered for block "%s"',
+        Language::LANGUAGE_RU_ID => 'Отсортированы изображения для блока"%s"',
+    ],
+    'albumsSorted'                             => [
+        Language::LANGUAGE_EN_ID => 'Albums ordered for block "%s"',
+        Language::LANGUAGE_RU_ID => 'Отсортированы альбомы для блока"%s"',
+    ],
+    'imageCropped'                             => [
+        Language::LANGUAGE_EN_ID => 'Image changed "%s" for block "%s"',
+        Language::LANGUAGE_RU_ID => 'Изменено изображение "%s" для блока"%s"',
+    ],
+    'imageData'                                => [
+        Language::LANGUAGE_EN_ID => 'Image data changed "%s" for block "%s"',
+        Language::LANGUAGE_RU_ID
+            => 'Изменены данные изображения "%s" для блока"%s"',
+    ],
+    'albumData'                                => [
+        Language::LANGUAGE_EN_ID => 'Album data changed "%s" for block "%s"',
+        Language::LANGUAGE_RU_ID
+            => 'Изменены данные альбома "%s" для блока"%s"',
     ],
 ];

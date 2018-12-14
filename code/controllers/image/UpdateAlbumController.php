@@ -2,12 +2,14 @@
 
 namespace ss\controllers\image;
 
+use ss\application\App;
 use ss\application\components\user\Operation;
 use ss\application\exceptions\NotFoundException;
 use ss\controllers\_abstract\AbstractController;
 use ss\models\blocks\block\BlockModel;
 use ss\models\blocks\image\ImageGroupModel;
 use ss\models\blocks\image\ImageModel;
+use ss\models\user\UserEventModel;
 
 /**
  * Updates album
@@ -48,6 +50,7 @@ class UpdateAlbumController extends AbstractController
         );
         $imageGroupModel = ImageGroupModel::model()
             ->byImageId($imageModel->getId())
+            ->withRelations(['seoModel'])
             ->byId($this->get('id'))
             ->find();
 
@@ -84,6 +87,19 @@ class UpdateAlbumController extends AbstractController
                 'errors' => $errors
             ];
         }
+
+        App::getInstance()->getUser()->writeEvent(
+            UserEventModel::CATEGORY_BLOCK_IMAGE,
+            UserEventModel::TYPE_EDIT,
+            sprintf(
+                App::getInstance()->getLanguage()->getMessage(
+                    'event',
+                    'albumData'
+                ),
+                $imageGroupModel->get('seoModel')->get('name'),
+                $blockModel->get('name')
+            )
+        );
 
         return $this->getSimpleSuccessResult();
     }

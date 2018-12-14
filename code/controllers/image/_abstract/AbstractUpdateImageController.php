@@ -15,7 +15,7 @@ abstract class AbstractUpdateImageController extends AbstractController
     /**
      * Updates image
      *
-     * @return array
+     * @return string
      */
     protected function update()
     {
@@ -44,7 +44,7 @@ abstract class AbstractUpdateImageController extends AbstractController
             ];
         }
 
-        return $this->getSimpleSuccessResult();
+        return $model->get('originalFileModel')->getUrl();
     }
 
     /**
@@ -58,6 +58,7 @@ abstract class AbstractUpdateImageController extends AbstractController
     {
         $imageInstanceModel = ImageInstanceModel::model()
             ->byId($this->get('id'))
+            ->withRelations(['originalFileModel'])
             ->find();
         if ($imageInstanceModel instanceof ImageInstanceModel === false) {
             throw new NotFoundException(
