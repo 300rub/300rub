@@ -37,7 +37,8 @@
                         data: {
                             blockId: this.getOption("blockId")
                         },
-                        name: "image-content"
+                        name: "image-content",
+                        hasFooter: false
                     },
                     data
                 )
@@ -53,24 +54,6 @@
             } else {
                 this.setAlbums();
             }
-
-            this.setSubmit(
-                {
-                    label: this.getLabel("button"),
-                    icon: "fas fa-save",
-                    ajax: {
-                        data: {
-                            group: "image",
-                            controller: "content",
-                            data: {
-                                id: this.getData("id")
-                            }
-                        },
-                        type: "PUT",
-                        success: $.proxy(this.onSendSuccess, this)
-                    }
-                }
-            );
         },
 
         /**
