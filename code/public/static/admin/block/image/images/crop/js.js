@@ -644,6 +644,15 @@
          * On send success
          */
         onSendSuccess: function () {
+            ss.init(
+                "commonContentBlockUpdate",
+                {
+                    list: [
+                        this.getOption("blockId", 0)
+                    ]
+                }
+            );
+
             this.remove(true);
         }
     };

@@ -370,6 +370,15 @@
                             if (isSingleton === true) {
                                 this.uploadContainer.removeClass("hidden");
                             }
+
+                            ss.init(
+                                "commonContentBlockUpdate",
+                                {
+                                    list: [
+                                        this.getOption("blockId", 0)
+                                    ]
+                                }
+                            );
                         }, this)
                     }
                 }
