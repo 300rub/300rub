@@ -78,8 +78,8 @@ class GetContentController extends AbstractController
         $language = App::getInstance()->getLanguage();
 
         return [
-            'id'     => $this->_blockModel->getId(),
-            'labels' => [
+            'id'        => $this->_blockModel->getId(),
+            'labels'    => [
                 'images'
                     => $language->getMessage('image', 'images'),
                 'edit'
@@ -95,8 +95,8 @@ class GetContentController extends AbstractController
                 'button'
                     => $language->getMessage('common', 'save')
             ],
-            'name'   => $this->_blockModel->get('name'),
-            'useAlbums'      => true,
+            'title'     => $this->_blockModel->get('name'),
+            'useAlbums' => true,
             'canCreate' => $this->hasBlockOperation(
                 BlockModel::TYPE_IMAGE,
                 $this->get('blockId'),
@@ -112,7 +112,7 @@ class GetContentController extends AbstractController
                 $this->get('blockId'),
                 Operation::IMAGE_DELETE_ALBUM
             ),
-            'list' => $this->_getListWithAlbums()
+            'list'      => $this->_getListWithAlbums()
         ];
     }
 
@@ -137,7 +137,7 @@ class GetContentController extends AbstractController
                 'button'
                     => $language->getMessage('common', 'save')
             ],
-            'name'      => $this->_blockModel->get('name'),
+            'title'     => $this->_blockModel->get('name'),
             'useAlbums' => false,
             'groupId'   => (int)$this->get('groupId'),
             'canCreate' => $this->hasBlockOperation(
