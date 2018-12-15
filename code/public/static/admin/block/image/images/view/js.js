@@ -449,16 +449,25 @@
                     success: $.proxy(
                         function (data) {
                             this
-                            .addItem(data)
-                            .refreshSortable();
+                                .addItem(data)
+                                .refreshSortable();
+
+                            ss.init(
+                                "commonContentBlockUpdate",
+                                {
+                                    list: [
+                                        this.getOption("blockId", 0)
+                                    ]
+                                }
+                            );
                         },
                         this
                     ),
                 xhr: $.proxy(this.uploadXhr, this),
                 complete: $.proxy(
                     function () {
-                            this.uploadFile(number + 1);
-                            this.uploadCountCurrent.text(number + 1);
+                        this.uploadFile(number + 1);
+                        this.uploadCountCurrent.text(number + 1);
                     },
                     this
                 )
