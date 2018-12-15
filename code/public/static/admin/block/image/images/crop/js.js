@@ -150,6 +150,18 @@
                 = ss.init("template").get("image-crop-container");
             this.getBody().append(this[type].container);
 
+            this[type].container.find(".preview-label").text(
+                this.getLabel("preview")
+            );
+            this[type].container.find(".actions-label").text(
+                this.getLabel("actions")
+            );
+            this[type].container.find(".image-crop-title").text(
+                this.getLabel(
+                    this.getData([type, "title"])
+                )
+            );
+
             return this;
         },
 
@@ -207,17 +219,6 @@
         setCropper: function (type) {
             this[type].image = this[type].container.find(".cropper");
             this[type].image.attr("src", this.getData("url"));
-            this[type].container.find(".preview-label").text(
-                this.getLabel("preview")
-            );
-            this[type].container.find(".actions-label").text(
-                this.getLabel("actions")
-            );
-            this[type].container.find(".image-crop-title").text(
-                this.getLabel(
-                    this.getData([type, "title"])
-                )
-            );
 
             var aspectRatio = NaN;
             var width = this.getData([type, "width"]);
@@ -434,23 +435,30 @@
             if (cropX > 0
                 && cropY > 0
             ) {
-                ss.init(
-                    "commonComponentsFormButton",
-                    {
-                        css: "btn btn-blue",
-                        label: cropX + ":" + cropY,
-                        appendTo: userAspectRatio,
-                        onClick: $.proxy(
-                            function () {
-                                this[type].image.cropper(
-                                    "setAspectRatio",
-                                    (cropX / cropY)
-                                );
-                            },
-                            this
-                        )
-                    }
-                );
+                var aspectRatio = (cropX / cropY);
+                if (aspectRatio !== (16 / 9)
+                    && aspectRatio !== (4 / 3)
+                    && aspectRatio !== (2 / 3)
+                    && aspectRatio !== 1
+                ) {
+                    ss.init(
+                        "commonComponentsFormButton",
+                        {
+                            css: "btn btn-blue",
+                            label: cropX + ":" + cropY,
+                            appendTo: userAspectRatio,
+                            onClick: $.proxy(
+                                function () {
+                                    this[type].image.cropper(
+                                        "setAspectRatio",
+                                        aspectRatio
+                                    );
+                                },
+                                this
+                            )
+                        }
+                    );
+                }
             }
 
             ss.init(
@@ -609,10 +617,10 @@
         /**
          * Gets flip
          *
-         * @param {Integer} scaleX
-         * @param {Integer} scaleY
+         * @param {int} scaleX
+         * @param {int} scaleY
          *
-         * @returns {Integer}
+         * @returns {int}
          */
         getFlip: function(scaleX, scaleY) {
             if (scaleX === -1
