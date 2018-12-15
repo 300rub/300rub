@@ -58,13 +58,17 @@ abstract class AbstractGetCropController extends AbstractController
             'title'    => $language->getMessage('image', 'cropNoun'),
             'id'       => $instanceId,
             'labels'   => [
-                'button' => App::getInstance()
-                    ->getLanguage()
-                    ->getMessage('image', 'cropVerb')
+                'preview'     => $language->getMessage('image', 'preview'),
+                'actions'     => $language->getMessage('image', 'actions'),
+                'proportions' => $language->getMessage('image', 'proportions'),
+                'button'      => $language->getMessage('image', 'cropVerb'),
+                'mainImage'   => $language->getMessage('image', 'mainImage'),
+                'thumb'       => $language->getMessage('image', 'thumb'),
             ],
             'url'      => $fileModel->getUrl(),
             'hasThumb' => false,
             'view'     => [
+                'title'  => 'mainImage',
                 'x'      => $imageInstanceModel->get('viewX'),
                 'y'      => $imageInstanceModel->get('viewY'),
                 'width'  => $imageInstanceModel->get('viewWidth'),
@@ -85,6 +89,7 @@ abstract class AbstractGetCropController extends AbstractController
             [
                 'hasThumb' => true,
                 'thumb'    => [
+                    'title'  => 'thumb',
                     'x'      => $imageInstanceModel->get('thumbX'),
                     'y'      => $imageInstanceModel->get('thumbY'),
                     'width'  => $imageInstanceModel->get('thumbWidth'),

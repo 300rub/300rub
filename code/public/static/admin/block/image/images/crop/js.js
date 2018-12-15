@@ -161,6 +161,15 @@
          * @returns {Object}
          */
         getCropData: function(type) {
+            var width = this.getData([type, "width"]);
+            var height = this.getData([type, "height"]);
+
+            if (width === 0
+                || height === 0
+            ) {
+                return {};
+            }
+
             var flip = this.getData([type, "flip"]);
             var scaleX = 1;
             var scaleY = 1;
@@ -182,8 +191,8 @@
             return {
                 x: this.getData([type, "x"]),
                 y: this.getData([type, "y"]),
-                width: this.getData([type, "width"]),
-                height: this.getData([type, "height"]),
+                width: width,
+                height: height,
                 rotate: this.getData([type, "angle"]),
                 scaleX: scaleX,
                 scaleY: scaleY
@@ -198,6 +207,17 @@
         setCropper: function (type) {
             this[type].image = this[type].container.find(".cropper");
             this[type].image.attr("src", this.getData("url"));
+            this[type].container.find(".preview-label").text(
+                this.getLabel("preview")
+            );
+            this[type].container.find(".actions-label").text(
+                this.getLabel("actions")
+            );
+            this[type].container.find(".image-crop-title").text(
+                this.getLabel(
+                    this.getData([type, "title"])
+                )
+            );
 
             var aspectRatio = NaN;
             var width = this.getData([type, "width"]);
@@ -404,6 +424,10 @@
                 = this[type].container.find(".user-aspect-container");
             var defaultAspectRatio
                 = this[type].container.find(".default-aspect-container");
+
+            this[type].container.find(".proportions-label").text(
+                this.getLabel("proportions")
+            );
 
             var cropX = this.getData([type, "cropX"]);
             var cropY = this.getData([type, "cropY"]);

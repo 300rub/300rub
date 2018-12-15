@@ -49,6 +49,10 @@ return [
         Language::LANGUAGE_EN_ID => 'Big images',
         Language::LANGUAGE_RU_ID => 'Большие изображения',
     ],
+    'thumb' => [
+        Language::LANGUAGE_EN_ID => 'Thumb',
+        Language::LANGUAGE_RU_ID => 'Миниатюра',
+    ],
     'thumbs' => [
         Language::LANGUAGE_EN_ID => 'Thumbs',
         Language::LANGUAGE_RU_ID => 'Миниатюры',
@@ -157,5 +161,17 @@ return [
     'alt' => [
         Language::LANGUAGE_EN_ID => 'Alt',
         Language::LANGUAGE_RU_ID => 'Описание',
+    ],
+    'preview' => [
+        Language::LANGUAGE_EN_ID => 'Preview',
+        Language::LANGUAGE_RU_ID => 'Предварительный просмотр',
+    ],
+    'mainImage' => [
+        Language::LANGUAGE_EN_ID => 'Main image',
+        Language::LANGUAGE_RU_ID => 'Основное изображение',
+    ],
+    'actions' => [
+        Language::LANGUAGE_EN_ID => 'Actions',
+        Language::LANGUAGE_RU_ID => 'Действия',
     ],
 ];
