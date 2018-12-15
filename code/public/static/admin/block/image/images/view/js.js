@@ -194,7 +194,10 @@
 
             this.container.sortable(
                 {
-                    items: ".image-sort-item"
+                    items: ".image-sort-item",
+                    stop: function() {
+                        console.log(123);
+                    }
                 }
             );
 
