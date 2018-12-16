@@ -35,6 +35,11 @@
                     yes: "",
                     no: ""
                 }
+            },
+            sort: {
+                hasOperation: false,
+                group: "",
+                controller: ""
             }
         },
 
@@ -43,19 +48,30 @@
          */
         init: function () {
             this
-                .setAlbumList()
+                .createContainer()
+                .setList()
+                .setSortable()
                 .setAddAlbumButton();
+        },
+
+        /**
+         * Creates container
+         */
+        createContainer: function () {
+            this.container
+                = ss.init("template").get("image-group-sort-container");
+
+            if (this.getOption("appendTo") !== null) {
+                this.container.appendTo(this.getOption("appendTo"));
+            }
+
+            return this;
         },
 
         /**
          * Sets album list
          */
-        setAlbumList: function () {
-            var groupContainer
-                = ss.init("template").get("image-group-sort-container");
-
-            groupContainer.appendTo(this.getOption("appendTo"));
-
+        setList: function () {
             $.each(
                 this.getOption("list", {}),
                 $.proxy(
@@ -67,6 +83,7 @@
                         var itemElement = ss.init("template").get(
                             "image-group-sort-item"
                         );
+                        itemElement.attr("data-id", itemData.id);
 
                         var coverContainer
                             = itemElement.find(".cover-container");
@@ -82,19 +99,70 @@
 
                         this.setAlbumButtons(itemElement, itemData);
 
-                        groupContainer.append(itemElement);
+                        this.container.append(itemElement);
                     },
                     this
                 )
             );
 
-            if (this.getOption("isSortable") === true) {
-                this.container.sortable(
-                    {
-                        items: ".image-group-sort-item"
-                    }
-                );
+            return this;
+        },
+
+        /**
+         * Sets sortable
+         */
+        setSortable: function () {
+            if (this.getOption(["sort", "hasOperation"]) !== true) {
+                return this;
             }
+
+            this.container.sortable(
+                {
+                    items: ".image-group-sort-item",
+                    stop: $.proxy(function() {
+                        var items
+                            = this.container.find(".image-group-sort-item");
+
+                        var list = [];
+                        items.each(function() {
+                            list.push($(this).data("id"));
+                        });
+
+                        ss.init(
+                            "ajax",
+                            {
+                                type: "PUT",
+                                data: {
+                                    group: this.getOption(
+                                        ["sort", "group"]
+                                    ),
+                                    controller: this.getOption(
+                                        ["sort", "controller"]
+                                    ),
+                                    data: {
+                                        blockId: this.getOption("blockId"),
+                                        groupId: 0,
+                                        list: list
+                                    }
+                                },
+                                success: $.proxy(
+                                    function () {
+                                        ss.init(
+                                            "commonContentBlockUpdate",
+                                            {
+                                                list: [
+                                                    this.getOption("blockId", 0)
+                                                ]
+                                            }
+                                        );
+                                    },
+                                    this
+                                )
+                            }
+                        );
+                    }, this)
+                }
+            );
 
             return this;
         },

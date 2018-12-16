@@ -136,27 +136,14 @@
                             yes: this.getLabel("delete"),
                             no: this.getLabel("no")
                         }
+                    },
+                    sort: {
+                        hasOperation: true,
+                        group: "image",
+                        controller: "content"
                     }
                 }
             );
-        },
-
-        /**
-         * On send success
-         */
-        onSendSuccess: function () {
-            this.remove();
-
-            if (this.getOption("blockId") !== 0) {
-                ss.init(
-                    "commonContentBlockUpdate",
-                    {
-                        list: [
-                            this.getOption("blockId")
-                        ]
-                    }
-                );
-            }
         }
     };
 
