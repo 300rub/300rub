@@ -37,8 +37,7 @@
                         data: {
                             blockId: this.getOption("blockId")
                         },
-                        name: "image-content",
-                        hasFooter: false
+                        name: "image-content"
                     },
                     data
                 )
@@ -60,6 +59,8 @@
          * Sets images
          */
         setImages: function () {
+            this.getFooter().remove();
+
             ss.init(
                 "adminBlockImageImagesView",
                 {

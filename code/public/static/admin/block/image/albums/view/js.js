@@ -178,7 +178,7 @@
             ss.init(
                 "commonComponentsFormButton",
                 {
-                    css: "btn btn-gray",
+                    css: "btn btn-gray btn-big button",
                     icon: "fas fa-plus",
                     label: this.getOption(["create", "label"]),
                     appendTo: this.getOption(["create", "appendTo"]),
