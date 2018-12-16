@@ -11,8 +11,8 @@
          */
         defaultOptions: {
             blockId: 0,
+            groupId: 0,
             appendTo: null,
-            isSortable: false,
             list: [
                 {id: 0, url: "", name: ""}
             ],
@@ -20,8 +20,7 @@
                 hasOperation: false,
                 group: "",
                 controller: "",
-                isSingleton: false,
-                imageGroupId: 0
+                isSingleton: false
             },
             crop: {
                 hasOperation: false,
@@ -47,6 +46,11 @@
                     yes: "",
                     no: ""
                 }
+            },
+            sort: {
+                hasOperation: false,
+                group: "",
+                controller: ""
             }
         },
 
@@ -188,16 +192,54 @@
          * Sets sortable
          */
         setSortable: function () {
-            if (this.getOption("isSortable") !== true) {
+            if (this.getOption(["sort", "hasOperation"]) !== true) {
                 return this;
             }
 
             this.container.sortable(
                 {
                     items: ".image-sort-item",
-                    stop: function() {
-                        console.log(123);
-                    }
+                    stop: $.proxy(function() {
+                        var items = this.container.find(".image-sort-item");
+
+                        var list = [];
+                        items.each(function() {
+                            list.push($(this).data("id"));
+                        });
+
+                        ss.init(
+                            "ajax",
+                            {
+                                type: "PUT",
+                                data: {
+                                    group: this.getOption(
+                                        ["sort", "group"]
+                                    ),
+                                    controller: this.getOption(
+                                        ["sort", "controller"]
+                                    ),
+                                    data: {
+                                        blockId: this.getOption("blockId"),
+                                        groupId: this.getOption("groupId"),
+                                        list: list
+                                    }
+                                },
+                                success: $.proxy(
+                                    function () {
+                                        ss.init(
+                                            "commonContentBlockUpdate",
+                                            {
+                                                list: [
+                                                    this.getOption("blockId", 0)
+                                                ]
+                                            }
+                                        );
+                                    },
+                                    this
+                                )
+                            }
+                        );
+                    }, this)
                 }
             );
 
@@ -216,6 +258,7 @@
 
             var itemElement
                 = ss.init("template").get("image-sort-item");
+            itemElement.attr("data-id", data.id);
             itemElement.find("img").attr("src", data.url);
 
             this.container.append(itemElement);
@@ -394,7 +437,7 @@
          * Refreshes sortable
          */
         refreshSortable: function () {
-            if (this.getOption("isSortable") !== true) {
+            if (this.getOption(["sort", "hasOperation"]) !== true) {
                 return this;
             }
 
@@ -443,9 +486,7 @@
                         controller: this.getOption(["create", "controller"]),
                         data: {
                             blockId: this.getOption("blockId"),
-                            imageGroupId: this.getOption(
-                                ["create", "imageGroupId"]
-                            )
+                            imageGroupId: this.getOption("groupId")
                         }
                     },
                     file: file,

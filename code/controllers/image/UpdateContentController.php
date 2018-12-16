@@ -30,7 +30,7 @@ class UpdateContentController extends AbstractController
     {
         $this->checkData(
             [
-                'id'      => [self::TYPE_INT, self::NOT_EMPTY],
+                'blockId' => [self::TYPE_INT, self::NOT_EMPTY],
                 'groupId' => [self::TYPE_INT],
                 'list'    => [self::TYPE_ARRAY]
             ]
@@ -38,11 +38,11 @@ class UpdateContentController extends AbstractController
 
         $this->checkBlockOperation(
             BlockModel::TYPE_IMAGE,
-            $this->get('id'),
+            $this->get('blockId'),
             Operation::IMAGE_UPDATE_CONTENT
         );
 
-        $blockModel = BlockModel::model()->getById($this->get('id'));
+        $blockModel = BlockModel::model()->getById($this->get('blockId'));
         $imageModel = $blockModel->getContentModel(
             ImageModel::CLASS_NAME
         );

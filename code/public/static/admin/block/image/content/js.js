@@ -64,15 +64,14 @@
                 "adminBlockImageImagesView",
                 {
                     blockId: this.getData("id"),
+                    groupId: this.getData("groupId"),
                     appendTo: this.getBody(),
-                    isSortable: true,
                     list: this.getData("list", {}),
                     create: {
                         hasOperation: this.getData("canCreate"),
                         isSingleton: false,
                         group: "image",
-                        controller: "image",
-                        imageGroupId: this.getData("groupId")
+                        controller: "image"
                     },
                     edit: {
                         hasOperation: this.getData("canUpdate"),
@@ -97,6 +96,11 @@
                             yes: this.getLabel("delete"),
                             no: this.getLabel("no")
                         }
+                    },
+                    sort: {
+                        hasOperation: true,
+                        group: "image",
+                        controller: "content"
                     }
                 }
             );

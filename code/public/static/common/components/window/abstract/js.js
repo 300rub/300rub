@@ -410,7 +410,7 @@
                             this.window.removeClass("loading");
                         },
                         this
-                    ),
+                    )
                 }
             );
 
