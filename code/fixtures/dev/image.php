@@ -4,13 +4,19 @@ use ss\models\blocks\image\ImageModel;
 
 return [
     1 => [
-        'type' => ImageModel::TYPE_ZOOM,
+        'type'                 => ImageModel::TYPE_ZOOM,
         'designImageZoomModel' => [
             'designBlockModel' => [
                 'width'  => 160,
                 'height' => 160,
             ]
-        ]
+        ],
+        'viewAutoCropType'     => ImageModel::AUTO_CROP_TYPE_MIDDLE_CENTER,
+        'viewCropX'            => 2,
+        'viewCropY'            => 1,
+        'thumbAutoCropType'    => ImageModel::AUTO_CROP_TYPE_MIDDLE_CENTER,
+        'thumbCropX'           => 1,
+        'thumbCropY'           => 1,
     ],
     2 => [
         'type'                   => ImageModel::TYPE_SLIDER,
