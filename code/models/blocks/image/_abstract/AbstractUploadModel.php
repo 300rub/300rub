@@ -5,12 +5,12 @@ namespace ss\models\blocks\image\_abstract;
 use ss\models\blocks\helpers\file\FileModel;
 use ss\application\exceptions\FileException;
 use Gregwar\Image\Image;
-use ss\models\blocks\image\_base\AbstractImageInstanceModel;
+use ss\models\blocks\image\ImageModel;
 
 /**
  * Abstract model for working with table "imageInstances"
  */
-abstract class AbstractUploadModel extends AbstractImageInstanceModel
+abstract class AbstractUploadModel extends AbstractAutoCropModel
 {
 
     /**
@@ -18,6 +18,13 @@ abstract class AbstractUploadModel extends AbstractImageInstanceModel
      */
     const EXT_JPG = 'jpg';
     const EXT_PNG = 'png';
+
+    /**
+     * Image model
+     *
+     * @var ImageModel
+     */
+    private $_imageModel = null;
 
     /**
      * Original file model
@@ -169,8 +176,8 @@ abstract class AbstractUploadModel extends AbstractImageInstanceModel
             ->_setParametersForUploadedFile()
             ->_setNewFileModels()
             ->_uploadOriginalFile()
-            ->_createTmpViewImageToUpload()
-            ->_createTmpThumbImageToUpload()
+            ->_createViewImage()
+            ->_createThumbImage()
             ->_uploadViewFile()
             ->_uploadThumbFile()
             ->_save();
@@ -186,6 +193,22 @@ abstract class AbstractUploadModel extends AbstractImageInstanceModel
             ),
             'id'          => $this->getId()
         ];
+    }
+
+    /**
+     * Gets ImageModel
+     *
+     * @return ImageModel
+     */
+    private function _getImageModel()
+    {
+        if ($this->_imageModel === null) {
+            $this->_imageModel = ImageModel::model()->findByGroupId(
+                $this->get('imageGroupId')
+            );
+        }
+
+        return $this->_imageModel;
     }
 
     /**
@@ -445,11 +468,26 @@ abstract class AbstractUploadModel extends AbstractImageInstanceModel
      *
      * @return AbstractUploadModel
      */
-    private function _createTmpViewImageToUpload()
+    private function _createViewImage()
     {
-        Image::open($this->_originalFileModel->getUrl())
-            ->resize($this->_viewWidth, $this->_viewHeight)
-            ->save($this->_viewFileModel->getTmpName());
+        $image = Image::open($this->_originalFileModel->getUrl());
+
+        if ($this->_viewWidth !== $this->_width
+            || $this->_viewHeight !== $this->_height
+        ) {
+            $image->resize($this->_viewWidth, $this->_viewHeight);
+        }
+
+        $image = $this->autoCrop(
+            $image,
+            $this->_getImageModel()->get('viewAutoCropType'),
+            $this->_getImageModel()->get('viewCropX'),
+            $this->_getImageModel()->get('viewCropY'),
+            $this->_viewWidth,
+            $this->_viewHeight
+        );
+
+        $image->save($this->_viewFileModel->getTmpName());
 
         return $this;
     }
@@ -459,11 +497,26 @@ abstract class AbstractUploadModel extends AbstractImageInstanceModel
      *
      * @return AbstractUploadModel
      */
-    private function _createTmpThumbImageToUpload()
+    private function _createThumbImage()
     {
-        Image::open($this->_originalFileModel->getUrl())
-            ->resize($this->_thumbWidth, $this->_thumbHeight)
-            ->save($this->_thumbFileModel->getTmpName());
+        $image = Image::open($this->_originalFileModel->getUrl());
+
+        if ($this->_thumbWidth !== $this->_width
+            || $this->_thumbHeight !== $this->_height
+        ) {
+            $image->resize($this->_thumbWidth, $this->_thumbHeight);
+        }
+
+        $image = $this->autoCrop(
+            $image,
+            $this->_getImageModel()->get('thumbAutoCropType'),
+            $this->_getImageModel()->get('thumbCropX'),
+            $this->_getImageModel()->get('thumbCropY'),
+            $this->_thumbWidth,
+            $this->_thumbHeight
+        );
+
+        $image->save($this->_thumbFileModel->getTmpName());
 
         return $this;
     }

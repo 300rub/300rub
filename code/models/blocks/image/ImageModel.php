@@ -79,4 +79,33 @@ class ImageModel extends AbstractContentImageModel
 
         return $this->find();
     }
+
+    /**
+     * Finds model by group ID
+     *
+     * @param int $groupId Group ID
+     *
+     * @return ImageModel
+     */
+    public function findByGroupId($groupId)
+    {
+        $this->getTable()
+            ->addJoin(
+                Table::JOIN_TYPE_INNER,
+                'imageGroups',
+                'imageGroups',
+                'imageId',
+                Table::DEFAULT_ALIAS,
+                self::PK_FIELD
+            )
+            ->addWhere(
+                sprintf(
+                    'imageGroups.%s = :groupId',
+                    self::PK_FIELD
+                )
+            )
+            ->addParameter('groupId', $groupId);
+
+        return $this->find();
+    }
 }
