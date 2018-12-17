@@ -48,6 +48,13 @@ abstract class AbstractUploadModel extends AbstractAutoCropModel
     private $_thumbFileModel = null;
 
     /**
+     * Is unused flag
+     *
+     * @var bool
+     */
+    private $_isUnused = false;
+
+    /**
      * Extension
      *
      * @var string
@@ -95,6 +102,17 @@ abstract class AbstractUploadModel extends AbstractAutoCropModel
      * @var integer
      */
     private $_thumbHeight = 0;
+
+    /**
+     * Sets isUnused to be true
+     *
+     * @return AbstractUploadModel
+     */
+    public function markUnused()
+    {
+        $this->_isUnused = true;
+        return $this;
+    }
 
     /**
      * Sets width
@@ -238,7 +256,10 @@ abstract class AbstractUploadModel extends AbstractAutoCropModel
     {
         $this->_originalFileModel = new FileModel();
         $this->_originalFileModel->parsePostRequest();
-        $this->_originalFileModel->set(['isUsed' => true]);
+
+        if ($this->_isUnused === false) {
+            $this->_originalFileModel->set(['isUsed' => true]);
+        }
 
         return $this;
     }
@@ -411,8 +432,7 @@ abstract class AbstractUploadModel extends AbstractAutoCropModel
             ->setUniqueName($this->_extension)
             ->set(
                 [
-                    'type'   => $this->_originalFileModel->get('type'),
-                    'isUsed' => true
+                    'type' => $this->_originalFileModel->get('type')
                 ]
             );
 
@@ -422,10 +442,14 @@ abstract class AbstractUploadModel extends AbstractAutoCropModel
             ->setUniqueName($this->_extension)
             ->set(
                 [
-                    'type'   => $this->_originalFileModel->get('type'),
-                    'isUsed' => true
+                    'type' => $this->_originalFileModel->get('type')
                 ]
             );
+
+        if ($this->_isUnused === false) {
+            $this->_viewFileModel->set(['isUsed' => true]);
+            $this->_thumbFileModel->set(['isUsed' => true]);
+        }
 
         return $this;
     }
