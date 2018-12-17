@@ -58,7 +58,7 @@
                                     {
                                         group: "text",
                                         controller: "design",
-                                        id: itemData.id,
+                                        blockId: itemData.id,
                                         onBack: function () {
                                             ss.init("adminBlockTextList");
                                         },

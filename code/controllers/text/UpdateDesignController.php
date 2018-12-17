@@ -29,19 +29,19 @@ class UpdateDesignController extends AbstractBlockController
     {
         $this->checkData(
             [
-                'id'               => [self::TYPE_INT, self::NOT_EMPTY],
+                'blockId'          => [self::TYPE_INT, self::NOT_EMPTY],
                 'designBlockModel' => [self::TYPE_ARRAY, self::NOT_EMPTY],
             ]
         );
 
         $this->checkBlockOperation(
             BlockModel::TYPE_TEXT,
-            $this->get('id'),
+            $this->get('blockId'),
             Operation::TEXT_UPDATE_DESIGN
         );
 
         $blockModel = BlockModel::model()
-            ->getById($this->get('id'));
+            ->getById($this->get('blockId'));
 
         $textModel = $blockModel->getContentModel(
             TextModel::CLASS_NAME

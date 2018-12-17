@@ -51,7 +51,7 @@
             this.create(
                 {
                     data: {
-                        id: this.getOption("id")
+                        blockId: this.getOption("blockId")
                     },
                     back: $.proxy(back, this),
                     closeEvents: $.proxy(closeEvents, this)
@@ -97,7 +97,7 @@
                             data: $.proxy(
                                 function () {
                                     var editorsData = {
-                                        id: this.getData("id")
+                                        blockId: this.getData("blockId")
                                     };
 
                                     $.each(
@@ -143,12 +143,21 @@
          */
         setTree: function (groupKey, groupData) {
             var children = [];
+            var blockId = this.getData("blockId");
 
             $.each(
                 groupData.data,
                 $.proxy(
                     function (typeKey, options) {
                         var editor = null;
+
+                        options = $.extend(
+                            {},
+                            options,
+                            {
+                                blockId: blockId
+                            }
+                        );
 
                         switch (options.type) {
                             case "block":

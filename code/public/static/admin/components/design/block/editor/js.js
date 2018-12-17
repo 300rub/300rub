@@ -194,7 +194,9 @@
                     editorContainer: this.getEditorContainer(),
                     labels: this.getLabels(),
                     values: this.getValues(),
-                    namespace: this.getNamespace()
+                    namespace: this.getNamespace(),
+                    image: this.getOption("image"),
+                    blockId: this.getOption("blockId")
                 }
             );
 

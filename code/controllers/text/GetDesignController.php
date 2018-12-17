@@ -28,11 +28,11 @@ class GetDesignController extends AbstractBlockController
     {
         $this->checkData(
             [
-                'id' => [self::NOT_EMPTY],
+                'blockId' => [self::NOT_EMPTY],
             ]
         );
 
-        $blockId = (int)$this->get('id');
+        $blockId = (int)$this->get('blockId');
 
         $this->checkBlockOperation(
             BlockModel::TYPE_TEXT,
@@ -47,6 +47,14 @@ class GetDesignController extends AbstractBlockController
 
         $data[] = $textModel
             ->getDesignBlockModel()
+            ->setCreateGroup('text')
+            ->setCreateController('designImage')
+            ->setEditGroup('text')
+            ->setEditController('designImage')
+            ->setCropGroup('text')
+            ->setCropController('designImageCrop')
+            ->setRemoveGroup('text')
+            ->setRemoveController('designImage')
             ->getDesign($cssSelector);
 
         if ($textModel->get('hasEditor') === false) {
@@ -58,7 +66,7 @@ class GetDesignController extends AbstractBlockController
         $language = App::getInstance()->getLanguage();
 
         return [
-            'id'          => $blockId,
+            'blockId'     => $blockId,
             'group'       => 'text',
             'controller'  => 'design',
             'title'       => $language->getMessage('text', 'designTitle'),

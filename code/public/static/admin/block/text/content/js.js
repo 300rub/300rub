@@ -197,7 +197,6 @@
                                 file: blobInfo.blob(),
                                 success: $.proxy(
                                     function (data) {
-                                        console.log(data);
                                         success(data.location);
                                     },
                                     this

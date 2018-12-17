@@ -58,7 +58,7 @@
                                     {
                                         group: "image",
                                         controller: "design",
-                                        id: itemData.id,
+                                        blockId: itemData.id,
                                         back: function () {
                                             ss.init("adminBlockImageList");
                                         },

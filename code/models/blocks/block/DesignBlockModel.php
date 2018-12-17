@@ -3,12 +3,12 @@
 namespace ss\models\blocks\block;
 
 use ss\application\App;
-use ss\models\blocks\block\_abstract\AbstractDesignBlockCssModel;
+use ss\models\blocks\block\_abstract\AbstractDesignBlockImageModel;
 
 /**
  * Model for working with table "designBlocks"
  */
-class DesignBlockModel extends AbstractDesignBlockCssModel
+class DesignBlockModel extends AbstractDesignBlockImageModel
 {
 
     /**
@@ -42,15 +42,16 @@ class DesignBlockModel extends AbstractDesignBlockCssModel
         }
 
         return [
-            'selector'  => $selector,
-            'cssContainerId'     => App::getInstance()
+            'selector'       => $selector,
+            'cssContainerId' => App::getInstance()
                 ->getView()
                 ->generateCssContainerId($selector, self::TYPE),
-            'type'      => self::TYPE,
-            'title'     => $title,
-            'namespace' => $namespace,
-            'labels'    => $this->getLabels(),
-            'values'    => $this->get(null, $except),
+            'type'           => self::TYPE,
+            'title'          => $title,
+            'namespace'      => $namespace,
+            'labels'         => $this->getLabels(),
+            'values'         => $this->get(null, $except),
+            'image'          => $this->getImageOptions(),
         ];
     }
 

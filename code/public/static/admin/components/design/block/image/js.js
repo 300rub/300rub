@@ -52,8 +52,7 @@
 
             this
                 .setRelativeContainer()
-                .setManualUpload()
-            ;
+                .setManualUpload();
         },
 
         /**
@@ -69,40 +68,58 @@
             ss.init(
                 "adminBlockImageImagesView",
                 {
-                    blockId: 0,
+                    blockId: this.getOption("blockId"),
                     appendTo: this.relativeContainer,
-                    isSortable: false,
                     list: {},
                     create: {
                         hasOperation: true,
                         isSingleton: true,
-                        group: "image",
-                        controller: "image",
+                        group: this.getOption(
+                            ["image", "create", "group"]
+                        ),
+                        controller: this.getOption(
+                            ["image", "create", "controller"]
+                        ),
                         imageGroupId: null
                     },
                     edit: {
                         hasOperation: true,
-                        group: "image",
-                        controller: "image",
+                        group: this.getOption(
+                            ["image", "edit", "group"]
+                        ),
+                        controller: this.getOption(
+                            ["image", "edit", "controller"]
+                        ),
                         level: 1,
                         parent: null
                     },
                     crop: {
                         hasOperation: true,
-                        group: "image",
-                        controller: "crop",
+                        group: this.getOption(
+                            ["image", "crop", "group"]
+                        ),
+                        controller: this.getOption(
+                            ["image", "crop", "controller"]
+                        ),
                         level: 1,
                         parent: null
                     },
                     remove: {
                         hasOperation: true,
-                        group: "image",
-                        controller: "image",
+                        group: this.getOption(
+                            ["image", "remove", "group"]
+                        ),
+                        controller: this.getOption(
+                            ["image", "remove", "controller"]
+                        ),
                         confirm: {
                             text: "",
                             yes: "",
                             no: ""
                         }
+                    },
+                    sort: {
+                        hasOperation: false
                     }
                 }
             );
