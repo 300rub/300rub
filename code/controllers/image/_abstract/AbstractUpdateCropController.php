@@ -47,7 +47,9 @@ abstract class AbstractUpdateCropController extends AbstractController
         $imageModel = ImageModel::model()->findByImageInstanceId(
             $this->get('id')
         );
-        if ($imageModel->get('type') !== ImageModel::TYPE_ZOOM) {
+        if ($imageModel === null
+            || $imageModel->get('type') !== ImageModel::TYPE_ZOOM
+        ) {
             return $this->_getImageInstanceModel()->crop($data);
         }
 

@@ -502,14 +502,16 @@ abstract class AbstractUploadModel extends AbstractAutoCropModel
             $image->resize($this->_viewWidth, $this->_viewHeight);
         }
 
-        $image = $this->autoCrop(
-            $image,
-            $this->_getImageModel()->get('viewAutoCropType'),
-            $this->_getImageModel()->get('viewCropX'),
-            $this->_getImageModel()->get('viewCropY'),
-            $this->_viewWidth,
-            $this->_viewHeight
-        );
+        if ($this->_getImageModel() !== null) {
+            $image = $this->autoCrop(
+                $image,
+                $this->_getImageModel()->get('viewAutoCropType'),
+                $this->_getImageModel()->get('viewCropX'),
+                $this->_getImageModel()->get('viewCropY'),
+                $this->_viewWidth,
+                $this->_viewHeight
+            );
+        }
 
         $image->save($this->_viewFileModel->getTmpName());
 
@@ -531,14 +533,16 @@ abstract class AbstractUploadModel extends AbstractAutoCropModel
             $image->resize($this->_thumbWidth, $this->_thumbHeight);
         }
 
-        $image = $this->autoCrop(
-            $image,
-            $this->_getImageModel()->get('thumbAutoCropType'),
-            $this->_getImageModel()->get('thumbCropX'),
-            $this->_getImageModel()->get('thumbCropY'),
-            $this->_thumbWidth,
-            $this->_thumbHeight
-        );
+        if ($this->_getImageModel() !== null) {
+            $image = $this->autoCrop(
+                $image,
+                $this->_getImageModel()->get('thumbAutoCropType'),
+                $this->_getImageModel()->get('thumbCropX'),
+                $this->_getImageModel()->get('thumbCropY'),
+                $this->_thumbWidth,
+                $this->_thumbHeight
+            );
+        }
 
         $image->save($this->_thumbFileModel->getTmpName());
 

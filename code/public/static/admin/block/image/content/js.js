@@ -86,7 +86,22 @@
                         group: "image",
                         controller: "crop",
                         level: 2,
-                        parent: "image-content"
+                        parent: "image-content",
+                        onSuccess: $.proxy(
+                            function() {
+                                ss.init(
+                                    "commonContentBlockUpdate",
+                                    {
+                                        list: [
+                                            this.getData("id", 0)
+                                        ]
+                                    }
+                                );
+
+                                this.remove(true);
+                            },
+                            this
+                        )
                     },
                     remove: {
                         hasOperation: this.getData("canDelete"),

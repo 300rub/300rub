@@ -27,7 +27,8 @@
                 group: "",
                 controller: "",
                 level: 2,
-                parent: ""
+                parent: "",
+                onSuccess: function() {}
             },
             edit: {
                 hasOperation: false,
@@ -340,7 +341,8 @@
                 blockId: this.getOption("blockId"),
                 id: instanceId,
                 level: this.getOption(["crop", "level"]),
-                parent: this.getOption(["crop", "parent"])
+                parent: this.getOption(["crop", "parent"]),
+                onSuccess: this.getOption(["crop", "onSuccess"]),
             };
 
             ss.init(

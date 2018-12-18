@@ -29,6 +29,13 @@ abstract class AbstractGetCropController extends AbstractController
         $instanceId = (int)$instanceId;
         $imageModel = ImageModel::model()->findByImageInstanceId($instanceId);
 
+        $viewCropX = 0;
+        $viewCropY = 0;
+        if ($imageModel !== null) {
+            $viewCropX = $imageModel->get('viewCropX');
+            $viewCropY = $imageModel->get('viewCropY');
+        }
+
         $imageInstanceModel = ImageInstanceModel::model()
             ->byId($instanceId)
             ->find();
@@ -75,12 +82,14 @@ abstract class AbstractGetCropController extends AbstractController
                 'height' => $imageInstanceModel->get('viewHeight'),
                 'angle'  => $imageInstanceModel->get('viewAngle'),
                 'flip'   => $imageInstanceModel->get('viewFlip'),
-                'cropX'  => $imageModel->get('viewCropX'),
-                'cropY'  => $imageModel->get('viewCropY'),
+                'cropX'  => $viewCropX,
+                'cropY'  => $viewCropY,
             ],
         ];
 
-        if ($imageModel->get('type') !== ImageModel::TYPE_ZOOM) {
+        if ($imageModel === null
+            || $imageModel->get('type') !== ImageModel::TYPE_ZOOM
+        ) {
             return $data;
         }
 

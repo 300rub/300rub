@@ -25,8 +25,6 @@ abstract class AbstractGetImageController extends AbstractController
      */
     public function getImage($instanceId)
     {
-        $imageModel = ImageModel::model()->findByImageInstanceId($instanceId);
-
         $imageInstanceModel = ImageInstanceModel::model()
             ->byId($instanceId)
             ->find();

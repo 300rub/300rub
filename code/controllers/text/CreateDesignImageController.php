@@ -32,14 +32,14 @@ class CreateDesignImageController extends AbstractCreateImageController
         );
 
         $result = $this
-            ->setBlockId($this->get('blockId'))
+            ->markGroupIdAsNull()
             ->markUnused()
             ->create();
 
         return [
             'id'   => $result['id'],
             'name' => $result['name'],
-            'url'  => $result['thumbUrl'],
+            'url'  => $result['viewUrl'],
         ];
     }
 }

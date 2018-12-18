@@ -118,7 +118,7 @@
                             data: $.proxy(this.generateData, this)
                         },
                         type: "PUT",
-                        success: $.proxy(this.onSendSuccess, this)
+                        success: this.getOption("onSuccess")
                     }
                 }
             );
@@ -638,22 +638,6 @@
             }
 
             return this.flipTypes.NONE;
-        },
-
-        /**
-         * On send success
-         */
-        onSendSuccess: function () {
-            ss.init(
-                "commonContentBlockUpdate",
-                {
-                    list: [
-                        this.getOption("blockId", 0)
-                    ]
-                }
-            );
-
-            this.remove(true);
         }
     };
 

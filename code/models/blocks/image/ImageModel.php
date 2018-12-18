@@ -89,6 +89,10 @@ class ImageModel extends AbstractContentImageModel
      */
     public function findByGroupId($groupId)
     {
+        if (empty($groupId) === true) {
+            return null;
+        }
+
         $this->getTable()
             ->addJoin(
                 Table::JOIN_TYPE_INNER,

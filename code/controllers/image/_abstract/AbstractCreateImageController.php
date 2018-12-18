@@ -43,6 +43,13 @@ abstract class AbstractCreateImageController extends AbstractController
     private $_isUnused = false;
 
     /**
+     * Is null group ID
+     *
+     * @var bool
+     */
+    private $_isNullGroupId = false;
+
+    /**
      * Sets isUnused to be true
      *
      * @return AbstractCreateImageController
@@ -50,6 +57,17 @@ abstract class AbstractCreateImageController extends AbstractController
     public function markUnused()
     {
         $this->_isUnused = true;
+        return $this;
+    }
+
+    /**
+     * Sets isNullGroupId to be true
+     *
+     * @return AbstractCreateImageController
+     */
+    public function markGroupIdAsNull()
+    {
+        $this->_isNullGroupId = true;
         return $this;
     }
 
@@ -120,6 +138,10 @@ abstract class AbstractCreateImageController extends AbstractController
      */
     private function _getImageGroupId()
     {
+        if ($this->_isNullGroupId === true) {
+            return null;
+        }
+
         if ($this->_imageGroupId > 0) {
             return $this->_imageGroupId;
         }
