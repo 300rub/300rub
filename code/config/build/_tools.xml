@@ -25,13 +25,6 @@
         </exec>
     </target>
 
-    <target name="tools-flush-memcached">
-        <exec executable="php" failonerror="true">
-            <arg value='commands/run' />
-            <arg value='common/FlushMemcachedCommand' />
-        </exec>
-    </target>
-
     <target name="tools-public-vendor">
         <exec executable="php" failonerror="true">
             <arg value='commands/run' />

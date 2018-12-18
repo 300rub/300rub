@@ -18,7 +18,6 @@
 
     <target name="dev-setup">
         <antcall target="dev-prepare-folders" />
-        <antcall target="tools-flush-memcached" />
         <antcall target="db-recreate-system-databases" />
         <antcall target="db-generate-source" />
         <antcall target="db-recreate-dev-database" />
