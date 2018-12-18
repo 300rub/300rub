@@ -49,8 +49,6 @@ class GetDesignController extends AbstractBlockController
             ->getDesignBlockModel()
             ->setCreateGroup('text')
             ->setCreateController('designImage')
-            ->setEditGroup('text')
-            ->setEditController('designImage')
             ->setCropGroup('text')
             ->setCropController('designImageCrop')
             ->setRemoveGroup('text')

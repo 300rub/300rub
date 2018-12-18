@@ -83,15 +83,7 @@
                         imageGroupId: null
                     },
                     edit: {
-                        hasOperation: true,
-                        group: this.getOption(
-                            ["image", "edit", "group"]
-                        ),
-                        controller: this.getOption(
-                            ["image", "edit", "controller"]
-                        ),
-                        level: 1,
-                        parent: null
+                        hasOperation: false
                     },
                     crop: {
                         hasOperation: true,

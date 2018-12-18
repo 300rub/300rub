@@ -34,7 +34,7 @@ class DeleteImageController extends AbstractDeleteImageController
             Operation::IMAGE_UPLOAD
         );
 
-        $url =  $this->delete($this->get('id'));
+        $url = $this->delete($this->get('id'));
         $blockModel = BlockModel::model()->getById($this->get('blockId'));
 
         App::getInstance()->getUser()->writeEvent(
