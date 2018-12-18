@@ -26,6 +26,41 @@
         backgroundPosition: null,
 
         /**
+         * Image instance URL
+         *
+         * @var {String|null}
+         */
+        imageInstanceUrl: null,
+
+        /**
+         * Image instance ID
+         *
+         * @var {integer|null}
+         */
+        imageInstanceId: null,
+
+        /**
+         * Is background cover
+         *
+         * @var {bool|null}
+         */
+        isBackgroundCover: null,
+
+        /**
+         * Position
+         *
+         * @var {integer|null}
+         */
+        position: null,
+
+        /**
+         * Repeat
+         *
+         * @var {integer|null}
+         */
+        repeat: null,
+
+        /**
          * Fields
          *
          * @var {Array}
@@ -39,8 +74,13 @@
          */
         init: function () {
             this.backgroundPosition = null;
-
             this.relativeContainer = null;
+
+            this.imageInstanceUrl = null;
+            this.imageInstanceId = null;
+            this.isBackgroundCover = null;
+            this.position = null;
+            this.repeat = null;
 
             this.create(
                 {
@@ -65,12 +105,24 @@
         },
 
         setManualUpload: function() {
+            var list = [];
+            var imageInstanceId = this.getOption(["image", "id"]);
+            if (imageInstanceId !== null) {
+                list = [
+                    {
+                        id: this.getOption(["image", "id"]),
+                        name: "",
+                        url: this.getOption(["image", "url"])
+                    }
+                ];
+            }
+
             ss.init(
                 "adminBlockImageImagesView",
                 {
                     blockId: this.getOption("blockId"),
                     appendTo: this.relativeContainer,
-                    list: {},
+                    list: list,
                     create: {
                         hasOperation: true,
                         isSingleton: true,

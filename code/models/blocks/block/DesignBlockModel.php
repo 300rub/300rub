@@ -4,6 +4,7 @@ namespace ss\models\blocks\block;
 
 use ss\application\App;
 use ss\models\blocks\block\_abstract\AbstractDesignBlockImageModel;
+use ss\models\blocks\image\ImageInstanceModel;
 
 /**
  * Model for working with table "designBlocks"
@@ -102,5 +103,23 @@ class DesignBlockModel extends AbstractDesignBlockImageModel
     public function getCssType()
     {
         return 'block';
+    }
+
+    /**
+     * Gets ImageInstanceModel
+     *
+     * @return ImageInstanceModel
+     */
+    public function getImageInstanceModel()
+    {
+        $imageInstanceId = $this->get('imageInstanceId');
+        if ($imageInstanceId === null) {
+            return null;
+        }
+
+        return ImageInstanceModel::model()
+            ->byId($imageInstanceId)
+            ->withRelations(['viewFileModel'])
+            ->find();
     }
 }

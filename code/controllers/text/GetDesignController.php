@@ -45,15 +45,22 @@ class GetDesignController extends AbstractBlockController
 
         $data = [];
 
-        $data[] = $textModel
-            ->getDesignBlockModel()
+        $designBlockModel = $textModel->getDesignBlockModel()
             ->setCreateGroup('text')
             ->setCreateController('designImage')
             ->setCropGroup('text')
             ->setCropController('designImageCrop')
             ->setRemoveGroup('text')
-            ->setRemoveController('designImage')
-            ->getDesign($cssSelector);
+            ->setRemoveController('designImage');
+
+        $imageInstanceModel = $designBlockModel->getImageInstanceModel();
+        if ($imageInstanceModel !== null) {
+            $designBlockModel
+                ->setId($imageInstanceModel->getId())
+                ->setUrl($imageInstanceModel->get('viewFileModel')->getUrl());
+        }
+
+        $data[] = $designBlockModel->getDesign($cssSelector);
 
         if ($textModel->get('hasEditor') === false) {
             $data[] = $textModel
