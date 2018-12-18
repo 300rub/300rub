@@ -96,8 +96,8 @@ abstract class AbstractCommand
 
         echo sprintf(
             '%s%s',
-            PHP_EOL,
-            $message
+            $message,
+            PHP_EOL
         );
 
         return $this;

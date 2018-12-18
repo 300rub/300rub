@@ -910,10 +910,9 @@ CREATE TABLE `files` (
   `size` int(10) unsigned NOT NULL DEFAULT '0',
   `uniqueName` varchar(25) NOT NULL DEFAULT '',
   `date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `isUsed` tinyint(1) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   UNIQUE KEY `files_uniqueName` (`uniqueName`),
-  KEY `files_date_isUsed` (`date`,`isUsed`)
+  KEY `files_date` (`date`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
