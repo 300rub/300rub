@@ -2,11 +2,9 @@
 
 namespace ss\controllers\text;
 
-use ss\application\App;
 use ss\application\components\user\Operation;
 use ss\controllers\image\_abstract\AbstractUpdateCropController;
 use ss\models\blocks\block\BlockModel;
-use ss\models\user\UserEventModel;
 
 /**
  * Crops image

@@ -2,7 +2,6 @@
 
 namespace ss\controllers\text;
 
-use ss\application\App;
 use ss\application\components\user\Operation;
 use ss\controllers\_abstract\AbstractBlockController;
 use ss\models\blocks\block\BlockModel;
