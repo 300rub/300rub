@@ -97,4 +97,9 @@ return [
         Language::LANGUAGE_EN_ID => 'Description block',
         Language::LANGUAGE_RU_ID => 'Блок описания',
     ],
+    'imageDeleteConfirmText' => [
+        Language::LANGUAGE_EN_ID => 'Are you sure to delete background image?',
+        Language::LANGUAGE_RU_ID
+            => 'Вы действиельно хотите удалить картинку с заднего фона?',
+    ],
 ];

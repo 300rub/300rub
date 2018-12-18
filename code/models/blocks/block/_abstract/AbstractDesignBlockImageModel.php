@@ -12,13 +12,6 @@ abstract class AbstractDesignBlockImageModel extends Css
 {
 
     /**
-     * ID
-     *
-     * @var int
-     */
-    private $_id = null;
-
-    /**
      * URL
      *
      * @var string
@@ -80,19 +73,6 @@ abstract class AbstractDesignBlockImageModel extends Css
      * @var string
      */
     private $_removeController = '';
-
-    /**
-     * Sets ID
-     *
-     * @param int $imageInstanceId ID
-     *
-     * @return AbstractDesignBlockImageModel|DesignBlockModel
-     */
-    public function setId($imageInstanceId)
-    {
-        $this->_id = $imageInstanceId;
-        return $this;
-    }
 
     /**
      * Sets URL
@@ -219,7 +199,6 @@ abstract class AbstractDesignBlockImageModel extends Css
     protected function getImageOptions()
     {
         return [
-            'id'     => $this->_id,
             'url'    => $this->_url,
             'create' => [
                 'group'      => $this->_createGroup,

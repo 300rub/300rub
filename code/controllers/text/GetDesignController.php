@@ -55,9 +55,9 @@ class GetDesignController extends AbstractBlockController
 
         $imageInstanceModel = $designBlockModel->getImageInstanceModel();
         if ($imageInstanceModel !== null) {
-            $designBlockModel
-                ->setId($imageInstanceModel->getId())
-                ->setUrl($imageInstanceModel->get('viewFileModel')->getUrl());
+            $designBlockModel->setUrl(
+                $imageInstanceModel->get('viewFileModel')->getUrl()
+            );
         }
 
         $data[] = $designBlockModel->getDesign($cssSelector);

@@ -197,6 +197,14 @@ abstract class AbstractDesignBlockModel extends AbstractDesignModel
                 ->getMessage('design', 'borderStyle'),
             'borderStyleHover'       => $language
                 ->getMessage('design', 'borderStyleHover'),
+            'imageDeleteConfirm'     => [
+                'text' => $language->getMessage(
+                    'design',
+                    'imageDeleteConfirmText'
+                ),
+                'yes' => $language->getMessage('common', 'yes'),
+                'no' => $language->getMessage('common', 'no'),
+            ]
         ];
     }
 

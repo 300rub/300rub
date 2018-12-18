@@ -84,38 +84,7 @@
          * @returns {*}
          */
         getOption: function (pointer, defaultValue) {
-            if (defaultValue === undefined) {
-                defaultValue = null;
-            }
-
-            if ($.type(pointer) !== "array") {
-                if (this.options[pointer] === undefined) {
-                    return defaultValue;
-                }
-
-                return this.options[pointer];
-            }
-
-            var options = this.options;
-            var number;
-            var last = (pointer.length - 1);
-            for (number = 0; number <= last; number++) {
-                if (number === last) {
-                    if (options[pointer[number]] === undefined) {
-                        return defaultValue;
-                    }
-
-                    return options[pointer[number]];
-                }
-
-                if ($.type(options[pointer[number]]) !== "object") {
-                    return defaultValue;
-                }
-
-                options = options[pointer[number]];
-            }
-
-            return options;
+            return this.findInObject(this.options, pointer, defaultValue);
         },
 
         /**
@@ -140,16 +109,13 @@
         /**
          * Gets label
          *
-         * @param {String} key
+         * @param {String} pointer
+         * @param {*}      defaultValue
          *
          * @returns {String}
          */
-        getLabel: function (key) {
-            if (this.labels[key] === undefined) {
-                return null;
-            }
-
-            return this.labels[key];
+        getLabel: function (pointer, defaultValue) {
+            return this.findInObject(this.labels, pointer, defaultValue);
         },
 
         /**
@@ -185,8 +151,21 @@
          * @returns {*}
          */
         getData: function (pointer, defaultValue) {
+            return this.findInObject(this.data, pointer, defaultValue);
+        },
+
+        /**
+         * Finds in object
+         *
+         * @param {Object}       dataObject
+         * @param {String|Array} pointer
+         * @param {*}            defaultValue
+         *
+         * @returns {*}
+         */
+        findInObject: function(dataObject, pointer, defaultValue) {
             if (pointer === undefined) {
-                return this.data;
+                return dataObject;
             }
 
             if (defaultValue === undefined) {
@@ -194,14 +173,14 @@
             }
 
             if ($.type(pointer) !== "array") {
-                if (this.data[pointer] === undefined) {
+                if (dataObject[pointer] === undefined) {
                     return defaultValue;
                 }
 
-                return this.data[pointer];
+                return dataObject[pointer];
             }
 
-            var data = this.data;
+            var data = dataObject;
 
             var number;
             var last = (pointer.length - 1);

@@ -19,6 +19,13 @@
         relativeContainer: null,
 
         /**
+         * Image instance ID
+         *
+         * @var {integer|null}
+         */
+        imageInstanceId: null,
+
+        /**
          * Background position
          *
          * @var {integer|null}
@@ -26,18 +33,11 @@
         backgroundPosition: null,
 
         /**
-         * Image instance URL
-         *
-         * @var {String|null}
-         */
-        imageInstanceUrl: null,
-
-        /**
-         * Image instance ID
+         * Background repeat
          *
          * @var {integer|null}
          */
-        imageInstanceId: null,
+        backgroundRepeat: null,
 
         /**
          * Is background cover
@@ -47,40 +47,27 @@
         isBackgroundCover: null,
 
         /**
-         * Position
-         *
-         * @var {integer|null}
-         */
-        position: null,
-
-        /**
-         * Repeat
-         *
-         * @var {integer|null}
-         */
-        repeat: null,
-
-        /**
          * Fields
          *
          * @var {Array}
          */
         fields: [
-            "backgroundPosition"
+            "imageInstanceId",
+            "backgroundPosition",
+            "backgroundRepeat",
+            "isBackgroundCover"
         ],
 
         /**
          * Init
          */
         init: function () {
-            this.backgroundPosition = null;
             this.relativeContainer = null;
 
-            this.imageInstanceUrl = null;
             this.imageInstanceId = null;
+            this.backgroundPosition = null;
+            this.backgroundRepeat = null;
             this.isBackgroundCover = null;
-            this.position = null;
-            this.repeat = null;
 
             this.create(
                 {
@@ -92,7 +79,7 @@
 
             this
                 .setRelativeContainer()
-                .setManualUpload();
+                .setImageUploader();
         },
 
         /**
@@ -104,13 +91,15 @@
             return this;
         },
 
-        setManualUpload: function() {
+        /**
+         * Sets image uploader
+         */
+        setImageUploader: function() {
             var list = [];
-            var imageInstanceId = this.getOption(["image", "id"]);
-            if (imageInstanceId !== null) {
+            if (this.imageInstanceId !== null) {
                 list = [
                     {
-                        id: this.getOption(["image", "id"]),
+                        id: this.imageInstanceId,
                         name: "",
                         url: this.getOption(["image", "url"])
                     }
@@ -157,9 +146,15 @@
                             ["image", "remove", "controller"]
                         ),
                         confirm: {
-                            text: "",
-                            yes: "",
-                            no: ""
+                            text: this.getLabels(
+                                ['imageDeleteConfirm', 'text']
+                            ),
+                            yes: this.getLabels(
+                                ['imageDeleteConfirm', 'yes']
+                            ),
+                            no: this.getLabels(
+                                ['imageDeleteConfirm', 'no']
+                            )
                         }
                     },
                     sort: {
@@ -169,6 +164,13 @@
             );
 
             return this;
+        },
+
+        /**
+         * Generates styles
+         */
+        generateCss: function () {
+            return "";
         }
     };
 

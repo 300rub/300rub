@@ -111,6 +111,10 @@ return [
         Language::LANGUAGE_EN_ID => 'Open',
         Language::LANGUAGE_RU_ID => 'Открыть',
     ],
+    'yes' => [
+        Language::LANGUAGE_EN_ID => 'Yes',
+        Language::LANGUAGE_RU_ID => 'Да',
+    ],
     'no' => [
         Language::LANGUAGE_EN_ID => 'No',
         Language::LANGUAGE_RU_ID => 'Нет',
