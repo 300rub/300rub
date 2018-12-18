@@ -27,15 +27,10 @@ class M160308000000Files extends AbstractMigration
                     'size'         => self::TYPE_INT_UNSIGNED,
                     'uniqueName'   => self::TYPE_STRING_25,
                     'date'         => self::TYPE_DATETIME,
-                    'isUsed'       => self::TYPE_BOOL,
                 ]
             )
             ->createUniqueIndex('files', 'files_uniqueName', 'uniqueName')
-            ->createIndex(
-                'files',
-                'date, isUsed',
-                'files_date_isUsed'
-            );
+            ->createIndex('files', 'date');
     }
 
     /**

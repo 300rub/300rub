@@ -36,29 +36,11 @@ abstract class AbstractCreateImageController extends AbstractController
     private $_blockId = 0;
 
     /**
-     * Is unused
-     *
-     * @var bool
-     */
-    private $_isUnused = false;
-
-    /**
      * Is null group ID
      *
      * @var bool
      */
     private $_isNullGroupId = false;
-
-    /**
-     * Sets isUnused to be true
-     *
-     * @return AbstractCreateImageController
-     */
-    public function markUnused()
-    {
-        $this->_isUnused = true;
-        return $this;
-    }
 
     /**
      * Sets isNullGroupId to be true
@@ -123,10 +105,6 @@ abstract class AbstractCreateImageController extends AbstractController
                 'imageGroupId' => $this->_getImageGroupId(),
             ]
         );
-
-        if ($this->_isUnused === true) {
-            $imageInstanceModel->markUnused();
-        }
 
         return $imageInstanceModel->upload();
     }

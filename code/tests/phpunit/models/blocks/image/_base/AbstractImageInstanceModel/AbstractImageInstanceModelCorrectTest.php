@@ -49,15 +49,12 @@ class AbstractImageInstanceModelCorrectTest extends AbstractCorrectModelTest
             'imageGroupId'      => 1,
             'originalFileModel' => [
                 'uniqueName' => uniqid() . '.jpg',
-                'isUsed'     => true,
             ],
             'viewFileModel'     => [
                 'uniqueName' => uniqid(). '.jpg',
-                'isUsed'     => true,
             ],
             'thumbFileModel'    => [
                 'uniqueName' => uniqid() . '.jpg',
-                'isUsed'     => true,
             ],
             'isCover'           => true,
             'sort'              => 10,
@@ -83,29 +80,20 @@ class AbstractImageInstanceModelCorrectTest extends AbstractCorrectModelTest
     private function _createExpectedData()
     {
         return [
-            'imageGroupId'      => 1,
-            'originalFileModel' => [
-                'isUsed' => true,
-            ],
-            'viewFileModel'     => [
-                'isUsed' => true,
-            ],
-            'thumbFileModel'    => [
-                'isUsed' => true,
-            ],
-            'isCover'           => true,
-            'sort'              => 10,
-            'alt'               => 'Alt 1',
-            'width'             => 800,
-            'height'            => 600,
-            'viewX'             => 10,
-            'viewY'             => 30,
-            'viewWidth'         => 70,
-            'viewHeight'        => 80,
-            'thumbX'            => 5,
-            'thumbY'            => 15,
-            'thumbWidth'        => 35,
-            'thumbHeight'       => 45,
+            'imageGroupId' => 1,
+            'isCover'      => true,
+            'sort'         => 10,
+            'alt'          => 'Alt 1',
+            'width'        => 800,
+            'height'       => 600,
+            'viewX'        => 10,
+            'viewY'        => 30,
+            'viewWidth'    => 70,
+            'viewHeight'   => 80,
+            'thumbX'       => 5,
+            'thumbY'       => 15,
+            'thumbWidth'   => 35,
+            'thumbHeight'  => 45,
         ];
     }
 

@@ -151,8 +151,6 @@ abstract class AbstractUpdateModel extends AbstractUploadModel
 
         $newViewFileModel->save();
 
-        $oldViewFileModel->markAsUnused();
-
         $this->set(
             [
                 'viewFileId'    => $newViewFileModel->getId(),
@@ -260,8 +258,6 @@ abstract class AbstractUpdateModel extends AbstractUploadModel
 
         $newThumbFileModel->save();
 
-        $oldThumbFileModel->markAsUnused();
-
         $this->set(
             [
                 'thumbFileId'    => $newThumbFileModel->getId(),
@@ -283,7 +279,6 @@ abstract class AbstractUpdateModel extends AbstractUploadModel
     {
         $newFileModel = clone $oldFileModel;
         $newFileModel->clearId();
-        $newFileModel->set(['isUsed' => true]);
         return $newFileModel;
     }
 }

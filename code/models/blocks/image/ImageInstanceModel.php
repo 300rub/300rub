@@ -80,18 +80,4 @@ class ImageInstanceModel extends AbstractUpdateModel
     {
         return new self;
     }
-
-    /**
-     * Runs before deleting
-     *
-     * @return void
-     */
-    protected function beforeDelete()
-    {
-        parent::beforeDelete();
-
-        $this->get('originalFileModel')->markAsUnused();
-        $this->get('viewFileModel')->markAsUnused();
-        $this->get('thumbFileModel')->markAsUnused();
-    }
 }

@@ -33,7 +33,6 @@ class CreateDesignImageController extends AbstractCreateImageController
 
         $result = $this
             ->markGroupIdAsNull()
-            ->markUnused()
             ->create();
 
         return [

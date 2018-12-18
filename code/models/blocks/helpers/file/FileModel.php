@@ -344,22 +344,6 @@ class FileModel extends AbstractFileModel
     }
 
     /**
-     * Marks as used
-     */
-    public function markAsUsed()
-    {
-        $this->set(['isUsed' => true])->save();
-    }
-
-    /**
-     * Marks as unused
-     */
-    public function markAsUnused()
-    {
-        $this->set(['isUsed' => false])->save();
-    }
-
-    /**
      * Runs after deleting
      *
      * @return void

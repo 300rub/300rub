@@ -72,10 +72,6 @@ abstract class AbstractFileModel extends AbstractModel
                 self::FIELD_TYPE             => self::FIELD_TYPE_DATETIME,
                 self::FIELD_SKIP_DUPLICATION => true,
             ],
-            'isUsed'       => [
-                self::FIELD_TYPE             => self::FIELD_TYPE_BOOL,
-                self::FIELD_SKIP_DUPLICATION => true,
-            ],
         ];
     }
 }
