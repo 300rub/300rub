@@ -102,4 +102,8 @@ return [
         Language::LANGUAGE_RU_ID
             => 'Вы действиельно хотите удалить картинку с заднего фона?',
     ],
+    'isBackgroundCover'   => [
+        Language::LANGUAGE_EN_ID => 'Cover',
+        Language::LANGUAGE_RU_ID => 'Обложка',
+    ]
 ];

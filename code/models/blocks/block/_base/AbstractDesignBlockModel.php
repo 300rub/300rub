@@ -204,7 +204,9 @@ abstract class AbstractDesignBlockModel extends AbstractDesignModel
                 ),
                 'yes' => $language->getMessage('common', 'yes'),
                 'no' => $language->getMessage('common', 'no'),
-            ]
+            ],
+            'isBackgroundCover'      => $language
+                ->getMessage('design', 'isBackgroundCover'),
         ];
     }
 

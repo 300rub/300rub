@@ -42,7 +42,7 @@
         /**
          * Is background cover
          *
-         * @var {bool|null}
+         * @var {boolean|null}
          */
         isBackgroundCover: null,
 
@@ -88,7 +88,8 @@
             this
                 .setRelativeContainer()
                 .setUrl()
-                .setImageUploader();
+                .setImageUploader()
+                .setIsBackgroundCover();
         },
 
         /**
@@ -193,6 +194,44 @@
                             this
                         )
                     }
+                }
+            );
+
+            return this;
+        },
+
+        /**
+         * Sets isBackgroundCover
+         */
+        setIsBackgroundCover: function() {
+            if (this.isBackgroundCover === null) {
+                return this;
+            }
+
+            var onCheck = $.proxy(
+                function () {
+                    this.isBackgroundCover = true;
+                    this.update();
+                },
+                this
+            );
+
+            var onUnCheck = $.proxy(
+                function () {
+                    this.isBackgroundCover = false;
+                    this.update();
+                },
+                this
+            );
+
+            ss.init(
+                "commonComponentsFormCheckboxOnOff",
+                {
+                    value: this.isBackgroundCover,
+                    label: this.getLabel("isBackgroundCover"),
+                    onCheck: onCheck,
+                    onUnCheck: onUnCheck,
+                    appendTo: this.relativeContainer
                 }
             );
 
