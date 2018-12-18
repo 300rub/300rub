@@ -72,7 +72,20 @@
                         hasOperation: this.getData("canCreate"),
                         isSingleton: false,
                         group: "image",
-                        controller: "image"
+                        controller: "image",
+                        callback: $.proxy(
+                            function() {
+                                ss.init(
+                                    "commonContentBlockUpdate",
+                                    {
+                                        list: [
+                                            this.getData("id")
+                                        ]
+                                    }
+                                );
+                            },
+                            this
+                        )
                     },
                     edit: {
                         hasOperation: this.getData("canUpdate"),

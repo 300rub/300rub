@@ -20,7 +20,8 @@
                 hasOperation: false,
                 group: "",
                 controller: "",
-                isSingleton: false
+                isSingleton: false,
+                callback: function() {}
             },
             crop: {
                 hasOperation: false,
@@ -28,7 +29,7 @@
                 controller: "",
                 level: 2,
                 parent: "",
-                onSuccess: function() {}
+                callback: function() {}
             },
             edit: {
                 hasOperation: false,
@@ -46,7 +47,8 @@
                     text: "",
                     yes: "",
                     no: ""
-                }
+                },
+                callback: function() {}
             },
             sort: {
                 hasOperation: false,
@@ -342,7 +344,7 @@
                 id: instanceId,
                 level: this.getOption(["crop", "level"]),
                 parent: this.getOption(["crop", "parent"]),
-                onSuccess: this.getOption(["crop", "onSuccess"]),
+                callback: this.getOption(["crop", "callback"]),
             };
 
             ss.init(
@@ -427,6 +429,13 @@
                                     ]
                                 }
                             );
+
+                            var callback = this.getOption(
+                                ["remove", "callback"]
+                            );
+                            if ($.type(callback) === "function") {
+                                callback();
+                            }
                         }, this)
                     }
                 }
@@ -498,25 +507,23 @@
                                 .addItem(data)
                                 .refreshSortable();
 
-                            ss.init(
-                                "commonContentBlockUpdate",
-                                {
-                                    list: [
-                                        this.getOption("blockId", 0)
-                                    ]
-                                }
+                            var callback = this.getOption(
+                                ["create", "callback"]
                             );
+                            if ($.type(callback) === "function") {
+                                callback(data);
+                            }
                         },
                         this
                     ),
-                xhr: $.proxy(this.uploadXhr, this),
-                complete: $.proxy(
-                    function () {
-                        this.uploadFile(number + 1);
-                        this.uploadCountCurrent.text(number + 1);
-                    },
-                    this
-                )
+                    xhr: $.proxy(this.uploadXhr, this),
+                    complete: $.proxy(
+                        function () {
+                            this.uploadFile(number + 1);
+                            this.uploadCountCurrent.text(number + 1);
+                        },
+                        this
+                    )
                 }
             );
 

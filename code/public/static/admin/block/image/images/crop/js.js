@@ -118,7 +118,7 @@
                             data: $.proxy(this.generateData, this)
                         },
                         type: "PUT",
-                        success: this.getOption("onSuccess")
+                        success: this.getOption("callback")
                     }
                 }
             );

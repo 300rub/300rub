@@ -47,6 +47,13 @@
         isBackgroundCover: null,
 
         /**
+         * URL
+         *
+         * @var {String|null}
+         */
+        url: null,
+
+        /**
          * Fields
          *
          * @var {Array}
@@ -68,6 +75,7 @@
             this.backgroundPosition = null;
             this.backgroundRepeat = null;
             this.isBackgroundCover = null;
+            this.url = null;
 
             this.create(
                 {
@@ -79,6 +87,7 @@
 
             this
                 .setRelativeContainer()
+                .setUrl()
                 .setImageUploader();
         },
 
@@ -92,6 +101,14 @@
         },
 
         /**
+         * Sets URL
+         */
+        setUrl: function () {
+            this.url = this.getOption(["image", "url"]);
+            return this;
+        },
+
+        /**
          * Sets image uploader
          */
         setImageUploader: function() {
@@ -101,7 +118,7 @@
                     {
                         id: this.imageInstanceId,
                         name: "",
-                        url: this.getOption(["image", "url"])
+                        url: this.url
                     }
                 ];
             }
@@ -121,10 +138,14 @@
                         controller: this.getOption(
                             ["image", "create", "controller"]
                         ),
-                        imageGroupId: null
-                    },
-                    edit: {
-                        hasOperation: false
+                        imageGroupId: null,
+                        callback: $.proxy(
+                            function(data) {
+                                this.imageInstanceId = data.id;
+                                this.update();
+                            },
+                            this
+                        )
                     },
                     crop: {
                         hasOperation: true,
@@ -135,7 +156,15 @@
                             ["image", "crop", "controller"]
                         ),
                         level: 1,
-                        parent: null
+                        parent: null,
+                        callback: $.proxy(
+                            function(data) {
+                                this.url = data.url;
+                                // update image src
+                                this.update();
+                            },
+                            this
+                        )
                     },
                     remove: {
                         hasOperation: true,
@@ -155,10 +184,14 @@
                             no: this.getLabels(
                                 ['imageDeleteConfirm', 'no']
                             )
-                        }
-                    },
-                    sort: {
-                        hasOperation: false
+                        },
+                        callback: $.proxy(
+                            function() {
+                                this.imageInstanceId = null;
+                                this.update();
+                            },
+                            this
+                        )
                     }
                 }
             );
