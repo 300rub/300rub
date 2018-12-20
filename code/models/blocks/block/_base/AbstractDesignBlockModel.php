@@ -71,10 +71,10 @@ abstract class AbstractDesignBlockModel extends AbstractDesignModel
     protected function getBackgroundRepeatList()
     {
         return [
-            self::BACKGROUND_REPEAT_NONE => '',
-            self::BACKGROUND_REPEAT_X => '',
-            self::BACKGROUND_REPEAT_Y => '',
-            self::BACKGROUND_REPEAT_ALL => '',
+            self::BACKGROUND_REPEAT_NONE => 'no-repeat',
+            self::BACKGROUND_REPEAT_X    => 'repeat-x',
+            self::BACKGROUND_REPEAT_Y    => 'repeat-y',
+            self::BACKGROUND_REPEAT_ALL  => 'repeat',
         ];
     }
 
@@ -86,15 +86,15 @@ abstract class AbstractDesignBlockModel extends AbstractDesignModel
     protected function getBackgroundPositionList()
     {
         return [
-            self::BACKGROUND_POSITION_LEFT_TOP => '',
-            self::BACKGROUND_POSITION_CENTER_TOP => '',
-            self::BACKGROUND_POSITION_RIGHT_TOP => '',
-            self::BACKGROUND_POSITION_LEFT_CENTER => '',
-            self::BACKGROUND_POSITION_CENTER_CENTER => '',
-            self::BACKGROUND_POSITION_RIGHT_CENTER => '',
-            self::BACKGROUND_POSITION_LEFT_BOTTOM => '',
-            self::BACKGROUND_POSITION_CENTER_BOTTOM => '',
-            self::BACKGROUND_POSITION_RIGHT_BOTTOM => '',
+            self::BACKGROUND_POSITION_LEFT_TOP      => 'left top',
+            self::BACKGROUND_POSITION_CENTER_TOP    => 'center top',
+            self::BACKGROUND_POSITION_RIGHT_TOP     => 'right top',
+            self::BACKGROUND_POSITION_LEFT_CENTER   => 'left center',
+            self::BACKGROUND_POSITION_CENTER_CENTER => 'center center',
+            self::BACKGROUND_POSITION_RIGHT_CENTER  => 'right center',
+            self::BACKGROUND_POSITION_LEFT_BOTTOM   => 'left bottom',
+            self::BACKGROUND_POSITION_CENTER_BOTTOM => 'center bottom',
+            self::BACKGROUND_POSITION_RIGHT_BOTTOM  => 'right bottom',
         ];
     }
 

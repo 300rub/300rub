@@ -3,6 +3,7 @@
 namespace ss\models\blocks\block\_abstract;
 
 use ss\models\blocks\block\_abstract\AbstractDesignBlockCssHoverModel as Hover;
+use ss\models\blocks\image\ImageInstanceModel;
 
 /**
  * Model for working with table "designBlocks"
@@ -110,11 +111,11 @@ abstract class AbstractDesignBlockCssModel extends Hover
     }
 
     /**
-     * Sets Background CSS
+     * Sets Background color CSS
      *
      * @return AbstractDesignBlockCssModel
      */
-    protected function setBackgroundCss()
+    protected function setBackgroundColorCss()
     {
         $backgroundColorFrom = $this->get('backgroundColorFrom');
         $backgroundColorTo = $this->get('backgroundColorTo');
@@ -125,8 +126,10 @@ abstract class AbstractDesignBlockCssModel extends Hover
         if ($backgroundColorFrom !== ''
             && $backgroundColorTo === ''
         ) {
-            $this->css
-                .= sprintf('background-color:%s;', $backgroundColorFrom);
+            $this->css .= sprintf(
+                'background-color:%s;',
+                $backgroundColorFrom
+            );
             return $this;
         }
 
@@ -192,6 +195,80 @@ abstract class AbstractDesignBlockCssModel extends Hover
         );
 
         return $this;
+    }
+
+    /**
+     * Sets Background image CSS
+     *
+     * @return AbstractDesignBlockCssModel
+     */
+    protected function setBackgroundImageCss()
+    {
+        if ($this->get('imageInstanceId') === null) {
+            return $this;
+        }
+
+        $imageInstance = ImageInstanceModel::model()
+            ->byId($this->get('imageInstanceId'))
+            ->withRelations(['viewFileModel'])
+            ->find();
+        if ($imageInstance === null) {
+            return $this;
+        }
+
+        $this->css .= sprintf(
+            'background-image:url(%s);',
+            $imageInstance->get('viewFileModel')->getUrl()
+        );
+
+        if ($this->get('isBackgroundCover') === true) {
+            $this->css .= 'background-size:cover;';
+            return $this;
+        }
+
+        $this->css .= sprintf(
+            'background-position:%s;',
+            $this->_getBackgroundPosition()
+        );
+
+        $this->css .= sprintf(
+            'background-repeat:%s;',
+            $this->_getBackgroundRepeat()
+        );
+
+        return $this;
+    }
+
+    /**
+     * Gets background position
+     *
+     * @return string
+     */
+    private function _getBackgroundPosition()
+    {
+        $backgroundPosition = $this->get('backgroundPosition');
+        $list = $this->getBackgroundPositionList();
+        if (array_key_exists($backgroundPosition, $list) === true) {
+            return $list[$backgroundPosition];
+        }
+
+        return $list[self::BACKGROUND_POSITION_LEFT_TOP];
+    }
+
+    /**
+     * Gets background repeat
+     *
+     * @return string
+     */
+    private function _getBackgroundRepeat()
+    {
+        $backgroundRepeat = $this->get('backgroundRepeat');
+        $list = $this->getBackgroundRepeatList();
+        if (array_key_exists($backgroundRepeat, $list) === true) {
+            return $list[$backgroundRepeat];
+        }
+
+        return $list[self::BACKGROUND_REPEAT_NONE];
     }
 
     /**

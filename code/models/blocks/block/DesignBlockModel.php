@@ -71,7 +71,8 @@ class DesignBlockModel extends AbstractDesignBlockImageModel
         $this
             ->setMarginCss()
             ->setPaddingCss()
-            ->setBackgroundCss()
+            ->setBackgroundColorCss()
+            ->setBackgroundImageCss()
             ->setBorderRadiusCss()
             ->setBorderCss()
             ->setWidthCss()
