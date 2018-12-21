@@ -83,6 +83,23 @@
         ],
 
         /**
+         * Background position CSS list
+         *
+         * @type {Object}
+         */
+        backgroundPositionCssList: {
+            0: "left top",
+            1: "center top",
+            2: "right top",
+            3: "left center",
+            4: "center center",
+            5: "right center",
+            6: "left bottom",
+            7: "center bottom",
+            8: "right bottom"
+        },
+
+        /**
          * Background repeat list
          *
          * @type {Array}
@@ -93,6 +110,18 @@
             {value: 2, icon: "fas fa-arrow-down"},
             {value: 3, icon: "fas fa-arrows-alt"}
         ],
+
+        /**
+         * Background repeat CSS list
+         *
+         * @type {Array}
+         */
+        backgroundRepeatCssList: {
+            0: "no-repeat",
+            1: "repeat-x",
+            2: "repeat-y",
+            3: "repeat"
+        },
 
         /**
          * Init
@@ -174,6 +203,7 @@
                         callback: $.proxy(
                             function(data) {
                                 this.imageInstanceId = data.id;
+                                this.url = data.url;
                                 this.update();
                             },
                             this
@@ -277,7 +307,7 @@
                 return this;
             }
 
-            this.forms.viewAutoCropType = ss.init(
+            ss.init(
                 "commonComponentsFormRadioButtons",
                 {
                     value: this.backgroundPosition,
@@ -362,9 +392,10 @@
          * @returns {String}
          */
         getBackgroundPositionCss: function() {
-            var value = this.backgroundPositionList[this.backgroundPosition];
+            var value
+                = this.backgroundPositionCssList[this.backgroundPosition];
             if (value === undefined) {
-                return this.backgroundPositionList[0];
+                return this.backgroundPositionCssList[0];
             }
 
             return value;
@@ -376,9 +407,9 @@
          * @returns {String}
          */
         getBackgroundRepeatCss: function() {
-            var value = this.backgroundRepeatList[this.backgroundRepeat];
+            var value = this.backgroundRepeatCssList[this.backgroundRepeat];
             if (value === undefined) {
-                return this.backgroundRepeatList[0];
+                return this.backgroundRepeatCssList[0];
             }
 
             return value;

@@ -428,7 +428,11 @@
             css += this.margin.generateCss(isHover);
             css += this.padding.generateCss(isHover);
             css += this.color.generateCss(isHover);
-            css += this.image.generateCss(isHover);
+
+            if (isHover !== true) {
+                css += this.image.generateCss();
+            }
+
             css += this.border.generateCss(isHover);
 
             var animation = [];
