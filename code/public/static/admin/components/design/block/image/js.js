@@ -66,6 +66,35 @@
         ],
 
         /**
+         * Background position list
+         *
+         * @type {Array}
+         */
+        backgroundPositionList: [
+            {value: 0, icon: "fas fa-arrow-right", css: "deg-45"},
+            {value: 1, icon: "fas fa-arrow-down"},
+            {value: 2, icon: "fas fa-arrow-down", css: "deg-45"},
+            {value: 3, icon: "fas fa-arrow-right"},
+            {value: 4, icon: "fas fa-arrows-alt"},
+            {value: 5, icon: "fas fa-arrow-left"},
+            {value: 6, icon: "fas fa-arrow-up", css: "deg-45"},
+            {value: 7, icon: "fas fa-arrow-up"},
+            {value: 8, icon: "fas fa-arrow-left", css: "deg-45"}
+        ],
+
+        /**
+         * Background repeat list
+         *
+         * @type {Array}
+         */
+        backgroundRepeatList: [
+            {value: 0, icon: "fas fa-ban"},
+            {value: 1, icon: "fas fa-arrow-right"},
+            {value: 2, icon: "fas fa-arrow-down"},
+            {value: 3, icon: "fas fa-arrows-alt"}
+        ],
+
+        /**
          * Init
          */
         init: function () {
@@ -89,7 +118,9 @@
                 .setRelativeContainer()
                 .setUrl()
                 .setImageUploader()
-                .setIsBackgroundCover();
+                .setIsBackgroundCover()
+                .setBackgroundPosition()
+                .setBackgroundRepeat();
         },
 
         /**
@@ -239,10 +270,118 @@
         },
 
         /**
+         * Sets backgroundPosition
+         */
+        setBackgroundPosition: function() {
+            if (this.backgroundPosition === null) {
+                return this;
+            }
+
+            this.forms.viewAutoCropType = ss.init(
+                "commonComponentsFormRadioButtons",
+                {
+                    value: this.backgroundPosition,
+                    css: "icon-buttons big",
+                    grid: 3,
+                    type: "int",
+                    data: this.backgroundPositionList,
+                    appendTo: this.relativeContainer,
+                    onChange: $.proxy(
+                        function(value) {
+                            this.backgroundPosition = value;
+                            this.update();
+                        },
+                        this
+                    )
+                }
+            );
+
+            return this;
+        },
+
+        /**
+         * Sets backgroundRepeat
+         */
+        setBackgroundRepeat: function() {
+            if (this.backgroundRepeat === null) {
+                return this;
+            }
+
+            ss.init(
+                "commonComponentsFormRadioButtons",
+                {
+                    value: this.backgroundRepeat,
+                    data: this.backgroundRepeatList,
+                    appendTo: this.relativeContainer,
+                    onChange: $.proxy(
+                        function (value) {
+                            this.backgroundRepeat = value;
+                            this.update();
+                        },
+                        this
+                    )
+                }
+            );
+
+            return this;
+        },
+
+        /**
          * Generates styles
          */
         generateCss: function () {
-            return "";
+            if (this.imageInstanceId === null) {
+                return "";
+            }
+
+            var css = "";
+
+            css += "background-image:url(";
+            css += this.url;
+            css += ");";
+
+            if (this.isBackgroundCover === true) {
+                css += "background-size:cover;";
+                return css;
+            }
+
+            css += "background-position:";
+            css += this.getBackgroundPositionCss();
+            css += ";";
+
+            css += "background-repeat:";
+            css += this.getBackgroundRepeatCss();
+            css += ";";
+
+            return css;
+        },
+
+        /**
+         * Gets background position CSS
+         *
+         * @returns {String}
+         */
+        getBackgroundPositionCss: function() {
+            var value = this.backgroundPositionList[this.backgroundPosition];
+            if (value === undefined) {
+                return this.backgroundPositionList[0];
+            }
+
+            return value;
+        },
+
+        /**
+         * Gets background repeat CSS
+         *
+         * @returns {String}
+         */
+        getBackgroundRepeatCss: function() {
+            var value = this.backgroundRepeatList[this.backgroundRepeat];
+            if (value === undefined) {
+                return this.backgroundRepeatList[0];
+            }
+
+            return value;
         }
     };
 
