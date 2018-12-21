@@ -221,8 +221,8 @@
                         parent: null,
                         callback: $.proxy(
                             function(data) {
-                                this.url = data.url;
-                                // update image src
+                                this.url = data.viewUrl;
+                                data.cropper.remove();
                                 this.update();
                             },
                             this

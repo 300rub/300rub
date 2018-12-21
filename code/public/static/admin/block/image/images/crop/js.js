@@ -118,7 +118,20 @@
                             data: $.proxy(this.generateData, this)
                         },
                         type: "PUT",
-                        success: this.getOption("callback")
+                        success: $.proxy(function(data) {
+                            var callback = this.getOption("callback");
+                            if ($.type(callback) === "function") {
+                                callback(
+                                    $.extend(
+                                        {},
+                                        data,
+                                        {
+                                            cropper: this
+                                        }
+                                    )
+                                );
+                            }
+                        }, this)
                     }
                 }
             );
