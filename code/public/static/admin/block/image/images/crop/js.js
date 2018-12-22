@@ -113,8 +113,8 @@
                     icon: "fas fa-crop-alt",
                     ajax: {
                         data: {
-                            group: "image",
-                            controller: "crop",
+                            group: this.getOption("group"),
+                            controller: this.getOption("controller"),
                             data: $.proxy(this.generateData, this)
                         },
                         type: "PUT",
