@@ -164,6 +164,7 @@
                 hover = ss.init(
                     "commonComponentsFormSpinner",
                     {
+                        min: 0,
                         value: this.paddingTopHover,
                         css: "padding-top-hover",
                         iconBefore: "fas fa-mouse-pointer",
@@ -182,6 +183,7 @@
             ss.init(
                 "commonComponentsFormSpinner",
                 {
+                    min: 0,
                     value: this.paddingTop,
                     css: "padding-top",
                     appendTo: this.relativeContainer,
@@ -222,6 +224,7 @@
                 hover = ss.init(
                     "commonComponentsFormSpinner",
                     {
+                        min: 0,
                         value: this.paddingRightHover,
                         css: "padding-right-hover",
                         iconBefore: "fas fa-mouse-pointer",
@@ -240,6 +243,7 @@
             ss.init(
                 "commonComponentsFormSpinner",
                 {
+                    min: 0,
                     value: this.paddingRight,
                     css: "padding-right",
                     appendTo: this.relativeContainer,
@@ -281,6 +285,7 @@
                 hover = ss.init(
                     "commonComponentsFormSpinner",
                     {
+                        min: 0,
                         value: this.paddingBottomHover,
                         css: "padding-bottom-hover",
                         iconBefore: "fas fa-mouse-pointer",
@@ -299,6 +304,7 @@
             ss.init(
                 "commonComponentsFormSpinner",
                 {
+                    min: 0,
                     value: this.paddingBottom,
                     css: "padding-bottom",
                     appendTo: this.relativeContainer,
@@ -340,6 +346,7 @@
                 hover = ss.init(
                     "commonComponentsFormSpinner",
                     {
+                        min: 0,
                         value: this.paddingLeftHover,
                         css: "padding-left-hover",
                         iconBefore: "fas fa-mouse-pointer",
@@ -358,6 +365,7 @@
             ss.init(
                 "commonComponentsFormSpinner",
                 {
+                    min: 0,
                     value: this.paddingLeft,
                     css: "padding-left",
                     appendTo: this.relativeContainer,
