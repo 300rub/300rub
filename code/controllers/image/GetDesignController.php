@@ -26,11 +26,11 @@ class GetDesignController extends AbstractController
     {
         $this->checkData(
             [
-                'id' => [self::NOT_EMPTY],
+                'blockId' => [self::NOT_EMPTY],
             ]
         );
 
-        $blockId = (int)$this->get('id');
+        $blockId = (int)$this->get('blockId');
 
         $this->checkBlockOperation(
             BlockModel::TYPE_IMAGE,
@@ -82,7 +82,7 @@ class GetDesignController extends AbstractController
         $language = App::getInstance()->getLanguage();
 
         return [
-            'id'          => $blockId,
+            'blockId'     => $blockId,
             'group'       => 'image',
             'controller'  => 'design',
             'title'       => $language->getMessage('image', 'designTitle'),
