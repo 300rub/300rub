@@ -43,13 +43,9 @@ return [
         Language::LANGUAGE_EN_ID => 'Mouse-over animation',
         Language::LANGUAGE_RU_ID => 'Анимация при наведении мыши',
     ],
-    'backgroundColor'     => [
-        Language::LANGUAGE_EN_ID => 'Background color',
-        Language::LANGUAGE_RU_ID => 'Цвет заднего фона',
-    ],
-    'backgroundImage'     => [
-        Language::LANGUAGE_EN_ID => 'Background image',
-        Language::LANGUAGE_RU_ID => 'Картинка на заднем плане',
+    'background'     => [
+        Language::LANGUAGE_EN_ID => 'Background',
+        Language::LANGUAGE_RU_ID => 'Задний фон',
     ],
     'borderColor'     => [
         Language::LANGUAGE_EN_ID => 'Border color',
@@ -62,6 +58,10 @@ return [
     'useGradient'     => [
         Language::LANGUAGE_EN_ID => 'Use gradient',
         Language::LANGUAGE_RU_ID => 'Использовать градиент',
+    ],
+    'useImage'     => [
+        Language::LANGUAGE_EN_ID => 'Use image',
+        Language::LANGUAGE_RU_ID => 'Использовать изображение',
     ],
     'borderStyle'     => [
         Language::LANGUAGE_EN_ID => 'Border style',
@@ -105,5 +105,13 @@ return [
     'isBackgroundCover'   => [
         Language::LANGUAGE_EN_ID => 'Cover',
         Language::LANGUAGE_RU_ID => 'Обложка',
+    ],
+    'position' => [
+        Language::LANGUAGE_EN_ID => 'Position',
+        Language::LANGUAGE_RU_ID => 'Позиция',
+    ],
+    'repeat'   => [
+        Language::LANGUAGE_EN_ID => 'Repeat',
+        Language::LANGUAGE_RU_ID => 'Повтор',
     ]
 ];

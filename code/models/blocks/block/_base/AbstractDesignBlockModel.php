@@ -171,16 +171,16 @@ abstract class AbstractDesignBlockModel extends AbstractDesignModel
                 ->getMessage('design', 'mouseHoverEffect'),
             'mouseHoverAnimation'    => $language
                 ->getMessage('design', 'mouseHoverAnimation'),
-            'backgroundColor'        => $language
-                ->getMessage('design', 'backgroundColor'),
-            'backgroundImage'        => $language
-                ->getMessage('design', 'backgroundImage'),
+            'background'             => $language
+                ->getMessage('design', 'background'),
             'borderColor'            => $language
                 ->getMessage('design', 'borderColor'),
             'borderColorHover'       => $language
                 ->getMessage('design', 'borderColorHover'),
             'useGradient'            => $language
                 ->getMessage('design', 'useGradient'),
+            'useImage'               => $language
+                ->getMessage('design', 'useImage'),
             'border'                 => $language
                 ->getMessage('design', 'border'),
             'gradientDirection'      => $language
@@ -207,6 +207,10 @@ abstract class AbstractDesignBlockModel extends AbstractDesignModel
             ],
             'isBackgroundCover'      => $language
                 ->getMessage('design', 'isBackgroundCover'),
+            'position'               => $language
+                ->getMessage('design', 'position'),
+            'repeat'                 => $language
+                ->getMessage('design', 'repeat'),
         ];
     }
 

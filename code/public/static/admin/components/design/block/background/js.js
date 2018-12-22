@@ -1,7 +1,7 @@
 !function ($, ss) {
     "use strict";
 
-    var name = "adminComponentsDesignBlockColor";
+    var name = "adminComponentsDesignBlockBackground";
 
     var parameters = {
         /**
@@ -82,6 +82,41 @@
         relativeContainer: null,
 
         /**
+         * Image instance ID
+         *
+         * @var {integer|null}
+         */
+        imageInstanceId: null,
+
+        /**
+         * Background position
+         *
+         * @var {integer|null}
+         */
+        backgroundPosition: null,
+
+        /**
+         * Background repeat
+         *
+         * @var {integer|null}
+         */
+        backgroundRepeat: null,
+
+        /**
+         * Is background cover
+         *
+         * @var {boolean|null}
+         */
+        isBackgroundCover: null,
+
+        /**
+         * URL
+         *
+         * @var {String|null}
+         */
+        url: null,
+
+        /**
          * Fields
          *
          * @var {Array}
@@ -95,7 +130,11 @@
             "gradientDirectionHover",
             "hasBackgroundGradient",
             "hasBackgroundHover",
-            "hasBackgroundAnimation"
+            "hasBackgroundAnimation",
+            "imageInstanceId",
+            "backgroundPosition",
+            "backgroundRepeat",
+            "isBackgroundCover"
         ],
 
         /**
@@ -155,6 +194,64 @@
         },
 
         /**
+         * Background position list
+         *
+         * @type {Array}
+         */
+        backgroundPositionList: [
+            {value: 0, icon: "fas fa-arrow-right", css: "deg-45"},
+            {value: 1, icon: "fas fa-arrow-down"},
+            {value: 2, icon: "fas fa-arrow-down", css: "deg-45"},
+            {value: 3, icon: "fas fa-arrow-right"},
+            {value: 4, icon: "fas fa-arrows-alt"},
+            {value: 5, icon: "fas fa-arrow-left"},
+            {value: 6, icon: "fas fa-arrow-up", css: "deg-45"},
+            {value: 7, icon: "fas fa-arrow-up"},
+            {value: 8, icon: "fas fa-arrow-left", css: "deg-45"}
+        ],
+
+        /**
+         * Background position CSS list
+         *
+         * @type {Object}
+         */
+        backgroundPositionCssList: {
+            0: "left top",
+            1: "center top",
+            2: "right top",
+            3: "left center",
+            4: "center center",
+            5: "right center",
+            6: "left bottom",
+            7: "center bottom",
+            8: "right bottom"
+        },
+
+        /**
+         * Background repeat list
+         *
+         * @type {Array}
+         */
+        backgroundRepeatList: [
+            {value: 0, icon: "fas fa-ban"},
+            {value: 1, icon: "fas fa-arrow-right"},
+            {value: 2, icon: "fas fa-arrow-down"},
+            {value: 3, icon: "fas fa-arrows-alt"}
+        ],
+
+        /**
+         * Background repeat CSS list
+         *
+         * @type {Array}
+         */
+        backgroundRepeatCssList: {
+            0: "no-repeat",
+            1: "repeat-x",
+            2: "repeat-y",
+            3: "repeat"
+        },
+
+        /**
          * Init
          */
         init: function () {
@@ -167,14 +264,19 @@
             this.hasBackgroundGradient = false;
             this.hasBackgroundHover = false;
             this.hasBackgroundAnimation = false;
+            this.imageInstanceId = null;
+            this.backgroundPosition = null;
+            this.backgroundRepeat = null;
+            this.isBackgroundCover = null;
+            this.url = null;
 
             this.relativeContainer = null;
 
             this.create(
                 {
-                    groupContainerSelector: ".color-container",
-                    updateSampleEventName: "update-color-sample",
-                    title: this.getOption(["labels", "backgroundColor"])
+                    groupContainerSelector: ".background-container",
+                    updateSampleEventName: "update-background-sample",
+                    title: this.getOption(["labels", "background"])
                 }
             );
 
@@ -183,11 +285,17 @@
                 .setColorPicker()
                 .setColorFrom()
                 .setColorTo()
-                .setHasGradient()
-                .setGradientDirection()
                 .setHasHover()
                 .setHasAnimation()
-                .setGradientDirectionHover();
+                .setHasImage()
+                .setHasGradient()
+                .setGradientDirection()
+                .setGradientDirectionHover()
+                .setUrl()
+                .setImageUploader()
+                .setIsBackgroundCover()
+                .setBackgroundPosition()
+                .setBackgroundRepeat();
         },
 
         /**
@@ -223,7 +331,6 @@
             ss.init(
                 "commonComponentsFormColor",
                 {
-                    title: this.getLabel("backgroundColor"),
                     value: this.backgroundColorFrom,
                     css: "background-color-from",
                     appendTo: this.relativeContainer,
@@ -244,7 +351,6 @@
             ss.init(
                 "commonComponentsFormColor",
                 {
-                    title: this.getLabel("backgroundColor"),
                     value: this.backgroundColorFromHover,
                     css: "background-color-from-hover",
                     iconBefore: "fas fa-mouse-pointer",
@@ -273,7 +379,6 @@
             ss.init(
                 "commonComponentsFormColor",
                 {
-                    title: this.getLabel("backgroundColor"),
                     value: this.backgroundColorTo,
                     css: "background-color-to",
                     appendTo: this.relativeContainer,
@@ -294,7 +399,6 @@
             ss.init(
                 "commonComponentsFormColor",
                 {
-                    title: this.getLabel("backgroundColor"),
                     value: this.backgroundColorToHover,
                     css: "background-color-to-hover",
                     iconBefore: "fas fa-mouse-pointer",
@@ -306,6 +410,44 @@
                         },
                         this
                     )
+                }
+            );
+
+            return this;
+        },
+
+        /**
+         * Sets has image
+         */
+        setHasImage: function () {
+            var hasImage = false;
+            if (this.imageInstanceId !== null) {
+                this.getGroupContainer().addClass("has-image");
+                hasImage = true;
+            }
+
+            var onCheck = $.proxy(
+                function () {
+                    this.getGroupContainer().addClass("has-image");
+                },
+                this
+            );
+
+            var onUnCheck = $.proxy(
+                function () {
+                    this.getGroupContainer().removeClass("has-image");
+                },
+                this
+            );
+
+            ss.init(
+                "commonComponentsFormCheckboxOnOff",
+                {
+                    value: hasImage,
+                    label: this.getLabel("useImage"),
+                    appendTo: this.getGroupContainer(),
+                    onCheck: onCheck,
+                    onUnCheck: onUnCheck
                 }
             );
 
@@ -341,6 +483,7 @@
             ss.init(
                 "commonComponentsFormCheckboxOnOff",
                 {
+                    css: "use-gradient-checkbox",
                     value: this.hasBackgroundGradient,
                     label: this.getLabel("useGradient"),
                     appendTo: this.getGroupContainer(),
@@ -479,6 +622,213 @@
                     onChange: $.proxy(
                         function (value) {
                             this.gradientDirectionHover = value;
+                            this.update();
+                        },
+                        this
+                    )
+                }
+            );
+
+            return this;
+        },
+
+        /**
+         * Sets URL
+         */
+        setUrl: function () {
+            this.url = this.getOption(["image", "url"]);
+            return this;
+        },
+
+        /**
+         * Sets image uploader
+         */
+        setImageUploader: function() {
+            var list = [];
+            if (this.imageInstanceId !== null) {
+                list = [
+                    {
+                        id: this.imageInstanceId,
+                        name: "",
+                        url: this.url
+                    }
+                ];
+            }
+
+            ss.init(
+                "adminBlockImageImagesView",
+                {
+                    blockId: this.getOption("blockId"),
+                    appendTo: this.getGroupContainer(),
+                    list: list,
+                    create: {
+                        hasOperation: true,
+                        isSingleton: true,
+                        group: this.getOption(
+                            ["image", "create", "group"]
+                        ),
+                        controller: this.getOption(
+                            ["image", "create", "controller"]
+                        ),
+                        imageGroupId: null,
+                        callback: $.proxy(
+                            function(data) {
+                                this.imageInstanceId = data.id;
+                                this.url = data.url;
+                                this.update();
+                            },
+                            this
+                        )
+                    },
+                    crop: {
+                        hasOperation: true,
+                        group: this.getOption(
+                            ["image", "crop", "group"]
+                        ),
+                        controller: this.getOption(
+                            ["image", "crop", "controller"]
+                        ),
+                        level: 1,
+                        parent: null,
+                        callback: $.proxy(
+                            function(data) {
+                                this.url = data.viewUrl;
+                                data.cropper.remove();
+                                this.update();
+                            },
+                            this
+                        )
+                    },
+                    remove: {
+                        hasOperation: true,
+                        group: this.getOption(
+                            ["image", "remove", "group"]
+                        ),
+                        controller: this.getOption(
+                            ["image", "remove", "controller"]
+                        ),
+                        confirm: {
+                            text: this.getLabel(
+                                ['imageDeleteConfirm', 'text']
+                            ),
+                            yes: this.getLabel(
+                                ['imageDeleteConfirm', 'yes']
+                            ),
+                            no: this.getLabel(
+                                ['imageDeleteConfirm', 'no']
+                            )
+                        },
+                        callback: $.proxy(
+                            function() {
+                                this.imageInstanceId = null;
+                                this.update();
+                            },
+                            this
+                        )
+                    }
+                }
+            );
+
+            return this;
+        },
+
+        /**
+         * Sets isBackgroundCover
+         */
+        setIsBackgroundCover: function() {
+            if (this.isBackgroundCover === null) {
+                return this;
+            }
+
+            if (this.isBackgroundCover === true) {
+                this.getGroupContainer().addClass("has-background-cover");
+            }
+
+            var onCheck = $.proxy(
+                function () {
+                    this.isBackgroundCover = true;
+                    this.getGroupContainer().addClass("has-background-cover");
+                    this.update();
+                },
+                this
+            );
+
+            var onUnCheck = $.proxy(
+                function () {
+                    this.isBackgroundCover = false;
+                    this
+                        .getGroupContainer()
+                        .removeClass("has-background-cover");
+                    this.update();
+                },
+                this
+            );
+
+            ss.init(
+                "commonComponentsFormCheckboxOnOff",
+                {
+                    css: "is-background-cover",
+                    value: this.isBackgroundCover,
+                    label: this.getLabel("isBackgroundCover"),
+                    onCheck: onCheck,
+                    onUnCheck: onUnCheck,
+                    appendTo: this.getGroupContainer()
+                }
+            );
+
+            return this;
+        },
+
+        /**
+         * Sets backgroundPosition
+         */
+        setBackgroundPosition: function() {
+            if (this.backgroundPosition === null) {
+                return this;
+            }
+
+            ss.init(
+                "commonComponentsFormRadioButtons",
+                {
+                    label: this.getLabel("position"),
+                    value: this.backgroundPosition,
+                    css: "icon-buttons big background-position",
+                    grid: 3,
+                    type: "int",
+                    data: this.backgroundPositionList,
+                    appendTo: this.getGroupContainer(),
+                    onChange: $.proxy(
+                        function(value) {
+                            this.backgroundPosition = value;
+                            this.update();
+                        },
+                        this
+                    )
+                }
+            );
+
+            return this;
+        },
+
+        /**
+         * Sets backgroundRepeat
+         */
+        setBackgroundRepeat: function() {
+            if (this.backgroundRepeat === null) {
+                return this;
+            }
+
+            ss.init(
+                "commonComponentsFormRadioButtons",
+                {
+                    label: this.getLabel("repeat"),
+                    css: "background-repeat",
+                    value: this.backgroundRepeat,
+                    data: this.backgroundRepeatList,
+                    appendTo: this.getGroupContainer(),
+                    onChange: $.proxy(
+                        function (value) {
+                            this.backgroundRepeat = value;
                             this.update();
                         },
                         this

@@ -1,7 +1,7 @@
 @import "../../abstract/group/less";
 
 .design-block-container {
-  .color-container {
+  .background-container {
     padding-bottom: 5px;
 
     .relative-container {
@@ -53,7 +53,7 @@
         }
       }
 
-      .color-sample {
+      .background-sample {
         border: 1px solid @darkGrayBorderColor;
         height: 80px;
         left: 50%;
@@ -67,6 +67,36 @@
 
     .has-animation {
       display: none;
+    }
+
+    .image-sort-container,
+    .is-background-cover,
+    .background-position,
+    .background-repeat {
+      display: none;
+    }
+
+    .image-sort-container {
+      margin: 15px auto !important;
+      width: 140px;
+    }
+
+    .background-position {
+      margin: 15px auto !important;
+      width: 122px;
+
+      .label-text {
+        text-align: center;
+      }
+    }
+
+    .background-repeat {
+      margin: 15px auto !important;
+      width: 136px;
+
+      .label-text {
+        text-align: center;
+      }
     }
 
     .gradient-direction {
@@ -91,7 +121,7 @@
     }
   }
 
-  .color-container.has-gradient {
+  .background-container.has-gradient {
     .background-color-to {
       display: block;
     }
@@ -101,7 +131,7 @@
     }
   }
 
-  .color-container.has-hover {
+  .background-container.has-hover {
     .background-color-from {
       top: 8px;
     }
@@ -116,7 +146,7 @@
     }
   }
 
-  .color-container.has-gradient.has-hover {
+  .background-container.has-gradient.has-hover {
     .background-color-to {
       top: 8px;
     }
@@ -131,8 +161,30 @@
     }
   }
 
-  .color-container.has-gradient {
+  .background-container.has-gradient {
     .has-animation {
+      display: none;
+    }
+  }
+
+  .background-container.has-image {
+    .use-gradient-checkbox,
+    .gradient-direction,
+    .gradient-direction-hover {
+      display: none !important;
+    }
+
+    .image-sort-container,
+    .is-background-cover,
+    .background-position,
+    .background-repeat {
+      display: block;
+    }
+  }
+
+  .background-container.has-image.has-background-cover {
+    .background-position,
+    .background-repeat {
       display: none;
     }
   }
