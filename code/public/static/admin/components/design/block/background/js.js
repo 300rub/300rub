@@ -847,6 +847,23 @@
          * @returns {String}
          */
         generateCss: function (isHover) {
+            var colorCss = this.generateColorCss(isHover);
+            var imageCss = "";
+            if (isHover !== true) {
+                imageCss = this.generateImageCss();
+            }
+
+            return colorCss + imageCss;
+        },
+
+        /**
+         * Generates color styles
+         *
+         * @param {boolean} isHover
+         *
+         * @returns {String}
+         */
+        generateColorCss: function (isHover) {
             var backgroundColorFrom = "", backgroundColorTo = "";
 
             if (isHover === true) {
@@ -888,6 +905,67 @@
                 backgroundColorFrom,
                 backgroundColorTo
             );
+        },
+
+        /**
+         * Generates image styles
+         *
+         * @returns {String}
+         */
+        generateImageCss: function () {
+            if (this.imageInstanceId === null) {
+                return "";
+            }
+
+            var css = "";
+
+            css += "background-image:url(";
+            css += this.url;
+            css += ");";
+
+            if (this.isBackgroundCover === true) {
+                css += "background-size:cover;";
+                return css;
+            }
+
+            css += "background-position:";
+            css += this.getBackgroundPositionCss();
+            css += ";";
+
+            css += "background-repeat:";
+            css += this.getBackgroundRepeatCss();
+            css += ";";
+
+            return css;
+        },
+
+        /**
+         * Gets background position CSS
+         *
+         * @returns {String}
+         */
+        getBackgroundPositionCss: function() {
+            var value
+                = this.backgroundPositionCssList[this.backgroundPosition];
+            if (value === undefined) {
+                return this.backgroundPositionCssList[0];
+            }
+
+            return value;
+        },
+
+        /**
+         * Gets background repeat CSS
+         *
+         * @returns {String}
+         */
+        getBackgroundRepeatCss: function() {
+            var value = this.backgroundRepeatCssList[this.backgroundRepeat];
+            if (value === undefined) {
+                return this.backgroundRepeatCssList[0];
+            }
+
+            return value;
         },
 
         /**
