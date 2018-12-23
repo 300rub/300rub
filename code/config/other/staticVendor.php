@@ -58,6 +58,8 @@ $adminCss = [
         => 'vanderlee/colorpicker/jquery.colorpicker.css',
     'cropper.min.css'
         => 'fengyuanchen/cropper/dist/cropper.min.css',
+    'jstree/style.min.css'
+        => 'vakata/jstree/dist/themes/default/style.min.css'
 ];
 
 $adminJs = [
@@ -75,8 +77,12 @@ $adminJs = [
         => 'tinymce/tinymce/jquery.tinymce.min.js',
     'cropper.min.js'
         => 'fengyuanchen/cropper/dist/cropper.min.js',
-    'jstree.min.js'
-        => 'vakata/jstree/dist/jstree.min.js'
+    'jstree/jstree.min.js'
+        => 'vakata/jstree/dist/jstree.min.js',
+    'jstree/jstree.dnd.js'
+        => 'vakata/jstree/src/jstree.dnd.js',
+    'jstree/jstree.types.js'
+        => 'vakata/jstree/src/jstree.types.js'
 ];
 
 $adminFiles = [
@@ -134,6 +140,10 @@ $adminFiles = [
         => 'tinymce/tinymce/plugins/fullscreen/plugin.min.js',
     'tinymce/plugins/table/plugin.min.js'
         => 'tinymce/tinymce/plugins/table/plugin.min.js',
+    'jstree/32px.png'
+        => 'vakata/jstree/dist/themes/default/32px.png',
+    'jstree/throbber.gif'
+        => 'vakata/jstree/dist/themes/default/throbber.gif'
 ];
 
 $siteCss = [];

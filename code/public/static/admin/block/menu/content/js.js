@@ -31,7 +31,7 @@
          * On load success
          */
         onLoadSuccess: function () {
-
+            this.setTree();
 
             this.setSubmit(
                 {
@@ -51,6 +51,45 @@
                     }
                 }
             );
+        },
+
+        setTree: function() {
+            var tree = ss.init("template").get("menu-tree");
+            tree.appendTo(this.getBody());
+
+            tree.jstree({
+                "core" : {
+                    "animation" : 0,
+                    "check_callback" : true,
+                    "data" : [
+                        { "id" : "ajson1", "parent" : "#", "text" : "Simple root node" },
+                        { "id" : "ajson11", "parent" : "#", "text" : "Simple root 1 node" },
+                        { "id" : "ajson12", "parent" : "#", "text" : "Simple root 2 node" },
+                        { "id" : "ajson2", "parent" : "#", "text" : "Root node 2" }
+                    ]
+                },
+                "types" : {
+                    "#" : {
+                        "max_children" : 1,
+                        "max_depth" : 4,
+                        "valid_children" : ["root"]
+                    },
+                    "root" : {
+                        "icon" : "/static/3.1.1/assets/images/tree_icon.png",
+                        "valid_children" : ["default"]
+                    },
+                    "default" : {
+                        "valid_children" : ["default","file"]
+                    },
+                    "file" : {
+                        "icon" : "glyphicon glyphicon-file",
+                        "valid_children" : []
+                    }
+                },
+                "plugins" : [
+                    "contextmenu", "dnd", "types"
+                ]
+            });
         },
 
         /**
