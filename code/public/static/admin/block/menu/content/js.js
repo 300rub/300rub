@@ -59,35 +59,57 @@
 
             tree.jstree({
                 "core" : {
-                    "animation" : 0,
                     "check_callback" : true,
-                    "data" : [
-                        { "id" : "ajson1", "parent" : "#", "text" : "Simple root node" },
-                        { "id" : "ajson11", "parent" : "#", "text" : "Simple root 1 node" },
-                        { "id" : "ajson12", "parent" : "#", "text" : "Simple root 2 node" },
-                        { "id" : "ajson2", "parent" : "#", "text" : "Root node 2" }
+                    "data": [
+                        {
+                            "id": "0",
+                            "text": "Root",
+                            "type": "root",
+                            'state' : { 'opened' : true },
+                            children: [
+                                {
+                                    "id": "1",
+                                    "text": " 11111111111111111" + ss.init("template").get("test-aaa").html(),
+                                    type: "default"
+                                },
+                                {
+                                    "id": "2",
+                                    "text": "22222222222222222" + ss.init("template").get("test-aaa").html(),
+                                    type: "default"
+                                },
+                                {
+                                    "id": "3",
+                                    "text": "333333333333333333" + ss.init("template").get("test-aaa").html(),
+                                    type: "empty"
+                                },
+                                {
+                                    "id": "4",
+                                    "text": "444444444444444444" + ss.init("template").get("test-aaa").html(),
+                                    type: "default"
+                                }
+                            ]
+                        }
                     ]
                 },
                 "types" : {
                     "#" : {
-                        "max_children" : 1,
-                        "max_depth" : 4,
                         "valid_children" : ["root"]
                     },
                     "root" : {
-                        "icon" : "/static/3.1.1/assets/images/tree_icon.png",
-                        "valid_children" : ["default"]
+                        "valid_children" : ["default", "empty"],
+                        icon: "fas fa-folder-open"
                     },
                     "default" : {
-                        "valid_children" : ["default","file"]
+                        "valid_children" : ["default", "empty"],
+                        icon: "fas fa-folder"
                     },
-                    "file" : {
-                        "icon" : "glyphicon glyphicon-file",
-                        "valid_children" : []
+                    "empty" : {
+                        "valid_children" : ["default", "empty"],
+                        icon: "far fa-folder"
                     }
                 },
                 "plugins" : [
-                    "contextmenu", "dnd", "types"
+                    "dnd", "types"
                 ]
             });
         },

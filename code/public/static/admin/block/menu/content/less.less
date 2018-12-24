@@ -1,0 +1,46 @@
+@import "../../../../common/components/window/abstract/less";
+
+.menu-tree {
+  padding: 15px 0;
+
+  .jstree-node {
+    .jstree-icon {
+      line-height: 40px;
+      height: 40px;
+      width: 30px;
+    }
+
+    .jstree-ocl {
+      float: left;
+      height: 20px;
+      margin-top: 8px;
+    }
+
+    .jstree-anchor {
+      .transition(background-color);
+      background-color: white;
+      box-shadow: none;
+      display: block;
+      height: 40px;
+      line-height: 40px;
+
+      .btn-group {
+        float: right;
+        margin-top: 10px;
+        visibility: hidden;
+      }
+
+      &:hover {
+        background-color: @lightGrayBackground;
+      }
+    }
+
+    .jstree-anchor.jstree-clicked {
+      background-color: @grayBackground;
+
+      .btn-group {
+        visibility: visible;
+      }
+    }
+  }
+}
