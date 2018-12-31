@@ -7,7 +7,7 @@ use ss\migrations\_abstract\AbstractMigration;
 /**
  * Creates users table
  */
-class M160307000000Users extends AbstractMigration
+class M190101000600Users extends AbstractMigration
 {
 
     /**
@@ -31,7 +31,7 @@ class M160307000000Users extends AbstractMigration
     /**
      * Creates users table
      *
-     * @return M160307000000Users
+     * @return M190101000600Users
      */
     private function _createUsers()
     {
@@ -55,7 +55,7 @@ class M160307000000Users extends AbstractMigration
     /**
      * Creates userSessions table
      *
-     * @return M160307000000Users
+     * @return M190101000600Users
      */
     private function _createUserSessions()
     {
@@ -88,7 +88,7 @@ class M160307000000Users extends AbstractMigration
     /**
      * Creates userBlockOperations table
      *
-     * @return M160307000000Users
+     * @return M190101000600Users
      */
     private function _createUserBlockOperations()
     {
@@ -122,7 +122,7 @@ class M160307000000Users extends AbstractMigration
     /**
      * Creates userBlockGroupOperations table
      *
-     * @return M160307000000Users
+     * @return M190101000600Users
      */
     private function _createUserBlockGroupOperations()
     {
@@ -148,7 +148,7 @@ class M160307000000Users extends AbstractMigration
     /**
      * Creates table userSectionOperations
      *
-     * @return M160307000000Users
+     * @return M190101000600Users
      */
     private function _createUserSectionOperations()
     {
@@ -181,7 +181,7 @@ class M160307000000Users extends AbstractMigration
     /**
      * Creates userSectionGroupOperations table
      *
-     * @return M160307000000Users
+     * @return M190101000600Users
      */
     private function _createUserSectionGroupOperations()
     {
@@ -206,7 +206,7 @@ class M160307000000Users extends AbstractMigration
     /**
      * Creates userSettingsOperations table
      *
-     * @return M160307000000Users
+     * @return M190101000600Users
      */
     private function _createUserSettingsOperations()
     {
@@ -231,7 +231,7 @@ class M160307000000Users extends AbstractMigration
     /**
      * Creates userSettingsOperations table
      *
-     * @return M160307000000Users
+     * @return M190101000600Users
      */
     private function _createUserActions()
     {

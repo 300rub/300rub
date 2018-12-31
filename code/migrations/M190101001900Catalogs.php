@@ -7,7 +7,7 @@ use ss\migrations\_abstract\AbstractMigration;
 /**
  * Creates catalog tables
  */
-class M160321000700Catalogs extends AbstractMigration
+class M190101001900Catalogs extends AbstractMigration
 {
 
     /**
@@ -32,7 +32,7 @@ class M160321000700Catalogs extends AbstractMigration
     /**
      * Creates designCatalogs table
      *
-     * @return M160321000700Catalogs
+     * @return M190101001900Catalogs
      */
     private function _createDesignCatalogsTable()
     {
@@ -103,7 +103,7 @@ class M160321000700Catalogs extends AbstractMigration
     /**
      * Creates designCatalogs foreign keys
      *
-     * @return M160321000700Catalogs
+     * @return M190101001900Catalogs
      */
     private function _createDesignCatalogsForeignKeys1()
     {
@@ -173,7 +173,7 @@ class M160321000700Catalogs extends AbstractMigration
     /**
      * Creates designCatalogs foreign keys
      *
-     * @return M160321000700Catalogs
+     * @return M190101001900Catalogs
      */
     private function _createDesignCatalogsForeignKeys2()
     {
@@ -243,7 +243,7 @@ class M160321000700Catalogs extends AbstractMigration
     /**
      * Creates catalogs table
      *
-     * @return M160321000700Catalogs
+     * @return M190101001900Catalogs
      */
     private function _createCatalogs()
     {
@@ -297,7 +297,7 @@ class M160321000700Catalogs extends AbstractMigration
     /**
      * Creates catalogMenu table
      *
-     * @return M160321000700Catalogs
+     * @return M190101001900Catalogs
      */
     private function _createCatalogMenu()
     {
@@ -333,7 +333,7 @@ class M160321000700Catalogs extends AbstractMigration
     /**
      * Creates catalogInstances table
      *
-     * @return M160321000700Catalogs
+     * @return M190101001900Catalogs
      */
     private function _createCatalogInstances()
     {
@@ -389,7 +389,7 @@ class M160321000700Catalogs extends AbstractMigration
     /**
      * Creates catalogInstanceLinks table
      *
-     * @return M160321000700Catalogs
+     * @return M190101001900Catalogs
      */
     private function _createCatalogInstanceLinks()
     {
@@ -426,7 +426,7 @@ class M160321000700Catalogs extends AbstractMigration
     /**
      * Creates catalogBins table
      *
-     * @return M160321000700Catalogs
+     * @return M190101001900Catalogs
      */
     private function _createCatalogBins()
     {
@@ -461,7 +461,7 @@ class M160321000700Catalogs extends AbstractMigration
     /**
      * Creates catalogOrders table
      *
-     * @return M160321000700Catalogs
+     * @return M190101001900Catalogs
      */
     private function _createCatalogOrders()
     {

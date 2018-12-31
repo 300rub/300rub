@@ -7,7 +7,7 @@ use ss\migrations\_abstract\AbstractMigration;
 /**
  * Creates settings table
  */
-class M160321000800Settings extends AbstractMigration
+class M190101002000Settings extends AbstractMigration
 {
 
     /**

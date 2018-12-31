@@ -7,7 +7,7 @@ use ss\migrations\_abstract\AbstractMigration;
 /**
  * Creates blocks table
  */
-class M160302000005Blocks extends AbstractMigration
+class M190101000100Blocks extends AbstractMigration
 {
 
     /**

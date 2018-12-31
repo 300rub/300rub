@@ -7,7 +7,7 @@ use ss\migrations\_abstract\AbstractMigration;
 /**
  * Creates feedback tables
  */
-class M160321000000Feedback extends AbstractMigration
+class M190101001200Feedback extends AbstractMigration
 {
 
     /**

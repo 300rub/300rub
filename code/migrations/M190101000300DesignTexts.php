@@ -7,7 +7,7 @@ use ss\migrations\_abstract\AbstractMigration;
 /**
  * Creates designTexts table
  */
-class M160302000020DesignTexts extends AbstractMigration
+class M190101000300DesignTexts extends AbstractMigration
 {
 
     /**

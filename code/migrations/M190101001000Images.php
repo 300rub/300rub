@@ -7,7 +7,7 @@ use ss\migrations\_abstract\AbstractMigration;
 /**
  * Creates image tables
  */
-class M160317000000Images extends AbstractMigration
+class M190101001000Images extends AbstractMigration
 {
 
     /**
@@ -30,7 +30,7 @@ class M160317000000Images extends AbstractMigration
     /**
      * Creates designImageAlbums table
      *
-     * @return M160317000000Images
+     * @return M190101001000Images
      */
     private function _createDesignImageAlbum()
     {
@@ -70,7 +70,7 @@ class M160317000000Images extends AbstractMigration
     /**
      * Creates designImageSimple table
      *
-     * @return M160317000000Images
+     * @return M190101001000Images
      */
     private function _createDesignImageSimple()
     {
@@ -112,7 +112,7 @@ class M160317000000Images extends AbstractMigration
     /**
      * Creates designImageZooms table
      *
-     * @return M160317000000Images
+     * @return M190101001000Images
      */
     private function _createDesignImageZooms()
     {
@@ -135,7 +135,7 @@ class M160317000000Images extends AbstractMigration
     /**
      * Creates designImageSliders table
      *
-     * @return M160317000000Images
+     * @return M190101001000Images
      */
     private function _createDesignImageSliders()
     {
@@ -186,7 +186,7 @@ class M160317000000Images extends AbstractMigration
     /**
      * Creates images table
      *
-     * @return M160317000000Images
+     * @return M190101001000Images
      */
     private function _createImages()
     {
@@ -240,7 +240,7 @@ class M160317000000Images extends AbstractMigration
     /**
      * Creates imageGroups table
      *
-     * @return M160317000000Images
+     * @return M190101001000Images
      */
     private function _createImageGroups()
     {
@@ -292,7 +292,7 @@ class M160317000000Images extends AbstractMigration
     /**
      * Creates imageInstances table
      *
-     * @return M160317000000Images
+     * @return M190101001000Images
      */
     private function _createImageInstances()
     {

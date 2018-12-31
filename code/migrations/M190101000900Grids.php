@@ -7,7 +7,7 @@ use ss\migrations\_abstract\AbstractMigration;
 /**
  * Creates gridLines & grids tables
  */
-class M160311000000Grids extends AbstractMigration
+class M190101000900Grids extends AbstractMigration
 {
 
     /**

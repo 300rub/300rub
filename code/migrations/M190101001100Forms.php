@@ -7,7 +7,7 @@ use ss\migrations\_abstract\AbstractMigration;
 /**
  * Creates forms tables
  */
-class M160317001000Forms extends AbstractMigration
+class M190101001100Forms extends AbstractMigration
 {
 
     /**
@@ -27,7 +27,7 @@ class M160317001000Forms extends AbstractMigration
     /**
      * Creates designForms table
      *
-     * @return M160317001000Forms
+     * @return M190101001100Forms
      */
     private function _createDesignForms()
     {
@@ -100,7 +100,7 @@ class M160317001000Forms extends AbstractMigration
     /**
      * Creates form table
      *
-     * @return M160317001000Forms
+     * @return M190101001100Forms
      */
     private function _createForms()
     {
@@ -120,7 +120,7 @@ class M160317001000Forms extends AbstractMigration
     /**
      * Creates formInstances table
      *
-     * @return M160317001000Forms
+     * @return M190101001100Forms
      */
     private function _createFormInstances()
     {
@@ -150,7 +150,7 @@ class M160317001000Forms extends AbstractMigration
     /**
      * Creates formListValues table
      *
-     * @return M160317001000Forms
+     * @return M190101001100Forms
      */
     private function _formListValues()
     {

@@ -7,7 +7,7 @@ use ss\migrations\_abstract\AbstractMigration;
 /**
  * Creates seo table
  */
-class M160303000000Seo extends AbstractMigration
+class M190101000400Seo extends AbstractMigration
 {
 
     /**

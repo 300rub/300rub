@@ -7,7 +7,7 @@ use ss\migrations\_abstract\AbstractMigration;
 /**
  * Creates records tables
  */
-class M160321000200Menu extends AbstractMigration
+class M190101001400Menu extends AbstractMigration
 {
 
     /**
@@ -114,7 +114,7 @@ class M160321000200Menu extends AbstractMigration
     /**
      * Created table
      *
-     * @return M160302000010DesignBlocks
+     * @return M190101001400Menu
      */
     private function _createTable()
     {

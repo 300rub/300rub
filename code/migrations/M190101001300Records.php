@@ -7,7 +7,7 @@ use ss\migrations\_abstract\AbstractMigration;
 /**
  * Creates records tables
  */
-class M160321000100Records extends AbstractMigration
+class M190101001300Records extends AbstractMigration
 {
 
     /**
@@ -29,7 +29,7 @@ class M160321000100Records extends AbstractMigration
     /**
      * Creates designRecords table
      *
-     * @return M160321000100Records
+     * @return M190101001300Records
      */
     private function _createDesignRecordsTable()
     {
@@ -82,7 +82,7 @@ class M160321000100Records extends AbstractMigration
     /**
      * Creates designRecords indexes
      *
-     * @return M160321000100Records
+     * @return M190101001300Records
      */
     private function _createDesignRecordsIndexes()
     {
@@ -177,7 +177,7 @@ class M160321000100Records extends AbstractMigration
     /**
      * Creates records table
      *
-     * @return M160321000100Records
+     * @return M190101001300Records
      */
     private function _createRecords()
     {
@@ -231,7 +231,7 @@ class M160321000100Records extends AbstractMigration
     /**
      * Creates designRecordClones table
      *
-     * @return M160321000100Records
+     * @return M190101001300Records
      */
     private function _createDesignRecordClones()
     {
@@ -296,7 +296,7 @@ class M160321000100Records extends AbstractMigration
     /**
      * Creates recordClones table
      *
-     * @return M160321000100Records
+     * @return M190101001300Records
      */
     private function _createRecordClones()
     {
@@ -341,7 +341,7 @@ class M160321000100Records extends AbstractMigration
     /**
      * Creates recordInstances table
      *
-     * @return M160321000100Records
+     * @return M190101001300Records
      */
     private function _createRecordInstances()
     {

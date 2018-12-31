@@ -7,7 +7,7 @@ use ss\migrations\_abstract\AbstractMigration;
 /**
  * Creates sections table
  */
-class M160305000000Sections extends AbstractMigration
+class M190101000500Sections extends AbstractMigration
 {
 
     /**

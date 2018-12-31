@@ -7,7 +7,7 @@ use ss\migrations\_abstract\AbstractMigration;
 /**
  * Creates field tables
  */
-class M160321000500Fields extends AbstractMigration
+class M190101001700Fields extends AbstractMigration
 {
 
     /**
@@ -29,7 +29,7 @@ class M160321000500Fields extends AbstractMigration
     /**
      * Creates designFields table
      *
-     * @return M160321000500Fields
+     * @return M190101001700Fields
      */
     private function _createDesignFields()
     {
@@ -105,7 +105,7 @@ class M160321000500Fields extends AbstractMigration
     /**
      * Creates fields table
      *
-     * @return M160321000500Fields
+     * @return M190101001700Fields
      */
     private function _createFields()
     {
@@ -123,7 +123,7 @@ class M160321000500Fields extends AbstractMigration
     /**
      * Creates fieldTemplates table
      *
-     * @return M160321000500Fields
+     * @return M190101001700Fields
      */
     private function _createFieldTemplates()
     {
@@ -154,7 +154,7 @@ class M160321000500Fields extends AbstractMigration
     /**
      * Creates fieldGroups table
      *
-     * @return M160321000500Fields
+     * @return M190101001700Fields
      */
     private function _createFieldGroups()
     {
@@ -172,7 +172,7 @@ class M160321000500Fields extends AbstractMigration
     /**
      * Creates fieldInstances table
      *
-     * @return M160321000500Fields
+     * @return M190101001700Fields
      */
     private function _createFieldInstances()
     {
@@ -206,7 +206,7 @@ class M160321000500Fields extends AbstractMigration
     /**
      * Creates fieldListValues table
      *
-     * @return M160321000500Fields
+     * @return M190101001700Fields
      */
     private function _fieldListValues()
     {

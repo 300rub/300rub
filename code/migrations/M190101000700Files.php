@@ -7,7 +7,7 @@ use ss\migrations\_abstract\AbstractMigration;
 /**
  * Creates files table
  */
-class M160308000000Files extends AbstractMigration
+class M190101000700Files extends AbstractMigration
 {
 
     /**

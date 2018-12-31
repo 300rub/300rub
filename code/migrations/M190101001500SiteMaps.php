@@ -7,7 +7,7 @@ use ss\migrations\_abstract\AbstractMigration;
 /**
  * Creates records tables
  */
-class M160321000300SiteMaps extends AbstractMigration
+class M190101001500SiteMaps extends AbstractMigration
 {
 
     /**

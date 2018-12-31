@@ -7,7 +7,7 @@ use ss\migrations\_abstract\AbstractMigration;
 /**
  * Creates search tables
  */
-class M160321000400Search extends AbstractMigration
+class M190101001600Search extends AbstractMigration
 {
 
     /**

@@ -7,7 +7,7 @@ use ss\migrations\_abstract\AbstractMigration;
 /**
  * Creates tab tables
  */
-class M160321000550Tabs extends AbstractMigration
+class M190101001800Tabs extends AbstractMigration
 {
 
     /**
