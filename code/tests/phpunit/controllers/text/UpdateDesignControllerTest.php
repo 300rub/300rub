@@ -62,7 +62,7 @@ class UpdateDesignControllerTest extends AbstractControllerTest
             array_merge(
                 $data,
                 [
-                    'id' => $requestId
+                    'blockId' => $requestId
                 ]
             ),
             'PUT'

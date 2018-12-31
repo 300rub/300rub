@@ -50,28 +50,28 @@ class UpdateContentControllerTest extends AbstractControllerTest
     public function dataProvider()
     {
         return [
-            'userUpdateAlbums' => [
+            'userUpdateAlbums'         => [
                 'user'     => self::TYPE_LIMITED,
                 'data'     => [
-                    'id'      => 4,
+                    'blockId' => 4,
                     'groupId' => 0,
                     'list'    => [2, 3],
                 ],
                 'hasError' => false,
             ],
-            'userUpdateImages' => [
+            'userUpdateImages'         => [
                 'user'     => self::TYPE_LIMITED,
                 'data'     => [
-                    'id'      => 3,
+                    'blockId' => 3,
                     'groupId' => 0,
                     'list'    => [1, 2],
                 ],
                 'hasError' => false,
             ],
-            'userUpdateAlbum' => [
+            'userUpdateAlbum'          => [
                 'user'     => self::TYPE_LIMITED,
                 'data'     => [
-                    'id'      => 3,
+                    'blockId' => 3,
                     'groupId' => 1,
                     'list'    => [1, 2],
                 ],
@@ -80,16 +80,16 @@ class UpdateContentControllerTest extends AbstractControllerTest
             'userUpdateAlbumIncorrect' => [
                 'user'     => self::TYPE_LIMITED,
                 'data'     => [
-                    'id'      => 3,
+                    'blockId' => 3,
                     'groupId' => 1,
                     'list'    => [1, 2, 9999],
                 ],
                 'hasError' => true,
             ],
-            'userWithNoOperations' => [
+            'userWithNoOperations'     => [
                 'user'     => self::TYPE_NO_OPERATIONS_USER,
                 'data'     => [
-                    'id'      => 4,
+                    'blockId' => 4,
                     'groupId' => 0,
                     'list'    => [2, 3],
                 ],

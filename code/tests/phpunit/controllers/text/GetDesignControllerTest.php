@@ -23,7 +23,7 @@ class GetDesignControllerTest extends AbstractControllerTest
      *
      * @dataProvider dataProviderForTestGetDesign
      */
-    public function testGetDesign(
+    public function testRun(
         $user,
         $blockId,
         $hasError,
@@ -31,7 +31,7 @@ class GetDesignControllerTest extends AbstractControllerTest
         $expectedTextData = []
     ) {
         $this->setUser($user);
-        $this->sendRequest('text', 'design', ['id' => $blockId]);
+        $this->sendRequest('text', 'design', ['blockId' => $blockId]);
         $body = $this->getBody();
 
         if ($hasError === true) {
@@ -40,7 +40,7 @@ class GetDesignControllerTest extends AbstractControllerTest
         }
 
         $expected = [
-            'id'          => $blockId,
+            'blockId'     => $blockId,
             'group'       => 'text',
             'controller'  => 'design',
             'title'       => 'Text design',

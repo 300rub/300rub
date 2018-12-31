@@ -24,7 +24,7 @@ class UpdateDesignControllerTest extends AbstractControllerTest
      *
      * @dataProvider dataProvider
      */
-    public function testUpdateDesign($user, $blockId, $data, $hasError)
+    public function testRun($user, $blockId, $data, $hasError)
     {
         $blockModel = null;
         $requestId = $blockId;
@@ -52,7 +52,7 @@ class UpdateDesignControllerTest extends AbstractControllerTest
             array_merge(
                 $data,
                 [
-                    'id' => $requestId
+                    'blockId' => $requestId
                 ]
             ),
             'PUT'

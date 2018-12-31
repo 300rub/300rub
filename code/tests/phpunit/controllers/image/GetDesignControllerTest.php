@@ -22,11 +22,11 @@ class GetDesignControllerTest extends AbstractControllerTest
      *
      * @return bool
      */
-    public function testGetDesign($user, $blockId, $hasError, $expected)
+    public function testRun($user, $blockId, $hasError, $expected)
     {
         $this->setUser($user);
 
-        $this->sendRequest('image', 'design', ['id' => $blockId]);
+        $this->sendRequest('image', 'design', ['blockId' => $blockId]);
 
         if ($hasError === true) {
             $this->assertError();
@@ -51,7 +51,7 @@ class GetDesignControllerTest extends AbstractControllerTest
                 'blockId'  => 3,
                 'hasError' => false,
                 'expected' => [
-                    'id'         => 3,
+                    'blockId'    => 3,
                     'group'      => 'image',
                     'controller' => 'design',
                     'list'       => [
@@ -70,7 +70,7 @@ class GetDesignControllerTest extends AbstractControllerTest
                 'blockId'  => 5,
                 'hasError' => false,
                 'expected' => [
-                    'id'         => 5,
+                    'blockId'    => 5,
                     'group'      => 'image',
                     'controller' => 'design',
                     'list'       => [
