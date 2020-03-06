@@ -13,7 +13,7 @@
 		"jssor/slider": "27.3.0",
 		"components/underscore": "1.8.3",
 		"fortawesome/font-awesome": "5.3.1",
-		"phpmailer/phpmailer": "6.0.5",
+		"phpmailer/phpmailer": "6.0.6",
 		"twig/twig": "2.5.0",
 		"voku/html-min": "3.0.4",
 		"aws/aws-sdk-php": "3.71.3",
