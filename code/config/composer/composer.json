@@ -14,7 +14,7 @@
 		"components/underscore": "1.8.3",
 		"fortawesome/font-awesome": "5.3.1",
 		"phpmailer/phpmailer": "6.0.5",
-		"twig/twig": "2.5.0",
+		"twig/twig": "2.14.11",
 		"voku/html-min": "3.0.4",
 		"aws/aws-sdk-php": "3.71.3",
 		"vakata/jstree": "3.3.7"
