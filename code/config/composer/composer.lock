@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "cbddab9b95ab6c4438ee8c07bb401666",
+    "content-hash": "443ee666ba1c17c83142aeb0398c7f50",
     "packages": [
         {
             "name": "IanLunn/Hover",
@@ -68,12 +68,12 @@
                 }
             },
             "autoload": {
-                "psr-4": {
-                    "Aws\\": "src/"
-                },
                 "files": [
                     "src/functions.php"
-                ]
+                ],
+                "psr-4": {
+                    "Aws\\": "src/"
+                }
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
@@ -544,12 +544,12 @@
                 }
             },
             "autoload": {
-                "psr-4": {
-                    "GuzzleHttp\\Promise\\": "src/"
-                },
                 "files": [
                     "src/functions_include.php"
-                ]
+                ],
+                "psr-4": {
+                    "GuzzleHttp\\Promise\\": "src/"
+                }
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
@@ -600,12 +600,12 @@
                 }
             },
             "autoload": {
-                "psr-4": {
-                    "GuzzleHttp\\Psr7\\": "src/"
-                },
                 "files": [
                     "src/functions_include.php"
-                ]
+                ],
+                "psr-4": {
+                    "GuzzleHttp\\Psr7\\": "src/"
+                }
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
@@ -675,12 +675,12 @@
                 }
             },
             "autoload": {
-                "psr-4": {
-                    "JmesPath\\": "src/"
-                },
                 "files": [
                     "src/JmesPath.php"
-                ]
+                ],
+                "psr-4": {
+                    "JmesPath\\": "src/"
+                }
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
@@ -936,12 +936,12 @@
                 }
             },
             "autoload": {
-                "psr-4": {
-                    "Symfony\\Polyfill\\Ctype\\": ""
-                },
                 "files": [
                     "bootstrap.php"
-                ]
+                ],
+                "psr-4": {
+                    "Symfony\\Polyfill\\Ctype\\": ""
+                }
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
@@ -994,12 +994,12 @@
                 }
             },
             "autoload": {
-                "psr-4": {
-                    "Symfony\\Polyfill\\Mbstring\\": ""
-                },
                 "files": [
                     "bootstrap.php"
-                ]
+                ],
+                "psr-4": {
+                    "Symfony\\Polyfill\\Mbstring\\": ""
+                }
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
@@ -1028,16 +1028,16 @@
         },
         {
             "name": "tinymce/tinymce",
-            "version": "4.8.2",
+            "version": "5.10.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/tinymce/tinymce-dist.git",
-                "reference": "ec411e5fbf021ee7586d43cce285cded8c979409"
+                "reference": "f078d8eb7de81f20d34b2ae4326870d20e22d4ff"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/tinymce/tinymce-dist/zipball/ec411e5fbf021ee7586d43cce285cded8c979409",
-                "reference": "ec411e5fbf021ee7586d43cce285cded8c979409",
+                "url": "https://api.github.com/repos/tinymce/tinymce-dist/zipball/f078d8eb7de81f20d34b2ae4326870d20e22d4ff",
+                "reference": "f078d8eb7de81f20d34b2ae4326870d20e22d4ff",
                 "shasum": ""
             },
             "type": "component",
@@ -1046,13 +1046,15 @@
                     "scripts": [
                         "tinymce.js",
                         "plugins/*/plugin.js",
-                        "themes/*/theme.js"
+                        "themes/*/theme.js",
+                        "themes/*/icons.js"
                     ],
                     "files": [
                         "tinymce.min.js",
                         "plugins/*/plugin.min.js",
                         "themes/*/theme.min.js",
-                        "skins/**"
+                        "skins/**",
+                        "icons/*/icons.min.js"
                     ]
                 }
             },
@@ -1061,16 +1063,22 @@
                 "LGPL-2.1-only"
             ],
             "description": "Web based JavaScript HTML WYSIWYG editor control.",
-            "homepage": "http://www.tinymce.com",
+            "homepage": "https://www.tiny.cloud/",
             "keywords": [
-                "editor",
+                "contenteditable",
+                "editing",
                 "html",
                 "javascript",
+                "rich editor",
+                "rich text",
+                "rich text editor",
                 "richtext",
+                "rte",
+                "text",
                 "tinymce",
                 "wysiwyg"
             ],
-            "time": "2018-08-09T09:17:07+00:00"
+            "time": "2022-12-07T03:50:54+00:00"
         },
         {
             "name": "troolee/gridstack",
@@ -1550,12 +1558,12 @@
             "version": "1.6.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/facebook/php-webdriver.git",
+                "url": "https://github.com/php-webdriver/php-webdriver-archive.git",
                 "reference": "bd8c740097eb9f2fc3735250fc1912bc811a954e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/facebook/php-webdriver/zipball/bd8c740097eb9f2fc3735250fc1912bc811a954e",
+                "url": "https://api.github.com/repos/php-webdriver/php-webdriver-archive/zipball/bd8c740097eb9f2fc3735250fc1912bc811a954e",
                 "reference": "bd8c740097eb9f2fc3735250fc1912bc811a954e",
                 "shasum": ""
             },
@@ -1603,6 +1611,7 @@
                 "selenium",
                 "webdriver"
             ],
+            "abandoned": "php-webdriver/webdriver",
             "time": "2018-05-16T17:37:13+00:00"
         },
         {
@@ -1782,12 +1791,12 @@
             },
             "type": "library",
             "autoload": {
-                "psr-4": {
-                    "DeepCopy\\": "src/DeepCopy/"
-                },
                 "files": [
                     "src/DeepCopy/deep_copy.php"
-                ]
+                ],
+                "psr-4": {
+                    "DeepCopy\\": "src/DeepCopy/"
+                }
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
@@ -2522,6 +2531,7 @@
             "keywords": [
                 "tokenizer"
             ],
+            "abandoned": true,
             "time": "2017-11-27T05:48:46+00:00"
         },
         {
@@ -2665,6 +2675,7 @@
                 "mock",
                 "xunit"
             ],
+            "abandoned": true,
             "time": "2018-08-09T05:50:03+00:00"
         },
         {
@@ -3031,6 +3042,7 @@
             ],
             "description": "FinderFacade is a convenience wrapper for Symfony's Finder component.",
             "homepage": "https://github.com/sebastianbergmann/finder-facade",
+            "abandoned": true,
             "time": "2017-11-18T17:31:49+00:00"
         },
         {
@@ -3875,6 +3887,7 @@
             ],
             "description": "The classes contained within this repository extend the standard DOM to use exceptions at all occasions of errors instead of PHP warnings or notices. They also add various custom methods and shortcuts for convenience and to simplify the usage of DOM.",
             "homepage": "https://github.com/theseer/fDOMDocument",
+            "abandoned": true,
             "time": "2017-06-30T11:53:12+00:00"
         },
         {
@@ -3922,12 +3935,12 @@
             "version": "1.3.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/webmozart/assert.git",
+                "url": "https://github.com/webmozarts/assert.git",
                 "reference": "0df1908962e7a3071564e857d86874dad1ef204a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/webmozart/assert/zipball/0df1908962e7a3071564e857d86874dad1ef204a",
+                "url": "https://api.github.com/repos/webmozarts/assert/zipball/0df1908962e7a3071564e857d86874dad1ef204a",
                 "reference": "0df1908962e7a3071564e857d86874dad1ef204a",
                 "shasum": ""
             },
@@ -3974,5 +3987,6 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": [],
-    "platform-dev": []
+    "platform-dev": [],
+    "plugin-api-version": "1.1.0"
 }
